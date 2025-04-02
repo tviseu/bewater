@@ -1,59 +1,55 @@
-# BRUTAL GYM - Neobrutalist Gym Website
+# BE WATER - Bruce Lee Inspired Training Website
 
-A bold, raw, and uncompromising gym website built with neobrutalist design principles. This site is designed to stand out with high contrast colors, deliberate "undesigned" elements, and unconventional interactions.
+A responsive, modern website for a Bruce Lee inspired martial arts and fitness training center called "Be Water". The website features a distinctive yellow and black retro aesthetic inspired by Bruce Lee's iconic style.
+
+![BE WATER Website](https://github.com/tviseu/bewater/blob/main/screenshot.png)
 
 ## Features
 
-- **Striking Neobrutalist Design:** Bold typography, raw elements, and high-contrast colors create a memorable user experience
-- **Fully Responsive:** Works perfectly on both desktops and mobile devices
-- **Interactive Elements:** Brutalist hover states, form validation, and micro-interactions throughout
-- **Performance Focused:** Minimal dependencies for fast loading times
-- **Mobile-First Approach:** Optimized viewing experience across all devices
+- **Bruce Lee Themed Design**: Yellow and black color scheme inspired by Bruce Lee's iconic Game of Death jumpsuit
+- **Responsive Layout**: Fully mobile responsive design that works on all devices
+- **Interactive Elements**: 
+  - Water ripple cursor effects
+  - Flowing animations on scroll
+  - Dynamic Bruce Lee quotes on hover
+  - Chinese character animations
+- **Complete Sections**:
+  - Philosophy section explaining the "Be Water" concept
+  - Training programs based on Bruce Lee's martial arts philosophy
+  - Trainers/Masters profiles
+  - Membership packages
+  - Contact form with validation
 
-## Design Principles
+## Technology
 
-The neobrutalist aesthetic embraces:
+- **HTML5**: Semantic markup for all content sections
+- **CSS3**: 
+  - Custom properties (variables)
+  - Flexbox & Grid layouts
+  - Animations and transitions
+  - Media queries for responsive design
+- **JavaScript**:
+  - Interactive UI elements
+  - Form validation
+  - Scroll animations
+  - Dynamic content effects
 
-- Raw, unfiltered design choices
-- Deliberate "imperfections" that create character
-- Bold typography and stark contrasts
-- Grid-breaking layouts
-- Exaggerated interactive elements
+## Bruce Lee's Philosophy
 
-## Technologies Used
+The design and content of this site is deeply rooted in Bruce Lee's "Be Water" philosophy:
 
-- HTML5
-- CSS3 (with CSS Custom Properties)
-- Vanilla JavaScript (no frameworks)
-- Responsive design with media queries
-- Intersection Observer API for scroll animations
-
-## Project Structure
-
-```
-brutal-gym/
-├── index.html              # Main HTML file
-├── src/
-│   ├── css/
-│   │   └── styles.css      # Main stylesheet
-│   └── js/
-│       └── main.js         # JavaScript functionality
-└── README.md               # Project documentation
-```
+> "Empty your mind, be formless, shapeless — like water. Now you put water in a cup, it becomes the cup; You put water into a bottle it becomes the bottle; You put it in a teapot it becomes the teapot. Now water can flow or it can crash. Be water, my friend." - Bruce Lee
 
 ## Getting Started
 
-1. Clone the repository
+To view the website locally:
+
+1. Clone this repository
 2. Open `index.html` in your browser
-3. No build steps or dependencies required!
 
-## Browser Compatibility
+## Live Demo
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers (iOS Safari, Android Chrome)
+Visit the live site at: [https://tviseu.github.io/bewater/](https://tviseu.github.io/bewater/)
 
 ## License
 
@@ -61,6 +57,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgments
 
-- Typography: [Google Fonts](https://fonts.google.com/) (Work Sans, Space Mono)
-- Placeholder images via [Unsplash](https://unsplash.com/)
-- Inspired by neobrutalist design trends 
+- Design inspired by Bruce Lee's philosophy and visual aesthetics
+- All imagery sourced from Unsplash and used for demonstration purposes only 

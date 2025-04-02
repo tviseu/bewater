@@ -8,17 +8,18 @@
 }
 
 :root {
-  /* Neobrutalist Color Palette */
+  /* Bruce Lee "Be Water" Color Palette */
   --color-black: #000000;
   --color-white: #ffffff;
-  --color-primary: #ff3c00;
-  --color-secondary: #0038ff;
+  --color-cream: #F5F5DC;
+  --color-yellow: #FFCC00;
+  --color-deep-red: #990000;
   --color-gray: #f2f2f2;
   --color-dark-gray: #222222;
   
   /* Typography */
-  --font-heading: 'Work Sans', sans-serif;
-  --font-body: 'Space Mono', monospace;
+  --font-heading: 'Bebas Neue', sans-serif;
+  --font-body: 'Barlow', sans-serif;
   
   /* Spacing */
   --spacing-xs: 0.5rem;
@@ -29,9 +30,12 @@
   
   /* Other */
   --border-thick: 4px solid var(--color-black);
+  --border-yellow: 4px solid var(--color-yellow);
+  --border-double: 4px double var(--color-yellow);
   --shadow-offset: 8px;
 }
 
+/* Base Styles with Water Theme */
 html {
   font-size: 16px;
   scroll-behavior: smooth;
@@ -41,8 +45,9 @@ body {
   font-family: var(--font-body);
   line-height: 1.6;
   color: var(--color-black);
-  background-color: var(--color-white);
+  background-color: var(--color-cream);
   overflow-x: hidden;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23FFCC00' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
 }
 
 img {
@@ -54,18 +59,22 @@ img {
 a {
   text-decoration: none;
   color: inherit;
-  transition: transform 0.2s;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 a:hover {
   transform: translate(-2px, -2px);
 }
 
+/* Bruce Lee Typography */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.2;
   text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 /* Layout */
@@ -100,28 +109,48 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: var(--spacing-md);
   position: relative;
   display: inline-block;
+  color: var(--color-black);
+  text-shadow: 2px 2px 0 var(--color-yellow);
 }
 
 .section-line {
   width: 100px;
   height: 8px;
-  background-color: var(--color-primary);
+  background-color: var(--color-yellow);
   margin-bottom: var(--spacing-md);
 }
 
-/* Buttons */
+/* Buttons - Bruce Lee Style */
 .btn {
   display: inline-block;
   padding: var(--spacing-sm) var(--spacing-md);
-  background-color: var(--color-black);
-  color: var(--color-white);
+  background-color: var(--color-yellow);
+  color: var(--color-black);
   font-family: var(--font-heading);
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
-  border: var(--border-thick);
+  border: 3px solid var(--color-black);
   box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-black);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(-100%) skewX(-15deg);
+  transition: transform 0.4s ease;
+}
+
+.btn:hover::after {
+  transform: translateX(100%) skewX(-15deg);
 }
 
 .btn:hover {
@@ -135,12 +164,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn--primary {
-  background-color: var(--color-primary);
+  background-color: var(--color-yellow);
+  color: var(--color-black);
 }
 
 .btn--secondary {
-  background-color: var(--color-white);
-  color: var(--color-black);
+  background-color: var(--color-black);
+  color: var(--color-yellow);
+  border: 3px solid var(--color-yellow);
 }
 
 .btn--small {
@@ -153,13 +184,13 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
 
-/* Header */
+/* Header - Bruce Lee Style */
 .header {
-  background-color: var(--color-white);
+  background-color: var(--color-black);
   position: sticky;
   top: 0;
   z-index: 10;
-  border-bottom: var(--border-thick);
+  border-bottom: 3px solid var(--color-yellow);
 }
 
 .header__container {
@@ -172,12 +203,22 @@ h1, h2, h3, h4, h5, h6 {
 .header__logo a {
   font-family: var(--font-heading);
   font-size: 2rem;
-  font-weight: 900;
-  color: var(--color-black);
+  font-weight: 700;
+  color: var(--color-yellow);
+  display: flex;
+  align-items: center;
 }
 
 .header__logo span {
-  color: var(--color-primary);
+  color: var(--color-white);
+  margin-left: 5px;
+}
+
+.header__logo a::before {
+  content: '水';  /* Water character in Chinese */
+  font-size: 1.5rem;
+  margin-right: 10px;
+  opacity: 0.8;
 }
 
 .header__nav ul {
@@ -192,6 +233,7 @@ h1, h2, h3, h4, h5, h6 {
 .header__nav a {
   font-weight: 700;
   position: relative;
+  color: var(--color-yellow);
 }
 
 .header__nav a::after {
@@ -200,8 +242,8 @@ h1, h2, h3, h4, h5, h6 {
   bottom: -2px;
   left: 0;
   width: 0;
-  height: 4px;
-  background-color: var(--color-primary);
+  height: 2px;
+  background-color: var(--color-yellow);
   transition: width 0.3s;
 }
 
@@ -213,10 +255,11 @@ h1, h2, h3, h4, h5, h6 {
   display: none;
 }
 
-/* Hero Section */
+/* Hero Section - Bruce Lee Style */
 .hero {
   min-height: calc(100vh - 80px);
-  background-color: var(--color-primary);
+  background-color: var(--color-black);
+  background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFCC00' fill-opacity='0.15'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6h-2c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   position: relative;
   overflow: hidden;
   padding: var(--spacing-lg) 0;
@@ -230,8 +273,9 @@ h1, h2, h3, h4, h5, h6 {
 .hero__title {
   font-size: 5rem;
   margin-bottom: var(--spacing-md);
-  color: var(--color-white);
-  text-shadow: 4px 4px 0 var(--color-black);
+  color: var(--color-yellow);
+  text-shadow: 4px 4px 0 var(--color-black), 8px 8px 0 rgba(255, 204, 0, 0.3);
+  position: relative;
 }
 
 .hero__subtitle {
@@ -260,19 +304,34 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .hero__grid-item {
-  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border: 1px dashed rgba(255, 204, 0, 0.2);
 }
 
 /* About Section */
 .about {
-  background-color: var(--color-white);
+  background-color: var(--color-cream);
   padding: var(--spacing-xl) 0;
+  position: relative;
+}
+
+.about::before {
+  content: '流';  /* "Flow" in Chinese */
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  font-size: 15rem;
+  opacity: 0.05;
+  color: var(--color-yellow);
+  font-family: serif;
+  z-index: 0;
 }
 
 .about__content {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--spacing-lg);
+  position: relative;
+  z-index: 1;
 }
 
 .about__text {
@@ -283,7 +342,18 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: var(--spacing-md);
-  color: var(--color-primary);
+  color: var(--color-deep-red);
+  position: relative;
+}
+
+.about__lead::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background-color: var(--color-yellow);
 }
 
 .about__text p {
@@ -300,18 +370,24 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: var(--color-black);
+  color: var(--color-yellow);
+  padding: var(--spacing-md);
+  border: 2px solid var(--color-yellow);
+  transform: skew(-5deg);
 }
 
 .about__stat-number {
   font-family: var(--font-heading);
   font-size: 3rem;
-  font-weight: 900;
-  color: var(--color-black);
+  font-weight: 700;
+  color: var(--color-yellow);
 }
 
 .about__stat-label {
   font-size: 0.8rem;
   font-weight: 700;
+  letter-spacing: 1px;
 }
 
 .about__images {
@@ -327,8 +403,20 @@ h1, h2, h3, h4, h5, h6 {
 .about__image {
   background-size: cover;
   background-position: center;
-  border: var(--border-thick);
-  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-black);
+  border: 3px solid var(--color-black);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-yellow);
+  position: relative;
+  overflow: hidden;
+}
+
+.about__image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255,204,0,0.2) 0%, rgba(0,0,0,0.1) 100%);
 }
 
 .about__image--1 {
@@ -337,8 +425,9 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   width: 70%;
   height: 60%;
-  background-image: url('https://source.unsplash.com/random/600x400/?gym');
+  background-image: url('https://source.unsplash.com/random/600x400/?martial-arts');
   z-index: 2;
+  transform: rotate(2deg);
 }
 
 .about__image--2 {
@@ -347,58 +436,98 @@ h1, h2, h3, h4, h5, h6 {
   right: 0;
   width: 70%;
   height: 60%;
-  background-image: url('https://source.unsplash.com/random/600x400/?weights');
+  background-image: url('https://source.unsplash.com/random/600x400/?bruce-lee');
   z-index: 1;
+  transform: rotate(-2deg);
 }
 
 /* Classes Section */
 .classes {
-  background-color: var(--color-secondary);
+  background-color: var(--color-black);
   padding: var(--spacing-xl) 0;
   color: var(--color-white);
+  position: relative;
+  overflow: hidden;
+}
+
+.classes::before {
+  content: '力';  /* "Power" in Chinese */
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+  font-size: 15rem;
+  opacity: 0.05;
+  color: var(--color-yellow);
+  font-family: serif;
+  z-index: 0;
 }
 
 .classes__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: var(--spacing-md);
+  position: relative;
+  z-index: 1;
 }
 
 .class-card {
-  background-color: var(--color-white);
-  border: var(--border-thick);
-  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-black);
+  background-color: var(--color-cream);
+  border: 3px solid var(--color-yellow);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-yellow);
   overflow: hidden;
   color: var(--color-black);
-  transition: transform 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
 }
 
 .class-card:hover {
-  transform: translate(-4px, -4px);
-  box-shadow: calc(var(--shadow-offset) + 4px) calc(var(--shadow-offset) + 4px) 0 var(--color-black);
+  transform: translate(-4px, -4px) rotate(1deg);
+  box-shadow: calc(var(--shadow-offset) + 4px) calc(var(--shadow-offset) + 4px) 0 var(--color-yellow);
+}
+
+.class-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background-color: var(--color-yellow);
+  z-index: 2;
 }
 
 .class-card__image {
   height: 200px;
   background-size: cover;
   background-position: center;
-  border-bottom: var(--border-thick);
+  border-bottom: 3px solid var(--color-black);
+  position: relative;
+}
+
+.class-card__image::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 50%);
 }
 
 .class-card__image--strength {
-  background-image: url('https://source.unsplash.com/random/600x400/?weightlifting');
+  background-image: url('https://source.unsplash.com/random/600x400/?kung-fu');
 }
 
 .class-card__image--conditioning {
-  background-image: url('https://source.unsplash.com/random/600x400/?hiit');
+  background-image: url('https://source.unsplash.com/random/600x400/?martial-training');
 }
 
 .class-card__image--powerlifting {
-  background-image: url('https://source.unsplash.com/random/600x400/?powerlifting');
+  background-image: url('https://source.unsplash.com/random/600x400/?dragon-workout');
 }
 
 .class-card__image--mobility {
-  background-image: url('https://source.unsplash.com/random/600x400/?stretching');
+  background-image: url('https://source.unsplash.com/random/600x400/?tai-chi');
 }
 
 .class-card__content {
@@ -406,64 +535,118 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .class-card__title {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   margin-bottom: var(--spacing-sm);
+  color: var(--color-black);
+  position: relative;
+  display: inline-block;
+}
+
+.class-card__title::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 30px;
+  height: 3px;
+  background-color: var(--color-yellow);
 }
 
 .class-card__description {
+  font-size: 0.9rem;
   margin-bottom: var(--spacing-md);
 }
 
 .class-card__details {
   display: flex;
   justify-content: space-between;
-  margin-bottom: var(--spacing-md);
-  font-weight: 700;
   font-size: 0.8rem;
+  margin-bottom: var(--spacing-md);
+  padding-top: var(--spacing-sm);
+  border-top: 1px dashed var(--color-black);
+  font-weight: 700;
 }
 
 /* Trainers Section */
 .trainers {
-  background-color: var(--color-white);
+  background-color: var(--color-cream);
   padding: var(--spacing-xl) 0;
+  position: relative;
+}
+
+.trainers::before {
+  content: '师';  /* "Master" in Chinese */
+  position: absolute;
+  top: 10%;
+  left: 3%;
+  font-size: 15rem;
+  opacity: 0.05;
+  color: var(--color-black);
+  font-family: serif;
+  z-index: 0;
 }
 
 .trainers__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: var(--spacing-md);
+  gap: var(--spacing-lg);
+  position: relative;
+  z-index: 1;
 }
 
 .trainer-card {
-  border: var(--border-thick);
-  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-black);
-  overflow: hidden;
   background-color: var(--color-white);
+  position: relative;
+  overflow: hidden;
+  border: 3px solid var(--color-black);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-yellow);
   transition: transform 0.3s;
 }
 
 .trainer-card:hover {
-  transform: translate(-4px, -4px);
-  box-shadow: calc(var(--shadow-offset) + 4px) calc(var(--shadow-offset) + 4px) 0 var(--color-black);
+  transform: translateY(-10px);
+}
+
+.trainer-card::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 7px;
+  top: 0;
+  left: 0;
+  background-color: var(--color-yellow);
+  z-index: 2;
 }
 
 .trainer-card__image {
   height: 300px;
   background-size: cover;
-  background-position: center top;
-  border-bottom: var(--border-thick);
+  background-position: center;
+  border-bottom: 3px solid var(--color-black);
+  position: relative;
+  overflow: hidden;
+}
+
+.trainer-card__image::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
 }
 
 .trainer-card__image--1 {
-  background-image: url('https://source.unsplash.com/random/600x800/?male,trainer');
+  background-image: url('https://source.unsplash.com/random/600x800/?martial-arts-instructor');
 }
 
 .trainer-card__image--2 {
-  background-image: url('https://source.unsplash.com/random/600x800/?female,trainer');
+  background-image: url('https://source.unsplash.com/random/600x800/?female-martial-artist');
 }
 
 .trainer-card__image--3 {
-  background-image: url('https://source.unsplash.com/random/600x800/?fitness,instructor');
+  background-image: url('https://source.unsplash.com/random/600x800/?kung-fu-master');
 }
 
 .trainer-card__content {
@@ -473,76 +656,119 @@ h1, h2, h3, h4, h5, h6 {
 .trainer-card__name {
   font-size: 1.5rem;
   margin-bottom: var(--spacing-xs);
+  color: var(--color-black);
+  position: relative;
+  display: inline-block;
+}
+
+.trainer-card__name::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 30px;
+  height: 3px;
+  background-color: var(--color-yellow);
 }
 
 .trainer-card__specialty {
-  color: var(--color-primary);
+  font-size: 1rem;
   font-weight: 700;
   margin-bottom: var(--spacing-sm);
+  color: var(--color-deep-red);
 }
 
 .trainer-card__bio {
-  margin-bottom: var(--spacing-md);
+  font-size: 0.9rem;
+  margin-bottom: var(--spacing-sm);
 }
 
 .trainer-card__certs {
   display: flex;
   gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
 }
 
 .trainer-card__certs span {
-  background-color: var(--color-gray);
-  padding: var(--spacing-xs);
-  font-size: 0.8rem;
+  background-color: var(--color-black);
+  color: var(--color-yellow);
+  padding: 3px 10px;
+  font-size: 0.7rem;
   font-weight: 700;
+  border-radius: 2px;
 }
 
 /* Pricing Section */
 .pricing {
-  background-color: var(--color-gray);
+  background-color: var(--color-black);
   padding: var(--spacing-xl) 0;
+  color: var(--color-white);
+  position: relative;
+}
+
+.pricing::before {
+  content: '功';  /* "Achievement" in Chinese */
+  position: absolute;
+  bottom: 10%;
+  right: 5%;
+  font-size: 15rem;
+  opacity: 0.05;
+  color: var(--color-yellow);
+  font-family: serif;
+  z-index: 0;
 }
 
 .pricing__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: var(--spacing-md);
+  position: relative;
+  z-index: 1;
 }
 
 .price-card {
-  background-color: var(--color-white);
-  border: var(--border-thick);
-  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-black);
+  background-color: var(--color-cream);
+  color: var(--color-black);
+  border: 3px solid var(--color-yellow);
   overflow: hidden;
   transition: transform 0.3s;
+  position: relative;
 }
 
 .price-card:hover {
-  transform: translate(-4px, -4px);
-  box-shadow: calc(var(--shadow-offset) + 4px) calc(var(--shadow-offset) + 4px) 0 var(--color-black);
+  transform: translateY(-10px);
+}
+
+.price-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background-color: var(--color-yellow);
 }
 
 .price-card--featured {
-  border-color: var(--color-primary);
   transform: scale(1.05);
-  position: relative;
+  border-color: var(--color-black);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-yellow);
   z-index: 2;
 }
 
 .price-card--featured:hover {
-  transform: scale(1.05) translate(-4px, -4px);
+  transform: scale(1.05) translateY(-10px);
+}
+
+.price-card--featured::before {
+  background-color: var(--color-black);
 }
 
 .price-card__header {
   background-color: var(--color-black);
-  color: var(--color-white);
+  color: var(--color-yellow);
   padding: var(--spacing-md);
   text-align: center;
-  border-bottom: var(--border-thick);
-}
-
-.price-card--featured .price-card__header {
-  background-color: var(--color-primary);
 }
 
 .price-card__title {
@@ -552,19 +778,20 @@ h1, h2, h3, h4, h5, h6 {
 
 .price-card__price {
   display: flex;
+  align-items: flex-start;
   justify-content: center;
-  align-items: baseline;
 }
 
 .price-card__amount {
-  font-family: var(--font-heading);
   font-size: 3rem;
-  font-weight: 900;
+  font-weight: 700;
+  line-height: 1;
 }
 
 .price-card__period {
   font-size: 1rem;
-  margin-left: var(--spacing-xs);
+  margin-top: 5px;
+  opacity: 0.7;
 }
 
 .price-card__features {
@@ -576,27 +803,27 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .price-card__features li {
-  padding: var(--spacing-xs) 0;
+  margin-bottom: var(--spacing-sm);
+  padding-left: 25px;
   position: relative;
-  padding-left: 30px;
 }
 
 .price-card__features li::before {
   content: '✓';
   position: absolute;
   left: 0;
-  color: var(--color-primary);
-  font-weight: 700;
+  color: var(--color-black);
+  font-weight: bold;
 }
 
 .price-card__feature--disabled {
-  color: var(--color-dark-gray);
   opacity: 0.5;
+  text-decoration: line-through;
 }
 
 .price-card__feature--disabled::before {
-  content: '✕' !important;
-  color: var(--color-dark-gray) !important;
+  content: '✗' !important;
+  color: var(--color-deep-red) !important;
 }
 
 .price-card__cta {
@@ -606,33 +833,63 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Contact Section */
 .contact {
-  background-color: var(--color-white);
+  background-color: var(--color-cream);
   padding: var(--spacing-xl) 0;
+  position: relative;
+}
+
+.contact::before {
+  content: '道';  /* "Way" in Chinese */
+  position: absolute;
+  top: 5%;
+  right: 10%;
+  font-size: 15rem;
+  opacity: 0.05;
+  color: var(--color-black);
+  font-family: serif;
+  z-index: 0;
 }
 
 .contact__content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-lg);
+  gap: var(--spacing-xl);
+  position: relative;
+  z-index: 1;
 }
 
 .contact__info {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
-  gap: var(--spacing-md);
+  padding-right: var(--spacing-md);
 }
 
 .contact__info h3 {
+  font-size: 1.5rem;
   margin-bottom: var(--spacing-sm);
-  color: var(--color-primary);
+  color: var(--color-black);
+  position: relative;
+  display: inline-block;
+}
+
+.contact__info h3::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 30px;
+  height: 3px;
+  background-color: var(--color-yellow);
+}
+
+.contact__address,
+.contact__hours,
+.contact__phone {
+  margin-bottom: var(--spacing-lg);
 }
 
 .contact__hours-grid {
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: var(--spacing-xs) var(--spacing-sm);
+  gap: var(--spacing-xs) var(--spacing-md);
 }
 
 .contact__social-icons {
@@ -647,26 +904,27 @@ h1, h2, h3, h4, h5, h6 {
   width: 40px;
   height: 40px;
   background-color: var(--color-black);
-  color: var(--color-white);
+  color: var(--color-yellow);
   font-weight: 700;
+  border: 2px solid var(--color-yellow);
   transition: all 0.3s;
 }
 
 .contact__social-icon:hover {
-  background-color: var(--color-primary);
-  transform: translate(-2px, -2px);
+  transform: translateY(-5px);
+  box-shadow: 0 5px 0 var(--color-yellow);
 }
 
 .contact__form-container {
-  border: var(--border-thick);
-  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-black);
-  padding: var(--spacing-md);
   background-color: var(--color-white);
+  padding: var(--spacing-md);
+  border: 3px solid var(--color-black);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-yellow);
 }
 
 .contact__form {
   display: grid;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
 }
 
 .form-group {
@@ -675,75 +933,102 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .form-group label {
-  margin-bottom: var(--spacing-xs);
+  font-size: 0.8rem;
   font-weight: 700;
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-black);
 }
 
 .form-group input,
 .form-group textarea {
   padding: var(--spacing-sm);
-  border: var(--border-thick);
+  border: 2px solid var(--color-black);
   font-family: var(--font-body);
-  resize: none;
+  background-color: var(--color-cream);
+  transition: all 0.3s;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: var(--color-primary);
+  border-color: var(--color-yellow);
+  box-shadow: 0 0 0 2px rgba(255, 204, 0, 0.3);
 }
 
 .contact__map {
-  width: 100%;
-  height: 400px;
-  border: var(--border-thick);
-  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-black);
-  overflow: hidden;
+  margin-top: var(--spacing-xl);
+  position: relative;
+  z-index: 1;
 }
 
 .map-placeholder {
-  width: 100%;
-  height: 100%;
-  background-color: var(--color-gray);
+  height: 300px;
+  background-color: var(--color-dark-gray);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  color: var(--color-white);
   font-weight: 700;
-  color: var(--color-dark-gray);
+  border: 3px solid var(--color-black);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-yellow);
 }
 
 /* Footer */
 .footer {
   background-color: var(--color-black);
   color: var(--color-white);
-  padding: var(--spacing-lg) 0 var(--spacing-md);
-}
-
-.footer__logo {
-  margin-bottom: var(--spacing-lg);
+  padding-top: var(--spacing-xl);
 }
 
 .footer__logo a {
   font-family: var(--font-heading);
   font-size: 2rem;
-  font-weight: 900;
+  font-weight: 700;
+  color: var(--color-yellow);
+  display: flex;
+  align-items: center;
 }
 
 .footer__logo span {
-  color: var(--color-primary);
+  color: var(--color-white);
+  margin-left: 5px;
+}
+
+.footer__logo a::before {
+  content: '水';  /* Water character in Chinese */
+  font-size: 1.5rem;
+  margin-right: 10px;
+  opacity: 0.8;
 }
 
 .footer__links {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: var(--spacing-lg);
   gap: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
+}
+
+.footer__links-column {
+  min-width: 200px;
 }
 
 .footer__links-column h4 {
+  font-size: 1.2rem;
   margin-bottom: var(--spacing-md);
-  color: var(--color-primary);
+  color: var(--color-yellow);
+  position: relative;
+  display: inline-block;
+}
+
+.footer__links-column h4::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 30px;
+  height: 3px;
+  background-color: var(--color-yellow);
 }
 
 .footer__links-column ul {
@@ -755,47 +1040,47 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .footer__links-column a {
-  opacity: 0.8;
-  transition: opacity 0.3s;
+  color: var(--color-white);
+  opacity: 0.7;
+  transition: all 0.3s;
 }
 
 .footer__links-column a:hover {
   opacity: 1;
+  color: var(--color-yellow);
+  transform: translateX(5px);
 }
 
 .footer__newsletter {
   display: flex;
+  flex-direction: column;
   gap: var(--spacing-xs);
 }
 
 .footer__newsletter input {
-  flex: 1;
   padding: var(--spacing-sm);
-  border: 2px solid var(--color-white);
-  background-color: transparent;
+  border: 2px solid var(--color-yellow);
+  background-color: var(--color-black);
   color: var(--color-white);
   font-family: var(--font-body);
 }
 
-.footer__newsletter input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
-}
-
 .footer__newsletter input:focus {
   outline: none;
-  border-color: var(--color-primary);
+  border-color: var(--color-white);
 }
 
 .footer__bottom {
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-md) 0;
+  border-top: 1px solid rgba(255, 204, 0, 0.2);
   text-align: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: var(--spacing-md);
   font-size: 0.8rem;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 /* Responsive Styles */
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
   .hero__title {
     font-size: 4rem;
   }
@@ -803,82 +1088,130 @@ h1, h2, h3, h4, h5, h6 {
   .about__content,
   .contact__content {
     grid-template-columns: 1fr;
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
   }
   
-  .about__text {
-    padding-right: 0;
-    margin-bottom: var(--spacing-lg);
-  }
-  
-  .about__image-container {
-    height: 500px;
+  .about__images {
+    margin-top: var(--spacing-lg);
+    height: 400px;
   }
 }
 
 @media (max-width: 768px) {
-  html {
-    font-size: 14px;
+  :root {
+    --spacing-lg: 3rem;
+    --spacing-xl: 5rem;
   }
   
   .header__nav {
-    display: none;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 300px;
+    height: 100vh;
+    background-color: var(--color-black);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: right 0.5s;
+    z-index: 20;
+    border-left: 3px solid var(--color-yellow);
+  }
+  
+  .header__nav.active {
+    right: 0;
+  }
+  
+  .header__nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .header__nav li {
+    margin: var(--spacing-sm) 0;
   }
   
   .header__menu-toggle {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 20px;
     background: none;
     border: none;
     cursor: pointer;
-    width: 30px;
-    height: 20px;
-    position: relative;
-    z-index: 20;
+    z-index: 30;
   }
   
   .header__menu-toggle span {
-    display: block;
     width: 100%;
     height: 3px;
-    background-color: var(--color-black);
-    position: absolute;
-    left: 0;
+    background-color: var(--color-yellow);
     transition: all 0.3s;
   }
   
-  .header__menu-toggle span:nth-child(1) {
-    top: 0;
+  .header__menu-toggle.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
   }
   
-  .header__menu-toggle span:nth-child(2) {
-    top: 8px;
+  .header__menu-toggle.active span:nth-child(2) {
+    opacity: 0;
   }
   
-  .header__menu-toggle span:nth-child(3) {
-    top: 16px;
+  .header__menu-toggle.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
   }
   
   .hero__title {
     font-size: 3rem;
   }
   
-  .price-card--featured {
-    transform: none;
-  }
-  
-  .price-card--featured:hover {
-    transform: translate(-4px, -4px);
-  }
-}
-
-@media (max-width: 576px) {
   .hero__cta {
     flex-direction: column;
     align-items: flex-start;
   }
   
-  .contact__info {
+  .section-title {
+    font-size: 2.5rem;
+  }
+  
+  .trainers__grid,
+  .pricing__grid {
     grid-template-columns: 1fr;
+  }
+  
+  .price-card--featured {
+    transform: scale(1);
+  }
+  
+  .price-card--featured:hover {
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+  }
+  
+  .hero__title {
+    font-size: 2.5rem;
+  }
+  
+  .about__stat {
+    padding: var(--spacing-sm);
+  }
+  
+  .about__stat-number {
+    font-size: 2rem;
+  }
+  
+  .contact__content {
+    gap: var(--spacing-lg);
   }
 }
 
