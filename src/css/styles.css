@@ -180,21 +180,36 @@ h1, h2, h3, h4, h5, h6 {
   padding: var(--spacing-sm) 0;
 }
 
-.header__logo a {
+/* Logo Styles */
+.logo-container {
+  border: 4px solid var(--color-primary);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  width: 800px;
+  height: 100px;
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
-  text-decoration: none;
-  font-family: var(--font-heading);
-  font-size: 2rem;
-  font-weight: 900;
-  color: var(--color-accent);
+  justify-content: center;
+  background: transparent;
+}
+
+.logo-container:hover {
+  transform: scale(1.05);
 }
 
 .header__logo-img {
-  height: 60px;
-  width: auto;
+  width: 720px;
+  height: 90px;
+  display: block;
   object-fit: contain;
+}
+
+.header__logo a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
 }
 
 .header__nav ul {
@@ -745,18 +760,18 @@ h1, h2, h3, h4, h5, h6 {
   padding: var(--spacing-lg) 0 var(--spacing-md);
 }
 
-.footer__logo {
-  margin-bottom: var(--spacing-lg);
+/* Logo Styles */
+.footer__logo-img {
+  width: 800px;
+  height: 100px;
+  display: block;
+  object-fit: contain;
 }
 
 .footer__logo a {
-  font-family: var(--font-heading);
-  font-size: 2rem;
-  font-weight: 900;
-}
-
-.footer__logo span {
-  color: var(--color-primary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
 }
 
 .footer__links {
@@ -819,6 +834,22 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0.6;
 }
 
+/* Remove old logo text styles */
+.header__logo span,
+.footer__logo span {
+  display: none;
+}
+
+/* Ensure the header logo container has enough space */
+.header__logo {
+  padding: 1rem 0;
+}
+
+/* Adjust footer logo spacing */
+.footer__logo {
+  margin: 2rem 0;
+}
+
 /* Responsive Styles */
 @media (max-width: 992px) {
   .hero__title {
@@ -838,6 +869,23 @@ h1, h2, h3, h4, h5, h6 {
   
   .about__image-container {
     height: 500px;
+  }
+
+  .logo-container {
+    width: 600px;
+    height: 75px;
+    padding: 0.75rem;
+    border-width: 3px;
+  }
+  
+  .header__logo-img {
+    width: 540px;
+    height: 68px;
+  }
+  
+  .footer__logo-img {
+    width: 600px;
+    height: 75px;
   }
 }
 
@@ -927,6 +975,23 @@ h1, h2, h3, h4, h5, h6 {
   .trainer-card__image {
     height: 250px;
   }
+
+  .logo-container {
+    width: 480px;
+    height: 60px;
+    padding: 0.5rem;
+    border-width: 3px;
+  }
+  
+  .header__logo-img {
+    width: 432px;
+    height: 54px;
+  }
+  
+  .footer__logo-img {
+    width: 480px;
+    height: 60px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -937,6 +1002,23 @@ h1, h2, h3, h4, h5, h6 {
   
   .contact__info {
     grid-template-columns: 1fr;
+  }
+
+  .logo-container {
+    width: 280px;
+    height: 50px;
+    padding: 0.5rem;
+    border-width: 2px;
+  }
+  
+  .header__logo-img {
+    width: 252px;
+    height: 45px;
+  }
+  
+  .footer__logo-img {
+    width: 280px;
+    height: 50px;
   }
 }
 
