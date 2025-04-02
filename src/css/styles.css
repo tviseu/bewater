@@ -13,13 +13,15 @@
   --color-white: #ffffff;
   --color-primary: #1a1a1a;
   --color-secondary: #e6e6e6;
-  --color-accent: #c41e3a;
-  --color-accent-hover: #a01830;
+  --color-accent: #0066cc;  /* Water blue */
+  --color-accent-hover: #004d99;
   --color-text: #333333;
   --color-background: #ffffff;
   --color-gray: #666666;
   --color-light: #f5f5f5;
   --color-dark-gray: #222222;
+  --color-water-light: #e6f3ff;
+  --color-water-dark: #003366;
   
   /* Typography */
   --font-heading: 'Work Sans', sans-serif;
@@ -142,12 +144,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn--primary {
-  background-color: var(--color-primary);
+  background-color: var(--color-accent);
+  color: var(--color-white);
 }
 
 .btn--secondary {
-  background-color: var(--color-white);
-  color: var(--color-black);
+  background-color: var(--color-water-light);
+  color: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
 .btn--small {
@@ -223,7 +227,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Hero Section */
 .hero {
   min-height: calc(100vh - 80px);
-  background-color: var(--color-primary);
+  background-color: var(--color-water-light);
+  color: var(--color-accent);
   position: relative;
   overflow: hidden;
   padding: var(--spacing-lg) 0;
@@ -238,7 +243,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 4.5rem;
   line-height: 1.1;
   margin-bottom: 1.5rem;
-  color: var(--color-primary);
+  color: var(--color-accent);
   text-transform: uppercase;
   letter-spacing: -0.02em;
   font-family: var(--font-primary);
@@ -293,7 +298,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: var(--spacing-md);
-  color: var(--color-primary);
+  color: var(--color-accent);
 }
 
 .about__text p {
@@ -347,7 +352,7 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   width: 70%;
   height: 60%;
-  background-image: url('../images/7c18eef0-2694-4241-aadd-2e9fa2d0d8ae.png');
+  background-image: url('../../images/7c18eef0-2694-4241-aadd-2e9fa2d0d8ae.png');
   z-index: 2;
 }
 
@@ -357,13 +362,13 @@ h1, h2, h3, h4, h5, h6 {
   right: 0;
   width: 70%;
   height: 60%;
-  background-image: url('../images/d88af4ef-e380-4b56-96c2-71197a7a6f72.png');
+  background-image: url('../../images/d88af4ef-e380-4b56-96c2-71197a7a6f72.png');
   z-index: 1;
 }
 
 /* Classes Section */
 .classes {
-  background-color: var(--color-secondary);
+  background-color: var(--color-water-dark);
   padding: var(--spacing-xl) 0;
   color: var(--color-white);
 }
@@ -396,19 +401,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .class-card__image--strength {
-  background-image: url('../images/7c18eef0-2694-4241-aadd-2e9fa2d0d8ae.png');
+  background-image: url('../../images/7c18eef0-2694-4241-aadd-2e9fa2d0d8ae.png');
 }
 
 .class-card__image--conditioning {
-  background-image: url('../images/d88af4ef-e380-4b56-96c2-71197a7a6f72.png');
+  background-image: url('../../images/d88af4ef-e380-4b56-96c2-71197a7a6f72.png');
 }
 
 .class-card__image--powerlifting {
-  background-image: url('../images/ccd81ca1-257a-4edf-b66c-ce2498a30dfa.png');
+  background-image: url('../../images/ccd81ca1-257a-4edf-b66c-ce2498a30dfa.png');
 }
 
 .class-card__image--mobility {
-  background-image: url('../images/7b76cb8d-f94f-46be-be70-b470f40b6856.png');
+  background-image: url('../../images/7b76cb8d-f94f-46be-be70-b470f40b6856.png');
 }
 
 .class-card__content {
@@ -465,15 +470,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .trainer-card__image--1 {
-  background-image: url('../images/7c18eef0-2694-4241-aadd-2e9fa2d0d8ae.png');
+  background-image: url('../../images/7c18eef0-2694-4241-aadd-2e9fa2d0d8ae.png');
 }
 
 .trainer-card__image--2 {
-  background-image: url('../images/d88af4ef-e380-4b56-96c2-71197a7a6f72.png');
+  background-image: url('../../images/d88af4ef-e380-4b56-96c2-71197a7a6f72.png');
 }
 
 .trainer-card__image--3 {
-  background-image: url('../images/ccd81ca1-257a-4edf-b66c-ce2498a30dfa.png');
+  background-image: url('../../images/ccd81ca1-257a-4edf-b66c-ce2498a30dfa.png');
 }
 
 .trainer-card__content {
@@ -486,7 +491,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .trainer-card__specialty {
-  color: var(--color-primary);
+  color: var(--color-accent);
   font-weight: 700;
   margin-bottom: var(--spacing-sm);
 }
@@ -533,7 +538,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .price-card--featured {
-  border-color: var(--color-primary);
+  border-color: var(--color-accent);
   transform: scale(1.05);
   position: relative;
   z-index: 2;
@@ -544,7 +549,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .price-card__header {
-  background-color: var(--color-black);
+  background-color: var(--color-accent);
   color: var(--color-white);
   padding: var(--spacing-md);
   text-align: center;
@@ -552,7 +557,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .price-card--featured .price-card__header {
-  background-color: var(--color-primary);
+  background-color: var(--color-accent);
 }
 
 .price-card__title {
@@ -878,6 +883,35 @@ h1, h2, h3, h4, h5, h6 {
   
   .price-card--featured:hover {
     transform: translate(-4px, -4px);
+  }
+
+  .about__image,
+  .class-card__image,
+  .trainer-card__image {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 200px;
+  }
+
+  .about__image-container {
+    height: 400px;
+  }
+
+  .about__image--1,
+  .about__image--2 {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .class-card__image {
+    height: 200px;
+  }
+
+  .trainer-card__image {
+    height: 250px;
   }
 }
 
