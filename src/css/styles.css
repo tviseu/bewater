@@ -11,14 +11,21 @@
   /* Neobrutalist Color Palette */
   --color-black: #000000;
   --color-white: #ffffff;
-  --color-primary: #ff3c00;
-  --color-secondary: #0038ff;
-  --color-gray: #f2f2f2;
+  --color-primary: #1a1a1a;
+  --color-secondary: #e6e6e6;
+  --color-accent: #c41e3a;
+  --color-accent-hover: #a01830;
+  --color-text: #333333;
+  --color-background: #ffffff;
+  --color-gray: #666666;
+  --color-light: #f5f5f5;
   --color-dark-gray: #222222;
   
   /* Typography */
   --font-heading: 'Work Sans', sans-serif;
   --font-body: 'Space Mono', monospace;
+  --font-primary: 'Work Sans', sans-serif;
+  --font-secondary: 'Space Mono', monospace;
   
   /* Spacing */
   --spacing-xs: 0.5rem;
@@ -228,18 +235,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .hero__title {
-  font-size: 5rem;
-  margin-bottom: var(--spacing-md);
-  color: var(--color-white);
-  text-shadow: 4px 4px 0 var(--color-black);
+  font-size: 4.5rem;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  font-family: var(--font-primary);
 }
 
 .hero__subtitle {
   font-size: 1.5rem;
-  margin-bottom: var(--spacing-lg);
-  color: var(--color-white);
-  font-weight: 700;
-  max-width: 600px;
+  line-height: 1.4;
+  margin-bottom: 2rem;
+  color: var(--color-gray);
+  font-family: var(--font-secondary);
 }
 
 .hero__cta {
@@ -386,19 +396,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .class-card__image--strength {
-  background-image: url('https://source.unsplash.com/random/600x400/?weightlifting');
+  background-image: url('../../images/jeet-kune-do.jpg');
 }
 
 .class-card__image--conditioning {
-  background-image: url('https://source.unsplash.com/random/600x400/?hiit');
+  background-image: url('../../images/wing-chun.jpg');
 }
 
 .class-card__image--powerlifting {
-  background-image: url('https://source.unsplash.com/random/600x400/?powerlifting');
+  background-image: url('../../images/strength-conditioning.jpg');
 }
 
 .class-card__image--mobility {
-  background-image: url('https://source.unsplash.com/random/600x400/?stretching');
+  background-image: url('../../images/flexibility-balance.jpg');
 }
 
 .class-card__content {
@@ -455,15 +465,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .trainer-card__image--1 {
-  background-image: url('https://source.unsplash.com/random/600x800/?male,trainer');
+  background-image: url('../../images/master-chen.jpg');
 }
 
 .trainer-card__image--2 {
-  background-image: url('https://source.unsplash.com/random/600x800/?female,trainer');
+  background-image: url('../../images/sifu-wong.jpg');
 }
 
 .trainer-card__image--3 {
-  background-image: url('https://source.unsplash.com/random/600x800/?fitness,instructor');
+  background-image: url('../../images/sensei-yamada.jpg');
 }
 
 .trainer-card__content {
