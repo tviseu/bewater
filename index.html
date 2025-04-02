@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
   <!-- Header -->
@@ -25,7 +26,14 @@
           <li><a href="#classes">CLASSES</a></li>
           <li><a href="#trainers">TRAINERS</a></li>
           <li><a href="#pricing">PRICING</a></li>
+          <li><a href="#store">STORE</a></li>
           <li><a href="#contact">CONTACT</a></li>
+          <li class="cart-icon">
+            <a href="#cart" id="cart-toggle">
+              <span class="cart-count">0</span>
+              🛒
+            </a>
+          </li>
         </ul>
       </nav>
       <button class="header__menu-toggle" aria-label="Toggle Menu">
@@ -198,6 +206,106 @@
       </div>
     </div>
   </section>
+
+  <!-- Store Section -->
+  <section id="store" class="store">
+    <div class="store__container">
+      <div class="store__header">
+        <h2 class="section-title">STORE</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="store__grid">
+        <div class="product-card" data-product-id="1">
+          <div class="product-card__image">
+            <img src="https://images.unsplash.com/photo-1595078475328-1ab05d0a6a0e?w=800&auto=format&fit=crop" alt="BE WATER Training Gloves">
+          </div>
+          <div class="product-card__content">
+            <h3 class="product-card__title">BE WATER Training Gloves</h3>
+            <p class="product-card__description">Premium leather training gloves with water-inspired design.</p>
+            <div class="product-card__price">€49.99</div>
+            <button class="btn btn--small add-to-cart" data-product-id="1">ADD TO CART</button>
+          </div>
+        </div>
+        <div class="product-card" data-product-id="2">
+          <div class="product-card__image">
+            <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&auto=format&fit=crop" alt="BE WATER Performance Shirt">
+          </div>
+          <div class="product-card__content">
+            <h3 class="product-card__title">BE WATER Performance Shirt</h3>
+            <p class="product-card__description">Moisture-wicking training shirt with Bruce Lee quote.</p>
+            <div class="product-card__price">€29.99</div>
+            <button class="btn btn--small add-to-cart" data-product-id="2">ADD TO CART</button>
+          </div>
+        </div>
+        <div class="product-card" data-product-id="3">
+          <div class="product-card__image">
+            <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&auto=format&fit=crop" alt="BE WATER Gym Bag">
+          </div>
+          <div class="product-card__content">
+            <h3 class="product-card__title">BE WATER Gym Bag</h3>
+            <p class="product-card__description">Spacious gym bag with water-resistant material.</p>
+            <div class="product-card__price">€39.99</div>
+            <button class="btn btn--small add-to-cart" data-product-id="3">ADD TO CART</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cart Modal -->
+  <div id="cart-modal" class="modal">
+    <div class="modal__content">
+      <div class="modal__header">
+        <h2>Your Cart</h2>
+        <button class="modal__close">&times;</button>
+      </div>
+      <div class="modal__body">
+        <div id="cart-items" class="cart-items">
+          <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-total">
+          <span>Total:</span>
+          <span id="cart-total-amount">€0.00</span>
+        </div>
+      </div>
+      <div class="modal__footer">
+        <button id="checkout-btn" class="btn btn--primary">CHECKOUT</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment Modal -->
+  <div id="payment-modal" class="modal">
+    <div class="modal__content">
+      <div class="modal__header">
+        <h2>Payment</h2>
+        <button class="modal__close">&times;</button>
+      </div>
+      <div class="modal__body">
+        <div class="payment-options">
+          <button class="payment-option" data-payment="card">
+            <i class="fas fa-credit-card fa-2x"></i>
+            <span>Credit Card</span>
+          </button>
+          <button class="payment-option" data-payment="mbway">
+            <i class="fas fa-mobile-alt fa-2x"></i>
+            <span>MBWay</span>
+          </button>
+        </div>
+        <div id="card-payment-form" class="payment-form" style="display: none;">
+          <div id="card-element"></div>
+          <div id="card-errors" class="payment-errors"></div>
+        </div>
+        <div id="mbway-payment-form" class="payment-form" style="display: none;">
+          <input type="tel" id="phone-number" placeholder="Phone Number" required>
+          <div id="mbway-errors" class="payment-errors"></div>
+        </div>
+      </div>
+      <div class="modal__footer">
+        <button id="pay-btn" class="btn btn--primary">PAY NOW</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Pricing Section -->
   <section id="pricing" class="pricing">
@@ -380,5 +488,6 @@
   </footer>
 
   <script src="src/js/main.js"></script>
+  <script src="https://js.stripe.com/v3/"></script>
 </body>
 </html> 
