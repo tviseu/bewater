@@ -181,23 +181,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .header__logo a {
-  font-family: var(--font-heading);
-  font-size: 2rem;
-  font-weight: 900;
-  color: var(--color-black);
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--color-accent);
 }
 
 .header__logo-img {
-  height: 40px;
+  height: 60px;
   width: auto;
   object-fit: contain;
-}
-
-.header__logo span {
-  color: var(--color-accent);
 }
 
 .header__nav ul {
@@ -207,6 +204,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .header__nav li {
   margin-left: var(--spacing-md);
+}
+
+.header__nav span {
+  color: var(--color-accent);
 }
 
 .header__nav a {
