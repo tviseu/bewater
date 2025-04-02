@@ -892,10 +892,14 @@ h1, h2, h3, h4, h5, h6 {
     background-position: center;
     background-repeat: no-repeat;
     min-height: 200px;
+    width: 100%;
   }
 
   .about__image-container {
-    height: 400px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
   }
 
   .about__image--1,
