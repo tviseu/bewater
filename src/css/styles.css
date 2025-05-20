@@ -374,20 +374,20 @@ h1, h2, h3, h4, h5, h6 {
 
 .about__image--1 {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 70%;
-  height: 60%;
+  bottom: 5%;
+  right: 5%;
+  width: 60%;
+  height: 55%;
   background-image: url('../images/7c18eef0-2694-4241-aadd-2e9fa2d0d8ae.png');
   z-index: 1;
 }
 
 .about__image--2 {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 70%;
-  height: 60%;
+  top: 5%;
+  left: 5%;
+  width: 60%;
+  height: 55%;
   background-image: url('../images/d88af4ef-e380-4b56-96c2-71197a7a6f72.png');
   z-index: 2;
 }
