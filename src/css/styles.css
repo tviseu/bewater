@@ -989,10 +989,13 @@ h1, h2, h3, h4, h5, h6 {
 
   .about__image--1,
   .about__image--2 {
-    position: relative;
+    position: static;
     width: 100%;
     height: 200px;
     margin-bottom: var(--spacing-md);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   .class-card__image {
