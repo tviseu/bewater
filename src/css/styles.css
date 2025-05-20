@@ -11,7 +11,7 @@
   /* Colors */
   --color-primary: #000000;    /* Black */
   --color-secondary: #666666;  /* Gray */
-  --color-accent: #003366;     /* Dark blue */
+  --color-accent: #FFD700;     /* Yellow accent instead of blue */
   --color-background: #FFFFFF; /* White background */
   --color-text: #000000;       /* Black text */
   --color-text-dark: #FFFFFF;  /* White text */
@@ -34,8 +34,8 @@
   --color-gray: #666666;
   --color-light: #f5f5f5;
   --color-dark-gray: #222222;
-  --color-water-light: #e6f3ff;
-  --color-water-dark: #003366;
+  --color-water-light: #FFFDF0;  /* Very light yellow instead of light blue */
+  --color-water-dark: #000000;   /* Black instead of dark blue */
   
   /* Typography */
   --font-body: 'Space Mono', monospace;
@@ -139,8 +139,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn:hover {
-  background-color: var(--color-accent);
-  border-color: var(--color-accent);
+  background-color: #FFD700;
+  border-color: #FFD700;
 }
 
 .btn:active {
@@ -149,8 +149,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn--primary {
-  background-color: var(--color-accent);
-  color: var(--color-text-dark);
+  background-color: #FFD700;
+  color: #000000;
 }
 
 .btn--secondary {
@@ -268,8 +268,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Hero Section */
 .hero {
   min-height: calc(100vh - 80px);
-  background-color: var(--color-background);
-  color: var(--color-accent);
+  background-color: #FFFDF0;  /* Very subtle yellow shade */
+  color: #000000;
   position: relative;
   overflow: hidden;
   padding: var(--spacing-lg) 0;
@@ -284,7 +284,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 4.5rem;
   line-height: 1.1;
   margin-bottom: 1.5rem;
-  color: var(--color-accent);
+  color: #000000;
   text-transform: uppercase;
   letter-spacing: -0.02em;
   font-family: var(--font-primary);
@@ -323,7 +323,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: var(--spacing-md);
-  color: var(--color-accent);
+  color: #000000;
 }
 
 .about__text p {
@@ -394,7 +394,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Classes Section */
 .classes {
-  background-color: var(--color-water-dark);
+  background-color: #000000;
   padding: var(--spacing-xl) 0;
   color: var(--color-white);
 }
@@ -517,7 +517,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .trainer-card__specialty {
-  color: var(--color-accent);
+  color: #FFD700;
   font-weight: 700;
   margin-bottom: var(--spacing-sm);
 }
@@ -564,7 +564,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .price-card--featured {
-  border-color: var(--color-accent);
+  border-color: #FFD700;
   transform: scale(1.05);
   position: relative;
   z-index: 2;
@@ -575,15 +575,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .price-card__header {
-  background-color: var(--color-accent);
-  color: var(--color-text-dark);
+  background-color: #000000;
+  color: #FFD700;
   padding: var(--spacing-md);
   text-align: center;
   border-bottom: var(--border-thick);
 }
 
 .price-card--featured .price-card__header {
-  background-color: var(--color-accent);
+  background-color: #FFD700;
+  color: #000000;
 }
 
 .price-card__title {
@@ -667,7 +668,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .contact__info h3 {
   margin-bottom: var(--spacing-sm);
-  color: var(--color-primary);
+  color: #000000;
 }
 
 .contact__hours-grid {
@@ -694,7 +695,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .contact__social-icon:hover {
-  background-color: var(--color-accent);
+  background-color: #FFD700;
   transform: translate(-2px, -2px);
 }
 
@@ -733,7 +734,7 @@ h1, h2, h3, h4, h5, h6 {
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: var(--color-accent);
+  border-color: #FFD700;
 }
 
 .contact__map {
@@ -1062,7 +1063,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .mobile-menu a:hover {
-  color: var(--color-primary);
+  color: #FFD700;
 }
 
 /* Animation Styles */
