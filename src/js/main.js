@@ -14,7 +14,15 @@ document.addEventListener('DOMContentLoaded', function() {
   // Menu toggle functionality
   const menuToggle = document.querySelector('.header__menu-toggle');
   
-  menuToggle.addEventListener('click', function() {
+  // Add multiple event listeners for better compatibility
+  menuToggle.addEventListener('click', handleMenuToggle);
+  menuToggle.addEventListener('touchstart', handleMenuToggle);
+  
+  function handleMenuToggle(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Hamburger menu clicked!'); // Debug log
+    
     mobileMenu.classList.toggle('active');
     menuToggle.classList.toggle('active');
     document.body.classList.toggle('menu-open');
@@ -24,22 +32,39 @@ document.addEventListener('DOMContentLoaded', function() {
     spans.forEach(span => span.classList.toggle('active'));
     
     if (mobileMenu.classList.contains('active')) {
+      console.log('Opening menu, transforming to X'); // Debug log
       // When menu is open, transform spans into X
-      spans[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
+      spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+      spans[0].style.top = '16px';
+      spans[0].style.width = '25px';
+      spans[0].style.height = '4px';
       spans[1].style.opacity = '0';
-      spans[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
+      spans[1].style.transform = 'scale(0)';
+      spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+      spans[2].style.top = '16px';
+      spans[2].style.width = '25px';
+      spans[2].style.height = '4px';
     } else {
+      console.log('Closing menu, transforming to hamburger'); // Debug log
       // Reset to hamburger icon
       spans[0].style.transform = 'none';
+      spans[0].style.top = '8px';
+      spans[0].style.width = '100%';
+      spans[0].style.height = '3px';
       spans[1].style.opacity = '1';
+      spans[1].style.transform = 'none';
       spans[2].style.transform = 'none';
+      spans[2].style.top = '22px';
+      spans[2].style.width = '100%';
+      spans[2].style.height = '3px';
     }
-  });
+  }
   
   // Close mobile menu when clicking on a link
   const mobileLinks = mobileMenu.querySelectorAll('a');
   mobileLinks.forEach(link => {
     link.addEventListener('click', function() {
+      console.log('Menu link clicked, closing menu'); // Debug log
       mobileMenu.classList.remove('active');
       menuToggle.classList.remove('active');
       document.body.classList.remove('menu-open');
@@ -47,8 +72,15 @@ document.addEventListener('DOMContentLoaded', function() {
       // Reset hamburger icon
       const spans = menuToggle.querySelectorAll('span');
       spans[0].style.transform = 'none';
+      spans[0].style.top = '8px';
+      spans[0].style.width = '100%';
+      spans[0].style.height = '3px';
       spans[1].style.opacity = '1';
+      spans[1].style.transform = 'none';
       spans[2].style.transform = 'none';
+      spans[2].style.top = '22px';
+      spans[2].style.width = '100%';
+      spans[2].style.height = '3px';
     });
   });
 });
