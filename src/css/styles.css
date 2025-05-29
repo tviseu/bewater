@@ -654,6 +654,90 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
 
+/* Regy Integration Styles */
+.regy-integration-container {
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background-color: var(--color-background);
+  border: var(--border-thick);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-primary);
+}
+
+.regy-integration-container iframe {
+  margin-top: var(--spacing-md);
+  background-color: var(--color-background);
+}
+
+/* Override Regy default styles */
+.regy-integration-container * {
+  font-family: var(--font-primary) !important;
+}
+
+.regy-integration-container input,
+.regy-integration-container select,
+.regy-integration-container button {
+  border: 2px solid var(--color-primary) !important;
+  background-color: var(--color-background) !important;
+  padding: var(--spacing-sm) !important;
+  margin: var(--spacing-xs) 0 !important;
+  font-weight: 700 !important;
+  transition: all 0.2s !important;
+  box-shadow: 4px 4px 0 var(--color-primary) !important;
+}
+
+.regy-integration-container button {
+  background-color: var(--color-primary) !important;
+  color: var(--color-text-dark) !important;
+  text-transform: uppercase !important;
+  font-family: var(--font-heading) !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+}
+
+.regy-integration-container button:hover {
+  background-color: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
+  color: var(--color-primary) !important;
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 6px 6px 0 var(--color-primary) !important;
+}
+
+.regy-integration-container input:focus,
+.regy-integration-container select:focus {
+  outline: none !important;
+  border-color: var(--color-accent) !important;
+  transform: translate(-2px, -2px) !important;
+  box-shadow: 6px 6px 0 var(--color-primary) !important;
+}
+
+.regy-integration-container label {
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  margin-bottom: var(--spacing-xs) !important;
+  display: block !important;
+}
+
+.regy-integration-container .form-group,
+.regy-integration-container .form-row {
+  margin-bottom: var(--spacing-md) !important;
+}
+
+/* Force text colors */
+.regy-integration-container {
+  color: var(--color-primary) !important;
+}
+
+.regy-integration-container h1,
+.regy-integration-container h2,
+.regy-integration-container h3,
+.regy-integration-container h4,
+.regy-integration-container h5,
+.regy-integration-container h6 {
+  font-family: var(--font-heading) !important;
+  text-transform: uppercase !important;
+  color: var(--color-primary) !important;
+}
+
 /* Contact Section */
 .contact {
   background-color: var(--color-white);

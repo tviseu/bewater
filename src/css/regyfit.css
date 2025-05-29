@@ -1,0 +1,145 @@
+/* Regy Integration Styles - BE WATER Theme */
+:root {
+	--color-primary: #000000;    /* Black */
+	--color-secondary: #666666;  /* Gray */
+	--color-accent: #FFD700;     /* Yellow accent */
+	--color-background: #FFFFFF; /* White background */
+	--color-text: #000000;       /* Black text */
+	--color-text-dark: #FFFFFF;  /* White text */
+	--font-primary: 'Space Mono', monospace;
+	--font-heading: 'Work Sans', sans-serif;
+	--border-thick: 4px solid var(--color-primary);
+	--shadow-offset: 8px;
+	--spacing-xs: 0.5rem;
+	--spacing-sm: 1rem;
+	--spacing-md: 2rem;
+}
+
+body {
+	font-family: var(--font-primary);
+	color: var(--color-text);
+	line-height: 1.6;
+}
+
+input, select {
+	font-family: var(--font-primary);
+	text-indent: 10px;
+	border: 2px solid var(--color-primary);
+	background-color: var(--color-background);
+	padding: var(--spacing-sm);
+	margin: var(--spacing-xs) 0;
+	font-weight: 700;
+	transition: all 0.2s;
+	box-shadow: 4px 4px 0 var(--color-primary);
+}
+
+input:focus, select:focus {
+	outline: none;
+	border-color: var(--color-accent);
+	transform: translate(-2px, -2px);
+	box-shadow: 6px 6px 0 var(--color-primary);
+}
+
+input[type="date"] {
+	text-indent: 8px;
+	padding-right: var(--spacing-sm);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+	width: 25px;
+	padding: 0;
+	margin: 0 5px 0 0;
+	cursor: pointer;
+}
+
+input[type="checkbox"] {
+	width: 30px;
+	height: 30px;
+	margin-top: 2px;
+	cursor: pointer;
+	border: 2px solid var(--color-primary);
+	box-shadow: 2px 2px 0 var(--color-primary);
+}
+
+input[type="checkbox"]:checked {
+	background-color: var(--color-accent);
+	border-color: var(--color-primary);
+}
+
+.botao {
+	text-transform: uppercase;
+	font-family: var(--font-heading);
+	font-weight: 800;
+	font-size: 18px;
+	height: 74px;
+	background-color: var(--color-primary);
+	color: var(--color-text-dark);
+	border: 2px solid var(--color-primary);
+	box-shadow: 4px 4px 0 var(--color-primary);
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.botao:hover {
+	background-color: var(--color-accent);
+	border-color: var(--color-accent);
+	color: var(--color-primary);
+	transform: translate(-2px, -2px);
+	box-shadow: 6px 6px 0 var(--color-primary);
+}
+
+.astrisco {
+	font-size: 16px;
+	color: var(--color-accent);
+	font-weight: bold;
+}
+
+.icons {
+	background-color: var(--color-primary);
+	color: var(--color-text-dark);
+	padding: var(--spacing-xs);
+	border: 2px solid var(--color-primary);
+	box-shadow: 2px 2px 0 var(--color-primary);
+}
+
+.titulos {
+	padding: 0;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-family: var(--font-heading);
+	text-transform: uppercase;
+	font-weight: 700;
+	color: var(--color-primary);
+}
+
+/* Additional styles for better integration */
+label {
+	font-family: var(--font-heading);
+	font-weight: 700;
+	text-transform: uppercase;
+	margin-bottom: var(--spacing-xs);
+	display: block;
+	color: var(--color-primary);
+}
+
+.form-group {
+	margin-bottom: var(--spacing-md);
+}
+
+/* Error messages */
+.error-message {
+	color: #FF3B30;
+	font-family: var(--font-primary);
+	font-size: 14px;
+	margin-top: var(--spacing-xs);
+	font-weight: 700;
+}
+
+/* Success messages */
+.success-message {
+	color: #34C759;
+	font-family: var(--font-primary);
+	font-size: 14px;
+	margin-top: var(--spacing-xs);
+	font-weight: 700;
+}
