@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   menuToggle.addEventListener('click', function() {
     mobileMenu.classList.toggle('active');
+    menuToggle.classList.toggle('active');
     document.body.classList.toggle('menu-open');
     
     // Animate hamburger icon
@@ -40,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
   mobileLinks.forEach(link => {
     link.addEventListener('click', function() {
       mobileMenu.classList.remove('active');
+      menuToggle.classList.remove('active');
       document.body.classList.remove('menu-open');
       
       // Reset hamburger icon
