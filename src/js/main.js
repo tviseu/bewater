@@ -520,6 +520,7 @@ class BrutalistGallery {
   constructor() {
     this.currentIndex = 0;
     this.images = [];
+    this.debugInfo = [];
     this.captions = [
       'FORÇA ATRAVÉS DA DISCIPLINA',
       'MESTRE EM ACÇÃO - TREINO INTENSO',
@@ -536,18 +537,156 @@ class BrutalistGallery {
     this.nextBtn = document.getElementById('galleryNext');
     this.caption = document.getElementById('galleryCaption');
     
+    // Create debug panel
+    this.createDebugPanel();
+    
     if (this.track && this.prevBtn && this.nextBtn && this.caption) {
+      this.addDebugMessage('✅ Gallery DOM elements found successfully');
       this.init();
+    } else {
+      this.addDebugMessage('❌ ERROR: Missing gallery DOM elements', 'error');
+      this.addDebugMessage(`Track: ${!!this.track}, PrevBtn: ${!!this.prevBtn}, NextBtn: ${!!this.nextBtn}, Caption: ${!!this.caption}`, 'error');
+    }
+  }
+  
+  createDebugPanel() {
+    // Create debug panel element
+    this.debugPanel = document.createElement('div');
+    this.debugPanel.id = 'gallery-debug-panel';
+    this.debugPanel.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 350px;
+      max-height: 400px;
+      background: #000000;
+      color: #FFD700;
+      border: 4px solid #FFD700;
+      padding: 15px;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      z-index: 9999;
+      overflow-y: auto;
+      box-shadow: 8px 8px 0 rgba(0,0,0,0.3);
+    `;
+    
+    // Add title
+    const title = document.createElement('div');
+    title.style.cssText = `
+      font-weight: 900;
+      font-size: 14px;
+      margin-bottom: 10px;
+      text-align: center;
+      border-bottom: 2px solid #FFD700;
+      padding-bottom: 5px;
+    `;
+    title.textContent = '🔍 GALLERY DEBUG LOG';
+    this.debugPanel.appendChild(title);
+    
+    // Add close button
+    const closeBtn = document.createElement('button');
+    closeBtn.textContent = '×';
+    closeBtn.style.cssText = `
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      background: #FFD700;
+      color: #000000;
+      border: none;
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+      font-weight: 900;
+    `;
+    closeBtn.onclick = () => this.debugPanel.style.display = 'none';
+    this.debugPanel.appendChild(closeBtn);
+    
+    // Add toggle button
+    const toggleBtn = document.createElement('button');
+    toggleBtn.textContent = '🔍 DEBUG';
+    toggleBtn.style.cssText = `
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #FFD700;
+      color: #000000;
+      border: 4px solid #000000;
+      padding: 10px 15px;
+      font-family: 'Space Mono', monospace;
+      font-weight: 900;
+      cursor: pointer;
+      z-index: 9998;
+      box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+    `;
+    toggleBtn.onclick = () => {
+      this.debugPanel.style.display = this.debugPanel.style.display === 'none' ? 'block' : 'none';
+    };
+    
+    // Add debug list container
+    this.debugList = document.createElement('div');
+    this.debugList.style.cssText = 'margin-top: 10px;';
+    this.debugPanel.appendChild(this.debugList);
+    
+    document.body.appendChild(this.debugPanel);
+    document.body.appendChild(toggleBtn);
+    
+    this.addDebugMessage('🚀 Debug panel initialized');
+  }
+  
+  addDebugMessage(message, type = 'info') {
+    const timestamp = new Date().toLocaleTimeString();
+    const logEntry = {
+      time: timestamp,
+      message: message,
+      type: type
+    };
+    
+    this.debugInfo.push(logEntry);
+    
+    // Console log
+    console.log(`[GALLERY DEBUG ${timestamp}] ${message}`);
+    
+    // Visual debug
+    const debugItem = document.createElement('div');
+    debugItem.style.cssText = `
+      margin: 5px 0;
+      padding: 5px;
+      border-left: 3px solid ${type === 'error' ? '#FF0000' : type === 'warning' ? '#FFA500' : '#FFD700'};
+      background: ${type === 'error' ? 'rgba(255,0,0,0.1)' : type === 'warning' ? 'rgba(255,165,0,0.1)' : 'rgba(255,215,0,0.1)'};
+      font-size: 11px;
+      line-height: 1.3;
+    `;
+    
+    debugItem.innerHTML = `
+      <div style="color: #888; font-size: 10px;">${timestamp}</div>
+      <div>${message}</div>
+    `;
+    
+    this.debugList.appendChild(debugItem);
+    
+    // Auto-scroll to bottom
+    this.debugList.scrollTop = this.debugList.scrollHeight;
+    
+    // Keep only last 20 entries
+    while (this.debugList.children.length > 20) {
+      this.debugList.removeChild(this.debugList.firstChild);
     }
   }
   
   async init() {
+    this.addDebugMessage('🔄 Initializing gallery...');
     try {
+      this.addDebugMessage('📂 Starting image loading process...');
       await this.loadImages();
+      this.addDebugMessage('🎯 Setting up event listeners...');
       this.setupEventListeners();
-      this.updateDisplay();
+      this.addDebugMessage('🖱️ Adding touch support...');
       this.addTouchSupport();
+      this.addDebugMessage('🖼️ Updating display...');
+      this.updateDisplay();
+      this.addDebugMessage('✅ Gallery initialization complete!');
     } catch (error) {
+      this.addDebugMessage(`❌ Gallery initialization failed: ${error.message}`, 'error');
       console.error('Gallery initialization failed:', error);
       this.showPlaceholder();
     }
@@ -557,7 +696,13 @@ class BrutalistGallery {
     const imageExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
     this.images = [];
     
-    console.log('🔍 Looking for gallery images (gallery1.jpg, gallery2.png, etc.)...');
+    this.addDebugMessage('🔍 Searching for gallery images...');
+    this.addDebugMessage(`📁 Base path: src/images/gallery/`);
+    this.addDebugMessage(`🎯 Extensions to try: ${imageExtensions.join(', ')}`);
+    this.addDebugMessage(`🌐 Current URL: ${window.location.href}`);
+    
+    // Log current directory structure for debugging
+    this.addDebugMessage('📊 Testing image paths...');
     
     // Simple iteration: gallery1, gallery2, gallery3, etc.
     for (let i = 1; i <= 50; i++) {
@@ -566,55 +711,88 @@ class BrutalistGallery {
       // Try each extension for this number
       for (const ext of imageExtensions) {
         const imagePath = `src/images/gallery/gallery${i}.${ext}`;
+        this.addDebugMessage(`🔍 Testing: ${imagePath}...`);
+        
         const exists = await this.checkImageExists(imagePath);
         
         if (exists) {
           this.images.push(imagePath);
-          console.log(`✓ Found: gallery${i}.${ext}`);
+          this.addDebugMessage(`✅ Found: gallery${i}.${ext}`, 'info');
           foundImage = true;
           break; // Found this number, move to next
+        } else {
+          this.addDebugMessage(`❌ Not found: gallery${i}.${ext}`, 'warning');
         }
       }
       
       // If we don't find an image for this number, stop looking
       // (assumes images are numbered consecutively)
       if (!foundImage && i > 3) {
-        console.log(`ℹ️ No gallery${i}.* found, stopping search`);
+        this.addDebugMessage(`ℹ️ No gallery${i}.* found, stopping search at ${i-1}`, 'info');
         break;
       }
     }
     
-    console.log(`✅ Found ${this.images.length} gallery images total`);
+    this.addDebugMessage(`📊 RESULTS: Found ${this.images.length} gallery images total`);
+    
+    if (this.images.length > 0) {
+      this.addDebugMessage('📋 Gallery images found:');
+      this.images.forEach((img, index) => {
+        this.addDebugMessage(`  ${index + 1}. ${img}`);
+      });
+    }
     
     // If no images found, use fallback images
     if (this.images.length === 0) {
-      console.log('ℹ️ No gallery images found, using fallback images');
-      this.images = [
+      this.addDebugMessage('⚠️ No gallery images found, trying fallback images...', 'warning');
+      const fallbackImages = [
         'src/images/d88af4ef-e380-4b56-96c2-71197a7a6f72.png',
         'src/images/7b76cb8d-f94f-46be-be70-b470f40b6856.png',
         'src/images/7c18eef0-2694-4241-aadd-2e9fa2d0d8ae.png',
         'src/images/ccd81ca1-257a-4edf-b66c-ce2498a30dfa.png'
       ];
+      
+      // Test fallback images
+      for (const fallback of fallbackImages) {
+        const exists = await this.checkImageExists(fallback);
+        if (exists) {
+          this.images.push(fallback);
+          this.addDebugMessage(`✅ Fallback found: ${fallback}`);
+        } else {
+          this.addDebugMessage(`❌ Fallback missing: ${fallback}`, 'warning');
+        }
+      }
+      
+      if (this.images.length === 0) {
+        this.addDebugMessage('❌ No images found at all! Both gallery and fallback images are missing!', 'error');
+      }
     }
     
+    this.addDebugMessage('🏗️ Creating image elements...');
     this.createImageElements();
   }
   
   async checkImageExists(imagePath) {
     return new Promise((resolve) => {
       const img = new Image();
+      const startTime = Date.now();
       
       const timeout = setTimeout(() => {
+        this.addDebugMessage(`⏰ Timeout checking: ${imagePath} (${Date.now() - startTime}ms)`, 'warning');
         resolve(false);
-      }, 1000); // Reduced timeout to 1 second
+      }, 2000); // Increased timeout to 2 seconds
       
       img.onload = () => {
         clearTimeout(timeout);
+        const loadTime = Date.now() - startTime;
+        this.addDebugMessage(`✅ Loaded successfully: ${imagePath} (${loadTime}ms, ${img.naturalWidth}x${img.naturalHeight})`);
         resolve(true);
       };
       
-      img.onerror = () => {
+      img.onerror = (error) => {
         clearTimeout(timeout);
+        const loadTime = Date.now() - startTime;
+        this.addDebugMessage(`❌ Load error: ${imagePath} (${loadTime}ms) - ${error.type}`, 'error');
         resolve(false);
       };
       
@@ -623,9 +801,17 @@ class BrutalistGallery {
   }
   
   createImageElements() {
+    this.addDebugMessage(`🏗️ Creating ${this.images.length} image elements...`);
     this.track.innerHTML = '';
     
+    if (this.images.length === 0) {
+      this.addDebugMessage('❌ No images to create elements for!', 'error');
+      return;
+    }
+    
     this.images.forEach((imageSrc, index) => {
+      this.addDebugMessage(`🖼️ Creating element ${index + 1}: ${imageSrc}`);
+      
       const item = document.createElement('div');
       item.className = 'gallery__item';
       
@@ -635,8 +821,14 @@ class BrutalistGallery {
       img.alt = `Gallery Image ${index + 1}`;
       img.loading = 'lazy';
       
+      // Add success handler
+      img.onload = () => {
+        this.addDebugMessage(`✅ Image ${index + 1} loaded successfully: ${imageSrc}`, 'info');
+      };
+      
       // Add error handling for individual images
-      img.onerror = () => {
+      img.onerror = (error) => {
+        this.addDebugMessage(`❌ Image ${index + 1} failed to load: ${imageSrc} - ${error.type}`, 'error');
         img.style.display = 'none';
         item.innerHTML = `
           <div style="
@@ -645,14 +837,23 @@ class BrutalistGallery {
             background: var(--color-black); 
             color: var(--color-white); 
             display: flex; 
+            flex-direction: column;
             align-items: center; 
             justify-content: center; 
             font-family: var(--font-heading);
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 900;
             text-transform: uppercase;
+            text-align: center;
+            padding: 2rem;
           ">
-            IMAGEM EM BREVE
+            <div>❌ IMAGEM NÃO ENCONTRADA</div>
+            <div style="font-size: 1rem; margin-top: 1rem; color: #FFD700;">
+              ${imageSrc}
+            </div>
+            <div style="font-size: 0.8rem; margin-top: 1rem; color: #666;">
+              Verifique se o ficheiro existe
+            </div>
           </div>
         `;
       };
@@ -660,6 +861,8 @@ class BrutalistGallery {
       item.appendChild(img);
       this.track.appendChild(item);
     });
+    
+    this.addDebugMessage(`✅ Created ${this.images.length} image elements in DOM`);
   }
   
   setupEventListeners() {
