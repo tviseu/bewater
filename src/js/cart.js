@@ -131,7 +131,7 @@ function updateQuantity(id, action) {
 // Checkout functionality
 checkoutBtn.addEventListener('click', () => {
   if (cart.length === 0) {
-    alert('Your cart is empty!');
+    alert('O teu carrinho está vazio!');
     return;
   }
   cartModal.classList.remove('modal--active');

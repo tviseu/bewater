@@ -220,19 +220,19 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Validate name
       if (!nameField.value.trim()) {
-        showBrutalistError(nameField, 'NAME REQUIRED. NO EXCUSES.');
+        showBrutalistError(nameField, 'NOME OBRIGATÓRIO. NÃO EXCUSES.');
         valid = false;
       }
       
       // Validate email
       if (!validateEmail(emailField.value)) {
-        showBrutalistError(emailField, 'REAL EMAIL NEEDED. NOW.');
+        showBrutalistError(emailField, 'EMAIL REAL NECESSÁRIO. AGORA.');
         valid = false;
       }
       
       // Validate message
       if (!messageField.value.trim()) {
-        showBrutalistError(messageField, 'EMPTY MESSAGE? SERIOUSLY?');
+        showBrutalistError(messageField, 'MENSAGEM VAZIA? SERIAMENTE?');
         valid = false;
       }
       
@@ -242,13 +242,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const originalText = submitBtn.textContent;
         
         submitBtn.disabled = true;
-        submitBtn.textContent = 'SENDING...';
+        submitBtn.textContent = 'A ENVIAR...';
         
         setTimeout(() => {
           contactForm.innerHTML = `
             <div class="form-success">
-              <h3>MESSAGE RECEIVED.</h3>
-              <p>We'll respond if we think it's worth our time.</p>
+              <h3>MENSAGEM RECEBIDA.</h3>
+              <p>Vamos responder se acharmos que vale o nosso tempo.</p>
             </div>
           `;
           
@@ -440,7 +440,7 @@ async function handleMBWayPayment() {
 }
 
 function handlePaymentSuccess() {
-  alert('Payment successful! Thank you for your purchase.');
+  alert('Pagamento realizado com sucesso! Obrigado pela tua compra.');
   cart = [];
   updateCartCount();
   closeModal('payment-modal');
@@ -461,10 +461,10 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Add feedback animation to the button
       button.classList.add('btn--added');
-      button.textContent = 'ADDED!';
+      button.textContent = 'ADICIONADO!';
       setTimeout(() => {
         button.classList.remove('btn--added');
-        button.textContent = 'ADD TO CART';
+        button.textContent = 'ADICIONAR AO CARRINHO';
       }, 1000);
     });
   });
