@@ -568,6 +568,7 @@ class BrutalistGallery {
       z-index: 9999;
       overflow-y: auto;
       box-shadow: 8px 8px 0 rgba(0,0,0,0.3);
+      display: none;
     `;
     
     // Add title
@@ -630,7 +631,7 @@ class BrutalistGallery {
     document.body.appendChild(this.debugPanel);
     document.body.appendChild(toggleBtn);
     
-    this.addDebugMessage('🚀 Debug panel initialized');
+    this.addDebugMessage('🚀 Debug panel initialized (hidden by default)');
   }
   
   addDebugMessage(message, type = 'info') {
