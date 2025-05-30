@@ -513,4 +513,258 @@ document.addEventListener('DOMContentLoaded', () => {
       handleMBWayPayment();
     }
   });
+});
+
+// Gallery functionality
+class BrutalistGallery {
+  constructor() {
+    this.currentIndex = 0;
+    this.images = [];
+    this.captions = [
+      'FORÇA ATRAVÉS DA DISCIPLINA',
+      'MESTRE EM ACÇÃO - TREINO INTENSO',
+      'A ARTE DA GUERRA INTERIOR',
+      'CAMINHO DO GUERREIRO MODERNO',
+      'MENTE, CORPO E ESPÍRITO UNIDOS',
+      'TRADIÇÃO E INOVAÇÃO EM HARMONIA',
+      'O DOJO: ESPAÇO SAGRADO DE CRESCIMENTO',
+      'TÉCNICA PERFEITA ATRAVÉS DA REPETIÇÃO'
+    ];
+    
+    this.track = document.getElementById('galleryTrack');
+    this.prevBtn = document.getElementById('galleryPrev');
+    this.nextBtn = document.getElementById('galleryNext');
+    this.caption = document.getElementById('galleryCaption');
+    
+    if (this.track && this.prevBtn && this.nextBtn && this.caption) {
+      this.init();
+    }
+  }
+  
+  async init() {
+    try {
+      await this.loadImages();
+      this.setupEventListeners();
+      this.updateDisplay();
+      this.addTouchSupport();
+    } catch (error) {
+      console.error('Gallery initialization failed:', error);
+      this.showPlaceholder();
+    }
+  }
+  
+  async loadImages() {
+    const imageExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+    this.images = [];
+    
+    console.log('🔍 Looking for gallery images (gallery1.jpg, gallery2.png, etc.)...');
+    
+    // Simple iteration: gallery1, gallery2, gallery3, etc.
+    for (let i = 1; i <= 50; i++) {
+      let foundImage = false;
+      
+      // Try each extension for this number
+      for (const ext of imageExtensions) {
+        const imagePath = `src/images/gallery/gallery${i}.${ext}`;
+        const exists = await this.checkImageExists(imagePath);
+        
+        if (exists) {
+          this.images.push(imagePath);
+          console.log(`✓ Found: gallery${i}.${ext}`);
+          foundImage = true;
+          break; // Found this number, move to next
+        }
+      }
+      
+      // If we don't find an image for this number, stop looking
+      // (assumes images are numbered consecutively)
+      if (!foundImage && i > 3) {
+        console.log(`ℹ️ No gallery${i}.* found, stopping search`);
+        break;
+      }
+    }
+    
+    console.log(`✅ Found ${this.images.length} gallery images total`);
+    
+    // If no images found, use fallback images
+    if (this.images.length === 0) {
+      console.log('ℹ️ No gallery images found, using fallback images');
+      this.images = [
+        'src/images/d88af4ef-e380-4b56-96c2-71197a7a6f72.png',
+        'src/images/7b76cb8d-f94f-46be-be70-b470f40b6856.png',
+        'src/images/7c18eef0-2694-4241-aadd-2e9fa2d0d8ae.png',
+        'src/images/ccd81ca1-257a-4edf-b66c-ce2498a30dfa.png'
+      ];
+    }
+    
+    this.createImageElements();
+  }
+  
+  async checkImageExists(imagePath) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      
+      const timeout = setTimeout(() => {
+        resolve(false);
+      }, 1000); // Reduced timeout to 1 second
+      
+      img.onload = () => {
+        clearTimeout(timeout);
+        resolve(true);
+      };
+      
+      img.onerror = () => {
+        clearTimeout(timeout);
+        resolve(false);
+      };
+      
+      img.src = imagePath;
+    });
+  }
+  
+  createImageElements() {
+    this.track.innerHTML = '';
+    
+    this.images.forEach((imageSrc, index) => {
+      const item = document.createElement('div');
+      item.className = 'gallery__item';
+      
+      const img = document.createElement('img');
+      img.className = 'gallery__image';
+      img.src = imageSrc;
+      img.alt = `Gallery Image ${index + 1}`;
+      img.loading = 'lazy';
+      
+      // Add error handling for individual images
+      img.onerror = () => {
+        img.style.display = 'none';
+        item.innerHTML = `
+          <div style="
+            width: 100%; 
+            height: 500px; 
+            background: var(--color-black); 
+            color: var(--color-white); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+          ">
+            IMAGEM EM BREVE
+          </div>
+        `;
+      };
+      
+      item.appendChild(img);
+      this.track.appendChild(item);
+    });
+  }
+  
+  setupEventListeners() {
+    this.prevBtn.addEventListener('click', () => this.prevImage());
+    this.nextBtn.addEventListener('click', () => this.nextImage());
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') this.prevImage();
+      if (e.key === 'ArrowRight') this.nextImage();
+    });
+  }
+  
+  addTouchSupport() {
+    let startX = 0;
+    let isDragging = false;
+    
+    this.track.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    });
+    
+    this.track.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+    });
+    
+    this.track.addEventListener('touchend', (e) => {
+      if (!isDragging) return;
+      
+      const endX = e.changedTouches[0].clientX;
+      const diff = startX - endX;
+      
+      if (Math.abs(diff) > 50) { // Minimum swipe distance
+        if (diff > 0) {
+          this.nextImage();
+        } else {
+          this.prevImage();
+        }
+      }
+      
+      isDragging = false;
+    });
+  }
+  
+  prevImage() {
+    this.currentIndex = this.currentIndex === 0 ? this.images.length - 1 : this.currentIndex - 1;
+    this.updateDisplay();
+  }
+  
+  nextImage() {
+    this.currentIndex = this.currentIndex === this.images.length - 1 ? 0 : this.currentIndex + 1;
+    this.updateDisplay();
+  }
+  
+  updateDisplay() {
+    const translateX = -this.currentIndex * 100;
+    this.track.style.transform = `translateX(${translateX}%)`;
+    
+    // Update caption
+    const captionText = this.captions[this.currentIndex % this.captions.length];
+    this.caption.textContent = captionText;
+    
+    // Add animation to caption
+    this.caption.style.opacity = '0';
+    setTimeout(() => {
+      this.caption.style.opacity = '1';
+    }, 150);
+  }
+  
+  showPlaceholder() {
+    this.track.innerHTML = `
+      <div class="gallery__item">
+        <div style="
+          width: 100%; 
+          height: 500px; 
+          background: var(--color-accent); 
+          color: var(--color-black); 
+          display: flex; 
+          flex-direction: column;
+          align-items: center; 
+          justify-content: center; 
+          font-family: var(--font-heading);
+          font-size: 2rem;
+          font-weight: 900;
+          text-transform: uppercase;
+          border: 4px solid var(--color-black);
+          text-align: center;
+          padding: 2rem;
+        ">
+          <div>GALERIA EM CONSTRUÇÃO</div>
+          <div style="font-size: 1rem; margin-top: 1rem;">
+            Adicione imagens à pasta /gallery
+          </div>
+        </div>
+      </div>
+    `;
+    
+    this.caption.textContent = 'AGUARDE POR CONTEÚDO ÉPICO';
+    this.prevBtn.style.display = 'none';
+    this.nextBtn.style.display = 'none';
+  }
+}
+
+// Initialize gallery when DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+  new BrutalistGallery();
 }); 
