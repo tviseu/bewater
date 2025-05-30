@@ -85,6 +85,186 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+// Pillars Carousel
+document.addEventListener('DOMContentLoaded', function() {
+  const track = document.getElementById('pillarsTrack');
+  const prevBtn = document.getElementById('pillarsPrev');
+  const nextBtn = document.getElementById('pillarsNext');
+  const indicators = document.querySelectorAll('.indicator');
+  const slides = document.querySelectorAll('.carousel-slide');
+  
+  console.log('Carousel initialization:', {
+    track: !!track,
+    prevBtn: !!prevBtn,
+    nextBtn: !!nextBtn,
+    indicators: indicators.length,
+    slides: slides.length
+  });
+  
+  if (!track || !prevBtn || !nextBtn || slides.length === 0) {
+    console.error('Carousel elements not found or no slides available');
+    return;
+  }
+  
+  let currentSlide = 0;
+  const totalSlides = slides.length;
+  
+  function updateCarousel() {
+    console.log(`Moving to slide ${currentSlide + 1} of ${totalSlides}`);
+    
+    // Move track - cada slide tem 25% de largura
+    const translateX = -currentSlide * 25; // 25% por slide
+    track.style.transform = `translateX(${translateX}%)`;
+    
+    console.log(`Applied transform: translateX(${translateX}%)`);
+    
+    // Update indicators
+    indicators.forEach((indicator, index) => {
+      indicator.classList.toggle('active', index === currentSlide);
+    });
+    
+    // Update active slide class (opcional para styling adicional)
+    slides.forEach((slide, index) => {
+      slide.classList.toggle('active', index === currentSlide);
+    });
+    
+    console.log(`Updated indicators and slides for slide ${currentSlide}`);
+  }
+  
+  function nextSlide() {
+    const previousSlide = currentSlide;
+    currentSlide = (currentSlide + 1) % totalSlides;
+    console.log(`Next slide: ${previousSlide} → ${currentSlide}`);
+    updateCarousel();
+  }
+  
+  function prevSlide() {
+    const previousSlide = currentSlide;
+    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+    console.log(`Previous slide: ${previousSlide} → ${currentSlide}`);
+    updateCarousel();
+  }
+  
+  function goToSlide(slideIndex) {
+    const previousSlide = currentSlide;
+    currentSlide = slideIndex;
+    console.log(`Go to slide: ${previousSlide} → ${currentSlide}`);
+    updateCarousel();
+  }
+  
+  // Event listeners
+  nextBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    console.log('Next button clicked');
+    nextSlide();
+  });
+  
+  prevBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    console.log('Previous button clicked');
+    prevSlide();
+  });
+  
+  // Indicator event listeners
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log(`Indicator ${index} clicked`);
+      goToSlide(index);
+    });
+  });
+  
+  // Keyboard navigation
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft') {
+      console.log('Left arrow pressed');
+      prevSlide();
+    } else if (e.key === 'ArrowRight') {
+      console.log('Right arrow pressed');
+      nextSlide();
+    }
+  });
+  
+  // Touch/swipe support for mobile
+  let startX = 0;
+  let currentX = 0;
+  let isDragging = false;
+  
+  track.addEventListener('touchstart', function(e) {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+    console.log('Touch start at:', startX);
+  });
+  
+  track.addEventListener('touchmove', function(e) {
+    if (!isDragging) return;
+    currentX = e.touches[0].clientX;
+    e.preventDefault();
+  });
+  
+  track.addEventListener('touchend', function(e) {
+    if (!isDragging) return;
+    
+    const diff = startX - currentX;
+    const threshold = 50; // Minimum swipe distance
+    
+    console.log('Touch end, diff:', diff, 'threshold:', threshold);
+    
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0) {
+        console.log('Swipe left detected');
+        nextSlide(); // Swipe left - next slide
+      } else {
+        console.log('Swipe right detected');
+        prevSlide(); // Swipe right - previous slide
+      }
+    }
+    
+    isDragging = false;
+  });
+  
+  // Debug: Force CSS styles to ensure proper layout
+  console.log('Setting up CSS debug...');
+  
+  // Ensure track has proper width
+  track.style.width = '400%'; // 4 slides × 100%
+  track.style.display = 'flex';
+  
+  // Ensure each slide has proper width
+  slides.forEach((slide, index) => {
+    slide.style.minWidth = '25%';
+    slide.style.width = '25%';
+    slide.style.flex = '0 0 25%';
+    slide.style.boxSizing = 'border-box';
+    console.log(`Slide ${index} styled: width=25%, flex=0 0 25%`);
+  });
+  
+  // Initialize carousel
+  console.log('Initializing carousel at slide 0');
+  updateCarousel();
+  
+  // Debug info
+  setTimeout(() => {
+    console.log('=== CAROUSEL DEBUG INFO ===');
+    console.log('Track computed style:', {
+      width: getComputedStyle(track).width,
+      transform: getComputedStyle(track).transform,
+      display: getComputedStyle(track).display
+    });
+    
+    slides.forEach((slide, index) => {
+      const computedStyle = getComputedStyle(slide);
+      console.log(`Slide ${index} computed style:`, {
+        width: computedStyle.width,
+        minWidth: computedStyle.minWidth,
+        flex: computedStyle.flex,
+        boxSizing: computedStyle.boxSizing
+      });
+    });
+    console.log('===========================');
+  }, 100);
+});
+
 // Brutalist Cursor Effect
 function createBrutalistCursor() {
   const cursor = document.createElement('div');
