@@ -159,8 +159,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .about__social {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--spacing-sm);
   margin: var(--spacing-lg) 0;
   padding: var(--spacing-sm);
@@ -169,6 +170,9 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-primary);
   width: 100%;
   box-sizing: border-box;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .about__social-item {
@@ -181,8 +185,14 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.3s;
   text-decoration: none;
   cursor: pointer;
-  width: 100%;
   box-sizing: border-box;
+  flex: 0 0 calc(50% - var(--spacing-sm)/2);
+  min-width: 140px;
+}
+
+.about__social-item:nth-child(3) {
+  flex: 0 0 calc(50% - var(--spacing-sm)/2);
+  margin: 0 auto;
 }
 
 .about__social-item:hover {
@@ -674,115 +684,43 @@ h1, h2, h3, h4, h5, h6 {
   border-color: #FFFFFF !important;
 }
 
-/* Responsive Carousel */
+/* Mobile Triangle Layout */
 @media (max-width: 768px) {
-  .carousel-container {
-    max-width: 95%;
-    border-width: 6px;
-    box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.3);
+  .about__social {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: var(--spacing-sm);
+    justify-items: center;
+    max-width: 400px;
   }
   
-  .carousel-slide {
-    padding: var(--spacing-md) !important;
-    min-height: 450px !important;
+  .about__social-item {
+    flex: none;
+    width: 100%;
+    max-width: 160px;
   }
   
-  .carousel-slide.pillar-frame--yellow .pillar-content,
-  .carousel-slide.pillar-frame--gray .pillar-content,
-  .carousel-slide.pillar-frame--white .pillar-content {
-    padding: var(--spacing-sm) !important;
-    border-width: 3px !important;
-  }
-  
-  .carousel-btn {
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
-    border-width: 3px;
-  }
-  
-  .carousel-btn--prev {
-    left: -25px;
-  }
-  
-  .carousel-btn--next {
-    right: -25px;
-  }
-  
-  .about .pillar-number {
-    font-size: 3.5rem !important;
-  }
-  
-  .about .pillar-title {
-    font-size: 1.4rem !important;
-  }
-  
-  .about .pillar-subtitle {
-    font-size: 1rem !important;
-  }
-  
-  .about .pillar-text {
-    font-size: 0.9rem !important;
-  }
-  
-  .about .pillar-tags span {
-    font-size: 0.7rem !important;
-  }
-  
-  .about .pillar-equipment {
-    font-size: 0.75rem !important;
-  }
-  
-  .about .pillar-highlight {
-    font-size: 0.75rem !important;
-  }
-  
-  .indicator {
-    width: 50px;
-    height: 15px;
-    border-width: 2px;
+  .about__social-item:nth-child(3) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    max-width: 160px;
   }
 }
 
 @media (max-width: 480px) {
-  .carousel-container {
-    border-width: 4px;
-    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.3);
+  .about__social {
+    max-width: 350px;
+    gap: var(--spacing-xs);
   }
   
-  .carousel-slide {
-    min-height: 400px !important;
+  .about__social-item {
+    max-width: 140px;
+    padding: var(--spacing-xs);
   }
   
-  .carousel-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
-  }
-  
-  .carousel-btn--prev {
-    left: -20px;
-  }
-  
-  .carousel-btn--next {
-    right: -20px;
-  }
-  
-  .about .pillar-number {
-    font-size: 3rem !important;
-  }
-  
-  .about .pillar-title {
-    font-size: 1.2rem !important;
-  }
-  
-  .about .pillar-subtitle {
-    font-size: 0.9rem !important;
-  }
-  
-  .indicator {
-    width: 40px;
-    height: 12px;
+  .about__social-item:nth-child(3) {
+    max-width: 140px;
   }
 }
 
@@ -2551,4 +2489,153 @@ body.menu-open .header__menu-toggle {
   box-shadow: 6px 6px 0 #000000;
   transform: rotate(-2deg);
   margin-right: 0.5rem;
+}
+
+/* Responsive Carousel */
+@media (max-width: 768px) {
+  .carousel-container {
+    max-width: 95%;
+    border-width: 6px;
+    box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.3);
+  }
+  
+  .carousel-slide {
+    padding: var(--spacing-md) !important;
+    min-height: 450px !important;
+  }
+  
+  .carousel-slide.pillar-frame--yellow .pillar-content,
+  .carousel-slide.pillar-frame--gray .pillar-content,
+  .carousel-slide.pillar-frame--white .pillar-content {
+    padding: var(--spacing-sm) !important;
+    border-width: 3px !important;
+  }
+  
+  .carousel-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    border-width: 3px;
+  }
+  
+  .carousel-btn--prev {
+    left: -25px;
+  }
+  
+  .carousel-btn--next {
+    right: -25px;
+  }
+  
+  .about .pillar-number {
+    font-size: 3.5rem !important;
+  }
+  
+  .about .pillar-title {
+    font-size: 1.4rem !important;
+  }
+  
+  .about .pillar-subtitle {
+    font-size: 1rem !important;
+  }
+  
+  .about .pillar-text {
+    font-size: 0.9rem !important;
+  }
+  
+  .about .pillar-tags span {
+    font-size: 0.7rem !important;
+  }
+  
+  .about .pillar-equipment {
+    font-size: 0.75rem !important;
+  }
+  
+  .about .pillar-highlight {
+    font-size: 0.75rem !important;
+  }
+  
+  .indicator {
+    width: 50px;
+    height: 15px;
+    border-width: 2px;
+  }
+
+  /* Social Media Mobile Layout - Combined with Carousel Media Query */
+  .about__social {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: var(--spacing-sm);
+    justify-items: center;
+    max-width: 400px;
+  }
+  
+  .about__social-item {
+    flex: none;
+    width: 100%;
+    max-width: 160px;
+  }
+  
+  .about__social-item:nth-child(3) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    max-width: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-container {
+    border-width: 4px;
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.3);
+  }
+  
+  .carousel-slide {
+    min-height: 400px !important;
+  }
+  
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  
+  .carousel-btn--prev {
+    left: -20px;
+  }
+  
+  .carousel-btn--next {
+    right: -20px;
+  }
+  
+  .about .pillar-number {
+    font-size: 3rem !important;
+  }
+  
+  .about .pillar-title {
+    font-size: 1.2rem !important;
+  }
+  
+  .about .pillar-subtitle {
+    font-size: 0.9rem !important;
+  }
+  
+  .indicator {
+    width: 40px;
+    height: 12px;
+  }
+
+  /* Social Media Small Mobile Layout */
+  .about__social {
+    max-width: 350px;
+    gap: var(--spacing-xs);
+  }
+  
+  .about__social-item {
+    max-width: 140px;
+    padding: var(--spacing-xs);
+  }
+  
+  .about__social-item:nth-child(3) {
+    max-width: 140px;
+  }
 } 
