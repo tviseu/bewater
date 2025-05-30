@@ -2638,4 +2638,217 @@ body.menu-open .header__menu-toggle {
   .about__social-item:nth-child(3) {
     max-width: 140px;
   }
+}
+
+/* Salgueiro Section */
+.salgueiro {
+  background-color: var(--color-background);
+  padding: var(--spacing-xl) 0;
+}
+
+.salgueiro__container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-md) 0;
+  box-sizing: border-box;
+}
+
+/* Bio Styles */
+.salgueiro__bio {
+  margin-bottom: var(--spacing-xl);
+}
+
+.bio-intro {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-lg);
+  background-color: #000000;
+  color: #FFFFFF;
+  border: 6px solid #000000;
+  box-shadow: 12px 12px 0 #FFD700;
+}
+
+.bio-title {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #FFD700;
+  margin-bottom: var(--spacing-sm);
+  letter-spacing: 3px;
+}
+
+.bio-subtitle {
+  font-family: var(--font-primary);
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  letter-spacing: 1px;
+  line-height: 1.4;
+}
+
+.bio-content {
+  display: grid;
+  gap: var(--spacing-lg);
+}
+
+.bio-section {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: flex-start;
+  padding: var(--spacing-md);
+  border: 4px solid #000000;
+  background-color: #FFFFFF;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.bio-section:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.2);
+}
+
+.bio-section--featured {
+  background-color: #FFD700;
+  border-color: #000000;
+  box-shadow: 8px 8px 0 #000000;
+}
+
+.bio-section--featured:hover {
+  box-shadow: 12px 12px 0 #000000;
+}
+
+.bio-section--mission {
+  background-color: #000000;
+  color: #FFFFFF;
+  border-color: #FFD700;
+  box-shadow: 8px 8px 0 #FFD700;
+}
+
+.bio-section--mission:hover {
+  box-shadow: 12px 12px 0 #FFD700;
+}
+
+.bio-section--mission p {
+  color: #FFFFFF;
+}
+
+.bio-highlight {
+  flex: 0 0 auto;
+  min-width: 120px;
+  background-color: #000000;
+  color: #FFD700;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  text-align: center;
+  border: 3px solid #000000;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: var(--spacing-sm);
+}
+
+.bio-section--featured .bio-highlight {
+  background-color: #000000;
+  color: #FFD700;
+  border-color: #000000;
+}
+
+.bio-section--mission .bio-highlight {
+  background-color: #FFD700;
+  color: #000000;
+  border-color: #FFD700;
+}
+
+.bio-section p {
+  flex: 1;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #000000;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Gallery Integration within Salgueiro */
+.salgueiro__gallery {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-xl);
+  border-top: 6px solid #000000;
+}
+
+.gallery__title {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #000000;
+  margin-bottom: var(--spacing-sm);
+  text-align: center;
+}
+
+.gallery__line {
+  width: 100px;
+  height: 6px;
+  background-color: #FFD700;
+  margin: 0 auto var(--spacing-lg);
+  border: 2px solid #000000;
+}
+
+/* Responsive Bio */
+@media (max-width: 768px) {
+  .bio-title {
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+  }
+  
+  .bio-subtitle {
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+  }
+  
+  .bio-section {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  
+  .bio-highlight {
+    min-width: auto;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .bio-section p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .bio-intro {
+    padding: var(--spacing-md);
+  }
+  
+  .bio-title {
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+  }
+  
+  .bio-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .bio-section {
+    padding: var(--spacing-sm);
+  }
+  
+  .bio-section p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
 } 
