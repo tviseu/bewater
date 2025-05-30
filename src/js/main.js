@@ -602,9 +602,10 @@ class BrutalistGallery {
     closeBtn.onclick = () => this.debugPanel.style.display = 'none';
     this.debugPanel.appendChild(closeBtn);
     
-    // Add toggle button
+    // Add toggle button (hidden by default)
     const toggleBtn = document.createElement('button');
     toggleBtn.textContent = '🔍 DEBUG';
+    toggleBtn.id = 'gallery-debug-toggle';
     toggleBtn.style.cssText = `
       position: fixed;
       bottom: 20px;
@@ -618,6 +619,7 @@ class BrutalistGallery {
       cursor: pointer;
       z-index: 9998;
       box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+      display: none;
     `;
     toggleBtn.onclick = () => {
       this.debugPanel.style.display = this.debugPanel.style.display === 'none' ? 'block' : 'none';
@@ -631,7 +633,7 @@ class BrutalistGallery {
     document.body.appendChild(this.debugPanel);
     document.body.appendChild(toggleBtn);
     
-    this.addDebugMessage('🚀 Debug panel initialized (hidden by default)');
+    this.addDebugMessage('🚀 Debug panel initialized (completely hidden)');
   }
   
   addDebugMessage(message, type = 'info') {
