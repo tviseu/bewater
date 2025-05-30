@@ -887,8 +887,8 @@ class BrutalistGallery {
     // Log current directory structure for debugging
     this.addDebugMessage('📊 Testing image paths...');
     
-    // Simple iteration: gallery1, gallery2, gallery3, etc.
-    for (let i = 1; i <= 50; i++) {
+    // Simple iteration: gallery3, gallery4, gallery5, etc. (starting from 3 since gallery1&2 don't exist)
+    for (let i = 3; i <= 50; i++) {
       let foundImage = false;
       
       // Try each extension for this number
@@ -909,8 +909,8 @@ class BrutalistGallery {
       }
       
       // If we don't find an image for this number, stop looking
-      // (assumes images are numbered consecutively)
-      if (!foundImage && i > 3) {
+      // (assumes images are numbered consecutively after gaps)
+      if (!foundImage && i > 6) {
         this.addDebugMessage(`ℹ️ No gallery${i}.* found, stopping search at ${i-1}`, 'info');
         break;
       }

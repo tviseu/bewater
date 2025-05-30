@@ -94,6 +94,23 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
 }
 
+/* Scroll offset for sticky header navigation */
+section {
+  scroll-margin-top: 120px;
+}
+
+@media (max-width: 768px) {
+  section {
+    scroll-margin-top: 140px;
+  }
+}
+
+@media (max-width: 480px) {
+  section {
+    scroll-margin-top: 160px;
+  }
+}
+
 .header__container,
 .hero__container,
 .about__container,
@@ -2700,7 +2717,7 @@ body.menu-open .header__menu-toggle {
   align-items: flex-start;
   padding: var(--spacing-md);
   border: 4px solid #000000;
-  background-color: #FFFFFF;
+  background-color: #FFFDF5;
   box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
 }
@@ -2732,7 +2749,7 @@ body.menu-open .header__menu-toggle {
 }
 
 .bio-section--mission p {
-  color: #FFFFFF;
+  color: #FFFFFF !important;
 }
 
 .bio-highlight {
@@ -2777,9 +2794,8 @@ body.menu-open .header__menu-toggle {
 
 /* Gallery Integration within Salgueiro */
 .salgueiro__gallery {
-  margin-top: var(--spacing-xl);
-  padding-top: var(--spacing-xl);
-  border-top: 6px solid #000000;
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-md);
 }
 
 .gallery__title {
@@ -2850,5 +2866,135 @@ body.menu-open .header__menu-toggle {
   .bio-section p {
     font-size: 0.95rem;
     line-height: 1.5;
+  }
+}
+
+.bio-section--featured {
+  background-color: #FFD700;
+  border-color: #000000;
+  box-shadow: 8px 8px 0 #000000;
+}
+
+.bio-section--featured:hover {
+  box-shadow: 12px 12px 0 #000000;
+}
+
+.bio-section--light {
+  background-color: #FFFEF7;
+  border-color: #000000;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.15);
+}
+
+.bio-section--light:hover {
+  box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.25);
+}
+
+.bio-section--light .bio-highlight {
+  background-color: #000000;
+  color: #FFD700;
+  border-color: #000000;
+}
+
+.bio-section--gray {
+  background-color: #FFF9E6;
+  border-color: #000000;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.bio-section--gray:hover {
+  box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.3);
+}
+
+.bio-section--gray .bio-highlight {
+  background-color: #E6C200;
+  color: #000000;
+  border-color: #000000;
+}
+
+.bio-section--gray p {
+  color: #333333;
+}
+
+/* Salgueiro Image Styles */
+.salgueiro__image-container {
+  display: flex;
+  justify-content: center;
+  margin: var(--spacing-xl) 0;
+  padding: var(--spacing-md) 0;
+}
+
+.salgueiro__image {
+  max-width: 400px;
+  width: 100%;
+  background-color: #FFFFFF;
+  border: 6px solid #000000;
+  box-shadow: 12px 12px 0 #FFD700;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.salgueiro__image:hover {
+  transform: translate(-6px, -6px);
+  box-shadow: 18px 18px 0 #FFD700;
+}
+
+.salgueiro__image::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  background: linear-gradient(45deg, #FFD700, #000000, #FFD700);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.salgueiro__image:hover::before {
+  opacity: 0.1;
+}
+
+.salgueiro__photo {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.salgueiro__image:hover .salgueiro__photo {
+  transform: scale(1.02);
+}
+
+/* Responsive Salgueiro Image */
+@media (max-width: 768px) {
+  .salgueiro__image {
+    max-width: 350px;
+    border-width: 4px;
+    box-shadow: 8px 8px 0 #FFD700;
+  }
+  
+  .salgueiro__image:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 12px 12px 0 #FFD700;
+  }
+}
+
+@media (max-width: 480px) {
+  .salgueiro__image {
+    max-width: 300px;
+    border-width: 3px;
+    box-shadow: 6px 6px 0 #FFD700;
+  }
+  
+  .salgueiro__image:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 9px 9px 0 #FFD700;
+  }
+  
+  .salgueiro__image-container {
+    margin: var(--spacing-lg) 0;
   }
 } 
