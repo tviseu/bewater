@@ -409,10 +409,6 @@ section {
   box-sizing: border-box !important;
 }
 
-.carousel-slide.active {
-  /* Slide ativo não precisa de estilos especiais no CSS, é controlado pelo JS */
-}
-
 /* Manter os estilos originais dos pilares no carousel */
 .carousel-slide.pillar-frame--black {
   background-color: #FFFFFF !important;
@@ -857,11 +853,11 @@ section {
 }
 
 .trainer-card__image--joaquim {
-  background-image: url('../images/salgueiro-joaquim.png');
+  background-image: url('../images/salgueiro bicep.png');
 }
 
 .trainer-card__image--catarino {
-  background-image: url('../images/salgueiro bicep.png');
+  background-image: url('../images/salgueiro bicep2.png');
 }
 
 .trainer-card__content {
