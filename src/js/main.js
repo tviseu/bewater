@@ -379,6 +379,180 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+// Newsletter Form Handler - More Aggressive Approach
+// Run this immediately, not waiting for DOMContentLoaded
+(function() {
+  let newsletterHandlerAdded = false;
+  
+  function setupNewsletterHandler() {
+    if (newsletterHandlerAdded) return;
+    
+    const newsletterForm = document.querySelector('.footer__newsletter-form');
+    if (!newsletterForm) {
+      console.log('Newsletter form not found, retrying in 100ms...');
+      setTimeout(setupNewsletterHandler, 100);
+      return;
+    }
+    
+    console.log('Setting up newsletter form handler');
+    newsletterHandlerAdded = true;
+    
+    // Remove any existing action attribute to prevent default form submission
+    const originalAction = newsletterForm.getAttribute('action');
+    newsletterForm.removeAttribute('action');
+    
+    // Add multiple event listeners to catch any submission attempt
+    newsletterForm.addEventListener('submit', handleNewsletterSubmit, true); // Use capture
+    newsletterForm.addEventListener('submit', handleNewsletterSubmit, false); // Use bubble
+    
+    // Also handle button click directly
+    const submitBtn = newsletterForm.querySelector('button[type="submit"]');
+    if (submitBtn) {
+      submitBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        console.log('Newsletter button clicked');
+        handleNewsletterSubmit(e);
+      });
+    }
+    
+    // Handle Enter key on input
+    const emailInput = newsletterForm.querySelector('input[type="email"]');
+    if (emailInput) {
+      emailInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          console.log('Enter pressed on newsletter input');
+          handleNewsletterSubmit(e);
+        }
+      });
+    }
+    
+    async function handleNewsletterSubmit(e) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      
+      console.log('Newsletter form submit intercepted');
+      
+      const emailInput = newsletterForm.querySelector('input[type="email"]');
+      const submitBtn = newsletterForm.querySelector('button[type="submit"]');
+      
+      if (!emailInput || !submitBtn) {
+        console.error('Newsletter form elements not found');
+        return false;
+      }
+      
+      const email = emailInput.value.trim();
+      const originalText = submitBtn.textContent;
+      
+      // Validate email
+      if (!validateEmailNewsletter(email)) {
+        showNewsletterErrorNew('EMAIL INVÁLIDO!');
+        return false;
+      }
+      
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'A SUBSCREVER...';
+      
+      try {
+        console.log('Sending newsletter subscription to Formspree');
+        
+        // Create form data manually
+        const formData = new FormData();
+        formData.append('email', email);
+        formData.append('_subject', 'Nova subscrição newsletter BE WATER');
+        
+        const response = await fetch(originalAction, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+        
+        console.log('Newsletter response:', response.status, response.ok);
+        
+        if (response.ok) {
+          // Success - show thank you message
+          newsletterForm.innerHTML = `
+            <div class="newsletter-success">
+              <strong>✅ SUBSCRITO COM SUCESSO!</strong>
+              <br>
+              <small>Obrigado pelo interesse.</small>
+            </div>
+          `;
+          
+          const successDiv = newsletterForm.querySelector('.newsletter-success');
+          successDiv.style.cssText = `
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            padding: 1rem;
+            border: 2px solid var(--color-black);
+            text-align: center;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            text-transform: uppercase;
+            box-shadow: 4px 4px 0 var(--color-black);
+          `;
+          
+          console.log('Newsletter subscription successful');
+          
+        } else {
+          throw new Error(`HTTP ${response.status}`);
+        }
+      } catch (error) {
+        console.error('Newsletter subscription error:', error);
+        // Error - restore form and show error
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        showNewsletterErrorNew('ERRO NO ENVIO. TENTA NOVAMENTE.');
+      }
+      
+      return false;
+    }
+    
+    function showNewsletterErrorNew(message) {
+      // Remove existing errors
+      const existingErrors = newsletterForm.querySelectorAll('.newsletter-error');
+      existingErrors.forEach(error => error.remove());
+      
+      const errorDiv = document.createElement('div');
+      errorDiv.classList.add('newsletter-error');
+      errorDiv.textContent = message;
+      errorDiv.style.cssText = `
+        background-color: var(--color-black);
+        color: var(--color-white);
+        padding: 0.5rem;
+        margin-top: 0.5rem;
+        font-weight: 700;
+        border: 2px solid #ff0000;
+        text-align: center;
+        font-size: 0.9rem;
+      `;
+      
+      newsletterForm.appendChild(errorDiv);
+      
+      setTimeout(() => {
+        errorDiv.remove();
+      }, 5000);
+    }
+    
+    function validateEmailNewsletter(email) {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).toLowerCase());
+    }
+  }
+  
+  // Try to setup immediately
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupNewsletterHandler);
+  } else {
+    setupNewsletterHandler();
+  }
+})();
+
 // Form validation with brutalist error messages
 document.addEventListener('DOMContentLoaded', function() {
   const contactForm = document.querySelector('.contact__form');
@@ -500,165 +674,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
       }
     });
-  }
-  
-  // Newsletter form handler - Fix duplicate event listeners and Enter key issue
-  const newsletterForm = document.querySelector('.footer__newsletter-form');
-  
-  if (newsletterForm && !newsletterForm.hasAttribute('data-handler-added')) {
-    // Mark form as having handler to prevent duplicates
-    newsletterForm.setAttribute('data-handler-added', 'true');
-    
-    // Add submit event listener
-    newsletterForm.addEventListener('submit', async function(e) {
-      e.preventDefault(); // Always prevent default
-      e.stopPropagation(); // Stop event bubbling
-      
-      await handleNewsletterSubmission();
-    });
-    
-    // Add specific Enter key handling for the email input
-    const emailInput = newsletterForm.querySelector('input[type="email"]');
-    if (emailInput) {
-      emailInput.addEventListener('keydown', async function(e) {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          e.stopPropagation();
-          await handleNewsletterSubmission();
-        }
-      });
-    }
-    
-    // Newsletter submission handler
-    async function handleNewsletterSubmission() {
-      const emailInput = newsletterForm.querySelector('input[type="email"]');
-      const submitBtn = newsletterForm.querySelector('button[type="submit"]');
-      
-      if (!emailInput || !submitBtn) {
-        console.error('Newsletter form elements not found');
-        return;
-      }
-      
-      const originalText = submitBtn.textContent;
-      
-      // Validate email
-      if (!validateEmail(emailInput.value)) {
-        showNewsletterError('EMAIL INVÁLIDO!');
-        return;
-      }
-      
-      // Show loading state
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'A SUBSCREVER...';
-      
-      try {
-        // Send form data to Formspree via AJAX
-        const formData = new FormData(newsletterForm);
-        const response = await fetch(newsletterForm.action, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-        
-        if (response.ok) {
-          // Success - show thank you message
-          newsletterForm.innerHTML = `
-            <div class="newsletter-success">
-              <strong>✅ SUBSCRITO COM SUCESSO!</strong>
-              <br>
-              <small>Obrigado pelo interesse.</small>
-            </div>
-          `;
-          
-          const successDiv = newsletterForm.querySelector('.newsletter-success');
-          successDiv.style.cssText = `
-            background-color: var(--color-primary);
-            color: var(--color-white);
-            padding: 1rem;
-            border: 2px solid var(--color-black);
-            text-align: center;
-            font-family: var(--font-heading);
-            font-weight: 700;
-            text-transform: uppercase;
-            box-shadow: 4px 4px 0 var(--color-black);
-          `;
-          
-        } else {
-          throw new Error('Erro no envio');
-        }
-      } catch (error) {
-        // Error - restore form and show error
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalText;
-        showNewsletterError('ERRO NO ENVIO. TENTA NOVAMENTE.');
-      }
-    }
-  }
-
-  // Shared functions (moved outside but still accessible)
-  function showBrutalistError(field, message) {
-    const errorDiv = document.createElement('div');
-    errorDiv.classList.add('form-error');
-    errorDiv.textContent = message;
-    errorDiv.style.cssText = `
-      background-color: var(--color-black);
-      color: var(--color-white);
-      padding: 0.5rem;
-      margin-top: 0.5rem;
-      font-weight: 700;
-      border: 2px solid var(--color-primary);
-      transform: rotate(-1deg);
-    `;
-    
-    field.parentNode.appendChild(errorDiv);
-    
-    // Shake the field
-    field.style.transform = 'translateX(0)';
-    let shake = 0;
-    const shakeInterval = setInterval(() => {
-      field.style.transform = `translateX(${shake % 2 === 0 ? -5 : 5}px)`;
-      shake++;
-      if (shake > 5) {
-        clearInterval(shakeInterval);
-        field.style.transform = 'translateX(0)';
-      }
-    }, 50);
-  }
-
-  function showNewsletterError(message) {
-    const newsletterForm = document.querySelector('.footer__newsletter-form');
-    if (!newsletterForm) return;
-    
-    // Remove existing errors
-    const existingErrors = newsletterForm.querySelectorAll('.newsletter-error');
-    existingErrors.forEach(error => error.remove());
-    
-    const errorDiv = document.createElement('div');
-    errorDiv.classList.add('newsletter-error');
-    errorDiv.textContent = message;
-    errorDiv.style.cssText = `
-      background-color: var(--color-black);
-      color: var(--color-white);
-      padding: 0.5rem;
-      margin-top: 0.5rem;
-      font-weight: 700;
-      border: 2px solid #ff0000;
-      text-align: center;
-      font-size: 0.9rem;
-    `;
-    
-    newsletterForm.appendChild(errorDiv);
-    
-    setTimeout(() => {
-      errorDiv.remove();
-    }, 5000);
-  }
-
-  function validateEmail(email) {
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
   }
 });
 
@@ -1147,3 +1162,36 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Enhanced Brutalist Form Validation 
+function showBrutalistError(field, message) {
+  const errorDiv = document.createElement('div');
+  errorDiv.classList.add('form-error');
+  errorDiv.textContent = message;
+  errorDiv.style.cssText = `
+    background-color: var(--color-black);
+    color: var(--color-white);
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    font-weight: 700;
+    border: 2px solid var(--color-primary);
+    transform: rotate(-1deg);
+  `;
+  
+  field.parentNode.appendChild(errorDiv);
+  
+  // Shake the field
+  field.style.transform = 'translateX(0)';
+  let shake = 0;
+  const shakeInterval = setInterval(() => {
+    field.style.transform = `translateX(${shake % 2 === 0 ? -5 : 5}px)`;
+    shake++;
+    if (shake > 5) {
+      clearInterval(shakeInterval);
+      field.style.transform = 'translateX(0)';
+    }
+  }, 50);
+}
+
+function validateEmail(email) {
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+} 
