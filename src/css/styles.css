@@ -3392,3 +3392,183 @@ body.modal-open {
 }
 
 /* Contact Section */
+
+/* Water Effects */
+.water-effects {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  animation: fadeInWater 1s ease-out 0.5s forwards;
+}
+
+.water-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  z-index: 1;
+}
+
+.wave-path {
+  animation: waveMove 8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.wave-path--2 {
+  animation: waveMove 10s ease-in-out infinite reverse;
+}
+
+/* Water Drops */
+.water-drop {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(45deg, #00AEFF, #0088CC);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  opacity: 0;
+  box-shadow: 0 0 4px rgba(0, 174, 255, 0.3);
+}
+
+.water-drop--1 {
+  top: 10%;
+  left: 15%;
+  animation: dropFall 2s ease-out 0.8s forwards,
+             dropFade 2s ease-out 0.8s forwards;
+}
+
+.water-drop--2 {
+  top: 15%;
+  left: 25%;
+  animation: dropFall 2.2s ease-out 1.1s forwards,
+             dropFade 2.2s ease-out 1.1s forwards;
+}
+
+.water-drop--3 {
+  top: 8%;
+  left: 75%;
+  animation: dropFall 1.8s ease-out 1.4s forwards,
+             dropFade 1.8s ease-out 1.4s forwards;
+}
+
+.water-drop--4 {
+  top: 12%;
+  left: 85%;
+  animation: dropFall 2.1s ease-out 1.7s forwards,
+             dropFade 2.1s ease-out 1.7s forwards;
+}
+
+.water-drop--5 {
+  top: 18%;
+  left: 45%;
+  animation: dropFall 1.9s ease-out 2s forwards,
+             dropFade 1.9s ease-out 2s forwards;
+}
+
+.water-drop--6 {
+  top: 14%;
+  left: 65%;
+  animation: dropFall 2.3s ease-out 2.3s forwards,
+             dropFade 2.3s ease-out 2.3s forwards;
+}
+
+/* Water Animation Keyframes */
+@keyframes fadeInWater {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes waveMove {
+  0%, 100% {
+    transform: translateX(0) scaleY(1);
+  }
+  25% {
+    transform: translateX(-20px) scaleY(1.05);
+  }
+  50% {
+    transform: translateX(0) scaleY(0.95);
+  }
+  75% {
+    transform: translateX(20px) scaleY(1.02);
+  }
+}
+
+@keyframes dropFall {
+  0% {
+    transform: rotate(-45deg) translateY(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(-45deg) translateY(400px);
+    opacity: 0;
+  }
+}
+
+@keyframes dropFade {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Water Effects Responsive */
+@media (max-width: 768px) {
+  .water-wave {
+    height: 200px;
+  }
+  
+  .water-drop {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .water-drop--1,
+  .water-drop--2,
+  .water-drop--3,
+  .water-drop--4,
+  .water-drop--5,
+  .water-drop--6 {
+    animation-duration: 1.5s;
+  }
+}
+
+@media (max-width: 480px) {
+  .water-wave {
+    height: 150px;
+  }
+  
+  .water-drop {
+    width: 4px;
+    height: 4px;
+  }
+  
+  .water-effects {
+    animation-duration: 0.8s;
+  }
+}
