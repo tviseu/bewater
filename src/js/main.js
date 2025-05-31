@@ -389,12 +389,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const newsletterForm = document.querySelector('.footer__newsletter-form');
     if (!newsletterForm) {
-      console.log('Newsletter form not found, retrying in 100ms...');
       setTimeout(setupNewsletterHandler, 100);
       return;
     }
     
-    console.log('Setting up newsletter form handler');
     newsletterHandlerAdded = true;
     
     // Remove any existing action attribute to prevent default form submission
@@ -411,7 +409,6 @@ document.addEventListener('DOMContentLoaded', function() {
       submitBtn.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        console.log('Newsletter button clicked');
         handleNewsletterSubmit(e);
       });
     }
@@ -423,7 +420,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.key === 'Enter') {
           e.preventDefault();
           e.stopImmediatePropagation();
-          console.log('Enter pressed on newsletter input');
           handleNewsletterSubmit(e);
         }
       });
@@ -432,8 +428,6 @@ document.addEventListener('DOMContentLoaded', function() {
     async function handleNewsletterSubmit(e) {
       e.preventDefault();
       e.stopImmediatePropagation();
-      
-      console.log('Newsletter form submit intercepted');
       
       const emailInput = newsletterForm.querySelector('input[type="email"]');
       const submitBtn = newsletterForm.querySelector('button[type="submit"]');
@@ -457,8 +451,6 @@ document.addEventListener('DOMContentLoaded', function() {
       submitBtn.textContent = 'A SUBSCREVER...';
       
       try {
-        console.log('Sending newsletter subscription to Formspree');
-        
         // Create form data manually
         const formData = new FormData();
         formData.append('email', email);
@@ -471,8 +463,6 @@ document.addEventListener('DOMContentLoaded', function() {
             'Accept': 'application/json'
           }
         });
-        
-        console.log('Newsletter response:', response.status, response.ok);
         
         if (response.ok) {
           // Success - show thank you message
@@ -496,8 +486,6 @@ document.addEventListener('DOMContentLoaded', function() {
             text-transform: uppercase;
             box-shadow: 4px 4px 0 var(--color-black);
           `;
-          
-          console.log('Newsletter subscription successful');
           
         } else {
           throw new Error(`HTTP ${response.status}`);
