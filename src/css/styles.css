@@ -844,16 +844,24 @@ section {
   border-bottom: var(--border-thick);
 }
 
-.trainer-card__image--1 {
+.trainer-card__image--salgueiro {
+  background-image: url('../images/salgueiro2.png');
+}
+
+.trainer-card__image--segurado {
   background-image: url('../images/7c18eef0-2694-4241-aadd-2e9fa2d0d8ae.png');
 }
 
-.trainer-card__image--2 {
+.trainer-card__image--morgado {
   background-image: url('../images/d88af4ef-e380-4b56-96c2-71197a7a6f72.png');
 }
 
-.trainer-card__image--3 {
+.trainer-card__image--joaquim {
   background-image: url('../images/ccd81ca1-257a-4edf-b66c-ce2498a30dfa.png');
+}
+
+.trainer-card__image--catarino {
+  background-image: url('../images/7b76cb8d-f94f-46be-be70-b470f40b6856.png');
 }
 
 .trainer-card__content {
@@ -1038,9 +1046,10 @@ section {
 
 .contact__hours-grid {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto auto auto 1fr;
   gap: var(--spacing-xs) var(--spacing-sm);
   font-size: 0.9rem;
+  line-height: 1.4;
 }
 
 .contact__social-icons {
@@ -1178,6 +1187,8 @@ section {
   
   .contact__hours-grid {
     font-size: 0.85rem;
+    grid-template-columns: auto auto auto 1fr;
+    gap: var(--spacing-xs) var(--spacing-sm);
   }
   
   .contact__social-icons {
