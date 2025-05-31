@@ -553,7 +553,7 @@
           </div>
         </div>
         <div class="contact__form-container">
-          <form class="contact__form">
+          <form class="contact__form" action="https://formspree.io/f/xblyrpwd" method="POST">
             <div class="form-group">
               <label for="name">NOME</label>
               <input type="text" id="name" name="name" required>
@@ -570,6 +570,9 @@
               <label for="message">MENSAGEM</label>
               <textarea id="message" name="message" rows="5" required></textarea>
             </div>
+            <!-- Formspree configuration -->
+            <input type="hidden" name="_subject" value="Nova mensagem BE WATER">
+            <input type="hidden" name="_replyto" value="email">
             <button type="submit" class="btn btn--full">ENVIAR MENSAGEM</button>
           </form>
         </div>
@@ -614,8 +617,10 @@
         <!-- Newsletter Section -->
         <div class="footer__newsletter-section">
           <h4 class="footer__section-title">NEWSLETTER</h4>
-          <form class="footer__newsletter-form">
-            <input type="email" placeholder="O teu email" class="footer__newsletter-input" required>
+          <form class="footer__newsletter-form" action="https://formspree.io/f/mnnvaowp" method="POST">
+            <input type="email" name="email" placeholder="O teu email" class="footer__newsletter-input" required>
+            <!-- Formspree configuration -->
+            <input type="hidden" name="_subject" value="Nova subscrição newsletter BE WATER">
             <button type="submit" class="footer__newsletter-btn">SUBSCREVER</button>
           </form>
         </div>

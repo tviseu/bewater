@@ -384,8 +384,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const contactForm = document.querySelector('.contact__form');
   
   if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-      e.preventDefault();
+    contactForm.addEventListener('submit', async function(e) {
+      e.preventDefault(); // Always prevent default - we handle submission via AJAX
       
       // Remove any existing error messages
       const existingErrors = contactForm.querySelectorAll('.form-error');
@@ -416,32 +416,87 @@ document.addEventListener('DOMContentLoaded', function() {
         valid = false;
       }
       
-      if (valid) {
-        // Simulate form submission with brutalist confirmation
-        const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
+      if (!valid) {
+        return;
+      }
+      
+      // Show loading state
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'A ENVIAR...';
+      
+      try {
+        // Send form data to Formspree via AJAX
+        const formData = new FormData(contactForm);
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
         
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'A ENVIAR...';
-        
-        setTimeout(() => {
+        if (response.ok) {
+          // Success - show thank you message
           contactForm.innerHTML = `
             <div class="form-success">
-              <h3>MENSAGEM RECEBIDA.</h3>
-              <p>Vamos responder se acharmos que vale o nosso tempo.</p>
+              <h3>MENSAGEM RECEBIDA!</h3>
+              <p>Obrigado pelo teu contacto. A nossa equipa irá responder-te brevemente.</p>
+              <p><strong>BE WATER, MY FRIEND.</strong></p>
             </div>
           `;
           
           const formSuccess = contactForm.querySelector('.form-success');
           formSuccess.style.cssText = `
-            padding: 2rem;
+            padding: 3rem;
             border: 4px solid var(--color-black);
             background-color: var(--color-primary);
             color: var(--color-white);
             text-align: center;
             box-shadow: 8px 8px 0 var(--color-black);
+            font-family: var(--font-heading);
+            text-transform: uppercase;
           `;
-        }, 1500);
+          
+          formSuccess.querySelector('h3').style.cssText = `
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 900;
+          `;
+          
+          formSuccess.querySelector('p').style.cssText = `
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+          `;
+        } else {
+          throw new Error('Erro no envio');
+        }
+      } catch (error) {
+        // Error - restore form and show error
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        
+        const errorDiv = document.createElement('div');
+        errorDiv.classList.add('form-error');
+        errorDiv.textContent = 'ERRO NO ENVIO. TENTA NOVAMENTE.';
+        errorDiv.style.cssText = `
+          background-color: var(--color-black);
+          color: var(--color-white);
+          padding: 1rem;
+          margin-top: 1rem;
+          font-weight: 700;
+          border: 2px solid #ff0000;
+          text-align: center;
+          transform: rotate(-1deg);
+        `;
+        
+        contactForm.appendChild(errorDiv);
+        
+        setTimeout(() => {
+          errorDiv.remove();
+        }, 5000);
       }
     });
     
@@ -472,6 +527,103 @@ document.addEventListener('DOMContentLoaded', function() {
           field.style.transform = 'translateX(0)';
         }
       }, 50);
+    }
+    
+    function validateEmail(email) {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).toLowerCase());
+    }
+  }
+  
+  // Newsletter form handler
+  const newsletterForm = document.querySelector('.footer__newsletter-form');
+  
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const emailInput = newsletterForm.querySelector('input[type="email"]');
+      const submitBtn = newsletterForm.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      
+      // Validate email
+      if (!validateEmail(emailInput.value)) {
+        showNewsletterError('EMAIL INVÁLIDO!');
+        return;
+      }
+      
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'A SUBSCREVER...';
+      
+      try {
+        // Send form data to Formspree via AJAX
+        const formData = new FormData(newsletterForm);
+        const response = await fetch(newsletterForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+        
+        if (response.ok) {
+          // Success - show thank you message
+          newsletterForm.innerHTML = `
+            <div class="newsletter-success">
+              <strong>✅ SUBSCRITO COM SUCESSO!</strong>
+              <br>
+              <small>Obrigado pelo interesse.</small>
+            </div>
+          `;
+          
+          const successDiv = newsletterForm.querySelector('.newsletter-success');
+          successDiv.style.cssText = `
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            padding: 1rem;
+            border: 2px solid var(--color-black);
+            text-align: center;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            text-transform: uppercase;
+          `;
+          
+        } else {
+          throw new Error('Erro no envio');
+        }
+      } catch (error) {
+        // Error - restore form and show error
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+        showNewsletterError('ERRO NO ENVIO. TENTA NOVAMENTE.');
+      }
+    });
+    
+    function showNewsletterError(message) {
+      // Remove existing errors
+      const existingErrors = newsletterForm.querySelectorAll('.newsletter-error');
+      existingErrors.forEach(error => error.remove());
+      
+      const errorDiv = document.createElement('div');
+      errorDiv.classList.add('newsletter-error');
+      errorDiv.textContent = message;
+      errorDiv.style.cssText = `
+        background-color: var(--color-black);
+        color: var(--color-white);
+        padding: 0.5rem;
+        margin-top: 0.5rem;
+        font-weight: 700;
+        border: 2px solid #ff0000;
+        text-align: center;
+        font-size: 0.9rem;
+      `;
+      
+      newsletterForm.appendChild(errorDiv);
+      
+      setTimeout(() => {
+        errorDiv.remove();
+      }, 5000);
     }
     
     function validateEmail(email) {
