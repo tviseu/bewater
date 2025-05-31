@@ -383,7 +383,8 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
   const contactForm = document.querySelector('.contact__form');
   
-  if (contactForm) {
+  if (contactForm && !contactForm.hasAttribute('data-handler-added')) {
+    contactForm.setAttribute('data-handler-added', 'true');
     contactForm.addEventListener('submit', async function(e) {
       e.preventDefault(); // Always prevent default - we handle submission via AJAX
       
@@ -499,51 +500,45 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
       }
     });
-    
-    function showBrutalistError(field, message) {
-      const errorDiv = document.createElement('div');
-      errorDiv.classList.add('form-error');
-      errorDiv.textContent = message;
-      errorDiv.style.cssText = `
-        background-color: var(--color-black);
-        color: var(--color-white);
-        padding: 0.5rem;
-        margin-top: 0.5rem;
-        font-weight: 700;
-        border: 2px solid var(--color-primary);
-        transform: rotate(-1deg);
-      `;
-      
-      field.parentNode.appendChild(errorDiv);
-      
-      // Shake the field
-      field.style.transform = 'translateX(0)';
-      let shake = 0;
-      const shakeInterval = setInterval(() => {
-        field.style.transform = `translateX(${shake % 2 === 0 ? -5 : 5}px)`;
-        shake++;
-        if (shake > 5) {
-          clearInterval(shakeInterval);
-          field.style.transform = 'translateX(0)';
-        }
-      }, 50);
-    }
-    
-    function validateEmail(email) {
-      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(String(email).toLowerCase());
-    }
   }
   
-  // Newsletter form handler
+  // Newsletter form handler - Fix duplicate event listeners and Enter key issue
   const newsletterForm = document.querySelector('.footer__newsletter-form');
   
-  if (newsletterForm) {
+  if (newsletterForm && !newsletterForm.hasAttribute('data-handler-added')) {
+    // Mark form as having handler to prevent duplicates
+    newsletterForm.setAttribute('data-handler-added', 'true');
+    
+    // Add submit event listener
     newsletterForm.addEventListener('submit', async function(e) {
-      e.preventDefault();
+      e.preventDefault(); // Always prevent default
+      e.stopPropagation(); // Stop event bubbling
       
+      await handleNewsletterSubmission();
+    });
+    
+    // Add specific Enter key handling for the email input
+    const emailInput = newsletterForm.querySelector('input[type="email"]');
+    if (emailInput) {
+      emailInput.addEventListener('keydown', async function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          e.stopPropagation();
+          await handleNewsletterSubmission();
+        }
+      });
+    }
+    
+    // Newsletter submission handler
+    async function handleNewsletterSubmission() {
       const emailInput = newsletterForm.querySelector('input[type="email"]');
       const submitBtn = newsletterForm.querySelector('button[type="submit"]');
+      
+      if (!emailInput || !submitBtn) {
+        console.error('Newsletter form elements not found');
+        return;
+      }
+      
       const originalText = submitBtn.textContent;
       
       // Validate email
@@ -587,6 +582,7 @@ document.addEventListener('DOMContentLoaded', function() {
             font-family: var(--font-heading);
             font-weight: 700;
             text-transform: uppercase;
+            box-shadow: 4px 4px 0 var(--color-black);
           `;
           
         } else {
@@ -598,38 +594,71 @@ document.addEventListener('DOMContentLoaded', function() {
         submitBtn.textContent = originalText;
         showNewsletterError('ERRO NO ENVIO. TENTA NOVAMENTE.');
       }
-    });
-    
-    function showNewsletterError(message) {
-      // Remove existing errors
-      const existingErrors = newsletterForm.querySelectorAll('.newsletter-error');
-      existingErrors.forEach(error => error.remove());
-      
-      const errorDiv = document.createElement('div');
-      errorDiv.classList.add('newsletter-error');
-      errorDiv.textContent = message;
-      errorDiv.style.cssText = `
-        background-color: var(--color-black);
-        color: var(--color-white);
-        padding: 0.5rem;
-        margin-top: 0.5rem;
-        font-weight: 700;
-        border: 2px solid #ff0000;
-        text-align: center;
-        font-size: 0.9rem;
-      `;
-      
-      newsletterForm.appendChild(errorDiv);
-      
-      setTimeout(() => {
-        errorDiv.remove();
-      }, 5000);
     }
+  }
+
+  // Shared functions (moved outside but still accessible)
+  function showBrutalistError(field, message) {
+    const errorDiv = document.createElement('div');
+    errorDiv.classList.add('form-error');
+    errorDiv.textContent = message;
+    errorDiv.style.cssText = `
+      background-color: var(--color-black);
+      color: var(--color-white);
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      font-weight: 700;
+      border: 2px solid var(--color-primary);
+      transform: rotate(-1deg);
+    `;
     
-    function validateEmail(email) {
-      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(String(email).toLowerCase());
-    }
+    field.parentNode.appendChild(errorDiv);
+    
+    // Shake the field
+    field.style.transform = 'translateX(0)';
+    let shake = 0;
+    const shakeInterval = setInterval(() => {
+      field.style.transform = `translateX(${shake % 2 === 0 ? -5 : 5}px)`;
+      shake++;
+      if (shake > 5) {
+        clearInterval(shakeInterval);
+        field.style.transform = 'translateX(0)';
+      }
+    }, 50);
+  }
+
+  function showNewsletterError(message) {
+    const newsletterForm = document.querySelector('.footer__newsletter-form');
+    if (!newsletterForm) return;
+    
+    // Remove existing errors
+    const existingErrors = newsletterForm.querySelectorAll('.newsletter-error');
+    existingErrors.forEach(error => error.remove());
+    
+    const errorDiv = document.createElement('div');
+    errorDiv.classList.add('newsletter-error');
+    errorDiv.textContent = message;
+    errorDiv.style.cssText = `
+      background-color: var(--color-black);
+      color: var(--color-white);
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      font-weight: 700;
+      border: 2px solid #ff0000;
+      text-align: center;
+      font-size: 0.9rem;
+    `;
+    
+    newsletterForm.appendChild(errorDiv);
+    
+    setTimeout(() => {
+      errorDiv.remove();
+    }, 5000);
+  }
+
+  function validateEmail(email) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
   }
 });
 
