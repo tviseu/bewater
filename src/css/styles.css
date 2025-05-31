@@ -1555,13 +1555,14 @@ section {
 .logo-container {
   max-width: min(600px, 45vw);
   width: 100%;
-  height: clamp(50px, 10vw, 80px);
-  padding: 0.75rem;
+  height: clamp(100px, 18vw, 150px);
+  padding: 0.75rem 0.75rem 0.75rem 0.75rem;
   border: 4px solid #000000;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background: #FFFFFF;
@@ -1577,10 +1578,22 @@ section {
 .header__logo-img {
   max-width: 100%;
   width: 100%;
-  height: clamp(45px, 9vw, 70px);
+  height: clamp(35px, 7vw, 55px);
   display: block;
   object-fit: contain;
   transition: all 0.3s ease;
+}
+
+.header__logo-tagline {
+  text-align: center;
+  font-family: var(--font-primary);
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  font-weight: 600;
+  color: #0088CC;
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1;
 }
 
 .footer__logo-img {
@@ -1605,7 +1618,7 @@ section {
   justify-content: space-between;
   align-items: center;
   padding: var(--spacing-xs) 0;
-  min-height: clamp(70px, 12vw, 80px);
+  min-height: clamp(120px, 20vw, 160px);
   transition: all 0.3s ease;
 }
 
@@ -1622,12 +1635,15 @@ section {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  height: 100%;
 }
 
 .header__nav ul {
   display: flex;
   list-style: none;
   gap: var(--spacing-md);
+  align-items: center;
+  height: 100%;
 }
 
 .header__nav li {
@@ -1636,14 +1652,17 @@ section {
 
 .header__nav a {
   font-weight: 800;
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   position: relative;
   color: #000000;
   text-decoration: none;
-  padding: var(--spacing-xs) var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-sm);
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 .header__nav a::after {
@@ -1670,7 +1689,7 @@ section {
 @media (max-width: 1200px) {
   .logo-container {
     max-width: min(500px, 40vw);
-    height: clamp(45px, 8vw, 70px);
+    height: clamp(90px, 16vw, 130px) !important;
   }
   
   .header__logo-img {
@@ -1686,7 +1705,7 @@ section {
   }
   
   .header__nav a {
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 700;
   }
 }
@@ -1694,7 +1713,7 @@ section {
 @media (max-width: 1024px) {
   .logo-container {
     max-width: min(450px, 38vw);
-    height: clamp(40px, 7vw, 60px);
+    height: clamp(85px, 15vw, 120px) !important;
   }
   
   .header__logo-img {
@@ -1707,7 +1726,7 @@ section {
   }
   
   .header__nav a {
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     font-weight: 700;
     padding: var(--spacing-xs);
   }
@@ -1721,11 +1740,11 @@ section {
 @media (max-width: 992px) {
   .logo-container {
     max-width: min(400px, 60vw);
-    height: clamp(50px, 8vw, 70px);
+    height: clamp(80px, 14vw, 110px) !important;
   }
   
   .header__logo-img {
-    height: clamp(45px, 7vw, 65px);
+    height: clamp(40px, 6vw, 55px);
   }
   
   .header__logo {
@@ -1843,13 +1862,13 @@ section {
 @media (max-width: 768px) {
   .logo-container {
     max-width: min(350px, 70vw);
-    height: clamp(60px, 10vw, 80px);
+    height: clamp(90px, 16vw, 120px) !important;
     padding: 0.75rem;
     border-width: 4px;
   }
   
   .header__logo-img {
-    height: clamp(55px, 9vw, 75px);
+    height: clamp(45px, 8vw, 65px);
   }
   
   .header__logo {
@@ -1858,20 +1877,20 @@ section {
   }
   
   .header__container {
-    min-height: clamp(90px, 14vw, 100px);
+    min-height: clamp(110px, 18vw, 130px);
   }
 }
 
 @media (max-width: 576px) {
   .logo-container {
     max-width: min(320px, 75vw);
-    height: clamp(65px, 12vw, 85px);
+    height: clamp(95px, 18vw, 125px) !important;
     padding: 1rem;
     border-width: 4px;
   }
   
   .header__logo-img {
-    height: clamp(60px, 11vw, 80px);
+    height: clamp(50px, 10vw, 70px);
   }
   
   .header__logo {
@@ -1880,19 +1899,19 @@ section {
   }
   
   .header__container {
-    min-height: clamp(100px, 16vw, 110px);
+    min-height: clamp(115px, 20vw, 135px);
   }
 }
 
 @media (max-width: 480px) {
   .logo-container {
     max-width: min(300px, 80vw);
-    height: clamp(70px, 14vw, 90px);
+    height: clamp(100px, 20vw, 130px) !important;
     padding: 1rem;
   }
   
   .header__logo-img {
-    height: clamp(65px, 13vw, 85px);
+    height: clamp(55px, 12vw, 75px);
   }
   
   .header__logo {
@@ -1901,7 +1920,7 @@ section {
   }
   
   .header__container {
-    min-height: clamp(110px, 18vw, 120px);
+    min-height: clamp(120px, 22vw, 140px);
   }
 }
 
@@ -1953,7 +1972,7 @@ section {
 
 .mobile-menu a {
   font-family: var(--font-heading);
-  font-size: 1.8rem;
+  font-size: 1.3rem;
   font-weight: 900;
   display: block;
   transition: all 0.3s;
@@ -2006,14 +2025,14 @@ body.menu-open .header__menu-toggle {
   justify-content: space-between;
   align-items: center;
   padding: var(--spacing-xs) 0;
-  min-height: clamp(60px, 10vw, 80px);
+  min-height: clamp(120px, 20vw, 160px);
   transition: all 0.3s ease;
 }
 
 .header__logo {
   flex: 0 0 auto;
-  min-width: clamp(200px, 25vw, 600px);
-  max-width: clamp(300px, 45vw, 600px);
+  min-width: clamp(250px, 30vw, 600px);
+  max-width: clamp(350px, 50vw, 600px);
   z-index: 1000;
   transition: all 0.3s ease;
 }
@@ -2023,12 +2042,15 @@ body.menu-open .header__menu-toggle {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  height: 100%;
 }
 
 .header__nav ul {
   display: flex;
   list-style: none;
   gap: var(--spacing-md);
+  align-items: center;
+  height: 100%;
 }
 
 /* Ensure nav doesn't overflow and hide logo */
@@ -2061,17 +2083,21 @@ body.menu-open .header__menu-toggle {
 
 /* Hero Section */
 .hero {
-  min-height: calc(100vh - 80px);
+  min-height: 70vh;
   background-color: #FFFDF0;
   color: #000000;
   position: relative;
   overflow: hidden;
   padding: var(--spacing-lg) 0;
+  display: flex;
+  align-items: center;
 }
 
 .hero__container {
   position: relative;
-  z-index: 2;
+  z-index: 5;
+  width: 100%;
+  padding: 0 var(--spacing-lg);
 }
 
 .hero__title {
@@ -2227,7 +2253,7 @@ button.btn:active {
 
 .hero__container {
   position: relative;
-  z-index: 2;
+  z-index: 5;
 }
 
 .hero__title {
@@ -3401,81 +3427,130 @@ body.modal-open {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 1;
+  z-index: 3;
   opacity: 0;
   animation: fadeInWater 1s ease-out 0.5s forwards;
 }
 
-.water-wave {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 300px;
-  z-index: 1;
-}
-
-.wave-path {
-  animation: waveMove 8s ease-in-out infinite;
-  transform-origin: center;
-}
-
-.wave-path--2 {
-  animation: waveMove 10s ease-in-out infinite reverse;
-}
-
-/* Water Drops */
+/* Water Drops - Larger and more distributed */
 .water-drop {
   position: absolute;
-  width: 8px;
-  height: 8px;
+  width: 24px;
+  height: 24px;
   background: linear-gradient(45deg, #00AEFF, #0088CC);
   border-radius: 50% 50% 50% 0;
-  transform: rotate(-45deg);
+  transform: rotate(135deg);
   opacity: 0;
-  box-shadow: 0 0 4px rgba(0, 174, 255, 0.3);
+  box-shadow: 0 0 12px rgba(0, 174, 255, 0.5);
+  z-index: 4;
 }
 
 .water-drop--1 {
-  top: 10%;
-  left: 15%;
-  animation: dropFall 2s ease-out 0.8s forwards,
-             dropFade 2s ease-out 0.8s forwards;
+  top: 15%;
+  left: 10%;
+  width: 28px;
+  height: 28px;
+  animation: dropFall 2.5s ease-out 0.8s forwards,
+             dropFade 2.5s ease-out 0.8s forwards;
 }
 
 .water-drop--2 {
-  top: 15%;
+  top: 25%;
   left: 25%;
-  animation: dropFall 2.2s ease-out 1.1s forwards,
-             dropFade 2.2s ease-out 1.1s forwards;
+  width: 32px;
+  height: 32px;
+  animation: dropFall 2.8s ease-out 1.1s forwards,
+             dropFade 2.8s ease-out 1.1s forwards;
 }
 
 .water-drop--3 {
-  top: 8%;
-  left: 75%;
-  animation: dropFall 1.8s ease-out 1.4s forwards,
-             dropFade 1.8s ease-out 1.4s forwards;
+  top: 18%;
+  left: 45%;
+  width: 26px;
+  height: 26px;
+  animation: dropFall 2.3s ease-out 1.4s forwards,
+             dropFade 2.3s ease-out 1.4s forwards;
 }
 
 .water-drop--4 {
-  top: 12%;
-  left: 85%;
-  animation: dropFall 2.1s ease-out 1.7s forwards,
-             dropFade 2.1s ease-out 1.7s forwards;
+  top: 30%;
+  left: 65%;
+  width: 30px;
+  height: 30px;
+  animation: dropFall 2.6s ease-out 1.7s forwards,
+             dropFade 2.6s ease-out 1.7s forwards;
 }
 
 .water-drop--5 {
-  top: 18%;
-  left: 45%;
-  animation: dropFall 1.9s ease-out 2s forwards,
-             dropFade 1.9s ease-out 2s forwards;
+  top: 20%;
+  left: 80%;
+  width: 34px;
+  height: 34px;
+  animation: dropFall 2.4s ease-out 2s forwards,
+             dropFade 2.4s ease-out 2s forwards;
 }
 
 .water-drop--6 {
-  top: 14%;
-  left: 65%;
-  animation: dropFall 2.3s ease-out 2.3s forwards,
-             dropFade 2.3s ease-out 2.3s forwards;
+  top: 35%;
+  left: 15%;
+  width: 24px;
+  height: 24px;
+  animation: dropFall 2.7s ease-out 2.3s forwards,
+             dropFade 2.7s ease-out 2.3s forwards;
+}
+
+.water-drop--7 {
+  top: 12%;
+  left: 35%;
+  width: 28px;
+  height: 28px;
+  animation: dropFall 2.2s ease-out 0.6s forwards,
+             dropFade 2.2s ease-out 0.6s forwards;
+}
+
+.water-drop--8 {
+  top: 28%;
+  left: 55%;
+  width: 26px;
+  height: 26px;
+  animation: dropFall 2.9s ease-out 1.3s forwards,
+             dropFade 2.9s ease-out 1.3s forwards;
+}
+
+.water-drop--9 {
+  top: 22%;
+  left: 75%;
+  width: 30px;
+  height: 30px;
+  animation: dropFall 2.1s ease-out 1.6s forwards,
+             dropFade 2.1s ease-out 1.6s forwards;
+}
+
+.water-drop--10 {
+  top: 38%;
+  left: 40%;
+  width: 32px;
+  height: 32px;
+  animation: dropFall 2.5s ease-out 1.9s forwards,
+             dropFade 2.5s ease-out 1.9s forwards;
+}
+
+.water-drop--11 {
+  top: 16%;
+  left: 60%;
+  width: 26px;
+  height: 26px;
+  animation: dropFall 2.4s ease-out 2.2s forwards,
+             dropFade 2.4s ease-out 2.2s forwards;
+}
+
+.water-drop--12 {
+  top: 32%;
+  left: 85%;
+  width: 28px;
+  height: 28px;
+  animation: dropFall 2.6s ease-out 2.5s forwards,
+             dropFade 2.6s ease-out 2.5s forwards;
 }
 
 /* Water Animation Keyframes */
@@ -3490,34 +3565,24 @@ body.modal-open {
   }
 }
 
-@keyframes waveMove {
-  0%, 100% {
-    transform: translateX(0) scaleY(1);
-  }
-  25% {
-    transform: translateX(-20px) scaleY(1.05);
-  }
-  50% {
-    transform: translateX(0) scaleY(0.95);
-  }
-  75% {
-    transform: translateX(20px) scaleY(1.02);
-  }
-}
-
 @keyframes dropFall {
   0% {
-    transform: rotate(-45deg) translateY(0);
+    transform: rotate(135deg) translateY(-100vh) translateX(100px);
     opacity: 0;
   }
   10% {
     opacity: 1;
   }
+  50% {
+    opacity: 1;
+    transform: rotate(135deg) translateY(0) translateX(0);
+  }
   90% {
     opacity: 1;
+    transform: rotate(135deg) translateY(0) translateX(0);
   }
   100% {
-    transform: rotate(-45deg) translateY(400px);
+    transform: rotate(135deg) translateY(400px) translateX(-100px);
     opacity: 0;
   }
 }
@@ -3539,36 +3604,333 @@ body.modal-open {
 
 /* Water Effects Responsive */
 @media (max-width: 768px) {
-  .water-wave {
-    height: 200px;
+  .hero {
+    min-height: 60vh;
+    padding: var(--spacing-md) 0;
   }
   
   .water-drop {
-    width: 6px;
-    height: 6px;
+    width: 18px;
+    height: 18px;
   }
   
-  .water-drop--1,
-  .water-drop--2,
-  .water-drop--3,
-  .water-drop--4,
-  .water-drop--5,
-  .water-drop--6 {
-    animation-duration: 1.5s;
+  .water-drop--1 { width: 22px; height: 22px; }
+  .water-drop--2 { width: 24px; height: 24px; }
+  .water-drop--3 { width: 20px; height: 20px; }
+  .water-drop--4 { width: 22px; height: 22px; }
+  .water-drop--5 { width: 26px; height: 26px; }
+  .water-drop--6 { width: 18px; height: 18px; }
+  .water-drop--7 { width: 22px; height: 22px; }
+  .water-drop--8 { width: 20px; height: 20px; }
+  .water-drop--9 { width: 24px; height: 24px; }
+  .water-drop--10 { width: 24px; height: 24px; }
+  .water-drop--11 { width: 20px; height: 20px; }
+  .water-drop--12 { width: 22px; height: 22px; }
+  
+  .water-drop--1, .water-drop--2, .water-drop--3, .water-drop--4,
+  .water-drop--5, .water-drop--6, .water-drop--7, .water-drop--8,
+  .water-drop--9, .water-drop--10, .water-drop--11, .water-drop--12 {
+    animation-duration: 1.8s;
   }
 }
 
 @media (max-width: 480px) {
-  .water-wave {
-    height: 150px;
+  .hero {
+    min-height: 50vh;
+    padding: var(--spacing-sm) 0;
   }
   
   .water-drop {
-    width: 4px;
-    height: 4px;
+    width: 16px;
+    height: 16px;
   }
+  
+  .water-drop--1 { width: 20px; height: 20px; }
+  .water-drop--2 { width: 22px; height: 22px; }
+  .water-drop--3 { width: 18px; height: 18px; }
+  .water-drop--4 { width: 20px; height: 20px; }
+  .water-drop--5 { width: 24px; height: 24px; }
+  .water-drop--6 { width: 16px; height: 16px; }
+  .water-drop--7 { width: 20px; height: 20px; }
+  .water-drop--8 { width: 18px; height: 18px; }
+  .water-drop--9 { width: 22px; height: 22px; }
+  .water-drop--10 { width: 22px; height: 22px; }
+  .water-drop--11 { width: 18px; height: 18px; }
+  .water-drop--12 { width: 20px; height: 20px; }
   
   .water-effects {
     animation-duration: 0.8s;
+  }
+}
+
+/* Salgueiro Social Media Section */
+.salgueiro__social {
+  margin: var(--spacing-xl) 0;
+}
+
+.salgueiro__social-intro {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.salgueiro__social-intro p {
+  font-family: var(--font-primary);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333333;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.salgueiro__social-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin: var(--spacing-lg) 0;
+  padding: var(--spacing-sm);
+  background-color: var(--color-accent);
+  border: var(--border-thick);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-primary);
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.salgueiro__social-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: var(--color-primary);
+  padding: var(--spacing-sm);
+  transition: all 0.3s;
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  flex: 0 0 calc(50% - var(--spacing-sm)/2);
+  min-width: 140px;
+}
+
+.salgueiro__social-item:nth-child(3) {
+  flex: 0 0 calc(50% - var(--spacing-sm)/2);
+  margin: 0 auto;
+}
+
+.salgueiro__social-item:hover {
+  transform: translate(-2px, -2px);
+  background-color: var(--color-primary);
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.salgueiro__social-item:hover i,
+.salgueiro__social-item:hover .salgueiro__social-number,
+.salgueiro__social-item:hover .salgueiro__social-label {
+  color: var(--color-accent);
+}
+
+.salgueiro__social-item i {
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-primary);
+}
+
+.salgueiro__social-number {
+  font-family: var(--font-heading);
+  font-size: 2.2rem;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-primary);
+}
+
+.salgueiro__social-label {
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: var(--color-primary);
+  font-family: var(--font-heading);
+}
+
+/* Responsive Salgueiro Social */
+@media (max-width: 768px) {
+  .salgueiro__social-intro p {
+    font-size: 1rem;
+  }
+  
+  .salgueiro__social-stats {
+    max-width: 500px;
+    gap: var(--spacing-xs);
+  }
+  
+  .salgueiro__social-item {
+    flex: 0 0 calc(50% - var(--spacing-xs)/2);
+    min-width: 120px;
+    padding: var(--spacing-xs);
+  }
+  
+  .salgueiro__social-item:nth-child(3) {
+    flex: 0 0 calc(50% - var(--spacing-xs)/2);
+  }
+}
+
+@media (max-width: 480px) {
+  .salgueiro__social-intro p {
+    font-size: 0.95rem;
+    padding: 0 var(--spacing-sm);
+  }
+  
+  .salgueiro__social-stats {
+    max-width: 350px;
+    gap: var(--spacing-xs);
+  }
+  
+  .salgueiro__social-item {
+    flex: 0 0 calc(50% - var(--spacing-xs)/2);
+    min-width: 100px;
+    padding: var(--spacing-xs);
+  }
+  
+  .salgueiro__social-item:nth-child(3) {
+    flex: 0 0 calc(50% - var(--spacing-xs)/2);
+  }
+}
+
+/* Salgueiro Credentials */
+.salgueiro__credentials {
+  display: flex;
+  justify-content: center;
+  margin: var(--spacing-lg) 0;
+  padding: 0 var(--spacing-md);
+}
+
+.credentials__link {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: #000000;
+  color: #FFD700;
+  border: 4px solid #000000;
+  box-shadow: 8px 8px 0 #FFD700;
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.credentials__link:hover {
+  background-color: #FFD700;
+  color: #000000;
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0 #000000;
+  text-decoration: none;
+}
+
+.credentials__link:active {
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0 #000000;
+}
+
+.credentials__icon {
+  font-size: 1.5rem;
+  animation: pulse 2s infinite;
+}
+
+.credentials__text {
+  font-weight: 900;
+  letter-spacing: 1.5px;
+}
+
+.credentials__arrow {
+  font-size: 1.2rem;
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+}
+
+.credentials__link:hover .credentials__arrow {
+  transform: translateX(5px);
+}
+
+.credentials__link:hover .credentials__icon {
+  animation: bounce 0.6s ease;
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 1; 
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.7; 
+    transform: scale(1.1);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+  60% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Responsive Credentials */
+@media (max-width: 768px) {
+  .credentials__link {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 0.9rem;
+    border-width: 3px;
+    box-shadow: 6px 6px 0 #FFD700;
+  }
+  
+  .credentials__link:hover {
+    box-shadow: 9px 9px 0 #000000;
+  }
+  
+  .credentials__icon {
+    font-size: 1.3rem;
+  }
+  
+  .credentials__text {
+    letter-spacing: 1px;
+  }
+}
+
+@media (max-width: 480px) {
+  .salgueiro__credentials {
+    padding: 0 var(--spacing-sm);
+  }
+  
+  .credentials__link {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.8rem;
+    border-width: 2px;
+    box-shadow: 4px 4px 0 #FFD700;
+    gap: var(--spacing-xs);
+  }
+  
+  .credentials__link:hover {
+    box-shadow: 6px 6px 0 #000000;
+  }
+  
+  .credentials__icon {
+    font-size: 1.1rem;
+  }
+  
+  .credentials__text {
+    letter-spacing: 0.5px;
   }
 }
