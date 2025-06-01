@@ -813,31 +813,31 @@ function handlePaymentSuccess() {
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize cart display
-  updateCartCount();
-  updateCartDisplay();
+  // Initialize cart display - commented out since there's no cart in this website
+  // updateCartCount();
+  // updateCartDisplay();
   
-  // Add to cart buttons
-  document.querySelectorAll('.add-to-cart').forEach(button => {
-    button.addEventListener('click', () => {
-      const productId = parseInt(button.dataset.productId);
-      addToCart(productId);
-      
-      // Add feedback animation to the button
-      button.classList.add('btn--added');
-      button.textContent = 'ADICIONADO!';
-      setTimeout(() => {
-        button.classList.remove('btn--added');
-        button.textContent = 'ADICIONAR AO CARRINHO';
-      }, 1000);
-    });
-  });
+  // Add to cart buttons - commented out since there's no cart in this website
+  // document.querySelectorAll('.add-to-cart').forEach(button => {
+  //   button.addEventListener('click', () => {
+  //     const productId = parseInt(button.dataset.productId);
+  //     addToCart(productId);
+  //     
+  //     // Add feedback animation to the button
+  //     button.classList.add('btn--added');
+  //     button.textContent = 'ADICIONADO!';
+  //     setTimeout(() => {
+  //       button.classList.remove('btn--added');
+  //       button.textContent = 'ADICIONAR AO CARRINHO';
+  //     }, 1000);
+  //   });
+  // });
 
-  // Cart toggle
-  document.getElementById('cart-toggle').addEventListener('click', (e) => {
-    e.preventDefault();
-    openModal('cart-modal');
-  });
+  // Cart toggle - commented out since there's no cart in this website
+  // document.getElementById('cart-toggle').addEventListener('click', (e) => {
+  //   e.preventDefault();
+  //   openModal('cart-modal');
+  // });
 
   // Close buttons
   document.querySelectorAll('.modal__close').forEach(button => {
@@ -847,36 +847,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Checkout button
-  document.getElementById('checkout-btn').addEventListener('click', () => {
-    closeModal('cart-modal');
-    openModal('payment-modal');
-  });
+  // Checkout button - commented out since there's no cart in this website
+  // document.getElementById('checkout-btn').addEventListener('click', () => {
+  //   closeModal('cart-modal');
+  //   openModal('payment-modal');
+  // });
 
-  // Payment options
-  document.querySelectorAll('.payment-option').forEach(option => {
-    option.addEventListener('click', () => {
-      const paymentMethod = option.dataset.payment;
-      document.querySelectorAll('.payment-form').forEach(form => {
-        form.style.display = 'none';
-      });
-      document.getElementById(`${paymentMethod}-payment-form`).style.display = 'block';
-      
-      if (paymentMethod === 'card') {
-        initializeStripe();
-      }
-    });
-  });
+  // Payment options - commented out since there's no cart in this website
+  // document.querySelectorAll('.payment-option').forEach(option => {
+  //   option.addEventListener('click', () => {
+  //     const paymentMethod = option.dataset.payment;
+  //     document.querySelectorAll('.payment-form').forEach(form => {
+  //       form.style.display = 'none';
+  //     });
+  //     document.getElementById(`${paymentMethod}-payment-form`).style.display = 'block';
+  //     
+  //     if (paymentMethod === 'card') {
+  //       initializeStripe();
+  //     }
+  //   });
+  // });
 
-  // Pay button
-  document.getElementById('pay-btn').addEventListener('click', () => {
-    const activePaymentForm = document.querySelector('.payment-form[style="display: block;"]');
-    if (activePaymentForm.id === 'card-payment-form') {
-      handleCardPayment(updateCartTotal());
-    } else if (activePaymentForm.id === 'mbway-payment-form') {
-      handleMBWayPayment();
-    }
-  });
+  // Pay button - commented out since there's no cart in this website
+  // document.getElementById('pay-btn').addEventListener('click', () => {
+  //   const activePaymentForm = document.querySelector('.payment-form[style="display: block;"]');
+  //   if (activePaymentForm.id === 'card-payment-form') {
+  //     handleCardPayment(updateCartTotal());
+  //   } else if (activePaymentForm.id === 'mbway-payment-form') {
+  //     handleMBWayPayment();
+  //   }
+  // });
 });
 
 // Gallery functionality
@@ -924,7 +924,7 @@ class BrutalistGallery {
     this.images = [];
     
     // Simple iteration: gallery3, gallery4, gallery5, etc. (starting from 3 since gallery1&2 don't exist)
-    for (let i = 3; i <= 50; i++) {
+    for (let i = 3; i <= 14; i++) {  // Changed from 50 to 14 since we only have up to gallery14.jpg
       let foundImage = false;
       
       // Try each extension for this number
