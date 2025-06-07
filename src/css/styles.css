@@ -2935,15 +2935,18 @@ button.btn:active {
 
 /* Responsive Carousel */
 @media (max-width: 768px) {
+  /* Solution 1: Reduzir largura do carousel para criar margens laterais */
   .carousel-container {
-    max-width: 95%;
+    max-width: 88%;  /* Reduced from 95% to create more side margins */
+    margin: 0 auto;
     border-width: 6px;
     box-shadow: 12px 12px 0 rgba(0, 0, 0, 0.3);
+    position: relative;
   }
   
   .carousel-slide {
-    padding: var(--spacing-md) !important;
-    min-height: 450px !important;
+    padding: var(--spacing-sm) !important;  /* Reduced padding */
+    min-height: 350px !important;  /* Reduced from 450px */
   }
   
   .carousel-slide.pillar-frame--yellow .pillar-content,
@@ -2953,47 +2956,93 @@ button.btn:active {
     border-width: 3px !important;
   }
   
+  /* Solution 2: Melhorar setas de navegação - maiores e posicionadas fora */
   .carousel-btn {
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
-    border-width: 3px;
+    width: 60px;    /* Increased from 50px */
+    height: 60px;   /* Increased from 50px */
+    font-size: 1.8rem;  /* Increased from 1.5rem */
+    border-width: 4px;
+    background-color: #FFD700;  /* More visible background */
+    color: #000000;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
+    z-index: 20;
+  }
+  
+  .carousel-btn:hover {
+    background-color: #000000;
+    color: #FFD700;
+    transform: translateY(-50%) translate(-2px, -2px);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
   }
   
   .carousel-btn--prev {
-    left: -25px;
+    left: -35px;  /* Positioned further outside */
   }
   
   .carousel-btn--next {
-    right: -25px;
+    right: -35px;  /* Positioned further outside */
+  }
+  
+  /* Solution 3: Criar padding lateral inteligente para áreas de scroll */
+  .pillars-carousel {
+    padding: 0 40px;  /* Add lateral padding for scroll zones */
+    position: relative;
+  }
+  
+  .pillars-carousel::before,
+  .pillars-carousel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 30px;
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  .pillars-carousel::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(255,255,255,0.5), transparent);
+  }
+  
+  .pillars-carousel::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(255,255,255,0.5), transparent);
   }
   
   .about .pillar-number {
-    font-size: 3.5rem !important;
+    font-size: 3rem !important;  /* Reduced from 3.5rem */
+    margin-bottom: var(--spacing-xs) !important;
   }
   
   .about .pillar-title {
-    font-size: 1.4rem !important;
+    font-size: 1.3rem !important;  /* Slightly reduced */
+    margin-bottom: var(--spacing-xs) !important;
   }
   
   .about .pillar-subtitle {
-    font-size: 1rem !important;
+    font-size: 0.95rem !important;  /* Slightly reduced */
+    margin-bottom: var(--spacing-xs) !important;
   }
   
   .about .pillar-text {
-    font-size: 0.9rem !important;
+    font-size: 0.85rem !important;  /* Slightly reduced */
+    line-height: 1.4 !important;
+    margin-bottom: var(--spacing-xs) !important;
   }
   
   .about .pillar-tags span {
-    font-size: 0.7rem !important;
+    font-size: 0.65rem !important;  /* Slightly reduced */
+    padding: 2px 6px !important;
+    margin: 2px !important;
   }
   
   .about .pillar-equipment {
-    font-size: 0.75rem !important;
+    font-size: 0.7rem !important;  /* Slightly reduced */
   }
   
   .about .pillar-highlight {
-    font-size: 0.75rem !important;
+    font-size: 0.7rem !important;  /* Slightly reduced */
   }
   
   .indicator {
@@ -3026,39 +3075,124 @@ button.btn:active {
 }
 
 @media (max-width: 480px) {
+  /* Further optimize for small mobile screens */
   .carousel-container {
+    max-width: 85%;  /* Even more reduced for smaller screens */
     border-width: 4px;
     box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.3);
   }
   
   .carousel-slide {
-    min-height: 400px !important;
+    padding: var(--spacing-xs) !important;  /* Even smaller padding */
+    min-height: 320px !important;  /* Reduced from 400px */
   }
   
+  /* Enhanced navigation buttons for small screens */
   .carousel-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
+    width: 50px;    /* Increased from 40px */
+    height: 50px;   /* Increased from 40px */
+    font-size: 1.5rem;  /* Increased from 1.2rem */
+    background-color: #FFD700;
+    color: #000000;
+    border-width: 3px;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.8);
+    z-index: 20;
+  }
+  
+  .carousel-btn:hover {
+    background-color: #000000;
+    color: #FFD700;
+    transform: translateY(-50%) translate(-2px, -2px);
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.8);
   }
   
   .carousel-btn--prev {
-    left: -20px;
+    left: -30px;  /* Positioned further outside */
   }
   
   .carousel-btn--next {
-    right: -20px;
+    right: -30px;  /* Positioned further outside */
   }
   
+  /* Adjust padding for smaller screens */
+  .pillars-carousel {
+    padding: 0 35px;  /* Slightly less padding for small screens */
+  }
+  
+  .pillars-carousel::before,
+  .pillars-carousel::after {
+    width: 25px;  /* Narrower gradient zones */
+  }
+}
+
+/* Extra small mobile screens optimization */
+@media (max-width: 360px) {
+  .carousel-container {
+    max-width: 82%;  /* Further reduced for very small screens */
+  }
+  
+  .carousel-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+  }
+  
+  .carousel-btn--prev {
+    left: -25px;
+  }
+  
+  .carousel-btn--next {
+    right: -25px;
+  }
+  
+  .pillars-carousel {
+    padding: 0 30px;
+  }
+  
+  .pillars-carousel::before,
+  .pillars-carousel::after {
+    width: 20px;
+  }
+  
+  .carousel-slide {
+    min-height: 280px !important;  /* Even more compact for very small screens */
+  }
+}
+
+@media (max-width: 480px) {
   .about .pillar-number {
-    font-size: 3rem !important;
+    font-size: 2.5rem !important;  /* Further reduced */
+    margin-bottom: var(--spacing-xs) !important;
   }
   
   .about .pillar-title {
-    font-size: 1.2rem !important;
+    font-size: 1.1rem !important;  /* Further reduced */
+    margin-bottom: var(--spacing-xs) !important;
   }
   
   .about .pillar-subtitle {
-    font-size: 0.9rem !important;
+    font-size: 0.85rem !important;  /* Further reduced */
+    margin-bottom: var(--spacing-xs) !important;
+  }
+  
+  .about .pillar-text {
+    font-size: 0.8rem !important;
+    line-height: 1.3 !important;
+    margin-bottom: var(--spacing-xs) !important;
+  }
+  
+  .about .pillar-tags span {
+    font-size: 0.6rem !important;
+    padding: 1px 4px !important;
+    margin: 1px !important;
+  }
+  
+  .about .pillar-equipment {
+    font-size: 0.65rem !important;
+  }
+  
+  .about .pillar-highlight {
+    font-size: 0.65rem !important;
   }
   
   .indicator {
