@@ -49,7 +49,7 @@ O BE WATER é o primeiro centro de treino e desenvolvimento pessoal em Lisboa qu
 ### Equipa de Treinadores
 - **Jorge Segurado** - Ex-seleção nacional de rugby, Preparador Físico
 - **Luís Morgado** - Professor de Surf & CrossFit Level 2
-- **Joaquim Silva** - Fisioterapeuta & Treinador SCP
+- **Joaquim Coelho** - Fisioterapeuta & Strength & Conditioning
 - **Luís Catarino** - Preparador Físico SL Benfica, Formador
 
 ## 🛠 Tecnologias Utilizadas

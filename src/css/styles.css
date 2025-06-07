@@ -816,8 +816,9 @@ section {
 
 .trainers__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: var(--spacing-md);
+  justify-content: center;
 }
 
 .trainer-card {
@@ -835,17 +836,18 @@ section {
 
 .trainer-card__image {
   height: 300px;
-  background-size: cover;
-  background-position: center top;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
   border-bottom: var(--border-thick);
 }
 
 .trainer-card__image--salgueiro {
-  background-image: url('../images/salgueiro2.png');
+  background-image: url('../images/coaches/brunosalgueiro3.png');
 }
 
 .trainer-card__image--segurado {
-  background-image: url('../images/salgueiro-segurado.png');
+  background-image: url('../images/coaches/jorgesegurado4.png');
 }
 
 .trainer-card__image--morgado {
@@ -853,42 +855,89 @@ section {
 }
 
 .trainer-card__image--joaquim {
-  background-image: url('../images/salgueiro bicep.png');
+  background-image: url('../images/coaches/joaquimcoelho2.png');
 }
 
 .trainer-card__image--catarino {
-  background-image: url('../images/salgueiro bicep2.png');
+  background-image: url('../images/salgueiro2.png');
 }
 
 .trainer-card__content {
-  padding: var(--spacing-md);
+  padding: var(--spacing-sm);
 }
 
 .trainer-card__name {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   margin-bottom: var(--spacing-xs);
+  line-height: 1.2;
 }
 
 .trainer-card__specialty {
   color: #FFD700;
   font-weight: 700;
   margin-bottom: var(--spacing-sm);
+  font-size: 0.9rem;
+  line-height: 1.3;
 }
 
 .trainer-card__bio {
   margin-bottom: var(--spacing-md);
+  font-size: 0.85rem;
+  line-height: 1.4;
 }
 
 .trainer-card__certs {
   display: flex;
-  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
 }
 
 .trainer-card__certs span {
   background-color: var(--color-gray);
-  padding: var(--spacing-xs);
-  font-size: 0.8rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
   font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Responsive adjustments for trainer cards */
+@media (max-width: 768px) {
+  .trainers__grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--spacing-sm);
+  }
+  
+  .trainer-card__name {
+    font-size: 1.3rem;
+  }
+  
+  .trainer-card__specialty {
+    font-size: 0.85rem;
+  }
+  
+  .trainer-card__bio {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .trainers__grid {
+    grid-template-columns: 1fr;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  .trainer-card__name {
+    font-size: 1.2rem;
+  }
+  
+  .trainer-card__specialty {
+    font-size: 0.8rem;
+  }
+  
+  .trainer-card__bio {
+    font-size: 0.75rem;
+  }
 }
 
 /* Pricing Section */
@@ -1022,9 +1071,9 @@ section {
 
 /* Enhanced pricing buttons - neobrutalist style with site colors */
 .pricing .btn {
-  background-color: #FFD700;
+  background-color: #0088CC;
   border: 4px solid #000000;
-  color: #000000;
+  color: #FFFFFF;
   font-size: 1.1rem;
   font-weight: 900;
   padding: var(--spacing-sm) var(--spacing-md);
@@ -1038,8 +1087,8 @@ section {
   background-color: #000000;
   border-color: #000000;
   transform: translate(-3px, -3px);
-  box-shadow: 11px 11px 0 #FFD700;
-  color: #FFD700;
+  box-shadow: 11px 11px 0 #0088CC;
+  color: #0088CC;
 }
 
 .pricing .btn:active {
@@ -1049,18 +1098,18 @@ section {
 
 /* Featured plan button - same style as others */
 .price-card--featured .btn {
-  background-color: #FFD700;
+  background-color: #0088CC;
   border: 4px solid #000000;
-  color: #000000;
+  color: #FFFFFF;
   box-shadow: 8px 8px 0 #000000;
 }
 
 .price-card--featured .btn:hover {
   background-color: #000000;
   border-color: #000000;
-  color: #FFD700;
+  color: #0088CC;
   transform: translate(-3px, -3px);
-  box-shadow: 11px 11px 0 #FFD700;
+  box-shadow: 11px 11px 0 #0088CC;
 }
 
 /* Contact Section */
@@ -2326,8 +2375,8 @@ button.btn:active {
 
 /* Enhanced primary button - larger for better visibility */
 .btn--primary {
-  background-color: #FFD700;
-  color: #000000;
+  background-color: #0088CC;
+  color: #FFFFFF;
   font-size: 1.6rem;
   padding: calc(var(--spacing-md) + 0.8rem) calc(var(--spacing-lg) + 1.5rem);
   font-weight: 900;
@@ -2339,8 +2388,10 @@ button.btn:active {
 }
 
 .btn--primary:hover {
+  background-color: #000000;
+  color: #0088CC;
   transform: translate(-2px, -2px);
-  box-shadow: 14px 14px 0 var(--color-primary);
+  box-shadow: 14px 14px 0 #0088CC;
 }
 
 .btn--primary:active {
@@ -2360,8 +2411,10 @@ button.btn:active {
   }
   
   .btn--primary:hover {
+    background-color: #000000;
+    color: #0088CC;
     transform: translate(-2px, -2px);
-    box-shadow: 12px 12px 0 var(--color-primary);
+    box-shadow: 12px 12px 0 #0088CC;
   }
   
   .btn--primary:active {
@@ -2385,8 +2438,10 @@ button.btn:active {
   }
   
   .btn--primary:hover {
+    background-color: #000000;
+    color: #0088CC;
     transform: translate(-1px, -1px);
-    box-shadow: 10px 10px 0 var(--color-primary);
+    box-shadow: 10px 10px 0 #0088CC;
   }
   
   .btn--primary:active {

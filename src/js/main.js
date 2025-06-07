@@ -923,13 +923,16 @@ class BrutalistGallery {
     const imageExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
     this.images = [];
     
-    // Simple iteration: gallery3, gallery4, gallery5, etc. (starting from 3 since gallery1&2 don't exist)
-    for (let i = 3; i <= 14; i++) {  // Changed from 50 to 14 since we only have up to gallery14.jpg
+    // List of all gallery images that exist (based on current folder contents)
+    const galleryNumbers = [3, 4, 5, 6, 7, 9, 11, 12, 13, 14];
+    
+    // Load each available gallery image
+    for (const num of galleryNumbers) {
       let foundImage = false;
       
       // Try each extension for this number
       for (const ext of imageExtensions) {
-        const imagePath = `src/images/gallery/gallery${i}.${ext}`;
+        const imagePath = `src/images/gallery/gallery${num}.${ext}`;
         const exists = await this.checkImageExists(imagePath);
         
         if (exists) {
@@ -937,12 +940,6 @@ class BrutalistGallery {
           foundImage = true;
           break; // Found this number, move to next
         }
-      }
-      
-      // If we don't find an image for this number, stop looking
-      // (assumes images are numbered consecutively after gaps)
-      if (!foundImage && i > 6) {
-        break;
       }
     }
     
