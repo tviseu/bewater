@@ -909,6 +909,9 @@ section {
   box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-primary);
   overflow: hidden;
   transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  min-height: 550px;
 }
 
 .price-card:hover {
@@ -976,6 +979,7 @@ section {
 
 .price-card__features {
   padding: var(--spacing-md);
+  flex: 1;
 }
 
 .price-card__features ul {
@@ -1009,6 +1013,49 @@ section {
 .price-card__cta {
   padding: 0 var(--spacing-md) var(--spacing-md);
   text-align: center;
+}
+
+/* Enhanced pricing buttons - neobrutalist style with site colors */
+.pricing .btn {
+  background-color: #FFD700;
+  border: 4px solid #000000;
+  color: #000000;
+  font-size: 1.1rem;
+  font-weight: 900;
+  padding: var(--spacing-sm) var(--spacing-md);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.2s ease;
+  box-shadow: 8px 8px 0 #000000;
+}
+
+.pricing .btn:hover {
+  background-color: #000000;
+  border-color: #000000;
+  transform: translate(-3px, -3px);
+  box-shadow: 11px 11px 0 #FFD700;
+  color: #FFD700;
+}
+
+.pricing .btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0 #000000;
+}
+
+/* Featured plan button - same style as others */
+.price-card--featured .btn {
+  background-color: #FFD700;
+  border: 4px solid #000000;
+  color: #000000;
+  box-shadow: 8px 8px 0 #000000;
+}
+
+.price-card--featured .btn:hover {
+  background-color: #000000;
+  border-color: #000000;
+  color: #FFD700;
+  transform: translate(-3px, -3px);
+  box-shadow: 11px 11px 0 #FFD700;
 }
 
 /* Contact Section */
@@ -2216,11 +2263,6 @@ button.btn:active {
   box-shadow: calc(var(--shadow-offset) - 2px) calc(var(--shadow-offset) - 2px) 0 var(--color-primary);
 }
 
-.btn--primary {
-  background-color: #FFD700;
-  color: #000000;
-}
-
 .btn--secondary {
   background-color: transparent;
   color: var(--color-primary);
@@ -2239,6 +2281,77 @@ button.btn:active {
 .btn--full {
   width: 100%;
   text-align: center;
+}
+
+/* Enhanced primary button - larger for better visibility */
+.btn--primary {
+  background-color: #FFD700;
+  color: #000000;
+  font-size: 1.6rem;
+  padding: calc(var(--spacing-md) + 0.8rem) calc(var(--spacing-lg) + 1.5rem);
+  font-weight: 900;
+  letter-spacing: 2px;
+  border-width: 4px;
+  box-shadow: 12px 12px 0 var(--color-primary);
+  text-align: center;
+  display: inline-block;
+}
+
+.btn--primary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 14px 14px 0 var(--color-primary);
+}
+
+.btn--primary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 8px 8px 0 var(--color-primary);
+}
+
+/* Responsive button sizes */
+@media (max-width: 768px) {
+  .btn--primary {
+    font-size: 1.4rem;
+    padding: calc(var(--spacing-sm) + 0.4rem) calc(var(--spacing-md) + 0.7rem);
+    border-width: 3px;
+    box-shadow: 10px 10px 0 var(--color-primary);
+    letter-spacing: 1.5px;
+    text-align: center;
+  }
+  
+  .btn--primary:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 12px 12px 0 var(--color-primary);
+  }
+  
+  .btn--primary:active {
+    transform: translate(2px, 2px);
+    box-shadow: 6px 6px 0 var(--color-primary);
+  }
+}
+
+@media (max-width: 480px) {
+  .btn--primary {
+    font-size: 1.2rem;
+    padding: calc(var(--spacing-sm) + 0.3rem) calc(var(--spacing-md) + 0.5rem);
+    border-width: 3px;
+    box-shadow: 8px 8px 0 var(--color-primary);
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    display: block;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+  
+  .btn--primary:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 10px 10px 0 var(--color-primary);
+  }
+  
+  .btn--primary:active {
+    transform: translate(1px, 1px);
+    box-shadow: 5px 5px 0 var(--color-primary);
+  }
 }
 
 /* Hero Section */
@@ -2277,6 +2390,32 @@ button.btn:active {
 .hero__cta {
   display: flex;
   gap: var(--spacing-sm);
+}
+
+/* Force enhanced button styles for hero section */
+.hero__cta .btn--primary {
+  font-size: 1.6rem !important;
+  padding: calc(var(--spacing-md) + 0.8rem) calc(var(--spacing-lg) + 1.5rem) !important;
+  text-align: center !important;
+  display: inline-block !important;
+}
+
+@media (max-width: 768px) {
+  .hero__cta .btn--primary {
+    font-size: 1.4rem !important;
+    padding: calc(var(--spacing-sm) + 0.4rem) calc(var(--spacing-md) + 0.7rem) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero__cta .btn--primary {
+    font-size: 1.2rem !important;
+    padding: calc(var(--spacing-sm) + 0.3rem) calc(var(--spacing-md) + 0.5rem) !important;
+    width: 100% !important;
+    max-width: 300px !important;
+    display: block !important;
+    margin: 0 auto !important;
+  }
 }
 
 /* Gallery Section */
