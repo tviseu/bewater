@@ -1180,3 +1180,50 @@ function validateEmail(email) {
   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 } 
+
+// Corner Badge Scroll Bounce Effect
+document.addEventListener('DOMContentLoaded', function() {
+  const cornerBadge = document.querySelector('.corner-opening-badge');
+  
+  if (!cornerBadge) {
+    console.log('Corner badge not found');
+    return;
+  }
+  
+  let lastScrollY = window.scrollY;
+  let bounceTimeout;
+  let isScrolling = false;
+  
+  function handleScroll() {
+    const currentScrollY = window.scrollY;
+    const scrollDelta = Math.abs(currentScrollY - lastScrollY);
+    
+    // Only trigger bounce if scroll is significant (more than 30px)
+    if (scrollDelta > 30 && !isScrolling) {
+      isScrolling = true;
+      
+      // Add bounce class
+      cornerBadge.classList.add('scroll-bounce');
+      
+      // Clear any existing timeout
+      clearTimeout(bounceTimeout);
+      
+      // Remove bounce class after animation completes
+      bounceTimeout = setTimeout(() => {
+        cornerBadge.classList.remove('scroll-bounce');
+        isScrolling = false;
+      }, 600); // Match animation duration
+    }
+    
+    lastScrollY = currentScrollY;
+  }
+  
+  // Throttle scroll event for better performance
+  let scrollTimeout;
+  window.addEventListener('scroll', () => {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(handleScroll, 16); // ~60fps
+  });
+  
+  console.log('Corner badge scroll bounce effect initialized');
+});

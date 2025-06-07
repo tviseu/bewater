@@ -2402,12 +2402,14 @@ body.menu-open .header__menu-toggle {
   gap: var(--spacing-md);
 }
 
-/* Opening Badge Styles */
-.hero__opening-badge {
-  margin-top: var(--spacing-md);
-  width: 100%;
-  display: flex;
-  justify-content: center;
+/* Corner Opening Badge Styles */
+.corner-opening-badge {
+  position: fixed;
+  top: 250px;
+  right: -30px;
+  z-index: 9999;
+  transform: rotate(45deg);
+  transform-origin: center;
 }
 
 .opening-badge {
@@ -2415,30 +2417,47 @@ body.menu-open .header__menu-toggle {
   background-color: #FF0000;
   color: #FFFFFF;
   font-family: var(--font-heading);
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 1px;
-  padding: var(--spacing-sm) var(--spacing-md);
-  border: 4px solid #FF0000;
+  padding: 12px 40px;
+  border: 3px solid #FF0000;
   position: relative;
-  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.6);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 0, 0, 0.6);
   animation: openingPulse 2s ease-in-out infinite;
+  white-space: nowrap;
   
-  /* Neobrutalist corners cortados */
-  clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+  /* Neobrutalist corners cortados - ajustado para badge menor */
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
 }
 
 @keyframes openingPulse {
   0%, 100% {
-    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.6);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 0, 0, 0.6);
     background-color: #FF0000;
   }
   50% {
-    box-shadow: 12px 12px 0 rgba(0, 0, 0, 1), 0 0 30px rgba(255, 0, 0, 1);
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 1), 0 0 25px rgba(255, 0, 0, 1);
     background-color: #CC0000;
-    transform: translate(-2px, -2px);
+    transform: translate(-1px, -1px);
   }
+}
+
+@keyframes scrollBounce {
+  0% {
+    transform: rotate(45deg) scale(1) translateY(0);
+  }
+  50% {
+    transform: rotate(45deg) scale(1.1) translateY(-10px);
+  }
+  100% {
+    transform: rotate(45deg) scale(1) translateY(0);
+  }
+}
+
+.corner-opening-badge.scroll-bounce {
+  animation: scrollBounce 0.6s ease-out;
 }
 
 /* Animation Styles */
@@ -2731,10 +2750,34 @@ button.btn:active {
     padding: calc(var(--spacing-sm) + 0.4rem) calc(var(--spacing-md) + 0.7rem) !important;
   }
   
+  .corner-opening-badge {
+    top: 200px;
+    right: -60px;
+    transform: rotate(45deg) scale(0.9);
+  }
+  
+  .corner-opening-badge.scroll-bounce {
+    animation: scrollBounce 0.6s ease-out;
+  }
+  
+  @keyframes scrollBounce {
+    0% {
+      transform: rotate(45deg) scale(0.9) translateY(0);
+    }
+    50% {
+      transform: rotate(45deg) scale(1.05) translateY(-8px);
+    }
+    100% {
+      transform: rotate(45deg) scale(0.9) translateY(0);
+    }
+  }
+  
   .opening-badge {
-    font-size: 0.9rem;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    font-size: 0.95rem;
+    padding: 10px 32px;
+    border: 2px solid #FF0000;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8), 0 0 12px rgba(255, 0, 0, 0.6);
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
   }
 }
 
@@ -2748,10 +2791,34 @@ button.btn:active {
     margin: 0 auto !important;
   }
   
+  .corner-opening-badge {
+    top: 180px;
+    right: -80px;
+    transform: rotate(45deg) scale(0.75);
+  }
+  
+  .corner-opening-badge.scroll-bounce {
+    animation: scrollBounce 0.6s ease-out;
+  }
+  
+  @keyframes scrollBounce {
+    0% {
+      transform: rotate(45deg) scale(0.75) translateY(0);
+    }
+    50% {
+      transform: rotate(45deg) scale(0.9) translateY(-6px);
+    }
+    100% {
+      transform: rotate(45deg) scale(0.75) translateY(0);
+    }
+  }
+  
   .opening-badge {
-    font-size: 0.8rem;
-    padding: var(--spacing-xs) var(--spacing-xs);
-    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+    font-size: 0.85rem;
+    padding: 8px 28px;
+    border: 2px solid #FF0000;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 0, 0, 0.6);
+    clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
   }
 }
 
