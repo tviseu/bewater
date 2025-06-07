@@ -893,8 +893,13 @@ section {
 
 /* Pricing Section */
 .pricing {
-  background-color: var(--color-gray);
+  background-color: #CCCCCC;
   padding: var(--spacing-xl) 0;
+}
+
+/* Pricing title with better contrast on light gray background */
+.pricing .section-title {
+  color: #000000;
 }
 
 .pricing__grid {
@@ -1472,6 +1477,8 @@ section {
   opacity: 1;
 }
 
+
+
 /* Newsletter Section */
 .footer__newsletter-section {
   display: flex;
@@ -1757,6 +1764,30 @@ section {
   }
 }
 
+/* Highlight PREÇOS link in PC navigation - neobrutalist button style */
+.header__nav a[href="#pricing"] {
+  background-color: #FFD700;
+  color: #000000;
+  border: 3px solid #000000;
+  border-radius: 0;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-weight: 900;
+  box-shadow: 4px 4px 0 #000000;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.header__nav a[href="#pricing"]:hover {
+  background-color: #000000;
+  color: #FFD700;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #FFD700;
+}
+
+.header__nav a[href="#pricing"]::after {
+  display: none;
+}
+
 @media (max-width: 1024px) {
   .logo-container {
     max-width: min(450px, 38vw);
@@ -2029,6 +2060,16 @@ section {
 }
 
 .mobile-menu a:hover {
+  color: #FFD700;
+  transform: translateX(10px);
+}
+
+/* Highlight PREÇOS link in mobile menu */
+.mobile-menu a[href="#pricing"] {
+  color: #FFD700;
+}
+
+.mobile-menu a[href="#pricing"]:hover {
   color: #FFD700;
   transform: translateX(10px);
 }
@@ -2398,6 +2439,59 @@ button.btn:active {
   padding: calc(var(--spacing-md) + 0.8rem) calc(var(--spacing-lg) + 1.5rem) !important;
   text-align: center !important;
   display: inline-block !important;
+}
+
+/* Dicas do Salgueiro highlighted link box */
+.dicas-link {
+  display: inline-block;
+  background-color: #FFD700;
+  color: #000000;
+  padding: 4px 8px;
+  border: 2px solid #000000;
+  box-shadow: 3px 3px 0 #000000;
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 0.9em;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  margin: 0 2px;
+}
+
+.dicas-link:hover {
+  background-color: #000000;
+  color: #FFD700;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 #FFD700;
+  text-decoration: none;
+}
+
+.dicas-link:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 #000000;
+}
+
+/* Responsive adjustments for Dicas link */
+@media (max-width: 768px) {
+  .dicas-link {
+    background-color: #FFD700;
+    color: #000000;
+    padding: 3px 6px;
+    font-size: 0.8em;
+    border: 2px solid #000000;
+    box-shadow: 2px 2px 0 #000000;
+    letter-spacing: 0.3px;
+  }
+  
+  .dicas-link:hover {
+    background-color: #000000;
+    color: #FFD700;
+    box-shadow: 3px 3px 0 #FFD700;
+  }
+  
+  .dicas-link:active {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 #000000;
+  }
 }
 
 @media (max-width: 768px) {
