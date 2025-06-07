@@ -546,7 +546,7 @@ section {
 
 .about .pillar-number {
   font-family: var(--font-heading) !important;
-  font-size: 4.5rem !important;
+  font-size: 5.5rem !important;  /* Increased from 4.5rem */
   font-weight: 900 !important;
   color: #000000 !important;
   margin-bottom: var(--spacing-sm) !important;
@@ -571,7 +571,7 @@ section {
 
 .about .pillar-title {
   font-family: var(--font-heading) !important;
-  font-size: 1.8rem !important;
+  font-size: 2.2rem !important;  /* Increased from 1.8rem */
   font-weight: 900 !important;
   margin-bottom: var(--spacing-xs) !important;
   text-transform: uppercase !important;
@@ -586,7 +586,7 @@ section {
 
 .about .pillar-subtitle {
   font-family: var(--font-heading) !important;
-  font-size: 1.1rem !important;
+  font-size: 1.4rem !important;  /* Increased from 1.1rem */
   font-weight: 700 !important;
   margin-bottom: var(--spacing-md) !important;
   text-transform: uppercase !important;
@@ -600,7 +600,7 @@ section {
 }
 
 .about .pillar-text {
-  font-size: 0.95rem !important;
+  font-size: 1.1rem !important;  /* Increased from 0.95rem */
   line-height: 1.5 !important;
   margin-bottom: var(--spacing-md) !important;
   color: #000000 !important;
@@ -623,7 +623,7 @@ section {
   background-color: #000000 !important;
   color: #FFFFFF !important;
   padding: var(--spacing-xs) var(--spacing-sm) !important;
-  font-size: 0.75rem !important;
+  font-size: 0.9rem !important;  /* Increased from 0.75rem */
   font-weight: 700 !important;
   text-transform: uppercase !important;
   border: 2px solid #000000 !important;
@@ -649,7 +649,7 @@ section {
 }
 
 .about .pillar-equipment {
-  font-size: 0.8rem !important;
+  font-size: 0.95rem !important;  /* Increased from 0.8rem */
   font-weight: 700 !important;
   color: #666666 !important;
   text-transform: uppercase !important;
@@ -672,7 +672,7 @@ section {
   padding: var(--spacing-sm) !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
-  font-size: 0.8rem !important;
+  font-size: 0.95rem !important;  /* Increased from 0.8rem */
   border: 3px solid #000000 !important;
   text-align: center !important;
   line-height: 1.3 !important;
@@ -2945,8 +2945,8 @@ button.btn:active {
   }
   
   .carousel-slide {
-    padding: var(--spacing-sm) !important;  /* Reduced padding */
-    min-height: 350px !important;  /* Reduced from 450px */
+    padding: var(--spacing-xs) !important;  /* Even smaller padding */
+    min-height: 300px !important;  /* Further reduced from 350px */
   }
   
   .carousel-slide.pillar-frame--yellow .pillar-content,
@@ -3011,38 +3011,38 @@ button.btn:active {
   }
   
   .about .pillar-number {
-    font-size: 3rem !important;  /* Reduced from 3.5rem */
-    margin-bottom: var(--spacing-xs) !important;
+    font-size: 2.8rem !important;  /* Slightly bigger */
+    margin-bottom: 4px !important;
   }
   
   .about .pillar-title {
-    font-size: 1.3rem !important;  /* Slightly reduced */
-    margin-bottom: var(--spacing-xs) !important;
+    font-size: 1.25rem !important;  /* Slightly bigger */
+    margin-bottom: 4px !important;
   }
   
   .about .pillar-subtitle {
-    font-size: 0.95rem !important;  /* Slightly reduced */
-    margin-bottom: var(--spacing-xs) !important;
+    font-size: 0.95rem !important;  /* Slightly bigger */
+    margin-bottom: 4px !important;
   }
   
   .about .pillar-text {
-    font-size: 0.85rem !important;  /* Slightly reduced */
-    line-height: 1.4 !important;
-    margin-bottom: var(--spacing-xs) !important;
+    font-size: 0.85rem !important;  /* Slightly bigger */
+    line-height: 1.3 !important;
+    margin-bottom: 4px !important;
   }
   
   .about .pillar-tags span {
-    font-size: 0.65rem !important;  /* Slightly reduced */
-    padding: 2px 6px !important;
-    margin: 2px !important;
+    font-size: 0.65rem !important;  /* Slightly bigger */
+    padding: 2px 5px !important;
+    margin: 1px !important;
   }
   
   .about .pillar-equipment {
-    font-size: 0.7rem !important;  /* Slightly reduced */
+    font-size: 0.7rem !important;  /* Slightly bigger */
   }
   
   .about .pillar-highlight {
-    font-size: 0.7rem !important;  /* Slightly reduced */
+    font-size: 0.7rem !important;  /* Slightly bigger */
   }
   
   .indicator {
@@ -3083,8 +3083,8 @@ button.btn:active {
   }
   
   .carousel-slide {
-    padding: var(--spacing-xs) !important;  /* Even smaller padding */
-    min-height: 320px !important;  /* Reduced from 400px */
+    padding: 8px !important;  /* Very compact padding */
+    min-height: 270px !important;  /* Further reduced from 320px */
   }
   
   /* Enhanced navigation buttons for small screens */
@@ -3155,44 +3155,45 @@ button.btn:active {
   }
   
   .carousel-slide {
-    min-height: 280px !important;  /* Even more compact for very small screens */
+    padding: 6px !important;  /* Ultra compact padding */
+    min-height: 240px !important;  /* Ultra compact for very small screens */
   }
 }
 
 @media (max-width: 480px) {
   .about .pillar-number {
-    font-size: 2.5rem !important;  /* Further reduced */
-    margin-bottom: var(--spacing-xs) !important;
+    font-size: 2.3rem !important;  /* Slightly bigger */
+    margin-bottom: 3px !important;
   }
   
   .about .pillar-title {
-    font-size: 1.1rem !important;  /* Further reduced */
-    margin-bottom: var(--spacing-xs) !important;
+    font-size: 1.1rem !important;  /* Slightly bigger */
+    margin-bottom: 3px !important;
   }
   
   .about .pillar-subtitle {
-    font-size: 0.85rem !important;  /* Further reduced */
-    margin-bottom: var(--spacing-xs) !important;
+    font-size: 0.85rem !important;  /* Slightly bigger */
+    margin-bottom: 3px !important;
   }
   
   .about .pillar-text {
-    font-size: 0.8rem !important;
-    line-height: 1.3 !important;
-    margin-bottom: var(--spacing-xs) !important;
+    font-size: 0.8rem !important;  /* Slightly bigger */
+    line-height: 1.2 !important;
+    margin-bottom: 3px !important;
   }
   
   .about .pillar-tags span {
-    font-size: 0.6rem !important;
-    padding: 1px 4px !important;
+    font-size: 0.6rem !important;  /* Slightly bigger */
+    padding: 2px 4px !important;
     margin: 1px !important;
   }
   
   .about .pillar-equipment {
-    font-size: 0.65rem !important;
+    font-size: 0.65rem !important;  /* Slightly bigger */
   }
   
   .about .pillar-highlight {
-    font-size: 0.65rem !important;
+    font-size: 0.65rem !important;  /* Slightly bigger */
   }
   
   .indicator {
