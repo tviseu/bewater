@@ -1227,3 +1227,104 @@ document.addEventListener('DOMContentLoaded', function() {
   
   console.log('Corner badge scroll bounce effect initialized');
 });
+
+// Hide/Show Corner Badge on Modal Interactions
+document.addEventListener('DOMContentLoaded', function() {
+  const cornerBadge = document.querySelector('.corner-opening-badge');
+  
+  if (!cornerBadge) {
+    console.log('Corner badge not found for hide functionality');
+    return;
+  }
+  
+  let badgeWasHidden = false;
+  
+  // Function to hide the badge with animation
+  function hideBadge() {
+    cornerBadge.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+    cornerBadge.style.opacity = '0';
+    cornerBadge.style.transform = cornerBadge.style.transform + ' scale(0.8)';
+    
+    // Completely hide after animation
+    setTimeout(() => {
+      cornerBadge.style.display = 'none';
+    }, 500);
+    
+    badgeWasHidden = true;
+    console.log('Corner badge hidden after INSCREVE-TE JÁ click');
+  }
+  
+  // Function to show the badge again with animation
+  function showBadge() {
+    if (!badgeWasHidden) return; // Only show if it was previously hidden
+    
+    cornerBadge.style.display = 'block';
+    cornerBadge.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+    cornerBadge.style.opacity = '1';
+    
+    // Reset transform to original values based on screen size
+    const originalTransform = window.innerWidth <= 480 ? 
+      'rotate(45deg) scale(0.75)' : 
+      window.innerWidth <= 768 ? 
+      'rotate(45deg) scale(0.9)' : 
+      'rotate(45deg) scale(1)';
+    
+    cornerBadge.style.transform = originalTransform;
+    
+    console.log('Corner badge shown again after modal close');
+  }
+  
+  // Add event listeners only to modal subscription buttons (not hero navigation link)
+  const modalButtons = document.querySelectorAll('button[data-modal]');
+  
+  modalButtons.forEach(button => {
+    const buttonText = button.textContent.trim();
+    if (buttonText === 'INSCREVE-TE JÁ') {
+      button.addEventListener('click', hideBadge);
+    }
+  });
+  
+  // Hook into modal close events
+  const originalCloseModal = window.closeModal;
+  if (originalCloseModal) {
+    window.closeModal = function(modalId) {
+      // Call original close function
+      originalCloseModal(modalId);
+      
+      // Show badge again if it was hidden and we're closing a subscription modal
+      if (modalId && (modalId.includes('elite') || modalId.includes('rise') || modalId.includes('starter'))) {
+        setTimeout(showBadge, 200); // Small delay to ensure modal is fully closed
+      }
+    };
+  }
+  
+  // Also listen for escape key and overlay clicks that might close modals
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      // Check if any modal is currently open
+      const openModal = document.querySelector('.modal-overlay.active');
+      if (openModal && badgeWasHidden) {
+        setTimeout(showBadge, 200);
+      }
+    }
+  });
+  
+  // Listen for clicks on modal overlays (backdrop)
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('modal-overlay') && badgeWasHidden) {
+      setTimeout(showBadge, 200);
+    }
+  });
+  
+  // Listen for clicks on modal close buttons (X)
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('modal-close') && badgeWasHidden) {
+      const modalId = e.target.getAttribute('data-close');
+      if (modalId && (modalId.includes('elite') || modalId.includes('rise') || modalId.includes('starter'))) {
+        setTimeout(showBadge, 200);
+      }
+    }
+  });
+  
+  console.log(`Added hide/show badge listeners to ${modalButtons.length} subscription modal buttons`);
+});
