@@ -185,7 +185,9 @@
     </div>
   </section>
 
-  <!-- Pricing Section -->
+  <!-- 
+  ORIGINAL PRICING SECTION - COMMENTED FOR FUTURE USE
+  
   <section id="pricing" class="pricing">
     <div class="pricing__container">
       <div class="pricing__header">
@@ -265,6 +267,95 @@
       </div>
     </div>
   </section>
+  -->
+
+  <!-- EARLY BIRDS PROMOTIONAL PRICING SECTION -->
+  <section id="pricing" class="pricing">
+    <div class="pricing__container">
+      <div class="pricing__header">
+        <h2 class="section-title">PREÇOS EARLY BIRD</h2>
+        <div class="section-line"></div>
+        <p class="pricing__promo-text">Oferta de lançamento por tempo limitado!</p>
+      </div>
+      <div class="pricing__grid">
+        <div class="price-card price-card--elite price-card--promo">
+          <div class="price-card__badge">EARLY BIRD</div>
+          <div class="price-card__header">
+            <h3 class="price-card__title">ELITE</h3>
+            <div class="price-card__price">
+              <div class="price-card__original">€89.90</div>
+              <span class="price-card__amount price-card__amount--promo">€79.90</span>
+              <span class="price-card__period">/mês</span>
+            </div>
+          </div>
+          <div class="price-card__features">
+            <ul>
+              <li>Acesso livre trânsito (ilimitado)</li>
+              <li>Sem fidelização - cancelável quando quiseres</li>
+              <li>Acesso ao open gym nos horários definidos</li>
+              <li>Acesso a aulas de treino funcional</li>
+              <li>Acesso a modalidades</li>
+              <li>Easter eggs (aulas surpresa)</li>
+              <li>Eventos a preço reduzido ou gratuitos</li>
+            </ul>
+          </div>
+          <div class="price-card__cta">
+            <button type="button" class="btn" data-modal="elite">INSCREVE-TE JÁ</button>
+          </div>
+        </div>
+        <div class="price-card price-card--featured price-card--promo">
+          <div class="price-card__badge">EARLY BIRD</div>
+          <div class="price-card__header">
+            <h3 class="price-card__title">RISE</h3>
+            <div class="price-card__price">
+              <div class="price-card__original">€74.90</div>
+              <span class="price-card__amount price-card__amount--promo">€64.90</span>
+              <span class="price-card__period">/mês</span>
+            </div>
+          </div>
+          <div class="price-card__features">
+            <ul>
+              <li>Acesso 3x por semana</li>
+              <li>Sem fidelização - cancelável quando quiseres</li>
+              <li>Acesso ao open gym nos horários definidos</li>
+              <li>Acesso a aulas de treino funcional</li>
+              <li>Acesso a modalidades</li>
+              <li>Easter eggs (aulas surpresa)</li>
+              <li>Eventos a preço reduzido ou gratuitos</li>
+            </ul>
+          </div>
+          <div class="price-card__cta">
+            <button type="button" class="btn" data-modal="rise">INSCREVE-TE JÁ</button>
+          </div>
+        </div>
+        <div class="price-card price-card--student price-card--promo">
+          <div class="price-card__badge">EARLY BIRD</div>
+          <div class="price-card__header">
+            <h3 class="price-card__title">STARTER</h3>
+            <div class="price-card__price">
+              <div class="price-card__original">€59.90</div>
+              <span class="price-card__amount price-card__amount--promo">€49.90</span>
+              <span class="price-card__period">/mês</span>
+            </div>
+          </div>
+          <div class="price-card__features">
+            <ul>
+              <li>Acesso 2x por semana</li>
+              <li>Sem fidelização - cancelável quando quiseres</li>
+              <li>Acesso ao open gym nos horários definidos</li>
+              <li>Acesso a aulas de treino funcional</li>
+              <li>Acesso a modalidades</li>
+              <li>Easter eggs (aulas surpresa)</li>
+              <li>Eventos a preço reduzido ou gratuitos</li>
+            </ul>
+          </div>
+          <div class="price-card__cta">
+            <button type="button" class="btn" data-modal="starter">INSCREVE-TE JÁ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Pricing Modals -->
   <!-- Modal for ELITE Plan -->
@@ -276,7 +367,11 @@
       </div>
       <div class="modal-content">
         <div class="modal-plan-summary">
-          <div class="plan-price">€89.90/mês</div>
+          <div class="plan-price plan-price--promo">
+            <span class="plan-price__original">€89.90</span>
+            <span class="plan-price__current">€79.90/mês</span>
+            <span class="plan-price__badge">EARLY BIRD</span>
+          </div>
           <div class="plan-features">
             <p><strong>Acesso livre trânsito (ilimitado)</strong></p>
             <p>• Sem fidelização - cancelável quando quiseres</p>
@@ -287,10 +382,31 @@
             <p>• Eventos a preço reduzido ou gratuitos</p>
           </div>
         </div>
+        
+        <!-- Early Bird Payment Information -->
+        <div class="modal-payment-info">
+          <div class="payment-info-header">
+            <h4>⚠️ INFORMAÇÃO IMPORTANTE SOBRE O PAGAMENTO</h4>
+          </div>
+          <div class="payment-info-content">
+            <div class="payment-breakdown">
+              <p><strong>O que estás a pagar hoje:</strong></p>
+              <ul>
+                <li>✅ <strong>1ª Mensalidade (€79.90)</strong> - Já está paga!</li>
+                <li>✅ <strong>Seguro Anual (€10)</strong> - Obrigatório</li>
+              </ul>
+            </div>
+            <div class="payment-timing">
+              <p><strong>🗓️ Quando começa a contar a próxima mensalidade:</strong></p>
+              <p class="timing-highlight">A tua próxima mensalidade só começará a ser cobrada quando o ginásio abrir oficialmente e começares a treinar. Não pagas nada extra até lá!</p>
+            </div>
+          </div>
+        </div>
+
         <div class="modal-regy-container">
-          <!-- Regy Integration for ELITE -->
-          <input type="hidden" class="class_regy" id="src_regy1" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=1&acs=38e6d410bd1118bc516ba1a7a0b91264&site=s">
-          <iframe name="frame_regy1" id="frame_regy1" width="100%" height="600px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Elite"></iframe>
+          <!-- Regy Integration for ELITE EARLY BIRD -->
+          <input type="hidden" class="class_regy" id="src_regy5" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_pack.php?id_box=2244&id_int=5&acs=af666614f7fdc7fdce2ce3df584ef520&site=s">
+          <iframe name="frame_regy5" id="frame_regy5" width="100%" height="600px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Elite Early Bird"></iframe>
         </div>
       </div>
     </div>
@@ -305,7 +421,11 @@
       </div>
       <div class="modal-content">
         <div class="modal-plan-summary">
-          <div class="plan-price">€74.90/mês</div>
+          <div class="plan-price plan-price--promo">
+            <span class="plan-price__original">€74.90</span>
+            <span class="plan-price__current">€64.90/mês</span>
+            <span class="plan-price__badge">EARLY BIRD</span>
+          </div>
           <div class="plan-features">
             <p><strong>Acesso 3x por semana</strong></p>
             <p>• Sem fidelização - cancelável quando quiseres</p>
@@ -316,10 +436,31 @@
             <p>• Eventos a preço reduzido ou gratuitos</p>
           </div>
         </div>
+        
+        <!-- Early Bird Payment Information -->
+        <div class="modal-payment-info">
+          <div class="payment-info-header">
+            <h4>⚠️ INFORMAÇÃO IMPORTANTE SOBRE O PAGAMENTO</h4>
+          </div>
+          <div class="payment-info-content">
+            <div class="payment-breakdown">
+              <p><strong>O que estás a pagar hoje:</strong></p>
+              <ul>
+                <li>✅ <strong>1ª Mensalidade (€64.90)</strong> - Já está paga!</li>
+                <li>✅ <strong>Seguro Anual (€10)</strong> - Obrigatório</li>
+              </ul>
+            </div>
+            <div class="payment-timing">
+              <p><strong>🗓️ Quando começa a contar a próxima mensalidade:</strong></p>
+              <p class="timing-highlight">A tua próxima mensalidade só começará a ser cobrada quando o ginásio abrir oficialmente e começares a treinar. Não pagas nada extra até lá!</p>
+            </div>
+          </div>
+        </div>
+
         <div class="modal-regy-container">
-          <!-- Regy Integration for RISE -->
-          <input type="hidden" class="class_regy" id="src_regy3" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=3&acs=3ddf69e0b105421fc7423c06a6ffccbd&site=s">
-          <iframe name="frame_regy3" id="frame_regy3" width="100%" height="600px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Rise"></iframe>
+          <!-- Regy Integration for RISE EARLY BIRD -->
+          <input type="hidden" class="class_regy" id="src_regy6" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_pack.php?id_box=2244&id_int=6&acs=0f27a8afcf7f05acda98ef4d1fd786ef&site=s">
+          <iframe name="frame_regy6" id="frame_regy6" width="100%" height="600px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Rise Early Bird"></iframe>
         </div>
       </div>
     </div>
@@ -334,7 +475,11 @@
       </div>
       <div class="modal-content">
         <div class="modal-plan-summary">
-          <div class="plan-price">€59.90/mês</div>
+          <div class="plan-price plan-price--promo">
+            <span class="plan-price__original">€59.90</span>
+            <span class="plan-price__current">€49.90/mês</span>
+            <span class="plan-price__badge">EARLY BIRD</span>
+          </div>
           <div class="plan-features">
             <p><strong>Acesso 2x por semana</strong></p>
             <p>• Sem fidelização - cancelável quando quiseres</p>
@@ -345,10 +490,31 @@
             <p>• Eventos a preço reduzido ou gratuitos</p>
           </div>
         </div>
+        
+        <!-- Early Bird Payment Information -->
+        <div class="modal-payment-info">
+          <div class="payment-info-header">
+            <h4>⚠️ INFORMAÇÃO IMPORTANTE SOBRE O PAGAMENTO</h4>
+          </div>
+          <div class="payment-info-content">
+            <div class="payment-breakdown">
+              <p><strong>O que estás a pagar hoje:</strong></p>
+              <ul>
+                <li>✅ <strong>1ª Mensalidade (€49.90)</strong> - Já está paga!</li>
+                <li>✅ <strong>Seguro Anual (€10)</strong> - Obrigatório</li>
+              </ul>
+            </div>
+            <div class="payment-timing">
+              <p><strong>🗓️ Quando começa a contar a próxima mensalidade:</strong></p>
+              <p class="timing-highlight">A tua próxima mensalidade só começará a ser cobrada quando o ginásio abrir oficialmente e começares a treinar. Não pagas nada extra até lá!</p>
+            </div>
+          </div>
+        </div>
+
         <div class="modal-regy-container">
-          <!-- Regy Integration for STARTER -->
-          <input type="hidden" class="class_regy" id="src_regy2" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=2&acs=7efff90d4101aed0cec7330e5d7c8b6a&site=s">
-          <iframe name="frame_regy2" id="frame_regy2" width="100%" height="600px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Starter"></iframe>
+          <!-- Regy Integration for STARTER EARLY BIRD -->
+          <input type="hidden" class="class_regy" id="src_regy7" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_pack.php?id_box=2244&id_int=7&acs=3cb3adacd70d11c136e208fc822d8ccf&site=s">
+          <iframe name="frame_regy7" id="frame_regy7" width="100%" height="600px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Starter Early Bird"></iframe>
         </div>
       </div>
     </div>
@@ -522,8 +688,6 @@
       </div>
     </div>
   </section>
-
-
 
   <!-- Contact Section -->
   <section id="contact" class="contact">

@@ -1112,6 +1112,146 @@ section {
   box-shadow: 11px 11px 0 #0088CC;
 }
 
+/* Early Bird Promotional Pricing Styles */
+.pricing__promo-text {
+  text-align: center;
+  color: #DC143C;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: var(--spacing-md);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.price-card--promo {
+  position: relative;
+  overflow: visible;
+}
+
+.price-card__badge {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #DC143C;
+  color: #FFFFFF;
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0 #000000;
+  z-index: 10;
+}
+
+.price-card__original {
+  font-size: 1.8rem;
+  text-decoration: line-through;
+  text-decoration-color: #DC143C; /* Red strikethrough line */
+  opacity: 0.7;
+  margin-bottom: 8px;
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+/* Specific colors for original prices based on card type */
+.price-card--elite .price-card__original {
+  color: #FFFFFF; /* White for elite (black header) */
+}
+
+.price-card--featured .price-card__original {
+  color: #000000; /* Black for featured/rise (yellow header) */
+}
+
+.price-card--student .price-card__original {
+  color: #000000; /* Black for student/starter (white header) */
+}
+
+.price-card__amount--promo {
+  color: #DC143C !important;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+}
+
+/* Modal promotional pricing styles */
+.plan-price--promo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.plan-price__original {
+  font-size: 1.4rem;
+  color: #000000; /* Black for modal original prices */
+  text-decoration: line-through;
+  text-decoration-color: #DC143C; /* Red strikethrough line */
+  opacity: 0.7;
+  font-weight: 700;
+}
+
+.plan-price__current {
+  font-size: 2.2rem;
+  color: #DC143C;
+  font-weight: 900;
+  font-family: var(--font-heading);
+}
+
+.plan-price__badge {
+  background-color: #DC143C;
+  color: #FFFFFF;
+  padding: 4px 12px;
+  font-size: 0.7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 2px solid #000000;
+  box-shadow: 2px 2px 0 #000000;
+  margin-top: 8px;
+}
+
+/* Responsive adjustments for promotional pricing */
+@media (max-width: 768px) {
+  .price-card__badge {
+    font-size: 0.7rem;
+    padding: 6px 12px;
+  }
+  
+  .price-card__original {
+    font-size: 1.6rem;
+  }
+  
+  .price-card__amount--promo {
+    font-size: 2.5rem;
+  }
+  
+  .plan-price__current {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .price-card__badge {
+    font-size: 0.6rem;
+    padding: 4px 8px;
+    top: -12px;
+  }
+  
+  .price-card__original {
+    font-size: 1.4rem;
+  }
+  
+  .price-card__amount--promo {
+    font-size: 2.2rem;
+  }
+  
+  .plan-price__current {
+    font-size: 1.8rem;
+  }
+}
+
 /* Contact Section */
 .contact {
   background-color: var(--color-white);
@@ -3717,6 +3857,115 @@ button.btn:active {
 /* Prevent body scroll when modal is open */
 body.modal-open {
   overflow: hidden;
+}
+
+/* Early Bird Payment Information Styles */
+.modal-payment-info {
+  background-color: #FFF3CD;
+  border: 3px solid #DC143C;
+  border-radius: 8px;
+  margin: var(--spacing-md) 0;
+  padding: var(--spacing-md);
+  box-shadow: 4px 4px 0 rgba(220, 20, 60, 0.2);
+}
+
+.payment-info-header {
+  text-align: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.payment-info-header h4 {
+  color: #DC143C;
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.payment-info-content {
+  display: grid;
+  gap: var(--spacing-sm);
+}
+
+.payment-breakdown {
+  background-color: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 4px;
+  padding: var(--spacing-sm);
+}
+
+.payment-breakdown p {
+  margin: 0 0 var(--spacing-xs) 0;
+  font-weight: 700;
+  color: #000000;
+}
+
+.payment-breakdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.payment-breakdown li {
+  margin: var(--spacing-xs) 0;
+  padding-left: 0;
+  color: #000000;
+  font-weight: 600;
+}
+
+.payment-timing {
+  background-color: #E8F5E8;
+  border: 2px solid #28A745;
+  border-radius: 4px;
+  padding: var(--spacing-sm);
+}
+
+.payment-timing p {
+  margin: 0 0 var(--spacing-xs) 0;
+  color: #000000;
+}
+
+.timing-highlight {
+  background-color: #D4EDDA;
+  border-left: 4px solid #28A745;
+  padding: var(--spacing-xs);
+  margin: var(--spacing-xs) 0 0 0 !important;
+  font-weight: 700;
+  color: #155724 !important;
+  border-radius: 0 4px 4px 0;
+}
+
+/* Responsive adjustments for payment info */
+@media (max-width: 768px) {
+  .modal-payment-info {
+    margin: var(--spacing-sm) 0;
+    padding: var(--spacing-sm);
+  }
+  
+  .payment-info-header h4 {
+    font-size: 1.1rem;
+  }
+  
+  .payment-breakdown, .payment-timing {
+    padding: var(--spacing-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-payment-info {
+    margin: var(--spacing-xs) 0;
+    padding: var(--spacing-xs);
+  }
+  
+  .payment-info-header h4 {
+    font-size: 1rem;
+  }
+  
+  .timing-highlight {
+    font-size: 0.9rem;
+  }
 }
 
 /* Contact Section */
