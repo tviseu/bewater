@@ -2397,7 +2397,48 @@ body.menu-open .header__menu-toggle {
 
 .hero__cta {
   display: flex;
-  gap: var(--spacing-sm);
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+/* Opening Badge Styles */
+.hero__opening-badge {
+  margin-top: var(--spacing-md);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.opening-badge {
+  display: inline-block;
+  background-color: #FF0000;
+  color: #FFFFFF;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 4px solid #FF0000;
+  position: relative;
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.6);
+  animation: openingPulse 2s ease-in-out infinite;
+  
+  /* Neobrutalist corners cortados */
+  clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+}
+
+@keyframes openingPulse {
+  0%, 100% {
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.6);
+    background-color: #FF0000;
+  }
+  50% {
+    box-shadow: 12px 12px 0 rgba(0, 0, 0, 1), 0 0 30px rgba(255, 0, 0, 1);
+    background-color: #CC0000;
+    transform: translate(-2px, -2px);
+  }
 }
 
 /* Animation Styles */
@@ -2623,11 +2664,6 @@ button.btn:active {
   font-family: var(--font-secondary);
 }
 
-.hero__cta {
-  display: flex;
-  gap: var(--spacing-sm);
-}
-
 /* Force enhanced button styles for hero section */
 .hero__cta .btn--primary {
   font-size: 1.6rem !important;
@@ -2694,6 +2730,12 @@ button.btn:active {
     font-size: 1.4rem !important;
     padding: calc(var(--spacing-sm) + 0.4rem) calc(var(--spacing-md) + 0.7rem) !important;
   }
+  
+  .opening-badge {
+    font-size: 0.9rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
 }
 
 @media (max-width: 480px) {
@@ -2704,6 +2746,12 @@ button.btn:active {
     max-width: 300px !important;
     display: block !important;
     margin: 0 auto !important;
+  }
+  
+  .opening-badge {
+    font-size: 0.8rem;
+    padding: var(--spacing-xs) var(--spacing-xs);
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
   }
 }
 
