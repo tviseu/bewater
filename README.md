@@ -19,6 +19,7 @@ The neobrutalist aesthetic embraces:
 - Bold typography and stark contrasts
 - Grid-breaking layouts
 - Exaggerated interactive elements
+- Others...
 
 ## Technologies Used
 
