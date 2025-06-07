@@ -2650,8 +2650,13 @@ button.btn:active {
   right: -30px;
 }
 
-.gallery__caption {
+.gallery__caption-container {
+  display: flex;
+  justify-content: center;
   margin-top: var(--spacing-md);
+}
+
+.gallery__caption {
   font-family: var(--font-primary);
   font-size: 1rem;
   font-weight: 700;
@@ -2664,6 +2669,7 @@ button.btn:active {
   display: inline-block;
   box-shadow: 8px 8px 0 var(--color-black);
   max-width: 600px;
+  text-align: center;
 }
 
 /* Mobile Responsiveness for Gallery */
@@ -2694,6 +2700,10 @@ button.btn:active {
   
   .gallery__btn--next {
     right: -25px;
+  }
+  
+  .gallery__caption-container {
+    margin-top: var(--spacing-sm);
   }
   
   .gallery__caption {
@@ -2729,6 +2739,10 @@ button.btn:active {
   
   .gallery__btn--next {
     right: -20px;
+  }
+  
+  .gallery__caption-container {
+    margin-top: var(--spacing-xs);
   }
   
   .gallery__caption {
