@@ -1230,6 +1230,10 @@ section {
   .plan-price__current {
     font-size: 2rem;
   }
+  
+  .early-bird-text {
+    font-size: 2.5rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1249,6 +1253,10 @@ section {
   
   .plan-price__current {
     font-size: 1.8rem;
+  }
+  
+  .early-bird-text {
+    font-size: 2rem;
   }
 }
 
@@ -1928,6 +1936,12 @@ section {
   width: 100%;
 }
 
+/* Active state for desktop navigation - underlined yellow */
+.header__nav a.active::after {
+  width: 100%;
+  background-color: #FFD700;
+}
+
 /* Gradual scaling breakpoints */
 @media (max-width: 1200px) {
   .logo-container {
@@ -2253,6 +2267,12 @@ section {
   transform: translateX(10px);
 }
 
+/* Active state for mobile menu links - underlined yellow */
+.mobile-menu a.active {
+  border-bottom: 3px solid #FFD700;
+  padding-bottom: calc(var(--spacing-sm) - 3px);
+}
+
 /* Highlight PREÇOS link in mobile menu */
 .mobile-menu a[href="#pricing"] {
   color: #FFD700;
@@ -2514,6 +2534,14 @@ body.menu-open .header__menu-toggle {
   margin-bottom: var(--spacing-md);
   position: relative;
   display: inline-block;
+}
+
+/* Early Bird text styling for pricing section */
+.early-bird-text {
+  color: #DC143C;
+  font-weight: 900;
+  display: block;
+  margin-top: 0.2rem;
 }
 
 .section-line {

@@ -1328,3 +1328,98 @@ document.addEventListener('DOMContentLoaded', function() {
   
   console.log(`Added hide/show badge listeners to ${modalButtons.length} subscription modal buttons`);
 });
+
+// Active Navigation State Management
+document.addEventListener('DOMContentLoaded', function() {
+  const desktopNavLinks = document.querySelectorAll('.header__nav a[href^="#"]');
+  const mobileNavLinks = document.querySelectorAll('.mobile-menu a[href^="#"]');
+  const sections = document.querySelectorAll('section[id]');
+  
+  if (!sections.length) {
+    console.log('No sections found for navigation highlighting');
+    return;
+  }
+  
+  console.log('Found sections:', Array.from(sections).map(s => s.id));
+  console.log('Found desktop nav links:', Array.from(desktopNavLinks).map(l => l.getAttribute('href')));
+  console.log('Found mobile nav links:', Array.from(mobileNavLinks).map(l => l.getAttribute('href')));
+  
+  // Function to update active navigation link
+  function updateActiveNav(activeSectionId) {
+    console.log('Updating navigation for section:', activeSectionId);
+    
+    // Update desktop navigation
+    desktopNavLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${activeSectionId}`) {
+        link.classList.add('active');
+        console.log('Added active class to desktop link:', link.getAttribute('href'));
+      }
+    });
+    
+    // Update mobile navigation - but keep PREÇOS yellow and just add underline
+    mobileNavLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${activeSectionId}`) {
+        link.classList.add('active');
+        console.log('Added active class to mobile link:', link.getAttribute('href'));
+      }
+    });
+  }
+  
+  // Use Intersection Observer for more accurate detection
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -70% 0px', // Only trigger when section is prominently in view
+    threshold: 0
+  };
+  
+  let currentActiveSection = '';
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const sectionId = entry.target.id;
+        if (sectionId !== currentActiveSection) {
+          currentActiveSection = sectionId;
+          updateActiveNav(sectionId);
+        }
+      }
+    });
+  }, observerOptions);
+  
+  // Observe all sections
+  sections.forEach(section => {
+    observer.observe(section);
+  });
+  
+  // Fallback: manual detection for edge cases
+  function getCurrentSectionFallback() {
+    const headerHeight = document.querySelector('.header').offsetHeight || 120;
+    const viewportMiddle = window.scrollY + window.innerHeight / 2;
+    
+    let activeSection = sections[0].id;
+    let minDistance = Infinity;
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionMiddle = sectionTop + (section.offsetHeight / 2);
+      const distance = Math.abs(viewportMiddle - sectionMiddle);
+      
+      if (distance < minDistance) {
+        minDistance = distance;
+        activeSection = section.id;
+      }
+    });
+    
+    return activeSection;
+  }
+  
+  // Initialize on load with fallback method
+  setTimeout(() => {
+    const initialSection = getCurrentSectionFallback();
+    updateActiveNav(initialSection);
+  }, 100);
+  
+  console.log(`Active navigation initialized with ${sections.length} sections and ${desktopNavLinks.length + mobileNavLinks.length} nav links`);
+});
