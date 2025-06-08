@@ -112,8 +112,8 @@ document.addEventListener('DOMContentLoaded', function() {
   function updateCarousel() {
     console.log(`Moving to slide ${currentSlide + 1} of ${totalSlides}`);
     
-    // Move track - cada slide tem 25% de largura
-    const translateX = -currentSlide * 25; // 25% por slide
+    // Move track - cada slide tem 16.67% de largura (100% / 6 slides)
+    const translateX = -currentSlide * 16.67; // 16.67% por slide
     track.style.transform = `translateX(${translateX}%)`;
     
     console.log(`Applied transform: translateX(${translateX}%)`);
@@ -227,16 +227,16 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log('Setting up CSS debug...');
   
   // Ensure track has proper width
-  track.style.width = '400%'; // 4 slides × 100%
+  track.style.width = '600%'; // 6 slides × 100%
   track.style.display = 'flex';
   
   // Ensure each slide has proper width
   slides.forEach((slide, index) => {
-    slide.style.minWidth = '25%';
-    slide.style.width = '25%';
-    slide.style.flex = '0 0 25%';
+    slide.style.minWidth = '16.67%';
+    slide.style.width = '16.67%';
+    slide.style.flex = '0 0 16.67%';
     slide.style.boxSizing = 'border-box';
-    console.log(`Slide ${index} styled: width=25%, flex=0 0 25%`);
+    console.log(`Slide ${index} styled: width=16.67%, flex=0 0 16.67%`);
   });
   
   // Initialize carousel
