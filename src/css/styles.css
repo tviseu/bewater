@@ -515,11 +515,11 @@ section {
 }
 
 .carousel-btn--prev {
-  left: -30px;
+  left: -45px;
 }
 
 .carousel-btn--next {
-  right: -30px;
+  right: -45px;
 }
 
 /* Indicadores */
@@ -886,7 +886,7 @@ section {
 }
 
 .trainer-card__image--catarino {
-  background-image: url('../images/salgueiro2.png');
+  background-image: url('../images/coaches/luiscatarino2.png');
 }
 
 .trainer-card__content {
@@ -3151,7 +3151,7 @@ button.btn:active {
   
   .carousel-slide {
     padding: var(--spacing-xs) !important;  /* Even smaller padding */
-    min-height: 300px !important;  /* Further reduced from 350px */
+    min-height: 250px !important;  /* Further reduced from 300px */
   }
   
   .carousel-slide.pillar-frame--yellow .pillar-content,
@@ -3190,7 +3190,7 @@ button.btn:active {
   
   /* Solution 3: Criar padding lateral inteligente para áreas de scroll */
   .pillars-carousel {
-    padding: 0 40px;  /* Add lateral padding for scroll zones */
+    padding: 0 55px;  /* Add lateral padding for scroll zones */
     position: relative;
   }
   
@@ -3227,19 +3227,19 @@ button.btn:active {
   
   .about .pillar-subtitle {
     font-size: 0.95rem !important;  /* Slightly bigger */
-    margin-bottom: 4px !important;
+    margin-bottom: var(--spacing-xs) !important;
   }
   
   .about .pillar-text {
     font-size: 0.85rem !important;  /* Slightly bigger */
-    line-height: 1.3 !important;
-    margin-bottom: 4px !important;
+    line-height: 1.4 !important;
+    margin-bottom: var(--spacing-sm) !important;
   }
   
   .about .pillar-tags span {
     font-size: 0.65rem !important;  /* Slightly bigger */
-    padding: 2px 5px !important;
-    margin: 1px !important;
+    padding: 3px 6px !important;
+    margin: 2px !important;
   }
   
   .about .pillar-equipment {
@@ -3289,7 +3289,7 @@ button.btn:active {
   
   .carousel-slide {
     padding: 8px !important;  /* Very compact padding */
-    min-height: 270px !important;  /* Further reduced from 320px */
+    min-height: 220px !important;  /* Further reduced from 270px */
   }
   
   /* Enhanced navigation buttons for small screens */
@@ -3311,17 +3311,17 @@ button.btn:active {
     box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.8);
   }
   
-  .carousel-btn--prev {
-    left: -30px;  /* Positioned further outside */
+    .carousel-btn--prev {
+    left: -40px;  /* Positioned further outside */
   }
-  
+
   .carousel-btn--next {
-    right: -30px;  /* Positioned further outside */
+    right: -40px;  /* Positioned further outside */
   }
   
   /* Adjust padding for smaller screens */
   .pillars-carousel {
-    padding: 0 35px;  /* Slightly less padding for small screens */
+    padding: 0 45px;  /* More padding to accommodate arrows */
   }
   
   .pillars-carousel::before,
@@ -3342,16 +3342,16 @@ button.btn:active {
     font-size: 1.3rem;
   }
   
-  .carousel-btn--prev {
-    left: -25px;
+    .carousel-btn--prev {
+    left: -35px;
   }
-  
+
   .carousel-btn--next {
-    right: -25px;
+    right: -35px;
   }
   
   .pillars-carousel {
-    padding: 0 30px;
+    padding: 0 45px;
   }
   
   .pillars-carousel::before,
@@ -3378,19 +3378,19 @@ button.btn:active {
   
   .about .pillar-subtitle {
     font-size: 0.85rem !important;  /* Slightly bigger */
-    margin-bottom: 3px !important;
+    margin-bottom: var(--spacing-xs) !important;
   }
   
   .about .pillar-text {
     font-size: 0.8rem !important;  /* Slightly bigger */
-    line-height: 1.2 !important;
-    margin-bottom: 3px !important;
+    line-height: 1.4 !important;
+    margin-bottom: var(--spacing-sm) !important;
   }
   
   .about .pillar-tags span {
     font-size: 0.6rem !important;  /* Slightly bigger */
-    padding: 2px 4px !important;
-    margin: 1px !important;
+    padding: 3px 5px !important;
+    margin: 2px !important;
   }
   
   .about .pillar-equipment {
