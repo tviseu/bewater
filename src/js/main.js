@@ -1279,7 +1279,8 @@ document.addEventListener('DOMContentLoaded', function() {
   
   modalButtons.forEach(button => {
     const buttonText = button.textContent.trim();
-    if (buttonText === 'INSCREVE-TE JÁ') {
+    // Hide badge for both subscription and pre-registration buttons (privacy policy doesn't hide badge)
+    if (buttonText === 'INSCREVE-TE JÁ' || buttonText === 'FAZ A TUA PRÉ-INSCRIÇÃO!') {
       button.addEventListener('click', hideBadge);
     }
   });
@@ -1291,8 +1292,8 @@ document.addEventListener('DOMContentLoaded', function() {
       // Call original close function
       originalCloseModal(modalId);
       
-      // Show badge again if it was hidden and we're closing a subscription modal
-      if (modalId && (modalId.includes('elite') || modalId.includes('rise') || modalId.includes('starter'))) {
+      // Show badge again if it was hidden and we're closing any modal (except privacy policy)
+      if (modalId && (modalId.includes('elite') || modalId.includes('rise') || modalId.includes('starter') || modalId.includes('pre-registration'))) {
         setTimeout(showBadge, 200); // Small delay to ensure modal is fully closed
       }
     };
@@ -1320,7 +1321,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.addEventListener('click', function(e) {
     if (e.target.classList.contains('modal-close') && badgeWasHidden) {
       const modalId = e.target.getAttribute('data-close');
-      if (modalId && (modalId.includes('elite') || modalId.includes('rise') || modalId.includes('starter'))) {
+      if (modalId && (modalId.includes('elite') || modalId.includes('rise') || modalId.includes('starter') || modalId.includes('pre-registration'))) {
         setTimeout(showBadge, 200);
       }
     }
