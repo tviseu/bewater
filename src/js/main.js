@@ -946,10 +946,10 @@ class BrutalistGallery {
     // If no images found, use fallback images
     if (this.images.length === 0) {
       const fallbackImages = [
-        'src/images/d88af4ef-e380-4b56-96c2-71197a7a6f72.png',
-        'src/images/7b76cb8d-f94f-46be-be70-b470f40b6856.png',
-        'src/images/7c18eef0-2694-4241-aadd-2e9fa2d0d8ae.png',
-        'src/images/ccd81ca1-257a-4edf-b66c-ce2498a30dfa.png'
+              'src/images/general/d88af4ef-e380-4b56-96c2-71197a7a6f72.png',
+      'src/images/general/7b76cb8d-f94f-46be-be70-b470f40b6856.png',
+      'src/images/general/7c18eef0-2694-4241-aadd-2e9fa2d0d8ae.png',
+      'src/images/general/ccd81ca1-257a-4edf-b66c-ce2498a30dfa.png'
       ];
       
       // Test fallback images
