@@ -853,7 +853,7 @@ section {
   box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-primary);
   overflow: hidden;
   background-color: var(--color-background);
-  transition: transform 0.3s;
+  transition: transform 0.3s, border-color 0.3s;
 }
 
 .trainer-card:hover {
@@ -862,31 +862,30 @@ section {
 }
 
 .trainer-card__image {
-  height: 300px;
+  height: 380px;
   background-size: contain;
   background-position: center center;
   background-repeat: no-repeat;
-  border-bottom: var(--border-thick);
 }
 
 .trainer-card__image--salgueiro {
-  background-image: url('../images/coaches/brunosalgueiro3.png');
+  background-image: url('../images/coaches/coaches-optimized/brunosalgueiro3_optimized.png');
 }
 
 .trainer-card__image--segurado {
-  background-image: url('../images/coaches/jorgesegurado4.png');
+  background-image: url('../images/coaches/coaches-optimized/card JORGE SEGURADO_00000_optimized.png');
 }
 
 .trainer-card__image--morgado {
-  background-image: url('../images/salgueiro-morgado.png');
+  background-image: url('../images-optimized/salgueiro-morgado_optimized.png');
 }
 
 .trainer-card__image--joaquim {
-  background-image: url('../images/coaches/joaquimcoelho2.png');
+  background-image: url('../images/coaches/coaches-optimized/joaquimcoelho2_optimized.png');
 }
 
 .trainer-card__image--catarino {
-  background-image: url('../images/coaches/luiscatarino2.png');
+  background-image: url('../images/coaches/coaches-optimized/card LUÍS CATARINO v2_00000_optimized.png');
 }
 
 .trainer-card__content {
@@ -934,6 +933,10 @@ section {
     gap: var(--spacing-sm);
   }
   
+  .trainer-card__image {
+    height: 320px;
+  }
+  
   .trainer-card__name {
     font-size: 1.3rem;
   }
@@ -952,6 +955,10 @@ section {
     grid-template-columns: 1fr;
     max-width: 300px;
     margin: 0 auto;
+  }
+  
+  .trainer-card__image {
+    height: 280px;
   }
   
   .trainer-card__name {
