@@ -124,7 +124,7 @@ O site é estático e pode ser deployado em qualquer servidor web ou plataforma 
 
 | Plano | Preço | Acesso | Características |
 |-------|-------|--------|-----------------|
-| **Starter** | €64.80/mês | 2x semana | Open gym + Aulas + Modalidades |
+| **Starter** | €64.90/mês | 2x semana | Open gym + Aulas + Modalidades |
 | **Rise** | €79.90/mês | 3x semana | Open gym + Aulas + Modalidades |
 | **Elite** | €94.90/mês | Ilimitado | Open gym + Aulas + Modalidades |
 
