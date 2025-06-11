@@ -124,9 +124,9 @@ O site é estático e pode ser deployado em qualquer servidor web ou plataforma 
 
 | Plano | Preço | Acesso | Características |
 |-------|-------|--------|-----------------|
-| **Starter** | €59.90/mês | 2x semana | Open gym + Aulas + Modalidades |
-| **Rise** | €74.90/mês | 3x semana | Open gym + Aulas + Modalidades |
-| **Elite** | €89.90/mês | Ilimitado | Open gym + Aulas + Modalidades |
+| **Starter** | €64.80/mês | 2x semana | Open gym + Aulas + Modalidades |
+| **Rise** | €79.90/mês | 3x semana | Open gym + Aulas + Modalidades |
+| **Elite** | €94.90/mês | Ilimitado | Open gym + Aulas + Modalidades |
 
 *Todos os planos incluem: Easter eggs, eventos a preço reduzido, sem fidelização*
 
