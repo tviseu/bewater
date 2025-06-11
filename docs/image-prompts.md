@@ -12,6 +12,8 @@ Generate this image in A vintage 1970s baseball card aesthetic. The subject is f
 
 The colors are slightly oversaturated, evoking nostalgic tones (faded reds, yellows, blues). The corners are subtly rounded, and the image includes a printed autograph across the lower part of the card. The photo has a matte, worn-paper look with mild discoloration or age wear. The overall mood is cheerful and heroic, with a vintage Americana feel typical of trading cards from the 1960s–70s.
 
+KEEP ORIGINAL IMAGE FACE AND OVERALL FEEL.
+
 ---
 
 ## Outras Categorias

@@ -3467,10 +3467,10 @@ button.btn:active {
     box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.8);
   }
   
-    .carousel-btn--prev {
+  .carousel-btn--prev {
     left: -40px;  /* Positioned further outside */
   }
-
+  
   .carousel-btn--next {
     right: -40px;  /* Positioned further outside */
   }
