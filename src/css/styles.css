@@ -888,6 +888,10 @@ section {
   background-image: url('../images/coaches/coaches-optimized/CARD luís catarino_optimized.png');
 }
 
+.trainer-card__image--lourenco {
+  background-image: url('../images/coaches/coaches-optimized/CARD lourenço santos_optimized.png');
+}
+
 .trainer-card__content {
   padding: var(--spacing-sm);
 }
