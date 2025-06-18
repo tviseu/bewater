@@ -1416,6 +1416,38 @@ section {
   text-transform: uppercase;
 }
 
+.contact__parking {
+  /* Same spacing as other contact sections */
+}
+
+.contact__parking h3 {
+  margin-bottom: var(--spacing-sm);
+  color: #000000;
+  font-size: 1.2rem;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.contact__parking p {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.contact__parking-link {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.contact__parking-link:hover {
+  color: #FFD700;
+  border-bottom-color: #FFD700;
+  transform: translate(-1px, -1px);
+}
+
 .contact__hours-grid {
   display: grid;
   grid-template-columns: auto auto auto 1fr;
