@@ -1436,16 +1436,42 @@ section {
 
 .contact__parking-link {
   color: var(--color-primary);
-  text-decoration: none;
-  font-weight: 600;
-  border-bottom: 2px solid transparent;
+  text-decoration: underline;
+  text-decoration-color: var(--color-primary);
+  text-underline-offset: 3px;
+  font-weight: normal;
+  cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .contact__parking-link:hover {
   color: #FFD700;
-  border-bottom-color: #FFD700;
-  transform: translate(-1px, -1px);
+  text-decoration-color: #FFD700;
+  transform: translate(-2px, -2px);
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+}
+
+.contact__parking-link:focus {
+  outline: 2px solid #FFD700;
+  outline-offset: 2px;
+  color: #FFD700;
+  text-decoration-color: #FFD700;
+}
+
+/* Mobile specific improvements */
+@media (max-width: 768px) {
+  .contact__parking-link {
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+    padding: 2px 0;
+  }
+  
+  .contact__parking-link:hover,
+  .contact__parking-link:active {
+    background-color: rgba(255, 107, 53, 0.1);
+    border-radius: 3px;
+    padding: 4px 2px;
+  }
 }
 
 .contact__hours-grid {
