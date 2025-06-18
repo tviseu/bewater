@@ -1424,3 +1424,51 @@ document.addEventListener('DOMContentLoaded', function() {
   
   console.log(`Active navigation initialized with ${sections.length} sections and ${desktopNavLinks.length + mobileNavLinks.length} nav links`);
 });
+
+// Schedule Activity Click to Scroll to Legend
+document.addEventListener('DOMContentLoaded', function() {
+  const activities = document.querySelectorAll('.activity');
+  const legend = document.querySelector('.schedule__legend');
+  
+  if (!legend) {
+    console.log('Schedule legend not found');
+    return;
+  }
+  
+  if (!activities.length) {
+    console.log('No schedule activities found');
+    return;
+  }
+  
+  function scrollToLegend() {
+    const headerHeight = document.querySelector('.header').offsetHeight || 120;
+    const legendPosition = legend.offsetTop - headerHeight - 20; // 20px extra padding
+    
+    window.scrollTo({
+      top: legendPosition,
+      behavior: 'smooth'
+    });
+    
+    // Add a subtle highlight effect to the legend
+    legend.style.transition = 'box-shadow 0.3s ease';
+    legend.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.3)';
+    
+    setTimeout(() => {
+      legend.style.boxShadow = 'none';
+    }, 2000);
+  }
+  
+  // Add click event listeners to all activities
+  activities.forEach(activity => {
+    activity.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Activity clicked, scrolling to legend');
+      scrollToLegend();
+    });
+    
+    // Make activities appear clickable
+    activity.style.cursor = 'pointer';
+  });
+  
+  console.log(`Added click handlers to ${activities.length} schedule activities`);
+});
