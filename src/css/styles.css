@@ -3172,6 +3172,11 @@ button.btn:active {
 }
 
 @media (max-width: 768px) {
+  .hero__title {
+    margin-top: 60px !important;
+    font-size: 3.8rem;
+  }
+  
   .hero__cta .btn--primary {
     font-size: 1.4rem !important;
     padding: calc(var(--spacing-sm) + 0.4rem) calc(var(--spacing-md) + 0.7rem) !important;
@@ -3219,6 +3224,11 @@ button.btn:active {
 }
 
 @media (max-width: 480px) {
+  .hero__title {
+    margin-top: 80px !important;
+    font-size: 3.2rem;
+  }
+  
   .hero__cta .btn--primary {
     font-size: 1.2rem !important;
     padding: calc(var(--spacing-sm) + 0.3rem) calc(var(--spacing-md) + 0.5rem) !important;
