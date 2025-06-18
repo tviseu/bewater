@@ -1632,8 +1632,13 @@ section {
   }
   
   .contact__map {
-    height: 300px;
+    height: 400px;
     margin-top: var(--spacing-lg);
+  }
+  
+  .contact__map iframe {
+    width: 100% !important;
+    height: 400px !important;
   }
 }
 
@@ -1709,9 +1714,14 @@ section {
   }
   
   .contact__map {
-    height: 250px;
+    height: 350px;
     border-width: 2px;
     box-shadow: 4px 4px 0 var(--color-primary);
+  }
+  
+  .contact__map iframe {
+    width: 100% !important;
+    height: 350px !important;
   }
 }
 
@@ -1740,7 +1750,12 @@ section {
   }
   
   .contact__map {
-    height: 200px;
+    height: 320px;
+  }
+  
+  .contact__map iframe {
+    width: 100% !important;
+    height: 320px !important;
   }
 }
 
