@@ -924,7 +924,8 @@ section {
 }
 
 .trainer-card__certs span {
-  background-color: var(--color-gray);
+  background-color: #E5E5E5;
+  color: #333333;
   padding: 0.25rem 0.5rem;
   font-size: 0.75rem;
   font-weight: 700;
