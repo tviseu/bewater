@@ -113,14 +113,23 @@ exports.handler = async (event, context) => {
 
     console.log('Fazendo chamada para:', apiUrl);
     console.log('Payload:', JSON.stringify(eupagoPayload, null, 2));
+    console.log('API Key (primeiros 10 chars):', EUPAGO_CONFIG.api_key.substring(0, 10) + '...');
 
     // Fazer chamada à API EuPago com o header correto
+    const requestHeaders = {
+      'Content-Type': 'application/json',
+      'ApiKey': EUPAGO_CONFIG.api_key.trim(),
+      'Authorization': `ApiKey ${EUPAGO_CONFIG.api_key.trim()}`
+    };
+    
+    console.log('Headers sendo enviados:', {
+      'Content-Type': requestHeaders['Content-Type'],
+      'ApiKey': requestHeaders['ApiKey'].substring(0, 10) + '...'
+    });
+
     const response = await fetch(apiUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'ApiKey': EUPAGO_CONFIG.api_key
-      },
+      headers: requestHeaders,
       body: JSON.stringify(eupagoPayload)
     });
 
