@@ -1,0 +1,28 @@
+[build]
+  functions = "pagamentos/netlify/functions"
+  publish = "."
+
+[functions]
+  node_bundler = "esbuild"
+
+# Redirects para as functions
+[[redirects]]
+  from = "/api/mbway/payment"
+  to = "/.netlify/functions/mbway-payment"
+  status = 200
+
+# Redirects para a página de pagamento
+[[redirects]]
+  from = "/pagamento"
+  to = "/pagamentos/"
+  status = 200
+
+[[redirects]]
+  from = "/pagamento/*"
+  to = "/pagamentos/"
+  status = 200
+
+[[redirects]]
+  from = "/pay"
+  to = "/pagamentos/"
+  status = 200 
