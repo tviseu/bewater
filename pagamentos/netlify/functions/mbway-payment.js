@@ -96,7 +96,7 @@ exports.handler = async (event, context) => {
       amount: produto.preco,
       phone: phone,
       description: `${produto.nome} - BE WATER`,
-      channel: 'mbway' // Canal MBWay criado no painel EuPago
+      channel: 'MBway pagamentos' // Nome exato do canal criado no painel EuPago
     };
 
     // Adicionar informações do cliente se fornecidas
