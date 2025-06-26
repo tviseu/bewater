@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento MBWay - BE WATER</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #FFD700;
+            --bg-dark: #1a1a1a;
+            --bg-darker: #0f0f0f;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --border-color: rgba(255, 215, 0, 0.3);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background: var(--bg-darker);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            line-height: 1.6;
+            
+            /* Water effect background */
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 215, 0, 0.02) 0%, transparent 50%);
+        }
+
+        .container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+            z-index: 1;
+        }
+
+        .logo {
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 900;
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tagline {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        .produto {
+            background: rgba(255, 215, 0, 0.08);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 25px 20px;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .produto::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(45deg, var(--primary-color), transparent, var(--primary-color));
+            border-radius: 15px;
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .produto-nome {
+            font-family: 'Work Sans', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .produto-preco {
+            font-size: 36px;
+            color: var(--primary-color);
+            font-weight: 700;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .form-group {
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-primary);
+        }
+
+        input {
+            width: 100%;
+            padding: 15px 18px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            font-size: 16px;
+            font-family: 'Space Mono', monospace;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary-color);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Work Sans', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            background: #FFA500;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn:disabled {
+            background: #333;
+            color: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn:disabled::before {
+            display: none;
+        }
+
+        .loading {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .loading-text {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .loading-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .success, .error {
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 25px;
+            display: none;
+            text-align: center;
+        }
+
+        .success {
+            background: rgba(0, 255, 100, 0.1);
+            border: 1px solid rgba(0, 255, 100, 0.3);
+            color: #00ff64;
+        }
+
+        .error {
+            background: rgba(255, 50, 50, 0.1);
+            border: 1px solid rgba(255, 50, 50, 0.3);
+            color: #ff3232;
+        }
+
+        .opcional {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 400;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 25px;
+                margin: 10px;
+            }
+            
+            .produto-preco {
+                font-size: 32px;
+            }
+            
+            .btn {
+                padding: 16px;
+                font-size: 15px;
+            }
+        }
+
+        /* Water drop animation for loading */
+        .water-drop {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            margin: 0 2px;
+            animation: water-drop 1.4s infinite ease-in-out both;
+        }
+
+        .water-drop:nth-child(1) { animation-delay: -0.32s; }
+        .water-drop:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes water-drop {
+            0%, 80%, 100% {
+                transform: scale(0);
+                opacity: 0.5;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">BE WATER</div>
+        <div class="tagline">Flow Like Water, Strike Like Lightning</div>
+        
+        <div class="produto">
+            <div class="produto-nome" id="produtoNome">Café</div>
+            <div class="produto-preco" id="produtoPreco">€1.50</div>
+        </div>
+
+        <form id="pagamentoForm">
+            <div class="form-group">
+                <label for="telemovel">Telemóvel MBWay *</label>
+                <input type="tel" id="telemovel" name="telemovel" placeholder="912345678" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nif">NIF <span class="opcional">(opcional para fatura)</span></label>
+                <input type="text" id="nif" name="nif" placeholder="123456789">
+            </div>
+
+            <button type="submit" class="btn" id="pagarBtn">
+                PAGAR COM MBWAY
+            </button>
+        </form>
+
+        <div class="loading" id="loading">
+            <div class="loading-text">⏳ A processar pagamento...</div>
+            <div class="water-drop"></div>
+            <div class="water-drop"></div>
+            <div class="water-drop"></div>
+            <div class="loading-subtitle">Confirma o pagamento na app MBWay</div>
+        </div>
+
+        <div class="success" id="success">
+            <p>✅ Pagamento confirmado!</p>
+            <p style="font-size: 14px; margin-top: 10px;">Obrigado pela tua compra!</p>
+        </div>
+
+        <div class="error" id="error">
+            <p>❌ Erro no pagamento</p>
+            <p style="font-size: 14px; margin-top: 10px;" id="errorMessage"></p>
+        </div>
+    </div>
+
+    <script>
+        // Configuração
+        const CONFIG = {
+            // API endpoint seguro via Netlify/Vercel Functions
+            API_URL: '/api/mbway/payment',
+            
+            // Produto - pode ser parametrizado via URL
+            produto: {
+                nome: 'Café',
+                preco: 1.50,
+                id: 'CAFE_001'
+            }
+        };
+
+        // Lê parâmetros da URL se existirem
+        function lerParametrosURL() {
+            const params = new URLSearchParams(window.location.search);
+            
+            if (params.get('produto')) {
+                CONFIG.produto.nome = params.get('produto');
+                document.getElementById('produtoNome').textContent = CONFIG.produto.nome;
+            }
+            
+            if (params.get('preco')) {
+                CONFIG.produto.preco = parseFloat(params.get('preco'));
+                document.getElementById('produtoPreco').textContent = `€${CONFIG.produto.preco.toFixed(2)}`;
+            }
+            
+            if (params.get('id')) {
+                CONFIG.produto.id = params.get('id');
+            }
+        }
+
+        // Validação simples de telemóvel português
+        function validarTelemovel(telemovel) {
+            const regex = /^(9[1236])\d{7}$/;
+            return regex.test(telemovel.replace(/\s/g, ''));
+        }
+
+        // Validação simples de NIF português
+        function validarNIF(nif) {
+            if (!nif) return true; // Opcional
+            const nifRegex = /^\d{9}$/;
+            return nifRegex.test(nif);
+        }
+
+        // Fazer pagamento MBWay (versão segura via serverless function)
+        async function fazerPagamento(telemovel, nif) {
+            const payload = {
+                amount: CONFIG.produto.preco,
+                phone: telemovel,
+                description: `${CONFIG.produto.nome} - BE WATER`,
+                produto_id: CONFIG.produto.id,
+                ...(nif && { nif: nif })
+            };
+
+            try {
+                // Chamada à serverless function (versão segura)
+                const response = await fetch(CONFIG.API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    return { success: true, data };
+                } else {
+                    return { 
+                        success: false, 
+                        error: data.message || 'Erro no pagamento' 
+                    };
+                }
+            } catch (error) {
+                console.error('Erro na chamada:', error);
+                return { 
+                    success: false, 
+                    error: 'Erro de conexão. Verifica a tua internet e tenta novamente.' 
+                };
+            }
+        }
+
+        // Mostrar/esconder elementos
+        function mostrarElemento(id) {
+            document.getElementById(id).style.display = 'block';
+        }
+
+        function esconderElemento(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        // Reset da interface
+        function resetInterface() {
+            esconderElemento('loading');
+            esconderElemento('success');
+            esconderElemento('error');
+            document.getElementById('pagarBtn').disabled = false;
+        }
+
+        // Event listeners
+        document.getElementById('pagamentoForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const telemovel = document.getElementById('telemovel').value.trim();
+            const nif = document.getElementById('nif').value.trim();
+
+            // Validações
+            if (!validarTelemovel(telemovel)) {
+                esconderElemento('success');
+                mostrarElemento('error');
+                document.getElementById('errorMessage').textContent = 'Número de telemóvel inválido';
+                return;
+            }
+
+            if (nif && !validarNIF(nif)) {
+                esconderElemento('success');
+                mostrarElemento('error');
+                document.getElementById('errorMessage').textContent = 'NIF inválido';
+                return;
+            }
+
+            // Processar pagamento
+            resetInterface();
+            mostrarElemento('loading');
+            document.getElementById('pagarBtn').disabled = true;
+
+            const resultado = await fazerPagamento(telemovel, nif);
+
+            esconderElemento('loading');
+            document.getElementById('pagarBtn').disabled = false;
+
+            if (resultado.success) {
+                mostrarElemento('success');
+                esconderElemento('error');
+            } else {
+                mostrarElemento('error');
+                esconderElemento('success');
+                document.getElementById('errorMessage').textContent = resultado.error;
+            }
+        });
+
+        // Formatar telemóvel enquanto digita
+        document.getElementById('telemovel').addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 9) value = value.slice(0, 9);
+            e.target.value = value;
+        });
+
+        // Formatar NIF enquanto digita
+        document.getElementById('nif').addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 9) value = value.slice(0, 9);
+            e.target.value = value;
+        });
+
+        // Inicializar
+        window.addEventListener('DOMContentLoaded', () => {
+            lerParametrosURL();
+        });
+    </script>
+</body>
+</html> 

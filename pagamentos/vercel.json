@@ -1,0 +1,25 @@
+{
+  "functions": {
+    "pagamentos/api/mbway-payment.js": {
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/mbway/payment",
+      "destination": "/pagamentos/api/mbway-payment"
+    },
+    {
+      "source": "/pagamento",
+      "destination": "/pagamentos/"
+    },
+    {
+      "source": "/pagamento/(.*)",
+      "destination": "/pagamentos/"
+    },
+    {
+      "source": "/pay",
+      "destination": "/pagamentos/"
+    }
+  ]
+} 
