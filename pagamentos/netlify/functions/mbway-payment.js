@@ -33,9 +33,15 @@ exports.handler = async (event, context) => {
       is_sandbox: process.env.EUPAGO_SANDBOX === 'true' // true para sandbox, false para produção
     };
 
+    console.log('EUPAGO_CONFIG:', {
+      has_api_key: !!EUPAGO_CONFIG.api_key,
+      is_sandbox: EUPAGO_CONFIG.is_sandbox,
+      url: EUPAGO_CONFIG.is_sandbox ? EUPAGO_CONFIG.sandbox_url : EUPAGO_CONFIG.production_url
+    });
+
     // Verificar se a API key existe
     if (!EUPAGO_CONFIG.api_key) {
-      throw new Error('Configuração da API em falta');
+      throw new Error('API Key não configurada. Verificar variáveis de ambiente.');
     }
 
     // Produtos permitidos (validação de segurança)
@@ -85,19 +91,19 @@ exports.handler = async (event, context) => {
       }
     }
 
-    // Preparar payload para EuPago
+    // Preparar payload para EuPago (formato correto baseado na documentação)
     const eupagoPayload = {
       amount: produto.preco,
       phone: phone,
-      description: `${produto.nome} - BE WATER`,
-      customer: {
-        name: 'Cliente BE WATER'
-      }
+      description: `${produto.nome} - BE WATER`
     };
 
-    // Adicionar NIF se fornecido
+    // Adicionar informações do cliente se fornecidas
     if (nif) {
-      eupagoPayload.customer.fiscal_number = nif;
+      eupagoPayload.customer = {
+        name: 'Cliente BE WATER',
+        fiscal_number: nif
+      };
     }
 
     // Escolher URL (sandbox vs produção)
@@ -105,7 +111,10 @@ exports.handler = async (event, context) => {
       ? EUPAGO_CONFIG.sandbox_url 
       : EUPAGO_CONFIG.production_url;
 
-    // Fazer chamada à API EuPago
+    console.log('Fazendo chamada para:', apiUrl);
+    console.log('Payload:', JSON.stringify(eupagoPayload, null, 2));
+
+    // Fazer chamada à API EuPago com o header correto
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
@@ -115,7 +124,17 @@ exports.handler = async (event, context) => {
       body: JSON.stringify(eupagoPayload)
     });
 
-    const eupagoResponse = await response.json();
+    const responseText = await response.text();
+    console.log('Resposta EuPago status:', response.status);
+    console.log('Resposta EuPago body:', responseText);
+
+    let eupagoResponse;
+    try {
+      eupagoResponse = JSON.parse(responseText);
+    } catch (parseError) {
+      console.error('Erro ao parsear resposta:', parseError);
+      throw new Error(`Resposta inválida da EuPago: ${responseText}`);
+    }
 
     if (response.ok && eupagoResponse.success) {
       // Sucesso
@@ -134,9 +153,13 @@ exports.handler = async (event, context) => {
         })
       };
     } else {
-      // Erro da EuPago
-      const errorMessage = eupagoResponse.message || 'Erro desconhecido da EuPago';
-      throw new Error(errorMessage);
+      // Erro da EuPago com mais detalhes
+      const errorMessage = eupagoResponse.message || eupagoResponse.error || 'Erro desconhecido da EuPago';
+      console.error('Erro EuPago:', {
+        status: response.status,
+        response: eupagoResponse
+      });
+      throw new Error(`EuPago: ${errorMessage} (Status: ${response.status})`);
     }
 
   } catch (error) {
