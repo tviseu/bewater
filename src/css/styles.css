@@ -893,6 +893,14 @@ section {
   background-image: url('../images/coaches/coaches-optimized/CARD lourenço santos_optimized.png');
 }
 
+.trainer-card__image--alexandre {
+  background-image: url('../images/coaches/coaches-optimized/CARD alexandre izidro_optimized.png');
+}
+
+.trainer-card__image--carlos {
+  background-image: url('../images/coaches/coaches-optimized/CARD carlos fernandes_optimized.png');
+}
+
 .trainer-card__content {
   padding: var(--spacing-sm);
 }
