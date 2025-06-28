@@ -30,7 +30,7 @@ exports.handler = async (event, context) => {
       api_key: process.env.EUPAGO_API_KEY, // Variável de ambiente segura
       sandbox_url: 'https://sandbox.eupago.pt/api/v1.02/mbway/create',
       production_url: 'https://clientes.eupago.pt/api/v1.02/mbway/create',
-      is_sandbox: process.env.EUPAGO_SANDBOX === 'true' // true para sandbox, false para produção
+      is_sandbox: false // Usar produção conforme suporte EuPago (API key é de produção)
     };
 
     console.log('EUPAGO_CONFIG:', {
