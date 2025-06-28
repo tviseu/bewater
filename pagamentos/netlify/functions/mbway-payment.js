@@ -91,20 +91,26 @@ exports.handler = async (event, context) => {
       }
     }
 
-    // Preparar payload para EuPago (formato correto baseado na documentação)
+    // Preparar payload para EuPago - TESTANDO DIFERENTES FORMATOS
     const eupagoPayload = {
       amount: produto.preco,
-      customerPhone: `+351${phone}`, // Adicionar código do país português
+      phone: `+351${phone}`, // Tentativa 1: campo simples "phone"
+      customerPhone: `+351${phone}`, // Tentativa 2: "customerPhone" original
+      customer_phone: `+351${phone}`, // Tentativa 3: com underscore
+      mobilePhone: `+351${phone}`, // Tentativa 4: "mobilePhone"
+      phoneNumber: `+351${phone}`, // Tentativa 5: "phoneNumber"
       description: `${produto.nome} - BE WATER`,
-      channel: 'MBway pagamentos' // Nome exato do canal criado no painel EuPago
+      channel: 'MBway pagamentos', // Nome exato do canal criado no painel EuPago
+      // Tentativa 6: dentro de objeto customer
+      customer: {
+        phone: `+351${phone}`,
+        name: 'Cliente BE WATER'
+      }
     };
 
-    // Adicionar informações do cliente se fornecidas
+    // Adicionar NIF se fornecido (sem duplicar customer)
     if (nif) {
-      eupagoPayload.customer = {
-        name: 'Cliente BE WATER',
-        fiscal_number: nif
-      };
+      eupagoPayload.customer.fiscal_number = nif;
     }
 
     // Escolher URL (sandbox vs produção)
