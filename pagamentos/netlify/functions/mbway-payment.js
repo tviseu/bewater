@@ -94,7 +94,7 @@ exports.handler = async (event, context) => {
     // Preparar payload para EuPago (formato correto baseado na documentação)
     const eupagoPayload = {
       amount: produto.preco,
-      phone: phone,
+      customerPhone: phone, // EuPago espera 'customerPhone' não 'phone'
       description: `${produto.nome} - BE WATER`,
       channel: 'MBway pagamentos' // Nome exato do canal criado no painel EuPago
     };
