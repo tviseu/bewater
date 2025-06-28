@@ -91,42 +91,47 @@ exports.handler = async (event, context) => {
       }
     }
 
+    // Preparar payload para EuPago (DESCOBERTO: CustomerPhone com C maiúsculo!)
+    const eupagoPayload = {
+      amount: produto.preco,
+      CustomerPhone: `+351${phone}`, // CORRETO: CustomerPhone com C maiúsculo!
+      description: `${produto.nome} - BE WATER`,
+      channel: 'MBway pagamentos' // Nome exato do canal criado no painel EuPago
+    };
+
+    // Adicionar informações do cliente se fornecidas
+    if (nif) {
+      eupagoPayload.customer = {
+        name: 'Cliente BE WATER',
+        fiscal_number: nif
+      };
+    }
+
     // Escolher URL (sandbox vs produção)
     const apiUrl = EUPAGO_CONFIG.is_sandbox 
       ? EUPAGO_CONFIG.sandbox_url 
       : EUPAGO_CONFIG.production_url;
 
     console.log('Fazendo chamada para:', apiUrl);
+    console.log('Payload:', JSON.stringify(eupagoPayload, null, 2));
     console.log('API Key (primeiros 10 chars):', EUPAGO_CONFIG.api_key.substring(0, 10) + '...');
 
-    // Preparar dados como form URL encoded (testando formato alternativo)
-    const formData = new URLSearchParams();
-    formData.append('amount', produto.preco);
-    formData.append('CustomerPhone', `+351${phone}`);
-    formData.append('description', `${produto.nome} - BE WATER`);
-    formData.append('channel', 'MBway pagamentos');
-    
-    // Adicionar NIF se fornecido
-    if (nif) {
-      formData.append('customer_fiscal_number', nif);
-    }
-
+    // Fazer chamada à API EuPago com o header correto
     const requestHeaders = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'ApiKey': EUPAGO_CONFIG.api_key.trim()
+      'Content-Type': 'application/json',
+      'ApiKey': EUPAGO_CONFIG.api_key.trim(),
+      'Authorization': `ApiKey ${EUPAGO_CONFIG.api_key.trim()}`
     };
     
     console.log('Headers sendo enviados:', {
       'Content-Type': requestHeaders['Content-Type'],
       'ApiKey': requestHeaders['ApiKey'].substring(0, 10) + '...'
     });
-    
-    console.log('Form Data:', formData.toString());
 
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: requestHeaders,
-      body: formData
+      body: JSON.stringify(eupagoPayload)
     });
 
     const responseText = await response.text();
