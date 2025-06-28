@@ -41,14 +41,6 @@
     </div>
   </header>
 
-  <!-- Corner Opening Badge -->
-  <div class="corner-opening-badge">
-    <div class="opening-badge">
-      <div class="opening-badge-line1">ABERTURA</div>
-      <div class="opening-badge-line2">14 DE JULHO 2025</div>
-    </div>
-  </div>
-
   <!-- Hero Section -->
   <section class="hero">
     <!-- Water Effects Background -->
@@ -73,6 +65,35 @@
       <p class="hero__subtitle">Desenvolve a tua força, agilidade e flexibilidade num espaço que reflecte a filosofia "be water" popularizada por Bruce Lee. Vem fazer parte desta corrente.</p>
       <div class="hero__cta">
         <a href="#pricing" class="btn btn--primary">INSCREVE-TE JÁ</a>
+      </div>
+      
+      <!-- Countdown Timer -->
+      <div class="countdown-container">
+        <div class="countdown-frame">
+          <div class="countdown-title">ABERTURA EM:</div>
+          <div class="countdown-display">
+            <div class="countdown-segment">
+              <span class="countdown-number" id="countdown-days">000</span>
+              <span class="countdown-label">DIAS</span>
+            </div>
+            <span class="countdown-separator">:</span>
+            <div class="countdown-segment">
+              <span class="countdown-number" id="countdown-hours">00</span>
+              <span class="countdown-label">HRS</span>
+            </div>
+            <span class="countdown-separator">:</span>
+            <div class="countdown-segment">
+              <span class="countdown-number" id="countdown-minutes">00</span>
+              <span class="countdown-label">MIN</span>
+            </div>
+            <span class="countdown-separator">:</span>
+            <div class="countdown-segment">
+              <span class="countdown-number" id="countdown-seconds">00</span>
+              <span class="countdown-label">SEC</span>
+            </div>
+          </div>
+          <div class="countdown-date">14 JULHO 2025</div>
+        </div>
       </div>
     </div>
   </section>
@@ -1605,5 +1626,6 @@
   <script src="src/js/main.js"></script>
   <script src="src/js/modals.js"></script>
   <script src="src/js/gym-collage-slider.js"></script>
+  <script src="src/js/countdown.js"></script>
 </body>
 </html> 

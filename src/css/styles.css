@@ -2941,81 +2941,238 @@ body.menu-open .header__menu-toggle {
   gap: var(--spacing-md);
 }
 
-/* Corner Opening Badge Styles */
-.corner-opening-badge {
-  position: fixed;
-  top: 200px;
-  right: -10px;
-  z-index: 9999;
-  transform: rotate(45deg);
-  transform-origin: center;
-  max-width: 200px;
+/* Countdown Timer Styles */
+.countdown-container {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.countdown-frame {
+  background: #000;
+  border: 8px solid var(--color-accent);
+  box-shadow: 8px 8px 0 var(--color-primary), 16px 16px 0 rgba(0, 0, 0, 0.3);
+  transform: rotate(-1deg);
+  padding: 2rem;
+  position: relative;
   overflow: hidden;
 }
 
-.opening-badge {
-  display: block;
-  background-color: #FF0000;
-  color: #FFFFFF;
-  font-family: var(--font-heading);
-  font-size: 1rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 12px 20px;
-  border: 3px solid #FF0000;
-  position: relative;
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8), 0 0 12px rgba(255, 0, 0, 0.6);
-  animation: openingPulse 2s ease-in-out infinite;
+/* Retro scanlines effect */
+.countdown-frame::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 0, 0.03) 2px,
+    rgba(0, 255, 0, 0.03) 4px
+  );
+  pointer-events: none;
+}
+
+.countdown-title {
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--color-accent);
   text-align: center;
-  line-height: 1.1;
-  
-  /* Neobrutalist corners cortados - mais compacto */
-  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px var(--color-accent);
+  letter-spacing: 2px;
 }
 
-.opening-badge-line1,
-.opening-badge-line2 {
-  display: block;
-  line-height: 1;
+.countdown-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
 }
 
-.opening-badge-line1 {
+.countdown-segment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 80px;
+}
+
+.countdown-segment:first-child {
+  min-width: 70px; /* Days need less space without padding */
+}
+
+.countdown-segment:first-child .countdown-number {
+  min-width: 70px; /* Days number field */
+}
+
+.countdown-number {
+  font-family: 'Courier New', monospace;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #00ff00;
+  text-shadow: 
+    0 0 5px #00ff00,
+    0 0 10px #00ff00,
+    0 0 20px #00ff00;
+  background: #001100;
+  padding: 0.5rem;
+  border: 2px solid #00ff00;
+  min-width: 80px;
+  text-align: center;
+  position: relative;
+}
+
+.countdown-number::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 255, 0, 0.1) 0%,
+    transparent 50%,
+    rgba(0, 255, 0, 0.1) 100%
+  );
+}
+
+.countdown-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: var(--color-accent);
+  margin-top: 0.5rem;
+  letter-spacing: 1px;
+}
+
+.countdown-separator {
+  font-family: 'Courier New', monospace;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #00ff00;
+  text-shadow: 
+    0 0 5px #00ff00,
+    0 0 10px #00ff00,
+    0 0 20px #00ff00;
+  animation: blink 1s infinite;
+}
+
+.countdown-date {
+  font-family: 'Courier New', monospace;
   font-size: 1rem;
-  margin-bottom: 2px;
+  font-weight: bold;
+  color: var(--color-accent);
+  text-align: center;
+  text-shadow: 0 0 5px var(--color-accent);
+  letter-spacing: 2px;
 }
 
-.opening-badge-line2 {
-  font-size: 0.95rem;
-  font-weight: 800;
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.3; }
 }
 
-@keyframes openingPulse {
-  0%, 100% {
-    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 0, 0, 0.6);
-    background-color: #FF0000;
+/* Responsive adjustments for countdown */
+@media (max-width: 768px) {
+  .countdown-container {
+    margin-top: 2rem;
   }
-  50% {
-    box-shadow: 8px 8px 0 rgba(0, 0, 0, 1), 0 0 25px rgba(255, 0, 0, 1);
-    background-color: #CC0000;
-    transform: translate(-1px, -1px);
+  
+  .countdown-frame {
+    padding: 1.5rem;
+    margin: 0 1rem;
+  }
+  
+  .countdown-number {
+    font-size: 2rem;
+    min-width: 60px;
+    padding: 0.3rem;
+  }
+  
+  .countdown-separator {
+    font-size: 2rem;
+  }
+  
+  .countdown-title {
+    font-size: 1rem;
+  }
+  
+  .countdown-segment {
+    min-width: 60px;
+  }
+  
+  .countdown-segment:first-child {
+    min-width: 55px;
+  }
+  
+  .countdown-segment:first-child .countdown-number {
+    min-width: 55px;
+  }
+  
+  .countdown-display {
+    gap: 0.3rem;
   }
 }
 
-@keyframes scrollBounce {
-  0% {
-    transform: rotate(45deg) scale(1) translateY(0);
+@media (max-width: 480px) {
+  .countdown-container {
+    margin-top: 1.5rem;
   }
-  50% {
-    transform: rotate(45deg) scale(1.1) translateY(-10px);
+  
+  .countdown-frame {
+    padding: 1rem;
+    margin: 0 0.5rem;
+    border: 6px solid var(--color-accent);
+    box-shadow: 6px 6px 0 var(--color-primary), 12px 12px 0 rgba(0, 0, 0, 0.3);
   }
-  100% {
-    transform: rotate(45deg) scale(1) translateY(0);
+  
+  .countdown-number {
+    font-size: 1.5rem;
+    min-width: 50px;
+    padding: 0.2rem;
   }
-}
-
-.corner-opening-badge.scroll-bounce {
-  animation: scrollBounce 0.6s ease-out;
+  
+  .countdown-separator {
+    font-size: 1.5rem;
+  }
+  
+  .countdown-title {
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .countdown-label {
+    font-size: 0.7rem;
+    margin-top: 0.3rem;
+  }
+  
+  .countdown-date {
+    font-size: 0.9rem;
+  }
+  
+  .countdown-segment {
+    min-width: 50px;
+  }
+  
+  .countdown-segment:first-child {
+    min-width: 45px;
+  }
+  
+  .countdown-segment:first-child .countdown-number {
+    min-width: 45px;
+  }
+  
+  .countdown-display {
+    gap: 0.2rem;
+    margin-bottom: 0.8rem;
+  }
 }
 
 /* Animation Styles */
@@ -3320,46 +3477,6 @@ button.btn:active {
     font-size: 1.4rem !important;
     padding: calc(var(--spacing-sm) + 0.4rem) calc(var(--spacing-md) + 0.7rem) !important;
   }
-  
-  .corner-opening-badge {
-    top: 170px;
-    right: -15px;
-    transform: rotate(45deg) scale(0.9);
-    max-width: 160px;
-  }
-  
-  .corner-opening-badge.scroll-bounce {
-    animation: scrollBounce 0.6s ease-out;
-  }
-  
-  @keyframes scrollBounce {
-    0% {
-      transform: rotate(45deg) scale(0.9) translateY(0);
-    }
-    50% {
-      transform: rotate(45deg) scale(1.05) translateY(-8px);
-    }
-    100% {
-      transform: rotate(45deg) scale(0.9) translateY(0);
-    }
-  }
-  
-  .opening-badge {
-    font-size: 0.7rem;
-    padding: 6px 14px;
-    border: 2px solid #FF0000;
-    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 0, 0, 0.6);
-    clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
-  }
-  
-  .opening-badge-line1 {
-    font-size: 0.7rem;
-    margin-bottom: 1px;
-  }
-  
-  .opening-badge-line2 {
-    font-size: 0.65rem;
-  }
 }
 
 @media (max-width: 480px) {
@@ -3375,46 +3492,6 @@ button.btn:active {
     max-width: 300px !important;
     display: block !important;
     margin: 0 auto !important;
-  }
-  
-  .corner-opening-badge {
-    top: 150px;
-    right: -10px;
-    transform: rotate(45deg) scale(0.75);
-    max-width: 140px;
-  }
-  
-  .corner-opening-badge.scroll-bounce {
-    animation: scrollBounce 0.6s ease-out;
-  }
-  
-  @keyframes scrollBounce {
-    0% {
-      transform: rotate(45deg) scale(0.75) translateY(0);
-    }
-    50% {
-      transform: rotate(45deg) scale(0.9) translateY(-6px);
-    }
-    100% {
-      transform: rotate(45deg) scale(0.75) translateY(0);
-    }
-  }
-  
-  .opening-badge {
-    font-size: 0.9rem;
-    padding: 8px 16px;
-    border: 2px solid #FF0000;
-    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8), 0 0 8px rgba(255, 0, 0, 0.6);
-    clip-path: polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 5px 100%, 0 calc(100% - 5px));
-  }
-  
-  .opening-badge-line1 {
-    font-size: 0.9rem;
-    margin-bottom: 1px;
-  }
-  
-  .opening-badge-line2 {
-    font-size: 0.85rem;
   }
 }
 
