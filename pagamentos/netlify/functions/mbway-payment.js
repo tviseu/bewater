@@ -91,26 +91,20 @@ exports.handler = async (event, context) => {
       }
     }
 
-    // Preparar payload para EuPago - TESTANDO DIFERENTES FORMATOS
+    // Preparar payload para EuPago (DESCOBERTO: CustomerPhone com C maiúsculo!)
     const eupagoPayload = {
       amount: produto.preco,
-      phone: `+351${phone}`, // Tentativa 1: campo simples "phone"
-      customerPhone: `+351${phone}`, // Tentativa 2: "customerPhone" original
-      customer_phone: `+351${phone}`, // Tentativa 3: com underscore
-      mobilePhone: `+351${phone}`, // Tentativa 4: "mobilePhone"
-      phoneNumber: `+351${phone}`, // Tentativa 5: "phoneNumber"
+      CustomerPhone: `+351${phone}`, // CORRETO: CustomerPhone com C maiúsculo!
       description: `${produto.nome} - BE WATER`,
-      channel: 'MBway pagamentos', // Nome exato do canal criado no painel EuPago
-      // Tentativa 6: dentro de objeto customer
-      customer: {
-        phone: `+351${phone}`,
-        name: 'Cliente BE WATER'
-      }
+      channel: 'MBway pagamentos' // Nome exato do canal criado no painel EuPago
     };
 
-    // Adicionar NIF se fornecido (sem duplicar customer)
+    // Adicionar informações do cliente se fornecidas
     if (nif) {
-      eupagoPayload.customer.fiscal_number = nif;
+      eupagoPayload.customer = {
+        name: 'Cliente BE WATER',
+        fiscal_number: nif
+      };
     }
 
     // Escolher URL (sandbox vs produção)
