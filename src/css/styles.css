@@ -1396,6 +1396,121 @@ section {
   }
 }
 
+/* Test Gym Note */
+.pricing__test-note {
+  text-align: center;
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-md);
+}
+
+.test-note__content {
+  display: inline-block;
+  background-color: #f8f8f8;
+  border: 3px solid var(--color-black);
+  padding: var(--spacing-md) var(--spacing-lg);
+  transform: rotate(-1deg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.3);
+  max-width: 450px;
+}
+
+.test-note__content:hover {
+  transform: rotate(0deg) translate(-2px, -2px);
+  box-shadow: 8px 8px 0 rgba(255, 215, 0, 0.8);
+}
+
+.test-note__text {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  line-height: 1.4;
+  color: var(--color-black);
+}
+
+.test-note__text strong {
+  font-size: 1.1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--color-black);
+  letter-spacing: 0.5px;
+}
+
+.test-note__link {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-decoration-color: var(--color-primary);
+  text-underline-offset: 3px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.test-note__link:hover {
+  color: #FFD700;
+  text-decoration-color: #FFD700;
+  transform: translate(-1px, -1px);
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments for test note */
+@media (max-width: 768px) {
+  .pricing__test-note {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-sm);
+  }
+  
+  .test-note__content {
+    padding: var(--spacing-sm) var(--spacing-md);
+    max-width: 350px;
+    transform: rotate(-0.5deg);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+  }
+  
+  .test-note__content:hover {
+    box-shadow: 6px 6px 0 rgba(255, 215, 0, 0.8);
+  }
+  
+  .test-note__text {
+    font-size: 0.9rem;
+  }
+  
+  .test-note__text strong {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pricing__test-note {
+    margin-top: var(--spacing-sm);
+    padding: var(--spacing-xs);
+  }
+  
+  .test-note__content {
+    padding: var(--spacing-sm);
+    max-width: 280px;
+    border-width: 2px;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+  }
+  
+  .test-note__content:hover {
+    box-shadow: 4px 4px 0 rgba(255, 215, 0, 0.8);
+  }
+  
+  .test-note__text {
+    font-size: 0.85rem;
+    line-height: 1.3;
+  }
+  
+  .test-note__text strong {
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+  }
+  
+  .test-note__link {
+    text-decoration-thickness: 2px;
+    text-underline-offset: 2px;
+  }
+}
+
 /* Contact Section */
 .contact {
   background-color: var(--color-white);
@@ -2184,7 +2299,7 @@ section {
 
 .header__nav a {
   font-weight: 800;
-  font-size: 1.4rem;
+  font-size: 2.0rem;
   position: relative;
   color: #000000;
   text-decoration: none;
@@ -2245,7 +2360,7 @@ section {
   }
   
   .header__nav a {
-    font-size: 1.2rem;
+    font-size: 1.7rem;
     font-weight: 700;
   }
 }
@@ -2288,7 +2403,7 @@ section {
   }
   
   .header__nav a {
-    font-size: 1.1rem;
+    font-size: 1.6rem;
     padding: 8px 12px;
   }
   
@@ -2314,7 +2429,7 @@ section {
   }
   
   .header__nav a {
-    font-size: 1.0rem;
+    font-size: 1.5rem;
     padding: 6px 10px;
   }
   
@@ -2324,7 +2439,7 @@ section {
   
   .header__nav a[href="#pricing"] {
     padding: 6px 12px;
-    font-size: 0.95rem;
+    font-size: 1.25rem;
   }
 }
 
@@ -2340,7 +2455,7 @@ section {
   }
   
   .header__nav a {
-    font-size: 0.95rem;
+    font-size: 1.4rem;
     padding: 5px 8px;
   }
   
@@ -2350,7 +2465,7 @@ section {
   
   .header__nav a[href="#pricing"] {
     padding: 5px 10px;
-    font-size: 0.9rem;
+    font-size: 1.15rem;
   }
 }
 
@@ -2366,7 +2481,7 @@ section {
   }
   
   .header__nav a {
-    font-size: 0.9rem;
+    font-size: 1.3rem;
     padding: 4px 6px;
   }
   
@@ -2376,7 +2491,7 @@ section {
   
   .header__nav a[href="#pricing"] {
     padding: 4px 8px;
-    font-size: 0.85rem;
+    font-size: 1.05rem;
   }
 }
 
@@ -2392,7 +2507,7 @@ section {
   }
   
   .header__nav a {
-    font-size: 0.85rem;
+    font-size: 1.0rem;
     padding: 3px 5px;
   }
   
@@ -2402,7 +2517,7 @@ section {
   
   .header__nav a[href="#pricing"] {
     padding: 3px 6px;
-    font-size: 0.8rem;
+    font-size: 0.95rem;
   }
 }
 
@@ -6343,5 +6458,939 @@ html, body {
   .header__menu-toggle {
     width: 30px !important;
     height: 25px !important;
+  }
+}
+
+/* ===========================
+   GYM SECTION SPACING
+   =========================== */
+
+#gym.about {
+  margin-top: calc(var(--spacing-xl) * 1.8);
+}
+
+/* ===========================
+   GYM HERO SECTION - NEOBRUTALIST STYLE
+   =========================== */
+
+.gym-hero {
+  position: relative;
+  height: 60vh;
+  min-height: 400px;
+  max-height: 600px;
+  overflow: hidden;
+  margin-bottom: var(--spacing-xl);
+  border: 8px solid var(--color-black);
+  box-shadow: 16px 16px 0 var(--color-black);
+}
+
+.gym-hero__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../images/gym/optimized/TATAMI E ÁREA DE TREINO FUNCIONAL.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  /* REDUCED NEOBRUTALIST FILTERS - Less distracting */
+  filter: contrast(110%) saturate(60%) brightness(95%) hue-rotate(3deg);
+  opacity: 0.7;
+  
+  /* Zoom effect on hover */
+  transition: transform 0.3s ease, filter 0.3s ease, opacity 0.3s ease;
+}
+
+.gym-hero:hover .gym-hero__background {
+  transform: scale(1.05);
+  filter: contrast(120%) saturate(65%) brightness(100%) hue-rotate(5deg);
+  opacity: 0.8;
+}
+
+.gym-hero__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 215, 0, 0.2) 0%,      /* Yellow overlay - reduced */
+    rgba(0, 0, 0, 0.3) 30%,         /* Black overlay - increased */
+    rgba(255, 215, 0, 0.08) 70%,    /* Yellow overlay - reduced */
+    rgba(0, 0, 0, 0.6) 100%         /* Black overlay at bottom - increased */
+  );
+  
+  /* Additional brutal pattern overlay - more subtle */
+  background-image: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(0, 0, 0, 0.08) 10px,
+      rgba(0, 0, 0, 0.08) 12px
+    );
+}
+
+.gym-hero__container {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--spacing-lg);
+}
+
+.gym-hero__content {
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: var(--color-white);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border: 6px solid var(--color-black);
+  box-shadow: 12px 12px 0 rgba(255, 215, 0, 0.9);
+  transform: rotate(-1deg);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(2px);
+  
+  /* Neobrutalist shape */
+  clip-path: polygon(
+    0 0, 
+    calc(100% - 15px) 0, 
+    100% 15px, 
+    100% 100%, 
+    15px 100%, 
+    0 calc(100% - 15px)
+  );
+}
+
+.gym-hero__content:hover {
+  transform: rotate(0deg) translate(-4px, -4px);
+  box-shadow: 16px 16px 0 rgba(255, 215, 0, 1);
+}
+
+.gym-hero__title {
+  font-family: var(--font-heading);
+  font-size: 3.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--spacing-md);
+  letter-spacing: 2px;
+  line-height: 1;
+  text-shadow: 4px 4px 0 var(--color-black);
+}
+
+.gym-hero__subtitle {
+  font-family: var(--font-primary);
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-white);
+  letter-spacing: 3px;
+  line-height: 1.4;
+  text-shadow: 2px 2px 0 var(--color-black);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .gym-hero {
+    height: 50vh;
+    min-height: 350px;
+    margin-bottom: var(--spacing-lg);
+    border-width: 6px;
+    box-shadow: 12px 12px 0 var(--color-black);
+  }
+  
+  .gym-hero__content {
+    padding: var(--spacing-md) var(--spacing-lg);
+    box-shadow: 8px 8px 0 rgba(255, 215, 0, 0.9);
+    transform: rotate(-0.5deg);
+  }
+  
+  .gym-hero__content:hover {
+    transform: rotate(0deg) translate(-3px, -3px);
+    box-shadow: 12px 12px 0 rgba(255, 215, 0, 1);
+  }
+  
+  .gym-hero__title {
+    font-size: 2.8rem;
+    letter-spacing: 1px;
+    text-shadow: 3px 3px 0 var(--color-black);
+  }
+  
+  .gym-hero__subtitle {
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0 var(--color-black);
+  }
+}
+
+@media (max-width: 480px) {
+  .gym-hero {
+    height: 45vh;
+    min-height: 300px;
+    border-width: 4px;
+    box-shadow: 8px 8px 0 var(--color-black);
+  }
+  
+  .gym-hero__container {
+    padding: 0 var(--spacing-md);
+  }
+  
+  .gym-hero__content {
+    padding: var(--spacing-md);
+    box-shadow: 6px 6px 0 rgba(255, 215, 0, 0.9);
+    border-width: 4px;
+  }
+  
+  .gym-hero__content:hover {
+    transform: rotate(0deg) translate(-2px, -2px);
+    box-shadow: 8px 8px 0 rgba(255, 215, 0, 1);
+  }
+  
+  .gym-hero__title {
+    font-size: 2.2rem;
+    letter-spacing: 0.5px;
+    text-shadow: 2px 2px 0 var(--color-black);
+    line-height: 0.9;
+  }
+  
+  .gym-hero__subtitle {
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 0 var(--color-black);
+  }
+}
+
+/* ===========================
+   COLLAGE SLIDER BRUTAL - GYM PHOTOS
+   =========================== */
+
+.gym-collage-slider {
+  margin: var(--spacing-xl) 0;
+  position: relative;
+  background-color: #FFFDF0;
+  border: 6px solid var(--color-black);
+  box-shadow: 12px 12px 0 var(--color-black);
+  overflow: hidden;
+}
+
+.gym-collage-slider__track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  width: 1300%; /* 13 slides */
+}
+
+.gym-collage-slide {
+  width: 7.69%; /* 1/13 of the track */
+  flex-shrink: 0;
+  position: relative;
+  padding: var(--spacing-lg) 0;
+}
+
+.gym-collage-slide.active {
+  /* Active slide styles if needed */
+}
+
+.gym-collage__container {
+  position: relative;
+  height: 950px;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: var(--spacing-md);
+}
+
+/* Base Photo Styles */
+.gym-photo {
+  position: absolute;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.gym-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  
+  /* NEOBRUTALIST FILTERS - SAME AS GYM HERO */
+  filter: contrast(140%) saturate(70%) brightness(110%) hue-rotate(5deg);
+}
+
+.gym-photo:hover img {
+  filter: contrast(150%) saturate(60%) brightness(115%) hue-rotate(8deg);
+}
+
+.gym-photo__caption {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-black);
+  color: var(--color-white);
+  padding: 6px 14px;
+  border-radius: 0;
+  font-size: 0.65rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: all 0.3s ease;
+  border: 2px solid var(--color-yellow);
+  font-family: var(--font-primary);
+  text-transform: uppercase;
+}
+
+.gym-photo:hover .gym-photo__caption {
+  opacity: 1;
+  bottom: -25px;
+  transform: translateX(-50%) scale(1.05);
+}
+
+/* Individual Single Photo Positions & Styles */
+
+/* Photo 1 - Top Left */
+.gym-photo--single-1 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-65%, -40%) rotate(-5deg);
+  width: 720px;
+  height: 540px;
+  border: 10px solid var(--color-black);
+  box-shadow: 30px 30px 0 #FFD700;
+  z-index: 2;
+}
+
+.gym-photo--single-1:hover {
+  transform: translate(-65%, -40%) rotate(-2deg) scale(1.08);
+  box-shadow: 38px 38px 0 #FFD700;
+}
+
+/* Photo 2 - Top Right */
+.gym-photo--single-2 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-35%, -40%) rotate(8deg);
+  width: 690px;
+  height: 520px;
+  border: 8px solid var(--color-black);
+  box-shadow: -22px 22px 0 #FF6B35;
+  z-index: 2;
+}
+
+.gym-photo--single-2:hover {
+  transform: translate(-35%, -40%) rotate(5deg) scale(1.08);
+  box-shadow: -28px 28px 0 #FF6B35;
+}
+
+/* Photo 3 - Center Left */
+.gym-photo--single-3 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-70%, -50%) rotate(-12deg);
+  width: 710px;
+  height: 535px;
+  border: 12px solid var(--color-black);
+  box-shadow: 32px -22px 0 #4A90E2;
+  z-index: 2;
+}
+
+.gym-photo--single-3:hover {
+  transform: translate(-70%, -50%) rotate(-8deg) scale(1.08);
+  box-shadow: 40px -28px 0 #4A90E2;
+}
+
+/* Photo 4 - Bottom Center */
+.gym-photo--single-4 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -30%) rotate(6deg);
+  width: 715px;
+  height: 540px;
+  border: 9px solid var(--color-black);
+  box-shadow: 18px -25px 0 #E74C3C;
+  z-index: 2;
+}
+
+.gym-photo--single-4:hover {
+  transform: translate(-50%, -30%) rotate(3deg) scale(1.08);
+  box-shadow: 24px -32px 0 #E74C3C;
+}
+
+/* Photo 5 - Top Center */
+.gym-photo--single-5 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%) rotate(-7deg);
+  width: 725px;
+  height: 545px;
+  border: 11px solid var(--color-black);
+  box-shadow: 28px 32px 0 #9B59B6;
+  z-index: 2;
+}
+
+.gym-photo--single-5:hover {
+  transform: translate(-50%, -60%) rotate(-4deg) scale(1.08);
+  box-shadow: 36px 40px 0 #9B59B6;
+}
+
+/* Photo 6 - Center Right */
+.gym-photo--single-6 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-30%, -50%) rotate(10deg);
+  width: 700px;
+  height: 525px;
+  border: 8px solid var(--color-black);
+  box-shadow: -25px 20px 0 #F39C12;
+  z-index: 2;
+}
+
+.gym-photo--single-6:hover {
+  transform: translate(-30%, -50%) rotate(7deg) scale(1.08);
+  box-shadow: -32px 25px 0 #F39C12;
+}
+
+/* Photo 7 - Bottom Left */
+.gym-photo--single-7 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-65%, -25%) rotate(-9deg);
+  width: 715px;
+  height: 540px;
+  border: 10px solid var(--color-black);
+  box-shadow: 28px -22px 0 #27AE60;
+  z-index: 2;
+}
+
+.gym-photo--single-7:hover {
+  transform: translate(-65%, -25%) rotate(-6deg) scale(1.08);
+  box-shadow: 36px -30px 0 #27AE60;
+}
+
+/* Photo 8 - Bottom Right */
+.gym-photo--single-8 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-35%, -25%) rotate(11deg);
+  width: 700px;
+  height: 525px;
+  border: 9px solid var(--color-black);
+  box-shadow: -22px -28px 0 #E67E22;
+  z-index: 2;
+}
+
+.gym-photo--single-8:hover {
+  transform: translate(-35%, -25%) rotate(8deg) scale(1.08);
+  box-shadow: -30px -36px 0 #E67E22;
+}
+
+/* Photo 9 - Center Slight Left */
+.gym-photo--single-9 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-65%, -50%) rotate(-6deg);
+  width: 730px;
+  height: 550px;
+  border: 11px solid var(--color-black);
+  box-shadow: 25px 22px 0 #8E44AD;
+  z-index: 2;
+}
+
+.gym-photo--single-9:hover {
+  transform: translate(-65%, -50%) rotate(-3deg) scale(1.08);
+  box-shadow: 32px 30px 0 #8E44AD;
+}
+
+/* Photo 10 - Center Slight Right */
+.gym-photo--single-10 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-35%, -50%) rotate(9deg);
+  width: 725px;
+  height: 545px;
+  border: 10px solid var(--color-black);
+  box-shadow: -28px 25px 0 #D35400;
+  z-index: 2;
+}
+
+.gym-photo--single-10:hover {
+  transform: translate(-35%, -50%) rotate(6deg) scale(1.08);
+  box-shadow: -36px 32px 0 #D35400;
+}
+
+/* Photo 11 - Top Far Left */
+.gym-photo--single-11 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-70%, -55%) rotate(-11deg);
+  width: 710px;
+  height: 535px;
+  border: 8px solid var(--color-black);
+  box-shadow: 30px 20px 0 #16A085;
+  z-index: 2;
+}
+
+.gym-photo--single-11:hover {
+  transform: translate(-70%, -55%) rotate(-8deg) scale(1.08);
+  box-shadow: 38px 25px 0 #16A085;
+}
+
+/* Photo 12 - Top Far Right */
+.gym-photo--single-12 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-30%, -55%) rotate(7deg);
+  width: 720px;
+  height: 540px;
+  border: 12px solid var(--color-black);
+  box-shadow: -25px 30px 0 #C0392B;
+  z-index: 2;
+}
+
+.gym-photo--single-12:hover {
+  transform: translate(-30%, -55%) rotate(4deg) scale(1.08);
+  box-shadow: -32px 38px 0 #C0392B;
+}
+
+/* Photo 13 - Center */
+.gym-photo--single-13 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-3deg);
+  width: 735px;
+  height: 560px;
+  border: 13px solid var(--color-black);
+  box-shadow: 32px 32px 0 #FFD700;
+  z-index: 2;
+}
+
+.gym-photo--single-13:hover {
+  transform: translate(-50%, -50%) rotate(0deg) scale(1.08);
+  box-shadow: 40px 40px 0 #FFD700;
+}
+
+/* Single Photo Text Graphics */
+.gym-graphic--single-text {
+  position: absolute;
+  bottom: 80px;
+  right: 60px;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 2.2rem;
+  color: rgba(0, 0, 0, 0.12);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  z-index: 1;
+  text-shadow: none;
+  transform: rotate(-3deg);
+  pointer-events: none;
+}
+
+.gym-graphic--single-text-opposite {
+  position: absolute;
+  top: 80px;
+  left: 60px;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 2.2rem;
+  color: rgba(0, 0, 0, 0.12);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  z-index: 1;
+  text-shadow: none;
+  transform: rotate(3deg);
+  pointer-events: none;
+}
+
+
+
+/* Responsive Design for Single Photos */
+@media (max-width: 768px) {
+  .gym-collage__container {
+    height: 650px;
+    padding: var(--spacing-sm);
+  }
+  
+  /* Scale down all single photos proportionally */
+  .gym-photo--single-1, .gym-photo--single-2, .gym-photo--single-3,
+  .gym-photo--single-4, .gym-photo--single-5, .gym-photo--single-6,
+  .gym-photo--single-7, .gym-photo--single-8, .gym-photo--single-9,
+  .gym-photo--single-10, .gym-photo--single-11, .gym-photo--single-12,
+  .gym-photo--single-13 {
+    width: 450px !important;
+    height: 340px !important;
+    border-width: 6px !important;
+  }
+
+  /* Adjust shadows for mobile */
+  .gym-photo--single-1 { box-shadow: 12px 12px 0 #FFD700 !important; }
+  .gym-photo--single-2 { box-shadow: -10px 10px 0 #FF6B35 !important; }
+  .gym-photo--single-3 { box-shadow: 14px -8px 0 #4A90E2 !important; }
+  .gym-photo--single-4 { box-shadow: 8px -12px 0 #E74C3C !important; }
+  .gym-photo--single-5 { box-shadow: 10px 14px 0 #9B59B6 !important; }
+  .gym-photo--single-6 { box-shadow: -12px 10px 0 #F39C12 !important; }
+  .gym-photo--single-7 { box-shadow: 14px -10px 0 #27AE60 !important; }
+  .gym-photo--single-8 { box-shadow: -10px -14px 0 #E67E22 !important; }
+  .gym-photo--single-9 { box-shadow: 12px 10px 0 #8E44AD !important; }
+  .gym-photo--single-10 { box-shadow: -14px 12px 0 #D35400 !important; }
+  .gym-photo--single-11 { box-shadow: 16px 10px 0 #16A085 !important; }
+  .gym-photo--single-12 { box-shadow: -12px 16px 0 #C0392B !important; }
+  .gym-photo--single-13 { box-shadow: 14px 14px 0 #FFD700 !important; }
+  
+  .gym-graphic--single-text {
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    bottom: 60px;
+    right: 40px;
+  }
+  
+  .gym-graphic--single-text-opposite {
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    top: 60px;
+    left: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gym-collage__container {
+    height: 550px;
+  }
+  
+  /* Further scale down for mobile */
+  .gym-photo--single-1, .gym-photo--single-2, .gym-photo--single-3,
+  .gym-photo--single-4, .gym-photo--single-5, .gym-photo--single-6,
+  .gym-photo--single-7, .gym-photo--single-8, .gym-photo--single-9,
+  .gym-photo--single-10, .gym-photo--single-11, .gym-photo--single-12,
+  .gym-photo--single-13 {
+    width: 350px !important;
+    height: 265px !important;
+    border-width: 5px !important;
+  }
+
+  /* Smaller shadows for mobile */
+  .gym-photo--single-1 { box-shadow: 8px 8px 0 #FFD700 !important; }
+  .gym-photo--single-2 { box-shadow: -6px 6px 0 #FF6B35 !important; }
+  .gym-photo--single-3 { box-shadow: 8px -6px 0 #4A90E2 !important; }
+  .gym-photo--single-4 { box-shadow: 6px -8px 0 #E74C3C !important; }
+  .gym-photo--single-5 { box-shadow: 6px 8px 0 #9B59B6 !important; }
+  .gym-photo--single-6 { box-shadow: -8px 6px 0 #F39C12 !important; }
+  .gym-photo--single-7 { box-shadow: 8px -6px 0 #27AE60 !important; }
+  .gym-photo--single-8 { box-shadow: -6px -8px 0 #E67E22 !important; }
+  .gym-photo--single-9 { box-shadow: 8px 6px 0 #8E44AD !important; }
+  .gym-photo--single-10 { box-shadow: -8px 8px 0 #D35400 !important; }
+  .gym-photo--single-11 { box-shadow: 10px 6px 0 #16A085 !important; }
+  .gym-photo--single-12 { box-shadow: -6px 10px 0 #C0392B !important; }
+  .gym-photo--single-13 { box-shadow: 8px 8px 0 #FFD700 !important; }
+  
+  .gym-graphic--single-text {
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    bottom: 40px;
+    right: 30px;
+  }
+  
+  .gym-graphic--single-text-opposite {
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    top: 40px;
+    left: 30px;
+  }
+  
+  .gym-photo__caption {
+    font-size: 0.55rem;
+    padding: 4px 8px;
+    border-width: 1px;
+  }
+
+  .collage-indicator {
+    width: 12px;
+    height: 12px;
+    border-width: 1px;
+  }
+
+  .gym-collage-slider__indicators {
+    gap: 5px;
+    max-width: 400px;
+  }
+}
+
+/* ===========================
+   SLIDER NAVIGATION & INDICATORS
+   =========================== */
+
+.gym-collage-slider__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.collage-nav-btn {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  border: 4px solid var(--color-black);
+  width: 60px;
+  height: 60px;
+  font-size: 2rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 8px 8px 0 var(--color-yellow);
+  pointer-events: all;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-3deg);
+}
+
+.collage-nav-btn:hover {
+  background-color: var(--color-yellow);
+  color: var(--color-black);
+  transform: rotate(0deg) scale(1.1);
+  box-shadow: 12px 12px 0 var(--color-black);
+}
+
+.collage-nav-btn--prev {
+  left: 20px;
+}
+
+.collage-nav-btn--next {
+  right: 20px;
+}
+
+.gym-collage-slider__indicators {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: var(--spacing-md);
+  flex-wrap: wrap;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.collage-indicator {
+  width: 16px;
+  height: 16px;
+  background-color: transparent;
+  border: 2px solid var(--color-black);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform: rotate(45deg);
+}
+
+.collage-indicator.active {
+  background-color: var(--color-yellow);
+  border-color: var(--color-black);
+  box-shadow: 3px 3px 0 var(--color-black);
+  transform: rotate(45deg) scale(1.15);
+}
+
+.collage-indicator:hover {
+  background-color: var(--color-yellow);
+  transform: rotate(45deg) scale(1.1);
+}
+
+/* ===========================
+   PHOTO POPUP MODAL
+   =========================== */
+
+.gym-photo-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.gym-photo-popup.active {
+  display: flex;
+}
+
+.popup-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  cursor: pointer;
+}
+
+.popup-container {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  background-color: var(--color-white);
+  border: 8px solid var(--color-black);
+  box-shadow: 20px 20px 0 var(--color-yellow);
+  transform: rotate(-2deg);
+  animation: popupEntrance 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.popup-container:hover {
+  transform: rotate(0deg);
+}
+
+.popup-close {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  width: 50px;
+  height: 50px;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  border: 4px solid var(--color-black);
+  font-size: 2rem;
+  font-weight: 900;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 6px 6px 0 var(--color-yellow);
+  transition: all 0.3s ease;
+  z-index: 10001;
+}
+
+.popup-close:hover {
+  background-color: var(--color-yellow);
+  color: var(--color-black);
+  transform: rotate(90deg);
+}
+
+.popup-content {
+  padding: var(--spacing-lg);
+  text-align: center;
+}
+
+.popup-content img {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border: 4px solid var(--color-black);
+}
+
+.popup-caption {
+  margin-top: var(--spacing-md);
+  font-family: var(--font-primary);
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-black);
+  background-color: var(--color-yellow);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 3px solid var(--color-black);
+  display: inline-block;
+  transform: rotate(1deg);
+}
+
+@keyframes popupEntrance {
+  0% {
+    opacity: 0;
+    transform: rotate(-2deg) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(-2deg) scale(1);
+  }
+}
+
+/* Responsive Design for Slider & Popup */
+@media (max-width: 768px) {
+  .collage-nav-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    box-shadow: 6px 6px 0 var(--color-yellow);
+  }
+
+  .collage-nav-btn:hover {
+    box-shadow: 8px 8px 0 var(--color-black);
+  }
+
+  .collage-indicator {
+    width: 14px;
+    height: 14px;
+    border-width: 2px;
+  }
+
+  .gym-collage-slider__indicators {
+    gap: 6px;
+    max-width: 500px;
+  }
+
+  .popup-close {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    top: -10px;
+    right: -10px;
+  }
+
+  .popup-caption {
+    font-size: 1rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .gym-collage-slider__nav {
+    padding: 0 10px;
+  }
+
+  .collage-nav-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    box-shadow: 4px 4px 0 var(--color-yellow);
+  }
+
+  .collage-nav-btn:hover {
+    box-shadow: 6px 6px 0 var(--color-black);
+  }
+
+  .collage-indicator {
+    width: 14px;
+    height: 14px;
+    gap: 8px;
+  }
+
+  .popup-container {
+    max-width: 95vw;
+    max-height: 95vh;
+    border-width: 6px;
+    box-shadow: 15px 15px 0 var(--color-yellow);
+  }
+
+  .popup-close {
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+    top: -8px;
+    right: -8px;
+    box-shadow: 4px 4px 0 var(--color-yellow);
+  }
+
+  .popup-content {
+    padding: var(--spacing-md);
+  }
+
+  .popup-caption {
+    font-size: 0.9rem;
+    margin-top: var(--spacing-sm);
   }
 }
