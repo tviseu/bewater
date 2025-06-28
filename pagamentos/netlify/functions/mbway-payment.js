@@ -91,20 +91,25 @@ exports.handler = async (event, context) => {
       }
     }
 
-    // Preparar payload para EuPago (DESCOBERTO: CustomerPhone com C maiúsculo!)
+    // Preparar payload para EuPago (ESTRUTURA CORRETA da documentação oficial!)
     const eupagoPayload = {
-      amount: produto.preco,
-      CustomerPhone: `+351${phone}`, // CORRETO: CustomerPhone com C maiúsculo!
-      description: `${produto.nome} - BE WATER`,
-      channel: 'MBway pagamentos' // Nome exato do canal criado no painel EuPago
+      payment: {
+        amount: {
+          currency: "EUR",
+          value: produto.preco
+        },
+        customer: {
+          phone: `+351${phone}` // Telefone dentro do objeto customer
+        },
+        description: `${produto.nome} - BE WATER`,
+        channel: 'MBway pagamentos' // Nome exato do canal criado no painel EuPago
+      }
     };
 
-    // Adicionar informações do cliente se fornecidas
+    // Adicionar NIF se fornecido (dentro da estrutura hierárquica)
     if (nif) {
-      eupagoPayload.customer = {
-        name: 'Cliente BE WATER',
-        fiscal_number: nif
-      };
+      eupagoPayload.payment.customer.name = 'Cliente BE WATER';
+      eupagoPayload.payment.customer.fiscal_number = nif;
     }
 
     // Escolher URL (sandbox vs produção)
