@@ -6703,6 +6703,13 @@ html, body {
   padding: var(--spacing-md);
 }
 
+/* Desktop-only height reduction */
+@media (min-width: 1024px) {
+  .gym-collage__container {
+    height: 600px;
+  }
+}
+
 /* Base Photo Styles */
 .gym-photo {
   position: absolute;
