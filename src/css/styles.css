@@ -839,7 +839,7 @@ section {
 /* Trainers Section */
 .trainers {
   background-color: var(--color-white);
-  padding: var(--spacing-xl) 0;
+  padding: 0.25rem 0;
 }
 
 .trainers__grid {
@@ -1080,7 +1080,7 @@ section {
 }
 
 .price-card__features {
-  padding: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-sm);
   flex: 1;
 }
 
@@ -1113,7 +1113,7 @@ section {
 }
 
 .price-card__cta {
-  padding: 0 var(--spacing-md) var(--spacing-md);
+  padding: 0 var(--spacing-md) var(--spacing-sm);
   text-align: center;
 }
 
@@ -1285,6 +1285,22 @@ section {
 }
 
 @media (max-width: 480px) {
+  .pricing {
+    padding: var(--spacing-md) 0;
+  }
+  
+  .pricing .section-title {
+    text-align: left;
+  }
+  
+  .price-card__features {
+    padding: var(--spacing-md) var(--spacing-md) var(--spacing-xs);
+  }
+  
+  .price-card__cta {
+    padding: 0 var(--spacing-md) var(--spacing-xs);
+  }
+  
   .price-card__badge {
     font-size: 0.6rem;
     padding: 4px 8px;
@@ -1850,6 +1866,10 @@ section {
 }
 
 @media (max-width: 480px) {
+  .contact {
+    padding: var(--spacing-md) 0 var(--spacing-xl) 0;
+  }
+  
   .contact__container {
     width: 98%;
     padding: var(--spacing-xs);
@@ -4008,7 +4028,7 @@ button.btn:active {
 /* Salgueiro Section */
 .salgueiro {
   background-color: var(--color-background);
-  padding: var(--spacing-xl) 0;
+  padding: var(--spacing-xl) 0 var(--spacing-xs) 0;
 }
 
 .salgueiro__container {
@@ -5422,7 +5442,7 @@ body.modal-open {
 /* SCHEDULE SECTION */
 .schedule {
   background-color: var(--color-white);
-  padding: var(--spacing-lg) 0;
+  padding: var(--spacing-xs) 0;
 }
 
 .schedule__container {
@@ -5827,7 +5847,7 @@ body.modal-open {
   
   .schedule__header {
     padding: 0 var(--spacing-sm);
-    text-align: center;
+    text-align: left;
   }
   
   .section-title {
@@ -5877,6 +5897,7 @@ body.modal-open {
   .schedule__header {
     padding: var(--spacing-sm);
     margin-bottom: var(--spacing-md);
+    text-align: left;
   }
   
   .section-title {
@@ -5979,11 +6000,12 @@ body.modal-open {
   .schedule__header {
     padding: 0 var(--spacing-sm);
     margin-bottom: var(--spacing-sm);
+    text-align: left !important;
   }
   
-  .section-title {
+  .schedule .section-title {
     font-size: clamp(1.4rem, 6vw, 1.8rem);
-    text-align: center;
+    text-align: left !important;
     margin-bottom: var(--spacing-xs);
     padding: 0;
     line-height: 1.1;
@@ -6069,11 +6091,12 @@ body.modal-open {
   .schedule__header {
     padding: 0 var(--spacing-xs);
     margin-bottom: var(--spacing-xs);
+    text-align: left !important;
   }
   
-  .section-title {
+  .schedule .section-title {
     font-size: clamp(1.2rem, 8vw, 1.6rem);
-    text-align: center;
+    text-align: left !important;
     margin-bottom: var(--spacing-xs);
     padding: 0;
     line-height: 1;
@@ -6090,7 +6113,7 @@ body.modal-open {
   
   .schedule__grid {
     gap: var(--spacing-sm);
-    padding: var(--spacing-xs) var(--spacing-md) var(--spacing-md) var(--spacing-md);
+    padding: var(--spacing-xs) var(--spacing-md) var(--spacing-xs) var(--spacing-md);
   }
   
   .schedule__day {
