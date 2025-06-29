@@ -5554,6 +5554,18 @@ body.modal-open {
   opacity: 0.8;
 }
 
+@media (max-width: 768px) {
+  .schedule__note small {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .schedule__note small {
+    font-size: 0.65rem;
+  }
+}
+
 /* Schedule Grid */
 .schedule__grid {
   display: grid;
