@@ -59,13 +59,50 @@ exports.handler = async (event, context) => {
       console.log('📏 Tamanho body:', body ? body.length : 'null');
       console.log('🔐 WEBHOOK_SECRET configurado:', WEBHOOK_SECRET ? 'SIM' : 'NÃO');
 
-      // TEMPORÁRIO: IGNORAR verificação de assinatura (EuPago usa AES complexo)
-      const signature = event.headers['x-signature'] || event.headers['X-Signature'];
-      console.log('✍️ Assinatura encontrada:', signature ? 'SIM' : 'NÃO');
-      console.log('🔑 Initialization Vector:', event.headers['x-initialization-vector']);
+      // SEGURANÇA: Verificação obrigatória de origem
+      const clientIP = event.headers['x-nf-client-connection-ip'] || event.headers['x-forwarded-for'];
+      const userAgent = event.headers['user-agent'];
       
-      console.log('⚠️ MODO DEBUG: Ignorando verificação de assinatura temporariamente');
-      console.log('🚀 Processando webhook...');
+      // Validar IP da EuPago (range conhecido)
+      const isEupagoIP = clientIP && (
+        clientIP.startsWith('3.75.') ||     // AWS EuPago
+        clientIP.startsWith('18.195.') ||   // AWS EuPago
+        clientIP.startsWith('35.156.')      // AWS EuPago
+      );
+      
+      // Validar User-Agent EuPago
+      const isEupagoUA = userAgent && userAgent.includes('Java/17.0.9');
+      
+      console.log('🔍 Verificações de segurança:');
+      console.log('📍 IP Cliente:', clientIP);
+      console.log('🤖 User-Agent:', userAgent);
+      console.log('✅ IP EuPago válido:', isEupagoIP);
+      console.log('✅ User-Agent EuPago:', isEupagoUA);
+      
+      // BLOQUEAR se não for da EuPago
+      if (!isEupagoIP || !isEupagoUA) {
+        console.error('🚫 ACESSO NEGADO - Origem suspeita:', { clientIP, userAgent });
+        return {
+          statusCode: 403,
+          headers,
+          body: JSON.stringify({ success: false, message: 'Access denied' })
+        };
+      }
+      
+      // Verificar presença de assinatura e IV (mesmo que não validemos ainda)
+      const signature = event.headers['x-signature'];
+      const iv = event.headers['x-initialization-vector'];
+      
+      if (!signature || !iv) {
+        console.error('🚫 WEBHOOK INVÁLIDO - Falta assinatura ou IV');
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({ success: false, message: 'Invalid webhook format' })
+        };
+      }
+      
+      console.log('✅ Origem validada - processando webhook...');
 
       // Parse do payload
       const webhookData = JSON.parse(body);
@@ -75,14 +112,14 @@ exports.handler = async (event, context) => {
       let decryptedData = {};
       if (webhookData.data) {
         try {
-          const iv = Buffer.from(event.headers['x-initialization-vector'], 'base64');
+          const ivBuffer = Buffer.from(iv, 'base64');
           const encryptedData = Buffer.from(webhookData.data, 'base64');
           
-          console.log('🔑 IV extraído:', iv.toString('hex'));
+          console.log('🔑 IV extraído:', ivBuffer.toString('hex'));
           console.log('📦 Dados encriptados (primeiros 50 chars):', encryptedData.toString('hex').substring(0, 50) + '...');
           
           // Tentar decriptar com AES-256-CBC
-          const decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(WEBHOOK_SECRET, 'utf8'), iv);
+          const decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(WEBHOOK_SECRET, 'utf8'), ivBuffer);
           let decrypted = decipher.update(encryptedData, null, 'utf8');
           decrypted += decipher.final('utf8');
           
@@ -100,9 +137,9 @@ exports.handler = async (event, context) => {
           for (const algorithm of algorithms) {
             try {
               console.log(`🔄 Tentando ${algorithm}...`);
-              const iv = Buffer.from(event.headers['x-initialization-vector'], 'base64');
+              const ivBuffer2 = Buffer.from(iv, 'base64');
               const encryptedData = Buffer.from(webhookData.data, 'base64');
-              const decipher = crypto.createDecipheriv(algorithm, Buffer.from(WEBHOOK_SECRET, 'utf8').slice(0, algorithm === 'aes-128-cbc' ? 16 : algorithm === 'aes-192-cbc' ? 24 : 32), iv);
+              const decipher = crypto.createDecipheriv(algorithm, Buffer.from(WEBHOOK_SECRET, 'utf8').slice(0, algorithm === 'aes-128-cbc' ? 16 : algorithm === 'aes-192-cbc' ? 24 : 32), ivBuffer2);
               let decrypted = decipher.update(encryptedData, null, 'utf8');
               decrypted += decipher.final('utf8');
               decryptedData = JSON.parse(decrypted);
@@ -162,10 +199,10 @@ exports.handler = async (event, context) => {
         produto: identifier || 'Produto BE WATER',
         valor: amount || 0, // Já convertido para float acima
         telefone: customerPhone ? customerPhone.substring(0, 3) + '***' + customerPhone.substring(6) : 'N/A',
+        nif: null, // NIF será correlacionado posteriormente se disponível
         status: paymentStatus,
         timestamp: timestamp || new Date().toISOString(),
-        lastUpdate: new Date().toISOString(),
-        entregue: false
+        lastUpdate: new Date().toISOString()
       };
 
       // Guardar na "base de dados"

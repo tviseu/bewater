@@ -135,7 +135,7 @@
             border: 3px solid #000000;
             padding: 20px;
             display: grid;
-            grid-template-columns: 1fr auto auto;
+            grid-template-columns: 1fr auto;
             align-items: center;
             gap: 20px;
             transition: all 0.3s ease;
@@ -153,10 +153,7 @@
             background: #f8d7da;
         }
 
-        .payment-card.entregue {
-            background: #e7e7e7;
-            opacity: 0.7;
-        }
+
 
         .payment-info {
             display: grid;
@@ -198,10 +195,7 @@
             color: #ffffff;
         }
 
-        .payment-status.entregue {
-            background: #6c757d;
-            color: #ffffff;
-        }
+
 
         .action-btn {
             padding: 10px 20px;
@@ -272,7 +266,7 @@
 
         <div class="stats">
             <div class="stat-card">
-                <h3>🎉 Confirmados</h3>
+                <h3>✅ Confirmados</h3>
                 <div class="stat-value" id="statsConfirmados">0</div>
             </div>
             <div class="stat-card">
@@ -280,11 +274,11 @@
                 <div class="stat-value" id="statsPendentes">0</div>
             </div>
             <div class="stat-card">
-                <h3>📦 Entregues</h3>
-                <div class="stat-value" id="statsEntregues">0</div>
+                <h3>❌ Falhados</h3>
+                <div class="stat-value" id="statsFalhados">0</div>
             </div>
             <div class="stat-card">
-                <h3>💰 Total Hoje</h3>
+                <h3>💰 Total Confirmado</h3>
                 <div class="stat-value" id="statsTotal">€0</div>
             </div>
         </div>
@@ -297,7 +291,6 @@
                 <button class="filter-btn" data-filter="confirmado">✅ Confirmados</button>
                 <button class="filter-btn" data-filter="pendente">⏳ Pendentes</button>
                 <button class="filter-btn" data-filter="falhado">❌ Falhados</button>
-                <button class="filter-btn" data-filter="entregue">📦 Entregues</button>
             </div>
 
             <div id="paymentsList" class="payments-list">
@@ -322,7 +315,7 @@
         // Stats elements
         const statsConfirmados = document.getElementById('statsConfirmados');
         const statsPendentes = document.getElementById('statsPendentes');
-        const statsEntregues = document.getElementById('statsEntregues');
+        const statsFalhados = document.getElementById('statsFalhados');
         const statsTotal = document.getElementById('statsTotal');
 
         // Carregar pagamentos
@@ -363,16 +356,12 @@
                         <div class="payment-details">
                             💰 €${payment.valor.toFixed(2)} | 📱 ${payment.telefone} | ⏰ ${formatTime(payment.timestamp)}
                             ${payment.reference ? `| 🔗 ${payment.reference}` : ''}
+                            ${payment.nif ? `| 🧾 NIF: ${payment.nif}` : ''}
                         </div>
                     </div>
                     <div class="payment-status ${payment.status}">
                         ${getStatusText(payment.status)}
                     </div>
-                    <button class="action-btn" 
-                            onclick="markAsDelivered('${payment.id}')"
-                            ${payment.status !== 'confirmado' || payment.entregue ? 'disabled' : ''}>
-                        ${payment.entregue ? '✅ Entregue' : '📦 Entregar'}
-                    </button>
                 </div>
             `).join('');
         }
@@ -386,36 +375,18 @@
 
             const confirmados = todayPayments.filter(p => p.status === 'confirmado').length;
             const pendentes = todayPayments.filter(p => p.status === 'pendente').length;
-            const entregues = todayPayments.filter(p => p.entregue).length;
+            const falhados = todayPayments.filter(p => p.status === 'falhado').length;
             const totalValue = todayPayments
                 .filter(p => p.status === 'confirmado')
                 .reduce((sum, p) => sum + p.valor, 0);
 
             statsConfirmados.textContent = confirmados;
             statsPendentes.textContent = pendentes;
-            statsEntregues.textContent = entregues;
+            statsFalhados.textContent = falhados;
             statsTotal.textContent = `€${totalValue.toFixed(2)}`;
         }
 
-        // Marcar como entregue
-        function markAsDelivered(paymentId) {
-            const payment = payments.find(p => p.id === paymentId);
-            if (payment && payment.status === 'confirmado' && !payment.entregue) {
-                payment.entregue = true;
-                payment.status = 'entregue';
-                payment.deliveredAt = new Date().toISOString();
-                renderPayments();
-                updateStats();
-                
-                // Som de sucesso (se suportado)
-                try {
-                    const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmAfBT2U2fPNdiMFl8Dj5bpmFgw');
-                    audio.play();
-                } catch (e) {
-                    console.log('Som não suportado');
-                }
-            }
-        }
+
 
         // Formatar tempo
         function formatTime(timestamp) {
@@ -430,8 +401,7 @@
             const statusTexts = {
                 'confirmado': '✅ Confirmado',
                 'pendente': '⏳ Pendente',
-                'falhado': '❌ Falhado',
-                'entregue': '📦 Entregue'
+                'falhado': '❌ Falhado'
             };
             return statusTexts[status] || status;
         }
