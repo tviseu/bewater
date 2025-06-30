@@ -50,34 +50,19 @@ exports.handler = async (event, context) => {
         };
       }
 
-      // DEBUG: Ver todos os headers recebidos
+      // DEBUG: Ver todos os dados recebidos
       console.log('🔍 Headers recebidos:', JSON.stringify(event.headers, null, 2));
-      console.log('📦 Body recebido:', body);
+      console.log('📦 Body recebido (raw):', body);
+      console.log('📏 Tamanho body:', body ? body.length : 'null');
       console.log('🔐 WEBHOOK_SECRET configurado:', WEBHOOK_SECRET ? 'SIM' : 'NÃO');
 
-      // Verificar assinatura (se EuPago enviar)
-      const signature = event.headers['x-signature'] || event.headers['X-Signature'] || event.headers['signature'];
+      // TEMPORÁRIO: IGNORAR verificação de assinatura (EuPago usa AES complexo)
+      const signature = event.headers['x-signature'] || event.headers['X-Signature'];
+      console.log('✍️ Assinatura encontrada:', signature ? 'SIM' : 'NÃO');
+      console.log('🔑 Initialization Vector:', event.headers['x-initialization-vector']);
       
-      console.log('✍️ Assinatura recebida:', signature);
-
-      if (signature) {
-        const expectedSignature = crypto
-          .createHmac('sha256', WEBHOOK_SECRET)
-          .update(body)
-          .digest('hex');
-        
-        console.log('🔐 Assinatura esperada:', expectedSignature);
-        console.log('🔐 Assinatura recebida:', signature);
-        
-        if (signature !== expectedSignature) {
-          console.error('❌ Assinatura inválida - esperada:', expectedSignature, 'recebida:', signature);
-          
-          // TEMPORÁRIO: Aceitar webhook mesmo com assinatura inválida para debug
-          console.log('⚠️ DEBUG MODE: Processando mesmo com assinatura inválida');
-        }
-      } else {
-        console.log('ℹ️ Nenhuma assinatura encontrada nos headers');
-      }
+      console.log('⚠️ MODO DEBUG: Ignorando verificação de assinatura temporariamente');
+      console.log('🚀 Processando webhook...');
 
       // Parse do payload
       const webhookData = JSON.parse(body);
