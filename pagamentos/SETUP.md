@@ -253,4 +253,72 @@ brutal-gym/
 
 ---
 
-**🔥 Resultado Final: Sistema de pagamentos 100% seguro, grátis e organizado na pasta `pagamentos/`!** 
+---
+
+## 🎉 NOVA FUNCIONALIDADE: CONFIRMAÇÃO DE PAGAMENTOS
+
+### **⚡ Webhook EuPago + Dashboard Staff**
+
+Agora o sistema tem **confirmação automática** quando os clientes pagam!
+
+#### **📋 O que foi adicionado:**
+
+1. **`payment-webhook.js`** - Recebe confirmações da EuPago
+2. **`staff.html`** - Dashboard para o staff monitorizar pagamentos
+3. **Gestão de estados** - Pendente → Confirmado → Entregue
+
+#### **🔧 Configuração Webhook EuPago:**
+
+1. **Aceder ao painel EuPago** → Webhooks 2.0
+2. **Webhook Endpoint:** 
+   ```
+   https://cool-starship-a7a3e1.netlify.app/.netlify/functions/payment-webhook
+   ```
+3. **Tipo de Webhook:** ✅ Pagamento + ✅ Erro
+4. **Encriptar Webhook:** ✅ Sim
+5. **Gerar Chave Criptográfica** → Copiar chave
+6. **Configurar no Netlify:**
+   ```
+   EUPAGO_WEBHOOK_SECRET = chave_gerada_eupago
+   ```
+
+#### **📱 Interface Staff:**
+
+Aceder em: `https://cool-starship-a7a3e1.netlify.app/pagamentos/staff.html`
+
+**Funcionalidades:**
+- ✅ **Monitor em tempo real** - atualização automática a cada 10s
+- ✅ **Filtros** - Ver por status (confirmado, pendente, entregue)
+- ✅ **Estatísticas diárias** - total vendas, pagamentos, entregas
+- ✅ **Botão "Entregar"** - marcar produto como entregue
+- ✅ **Notificações visuais** - título da página muda com novos pagamentos
+- ✅ **Responsive** - funciona em tablet/móvel
+
+#### **🔄 Fluxo Completo:**
+
+```
+1. Cliente paga MBWay → "Pedido enviado"
+2. Cliente confirma no telemóvel
+3. EuPago envia webhook → pagamento confirmado
+4. Staff vê notificação → "✅ Café pago - entregar"
+5. Staff clica "Entregar" → produto marcado como entregue
+```
+
+#### **💡 Vantagens:**
+
+- ✅ **Zero trabalho manual** - confirmações automáticas
+- ✅ **Comprovativo real** - só produtos confirmados podem ser entregues
+- ✅ **Controlo total** - dashboard com histórico completo
+- ✅ **Notificações** - staff sabe imediatamente quando há pagamento
+- ✅ **Estatísticas** - vendas diárias, produtos mais vendidos
+
+#### **🎯 Para o Staff:**
+
+1. **Deixar dashboard aberto** no computador/tablet do ginásio
+2. **Quando toca notificação** → verificar novo pagamento
+3. **Cliente mostra telemóvel** → confirmar que aparece como "✅ Confirmado"
+4. **Entregar produto** → clicar botão "📦 Entregar"
+
+---
+
+**🔥 Resultado Final: Sistema de pagamentos 100% seguro, grátis e organizado na pasta `pagamentos/` com confirmação automática!** 
