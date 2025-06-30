@@ -113,13 +113,14 @@ export default async function handler(req, res) {
 
     const eupagoResponse = await response.json();
 
-    if (response.ok && eupagoResponse.success) {
+    if (response.ok && eupagoResponse.transactionStatus === 'Success') {
       // Sucesso
       return res.status(200).json({
         success: true,
         message: 'Pagamento criado com sucesso',
         data: {
           reference: eupagoResponse.reference || null,
+          transactionID: eupagoResponse.transactionID || null,
           amount: produto.preco,
           produto: produto.nome,
           phone_masked: phone.substring(0, 3) + '***' + phone.substring(6)
@@ -127,7 +128,7 @@ export default async function handler(req, res) {
       });
     } else {
       // Erro da EuPago
-      const errorMessage = eupagoResponse.message || 'Erro desconhecido da EuPago';
+      const errorMessage = eupagoResponse.message || `Status: ${eupagoResponse.transactionStatus || 'desconhecido'}`;
       throw new Error(errorMessage);
     }
 

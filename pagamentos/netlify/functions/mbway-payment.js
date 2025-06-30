@@ -148,7 +148,7 @@ exports.handler = async (event, context) => {
       throw new Error(`Resposta inválida da EuPago: ${responseText}`);
     }
 
-    if (response.ok && eupagoResponse.success) {
+    if (response.ok && eupagoResponse.transactionStatus === 'Success') {
       // Sucesso
       return {
         statusCode: 200,
@@ -158,6 +158,7 @@ exports.handler = async (event, context) => {
           message: 'Pagamento criado com sucesso',
           data: {
             reference: eupagoResponse.reference || null,
+            transactionID: eupagoResponse.transactionID || null,
             amount: produto.preco,
             produto: produto.nome,
             phone_masked: phone.substring(0, 3) + '***' + phone.substring(6)
@@ -166,7 +167,7 @@ exports.handler = async (event, context) => {
       };
     } else {
       // Erro da EuPago com mais detalhes
-      const errorMessage = eupagoResponse.message || eupagoResponse.error || 'Erro desconhecido da EuPago';
+      const errorMessage = eupagoResponse.message || eupagoResponse.error || `Status: ${eupagoResponse.transactionStatus || 'desconhecido'}`;
       console.error('Erro EuPago:', {
         status: response.status,
         response: eupagoResponse
