@@ -354,7 +354,7 @@
                     <div class="payment-info">
                         <div class="payment-produto">${payment.produto}</div>
                         <div class="payment-details">
-                            💰 €${payment.valor.toFixed(2)} | 📱 ${payment.telefone} | ⏰ ${formatTime(payment.timestamp)}
+                            💰 €${payment.valor.toFixed(2)} | ${payment.telefone} | 📅 ${formatDateTime(payment.timestamp)}
                             ${payment.reference ? `| 🔗 ${payment.reference}` : ''}
                             ${payment.nif ? `| 🧾 NIF: ${payment.nif}` : ''}
                         </div>
@@ -388,12 +388,19 @@
 
 
 
-        // Formatar tempo
-        function formatTime(timestamp) {
-            return new Date(timestamp).toLocaleTimeString('pt-PT', {
+        // Formatar data e tempo
+        function formatDateTime(timestamp) {
+            const date = new Date(timestamp);
+            const dateStr = date.toLocaleDateString('pt-PT', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+            const timeStr = date.toLocaleTimeString('pt-PT', {
                 hour: '2-digit',
                 minute: '2-digit'
             });
+            return `${dateStr} ${timeStr}`;
         }
 
         // Texto do status
