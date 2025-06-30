@@ -50,6 +50,9 @@ exports.handler = async (event, context) => {
         };
       }
 
+      // Extrair body do evento
+      const body = event.body;
+      
       // DEBUG: Ver todos os dados recebidos
       console.log('🔍 Headers recebidos:', JSON.stringify(event.headers, null, 2));
       console.log('📦 Body recebido (raw):', body);
