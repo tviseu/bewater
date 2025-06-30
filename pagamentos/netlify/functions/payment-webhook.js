@@ -122,33 +122,45 @@ exports.handler = async (event, context) => {
       }
 
       // Extrair informações do webhook EuPago (dados decriptados)
-      const {
+      // EuPago estrutura: { channel: {...}, transaction: {...} }
+      const transaction = decryptedData.transaction || {};
+      
+      const transactionID = transaction.trid || transaction.transactionID;
+      const reference = transaction.reference;
+      const amount = transaction.amount ? parseFloat(transaction.amount.value) : 0;
+      const status = transaction.status;
+      const identifier = transaction.identifier;
+      const customerPhone = transaction.customerPhone || null; // Webhook não tem telefone
+      const timestamp = transaction.date;
+      
+      console.log('🔍 Campos extraídos:', {
         transactionID,
-        reference,
+        reference, 
         amount,
         status,
         identifier,
-        customerPhone,
         timestamp
-      } = decryptedData;
+      });
 
-      // Determinar status do pagamento
+      // Determinar status do pagamento (EuPago valores: "Paid", "Failed", "Pending", etc.)
       let paymentStatus;
-      if (status === 'success' || status === 'paid' || status === 'confirmed') {
+      if (status === 'Paid' || status === 'paid' || status === 'success' || status === 'confirmed') {
         paymentStatus = 'confirmado';
-      } else if (status === 'failed' || status === 'error') {
+      } else if (status === 'Failed' || status === 'failed' || status === 'error' || status === 'Error') {
         paymentStatus = 'falhado';
       } else {
         paymentStatus = 'pendente';
       }
+      
+      console.log(`📊 Status mapeado: "${status}" → "${paymentStatus}"`);
 
-      // Criar/atualizar registro do pagamento
+      // Criar/atualizar registro do pagamento  
       const paymentRecord = {
         id: transactionID || reference || `payment_${Date.now()}`,
         transactionID: transactionID,
         reference: reference,
         produto: identifier || 'Produto BE WATER',
-        valor: parseFloat(amount) || 0,
+        valor: amount || 0, // Já convertido para float acima
         telefone: customerPhone ? customerPhone.substring(0, 3) + '***' + customerPhone.substring(6) : 'N/A',
         status: paymentStatus,
         timestamp: timestamp || new Date().toISOString(),
