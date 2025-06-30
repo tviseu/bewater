@@ -60,8 +60,18 @@ export default async function handler(req, res) {
 
     // Validar preço (segurança extra)
     const produto = PRODUTOS_PERMITIDOS[produtoId];
-    if (parseFloat(input.amount) !== produto.preco) {
-      throw new Error('Preço não corresponde ao produto');
+    const inputAmount = parseFloat(input.amount);
+    
+    // Para donativos, permitir valores variáveis entre €1.00 e €100.00
+    if (produtoId === 'DONATIVO_001') {
+      if (inputAmount < 1.00 || inputAmount > 100.00) {
+        throw new Error('Valor do donativo deve estar entre €1.00 e €100.00');
+      }
+    } else {
+      // Para outros produtos, preço deve ser exato
+      if (inputAmount !== produto.preco) {
+        throw new Error('Preço não corresponde ao produto');
+      }
     }
 
     // Validar telemóvel português
@@ -84,9 +94,9 @@ export default async function handler(req, res) {
       payment: {
         amount: {
           currency: "EUR",
-          value: produto.preco
+          value: produtoId === 'DONATIVO_001' ? inputAmount : produto.preco
         },
-        identifier: `${produto.nome} - BE WATER`,
+        identifier: produtoId === 'DONATIVO_001' ? `Donativo €${inputAmount.toFixed(2)} - BE WATER` : `${produto.nome} - BE WATER`,
         customerPhone: phone,    // SÓ O NÚMERO sem +351
         countryCode: "+351"      // CÓDIGO SEPARADO conforme documentação
       }
@@ -122,8 +132,8 @@ export default async function handler(req, res) {
         data: {
           reference: eupagoResponse.reference || null,
           transactionID: eupagoResponse.transactionID || null,
-          amount: produto.preco,
-          produto: produto.nome,
+          amount: produtoId === 'DONATIVO_001' ? inputAmount : produto.preco,
+          produto: produtoId === 'DONATIVO_001' ? `Donativo €${inputAmount.toFixed(2)}` : produto.nome,
           phone_masked: phone.substring(0, 3) + '***' + phone.substring(6),
           instructions: 'Após confirmar o pagamento no telemóvel, apresente o comprovativo ao funcionário BE WATER para receber o seu produto.'
         }

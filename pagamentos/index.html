@@ -122,13 +122,47 @@
             letter-spacing: 1px;
         }
 
-        .produto-preco {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--color-primary);
-            margin-bottom: 20px;
-            font-family: var(--font-primary);
-        }
+                 .produto-preco {
+             font-size: 2.5rem;
+             font-weight: 700;
+             color: var(--color-primary);
+             margin-bottom: 20px;
+             font-family: var(--font-primary);
+         }
+
+         .produto-preco-variavel {
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             margin-bottom: 20px;
+             gap: 5px;
+         }
+
+         .produto-preco-variavel span {
+             font-size: 2.5rem;
+             font-weight: 700;
+             color: var(--color-primary);
+             font-family: var(--font-primary);
+         }
+
+         .produto-preco-variavel input {
+             font-size: 2.5rem;
+             font-weight: 700;
+             color: var(--color-primary);
+             font-family: var(--font-primary);
+             border: var(--border-thick);
+             background: var(--color-background);
+             padding: 10px;
+             width: 120px;
+             text-align: center;
+             transition: all 0.2s ease;
+         }
+
+         .produto-preco-variavel input:focus {
+             outline: none;
+             transform: translate(-2px, -2px);
+             box-shadow: 4px 4px 0 var(--color-primary);
+         }
 
         .produto-descricao {
             font-size: 0.9rem;
@@ -354,6 +388,16 @@
             .produto-icon {
                 font-size: 3rem;
             }
+
+            .produto-preco-variavel input {
+                font-size: 2rem;
+                width: 100px;
+                padding: 8px;
+            }
+
+            .produto-preco-variavel span {
+                font-size: 2rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -367,6 +411,16 @@
 
             .payment-form {
                 padding: 20px;
+            }
+
+            .produto-preco-variavel input {
+                font-size: 1.8rem;
+                width: 90px;
+                padding: 6px;
+            }
+
+            .produto-preco-variavel span {
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -421,12 +475,15 @@
             </div>
 
             <!-- DONATIVO ENGRAÇADO -->
-            <div class="produto-card produto-card--donativo" data-id="DONATIVO_001" data-nome="Donativo - Salvem os Músculos Abandonados" data-preco="5.00">
+            <div class="produto-card produto-card--donativo" data-id="DONATIVO_001" data-nome="Donativo - Salvem os Músculos Abandonados">
                 <div class="produto-icon">🥺</div>
                 <div class="produto-nome">Donativo Solidário</div>
-                <div class="produto-preco">€5.00</div>
+                <div class="produto-preco-variavel">
+                    <span>€</span>
+                    <input type="number" id="donativo-valor" min="1" max="100" step="0.50" placeholder="5.00" value="5.00">
+                </div>
                 <div class="produto-descricao">"Ajude a salvar músculos abandonados nos sofás de Lisboa. Cada euro conta para resgatar pessoas do sedentarismo e trazê-las para o BE WATER! 💪"</div>
-                <button class="produto-btn">Salvar um Músculo</button>
+                <button class="produto-btn donativo-btn">Salvar um Músculo</button>
             </div>
         </div>
 
@@ -480,10 +537,30 @@
 
         // Event listeners para cards de produtos
         document.querySelectorAll('.produto-card').forEach(card => {
-            card.addEventListener('click', function() {
+            card.addEventListener('click', function(e) {
+                // Se clicou no input do donativo, não processar o clique do card
+                if (e.target.id === 'donativo-valor') {
+                    return;
+                }
+
                 const id = this.dataset.id;
                 const nome = this.dataset.nome;
-                const preco = parseFloat(this.dataset.preco);
+                let preco;
+
+                // Verificar se é donativo (valor variável)
+                if (id === 'DONATIVO_001') {
+                    const donativoInput = document.getElementById('donativo-valor');
+                    preco = parseFloat(donativoInput.value);
+                    
+                    // Validar valor do donativo
+                    if (!preco || preco < 1 || preco > 100) {
+                        alert('Por favor, insira um valor entre €1.00 e €100.00 para o donativo');
+                        donativoInput.focus();
+                        return;
+                    }
+                } else {
+                    preco = parseFloat(this.dataset.preco);
+                }
 
                 // Armazenar produto selecionado
                 produtoSelecionado = { id, nome, preco };
@@ -505,6 +582,45 @@
                     document.getElementById('phone').focus();
                 }, 500);
             });
+        });
+
+        // Event listener específico para o botão do donativo
+        document.querySelector('.donativo-btn').addEventListener('click', function(e) {
+            e.stopPropagation(); // Evitar trigger do card
+            
+            const donativoInput = document.getElementById('donativo-valor');
+            const preco = parseFloat(donativoInput.value);
+            
+            // Validar valor do donativo
+            if (!preco || preco < 1 || preco > 100) {
+                alert('Por favor, insira um valor entre €1.00 e €100.00 para o donativo');
+                donativoInput.focus();
+                return;
+            }
+
+            // Armazenar produto selecionado
+            produtoSelecionado = { 
+                id: 'DONATIVO_001', 
+                nome: 'Donativo - Salvem os Músculos Abandonados', 
+                preco: preco 
+            };
+
+            // Mostrar no formulário
+            produtoSelecionadoDiv.innerHTML = `
+                <strong>📦 Produto:</strong> Donativo - Salvem os Músculos Abandonados<br>
+                <strong>💰 Preço:</strong> €${preco.toFixed(2)}
+            `;
+
+            // Mostrar formulário
+            paymentForm.classList.remove('hidden');
+            
+            // Scroll suave para o formulário
+            paymentForm.scrollIntoView({ behavior: 'smooth' });
+
+            // Focar no campo do telemóvel
+            setTimeout(() => {
+                document.getElementById('phone').focus();
+            }, 500);
         });
 
         // Processar pagamento
