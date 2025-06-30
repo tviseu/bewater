@@ -78,19 +78,22 @@ export default async function handler(req, res) {
       }
     }
 
-    // Preparar payload para EuPago
+    // Preparar payload para EuPago (ESTRUTURA CORRETA conforme documentação oficial!)
     const eupagoPayload = {
-      amount: produto.preco,
-      phone: phone,
-      description: `${produto.nome} - BE WATER`,
-      customer: {
-        name: 'Cliente BE WATER'
+      payment: {
+        amount: {
+          currency: "EUR",
+          value: produto.preco
+        },
+        identifier: `${produto.nome} - BE WATER`,
+        customerPhone: phone,    // SÓ O NÚMERO sem +351
+        countryCode: "+351"      // CÓDIGO SEPARADO conforme documentação
       }
     };
 
     // Adicionar NIF se fornecido
     if (nif) {
-      eupagoPayload.customer.fiscal_number = nif;
+      eupagoPayload.payment.customerNIF = nif;
     }
 
     // Escolher URL (sandbox vs produção)

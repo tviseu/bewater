@@ -91,25 +91,22 @@ exports.handler = async (event, context) => {
       }
     }
 
-    // Preparar payload para EuPago (ESTRUTURA CORRETA da documentação oficial!)
+    // Preparar payload para EuPago (ESTRUTURA CORRETA conforme documentação oficial!)
     const eupagoPayload = {
       payment: {
         amount: {
           currency: "EUR",
           value: produto.preco
         },
-        customer: {
-          phone: `+351${phone}` // Telefone dentro do objeto customer
-        },
-        description: `${produto.nome} - BE WATER`,
-        channel: 'MBway pagamentos' // Nome exato do canal criado no painel EuPago
+        identifier: `${produto.nome} - BE WATER`,
+        customerPhone: phone,    // SÓ O NÚMERO sem +351
+        countryCode: "+351"      // CÓDIGO SEPARADO conforme documentação
       }
     };
 
-    // Adicionar NIF se fornecido (dentro da estrutura hierárquica)
+    // Adicionar NIF se fornecido
     if (nif) {
-      eupagoPayload.payment.customer.name = 'Cliente BE WATER';
-      eupagoPayload.payment.customer.fiscal_number = nif;
+      eupagoPayload.payment.customerNIF = nif;
     }
 
     // Escolher URL (sandbox vs produção)
