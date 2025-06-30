@@ -37,7 +37,8 @@ export default async function handler(req, res) {
       'SUPLEMENTO_001': { nome: 'Suplemento Protein', preco: 25.00 },
       'AGUA_001': { nome: 'Água', preco: 1.00 },
       'BARRITA_001': { nome: 'Barra Proteína', preco: 3.50 },
-      'SHAKER_001': { nome: 'Shaker BE WATER', preco: 12.00 }
+      'SHAKER_001': { nome: 'Shaker BE WATER', preco: 12.00 },
+      'DONATIVO_001': { nome: 'Donativo - Salvem os Músculos Abandonados', preco: 5.00 }
     };
 
     // Parse do body

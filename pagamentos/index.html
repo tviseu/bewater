@@ -6,18 +6,26 @@
     <title>Pagamentos MBWay - BE WATER</title>
     
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary-blue: #0066cc;
-            --primary-green: #00cc66;
-            --accent-orange: #ff6600;
-            --dark-bg: #1a1a2e;
-            --card-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --text-primary: #ffffff;
-            --text-secondary: #b0b0b0;
+            /* BE WATER Colors (exatas do site principal) */
+            --color-primary: #000000;    /* Black */
+            --color-secondary: #666666;  /* Gray */
+            --color-accent: #FFD700;     /* Yellow accent */
+            --color-background: #FFFFFF; /* White background */
+            --color-text: #000000;       /* Black text */
+            --color-text-dark: #FFFFFF;  /* White text */
+            --color-border: #000000;     /* Black borders */
+            
+            /* BE WATER Neobrutalist Style */
+            --border-thick: 4px solid var(--color-primary);
+            --shadow-offset: 8px;
+            
+            /* BE WATER Fonts */
+            --font-primary: 'Space Mono', monospace;
+            --font-heading: 'Work Sans', sans-serif;
         }
 
         * {
@@ -27,11 +35,12 @@
         }
 
         body {
-            font-family: 'Work Sans', sans-serif;
-            background: linear-gradient(135deg, var(--dark-bg) 0%, #16213e 100%);
-            color: var(--text-primary);
+            font-family: var(--font-primary);
+            background: var(--color-background);
+            color: var(--color-text);
             min-height: 100vh;
             padding: 20px;
+            line-height: 1.6;
         }
 
         .container {
@@ -45,207 +54,251 @@
         }
 
         .header h1 {
-            font-family: 'Space Mono', monospace;
+            font-family: var(--font-heading);
             font-size: 2.5rem;
-            font-weight: 700;
+            font-weight: 900;
             margin-bottom: 10px;
-            background: linear-gradient(45deg, var(--primary-blue), var(--primary-green));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .header p {
-            color: var(--text-secondary);
+            color: var(--color-secondary);
             font-size: 1.1rem;
+            font-weight: 400;
         }
 
-        /* GRID DE PRODUTOS */
+        /* GRID DE PRODUTOS - Estilo BE WATER */
         .produtos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
         }
 
         .produto-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 15px;
-            padding: 25px;
+            background: var(--color-background);
+            border: var(--border-thick);
+            padding: 30px;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             cursor: pointer;
             position: relative;
-            overflow: hidden;
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-primary);
         }
 
         .produto-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 102, 204, 0.3);
-            border-color: var(--primary-blue);
+            transform: translate(-4px, -4px);
+            box-shadow: 12px 12px 0 var(--color-primary);
         }
 
-        .produto-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: left 0.5s ease;
+        .produto-card--donativo {
+            background: var(--color-accent);
+            border: var(--border-thick);
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-primary);
         }
 
-        .produto-card:hover::before {
-            left: 100%;
+        .produto-card--donativo:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 12px 12px 0 var(--color-primary);
+            background: #FFE55C; /* Amarelo ligeiramente mais claro no hover */
         }
 
         .produto-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
+            font-size: 4rem;
+            margin-bottom: 20px;
             display: block;
+            filter: grayscale(0);
         }
 
         .produto-nome {
-            font-family: 'Space Mono', monospace;
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--text-primary);
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .produto-preco {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 700;
-            color: var(--primary-green);
-            margin-bottom: 15px;
+            color: var(--color-primary);
+            margin-bottom: 20px;
+            font-family: var(--font-primary);
+        }
+
+        .produto-descricao {
+            font-size: 0.9rem;
+            color: var(--color-secondary);
+            margin-bottom: 20px;
+            font-style: italic;
+            min-height: 40px;
         }
 
         .produto-btn {
-            background: linear-gradient(45deg, var(--primary-blue), var(--primary-green));
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: 600;
+            background: var(--color-primary);
+            color: var(--color-background);
+            border: var(--border-thick);
+            border-color: var(--color-primary);
+            padding: 15px 25px;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             width: 100%;
             font-size: 1rem;
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .produto-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.4);
+            background: var(--color-background);
+            color: var(--color-primary);
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 var(--color-primary);
         }
 
-        /* FORMULÁRIO DE PAGAMENTO */
+        /* FORMULÁRIO DE PAGAMENTO - Estilo BE WATER */
         .payment-form {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 15px;
-            padding: 30px;
-            margin-top: 40px;
-            max-width: 500px;
+            background: var(--color-background);
+            border: var(--border-thick);
+            padding: 40px;
+            margin-top: 50px;
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-primary);
         }
 
         .form-title {
             text-align: center;
-            font-family: 'Space Mono', monospace;
-            font-size: 1.5rem;
-            margin-bottom: 25px;
-            color: var(--primary-blue);
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 30px;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--text-primary);
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: var(--color-primary);
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
         }
 
         .form-group input {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid var(--glass-border);
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-primary);
+            padding: 15px;
+            border: var(--border-thick);
+            background: var(--color-background);
+            color: var(--color-primary);
             font-size: 1rem;
-            transition: all 0.3s ease;
+            font-family: var(--font-primary);
+            transition: all 0.2s ease;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 10px rgba(0, 102, 204, 0.3);
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 var(--color-primary);
         }
 
         .form-group input::placeholder {
-            color: var(--text-secondary);
+            color: var(--color-secondary);
         }
 
         .produto-selecionado {
-            background: rgba(0, 204, 102, 0.1);
-            border: 1px solid var(--primary-green);
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
+            background: var(--color-accent);
+            border: var(--border-thick);
+            padding: 20px;
+            margin-bottom: 30px;
             text-align: center;
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-primary);
+        }
+
+        .produto-selecionado strong {
+            font-family: var(--font-heading);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .btn-pagar {
-            background: linear-gradient(45deg, var(--primary-blue), var(--primary-green));
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            background: var(--color-primary);
+            color: var(--color-background);
+            border: var(--border-thick);
+            border-color: var(--color-primary);
+            padding: 20px 40px;
+            font-size: 1.2rem;
+            font-weight: 900;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             width: 100%;
-            margin-top: 10px;
+            margin-top: 20px;
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .btn-pagar:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.4);
+            background: var(--color-background);
+            color: var(--color-primary);
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 var(--color-primary);
         }
 
         .btn-pagar:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
         }
 
         .loading {
             display: none;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 30px;
+            padding: 30px;
+            border: var(--border-thick);
+            background: var(--color-background);
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-primary);
         }
 
         .loading.show {
             display: block;
         }
 
+        .loading-text {
+            font-family: var(--font-heading);
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
         .spinner {
-            border: 3px solid rgba(255, 255, 255, 0.1);
+            border: 4px solid var(--color-secondary);
             border-radius: 50%;
-            border-top: 3px solid var(--primary-blue);
-            width: 40px;
-            height: 40px;
+            border-top: 4px solid var(--color-primary);
+            width: 50px;
+            height: 50px;
             animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
+            margin: 0 auto;
         }
 
         @keyframes spin {
@@ -254,23 +307,24 @@
         }
 
         .success-message, .error-message {
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
+            padding: 30px;
+            margin-top: 30px;
             text-align: center;
             display: none;
+            border: var(--border-thick);
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-primary);
+            font-family: var(--font-heading);
+            font-weight: 700;
         }
 
         .success-message {
-            background: rgba(0, 204, 102, 0.1);
-            border: 1px solid var(--primary-green);
-            color: var(--primary-green);
+            background: var(--color-accent);
+            color: var(--color-primary);
         }
 
         .error-message {
-            background: rgba(255, 102, 0, 0.1);
-            border: 1px solid var(--accent-orange);
-            color: var(--accent-orange);
+            background: #FF6B35;
+            color: var(--color-background);
         }
 
         .hidden {
@@ -285,12 +339,34 @@
             
             .produtos-grid {
                 grid-template-columns: 1fr;
-                gap: 15px;
+                gap: 20px;
             }
             
             .payment-form {
+                padding: 25px;
+                margin: 30px 10px;
+            }
+
+            .produto-card {
+                padding: 25px;
+            }
+
+            .produto-icon {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.7rem;
+            }
+
+            .produto-preco {
+                font-size: 2rem;
+            }
+
+            .payment-form {
                 padding: 20px;
-                margin: 20px 10px;
             }
         }
     </style>
@@ -308,6 +384,7 @@
                 <div class="produto-icon">☕</div>
                 <div class="produto-nome">Café</div>
                 <div class="produto-preco">€1.50</div>
+                <div class="produto-descricao">Combustível para treinos épicos</div>
                 <button class="produto-btn">Pagar com MBWay</button>
             </div>
 
@@ -315,6 +392,7 @@
                 <div class="produto-icon">💧</div>
                 <div class="produto-nome">Água</div>
                 <div class="produto-preco">€1.00</div>
+                <div class="produto-descricao">Hidratação essencial</div>
                 <button class="produto-btn">Pagar com MBWay</button>
             </div>
 
@@ -322,6 +400,7 @@
                 <div class="produto-icon">🍫</div>
                 <div class="produto-nome">Barra Proteína</div>
                 <div class="produto-preco">€3.50</div>
+                <div class="produto-descricao">Energia para atletas determinados</div>
                 <button class="produto-btn">Pagar com MBWay</button>
             </div>
 
@@ -329,6 +408,7 @@
                 <div class="produto-icon">🥤</div>
                 <div class="produto-nome">Shaker BE WATER</div>
                 <div class="produto-preco">€12.00</div>
+                <div class="produto-descricao">Mistura perfeita, estilo único</div>
                 <button class="produto-btn">Pagar com MBWay</button>
             </div>
 
@@ -336,7 +416,17 @@
                 <div class="produto-icon">🏋️</div>
                 <div class="produto-nome">Suplemento Protein</div>
                 <div class="produto-preco">€25.00</div>
+                <div class="produto-descricao">Construção muscular premium</div>
                 <button class="produto-btn">Pagar com MBWay</button>
+            </div>
+
+            <!-- DONATIVO ENGRAÇADO -->
+            <div class="produto-card produto-card--donativo" data-id="DONATIVO_001" data-nome="Donativo - Salvem os Músculos Abandonados" data-preco="5.00">
+                <div class="produto-icon">🥺</div>
+                <div class="produto-nome">Donativo Solidário</div>
+                <div class="produto-preco">€5.00</div>
+                <div class="produto-descricao">"Ajude a salvar músculos abandonados nos sofás de Lisboa. Cada euro conta para resgatar pessoas do sedentarismo e trazê-las para o BE WATER! 💪"</div>
+                <button class="produto-btn">Salvar um Músculo</button>
             </div>
         </div>
 
@@ -365,8 +455,9 @@
             </form>
 
             <div class="loading" id="loading">
+                <div class="loading-text">⏳ A processar pagamento...</div>
                 <div class="spinner"></div>
-                <p>Processando pagamento...</p>
+                <p>Confirma o pagamento na app MBWay</p>
             </div>
 
             <div class="success-message" id="successMessage"></div>
