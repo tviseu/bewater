@@ -352,12 +352,13 @@
         .success-message, .error-message {
             padding: 30px;
             margin-top: 30px;
-            text-align: center;
+            text-align: left;
             display: none;
             border: var(--border-thick);
             box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-primary);
             font-family: var(--font-heading);
             font-weight: 700;
+            line-height: 1.8;
         }
 
         .success-message {
@@ -407,6 +408,21 @@
             .produto-preco-variavel span {
                 font-size: 2rem;
             }
+
+            /* MELHORAR SUCCESS MESSAGE EM MOBILE */
+            .success-message, .error-message {
+                padding: 20px;
+                margin: 20px 10px;
+                font-size: 0.9rem;
+                line-height: 2;
+                box-shadow: 4px 4px 0 var(--color-primary);
+            }
+
+            .success-message strong {
+                display: block;
+                margin-bottom: 8px;
+                font-size: 1rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -430,6 +446,24 @@
 
             .produto-preco-variavel span {
                 font-size: 1.8rem;
+            }
+
+            /* OTIMIZAR SUCCESS MESSAGE PARA TELAS PEQUENAS */
+            .success-message, .error-message {
+                padding: 15px;
+                margin: 15px 5px;
+                font-size: 0.85rem;
+                line-height: 2.2;
+                box-shadow: 3px 3px 0 var(--color-primary);
+            }
+
+            .success-message strong {
+                font-size: 0.9rem;
+                margin-bottom: 6px;
+            }
+
+            .success-message br {
+                line-height: 3;
             }
         }
     </style>
@@ -702,15 +736,22 @@
 
         function showSuccess(message, data) {
             successMessage.innerHTML = `
-                <strong>✅ ${message}</strong><br><br>
-                📦 <strong>Produto:</strong> ${data.produto}<br>
-                💰 <strong>Valor:</strong> €${data.amount}<br>
-                📱 <strong>Telemóvel:</strong> ${data.phone_masked}<br>
-                ${data.reference ? `🔢 <strong>Referência:</strong> ${data.reference}<br>` : ''}
-                ${data.transactionID ? `🆔 <strong>ID Transação:</strong> ${data.transactionID}<br>` : ''}
-                <br>
-                <strong>📋 Próximos passos:</strong><br>
-                ${data.instructions}
+                <div style="margin-bottom: 20px;">
+                    <strong style="font-size: 1.1em; color: #000;">✅ ${message}</strong>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <div style="margin-bottom: 8px;">📦 <strong>Produto:</strong> ${data.produto}</div>
+                    <div style="margin-bottom: 8px;">💰 <strong>Valor:</strong> €${data.amount}</div>
+                    <div style="margin-bottom: 8px;">📱 <strong>Telemóvel:</strong> ${data.phone_masked}</div>
+                    ${data.reference ? `<div style="margin-bottom: 8px;">🔢 <strong>Referência:</strong> ${data.reference}</div>` : ''}
+                    ${data.transactionID ? `<div style="margin-bottom: 8px;">🆔 <strong>ID Transação:</strong><br><span style="font-size: 0.8em; word-break: break-all;">${data.transactionID}</span></div>` : ''}
+                </div>
+
+                <div style="margin-top: 20px; padding-top: 15px; border-top: 2px solid #000;">
+                    <div style="margin-bottom: 10px;"><strong>📋 Próximos passos:</strong></div>
+                    <div style="font-size: 0.9em; line-height: 1.6;">${data.instructions}</div>
+                </div>
             `;
             successMessage.style.display = 'block';
             hideMessages(false);
