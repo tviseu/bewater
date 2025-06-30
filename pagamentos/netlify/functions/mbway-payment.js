@@ -155,13 +155,14 @@ exports.handler = async (event, context) => {
         headers,
         body: JSON.stringify({
           success: true,
-          message: 'Pagamento criado com sucesso',
+          message: 'Pedido de pagamento MBWay enviado com sucesso! Confirme o pagamento no seu telemóvel e apresente o comprovativo ao funcionário BE WATER para receber o produto.',
           data: {
             reference: eupagoResponse.reference || null,
             transactionID: eupagoResponse.transactionID || null,
             amount: produto.preco,
             produto: produto.nome,
-            phone_masked: phone.substring(0, 3) + '***' + phone.substring(6)
+            phone_masked: phone.substring(0, 3) + '***' + phone.substring(6),
+            instructions: 'Após confirmar o pagamento no telemóvel, apresente o comprovativo ao funcionário BE WATER para receber o seu produto.'
           }
         })
       };
