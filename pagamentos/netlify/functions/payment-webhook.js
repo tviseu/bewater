@@ -69,9 +69,59 @@ exports.handler = async (event, context) => {
 
       // Parse do payload
       const webhookData = JSON.parse(body);
-      console.log('📦 Dados webhook:', JSON.stringify(webhookData, null, 2));
+      console.log('📦 Dados webhook (raw):', JSON.stringify(webhookData, null, 2));
 
-      // Extrair informações do webhook EuPago
+      // Decriptar dados EuPago (usam AES encryption)
+      let decryptedData = {};
+      if (webhookData.data) {
+        try {
+          const iv = Buffer.from(event.headers['x-initialization-vector'], 'base64');
+          const encryptedData = Buffer.from(webhookData.data, 'base64');
+          
+          console.log('🔑 IV extraído:', iv.toString('hex'));
+          console.log('📦 Dados encriptados (primeiros 50 chars):', encryptedData.toString('hex').substring(0, 50) + '...');
+          
+          // Tentar decriptar com AES-256-CBC
+          const decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(WEBHOOK_SECRET, 'utf8'), iv);
+          let decrypted = decipher.update(encryptedData, null, 'utf8');
+          decrypted += decipher.final('utf8');
+          
+          console.log('🔓 Dados decriptados (raw):', decrypted);
+          decryptedData = JSON.parse(decrypted);
+          console.log('✅ Dados decriptados (JSON):', JSON.stringify(decryptedData, null, 2));
+          
+        } catch (decryptError) {
+          console.error('❌ Erro na decriptação:', decryptError.message);
+          console.log('🔄 Tentando outros algoritmos...');
+          
+          // Tentar outros algoritmos comuns
+          const algorithms = ['aes-128-cbc', 'aes-192-cbc', 'aes-256-cbc'];
+          
+          for (const algorithm of algorithms) {
+            try {
+              console.log(`🔄 Tentando ${algorithm}...`);
+              const iv = Buffer.from(event.headers['x-initialization-vector'], 'base64');
+              const encryptedData = Buffer.from(webhookData.data, 'base64');
+              const decipher = crypto.createDecipheriv(algorithm, Buffer.from(WEBHOOK_SECRET, 'utf8').slice(0, algorithm === 'aes-128-cbc' ? 16 : algorithm === 'aes-192-cbc' ? 24 : 32), iv);
+              let decrypted = decipher.update(encryptedData, null, 'utf8');
+              decrypted += decipher.final('utf8');
+              decryptedData = JSON.parse(decrypted);
+              console.log(`✅ Sucesso com ${algorithm}:`, JSON.stringify(decryptedData, null, 2));
+              break;
+            } catch (algoError) {
+              console.log(`❌ ${algorithm} falhou:`, algoError.message);
+            }
+          }
+          
+          // Se nada funcionou, usar dados vazios para debug
+          if (Object.keys(decryptedData).length === 0) {
+            console.log('⚠️ Usando dados vazios para debug');
+            decryptedData = webhookData; // Fallback para dados originais
+          }
+        }
+      }
+
+      // Extrair informações do webhook EuPago (dados decriptados)
       const {
         transactionID,
         reference,
@@ -80,7 +130,7 @@ exports.handler = async (event, context) => {
         identifier,
         customerPhone,
         timestamp
-      } = webhookData;
+      } = decryptedData;
 
       // Determinar status do pagamento
       let paymentStatus;
