@@ -227,7 +227,7 @@ git push origin main
 ### **1. Estrutura API Incorreta**
 A API Vendus **rejeitou TODOS os parâmetros** que estávamos a usar:
 
-**❌ CAMPOS REJEITADOS:**
+**❌ PROBLEMAS IDENTIFICADOS:**
 - `customer` → deve ser `client`
 - `line_items` → deve ser `items`  
 - `type: 'invoice'` → deve ser `type: 'FT'`
@@ -235,7 +235,10 @@ A API Vendus **rejeitou TODOS os parâmetros** que estávamos a usar:
 - `items.name` → deve ser `items.title`
 - `items.unit_price` → deve ser `items.gross_price`
 - `items.quantity` → deve ser `items.qty`
-- `items.vat_rate` → deve ser `items.tax_id`
+- `items.vat_rate` → removido (Vendus calcula automaticamente)
+- **❌ URL INCORRETA:** `/ws/documents/` → `/ws/v1.1/documents/`
+- **❌ AUTH INCORRETA:** `?api_key=` parameter → Basic Auth header
+- **❌ ITEMS SEM ID:** Faltava `reference` obrigatório
 
 **✅ CAMPOS ACEITES:**
 
@@ -269,7 +272,14 @@ const faturaPayload = {
   items: [{ name, unit_price, quantity, vat_rate }]
 };
 
-// ✅ ACEITE (FINAL - baseado em erros 403)
+// ❌ REJEITADO (3ª tentativa - estrutura corrigida mas auth/URL erradas)
+const faturaPayload = {
+  type: 'FT',
+  client: { name: nomeCliente, fiscal_id: nif, email: email },
+  items: [{ title: produtoNome, gross_price: preco, qty: 1, tax_id: 1 }]
+};
+
+// ✅ ACEITE (FINAL - baseado na documentação oficial)
 const faturaPayload = {
   type: 'FT', // Fatura
   client: { 
@@ -278,15 +288,20 @@ const faturaPayload = {
     email: email 
   },
   items: [{ 
+    reference: produtoId, // OBRIGATÓRIO conforme documentação
     title: produtoNome, // era 'name'
     gross_price: preco, // era 'unit_price'
-    qty: 1, // era 'quantity'
-    tax_id: 1 // era 'vat_rate'
+    qty: 1 // era 'quantity'
+    // tax_id removido - Vendus calcula automaticamente
   }],
   notes: `Pagamento MBWay - Ref: ${reference}`,
   external_reference: reference,
   date: '2025-07-01'
 };
+
+// ✅ URL & AUTH CORRETAS (baseado na documentação)
+URL: https://www.vendus.pt/ws/v1.1/documents/ (era /ws/documents/)
+AUTH: Basic Auth (era ?api_key= parameter)
 ```
 
 ### **2. Correlação Robusta com Base64**

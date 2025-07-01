@@ -29,7 +29,7 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
   // Determinar nome do cliente (usar "Consumidor Final" se não fornecido)
   const nomeCliente = dadosCliente.nome || "Consumidor Final";
 
-  // Payload para Vendus API (estrutura FINAL baseada nos erros 403)
+  // Payload para Vendus API (estrutura FINAL conforme documentação oficial)
   const faturaPayload = {
     type: 'FT', // Fatura (códigos aceites: FT, FS, FR, NC, DC, PF, OT, EC, GA, GT, GR, GD, RG)
     client: {
@@ -38,10 +38,11 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
       email: dadosCliente.email
     },
     items: [{
+      reference: dadosProduto.id, // OBRIGATÓRIO: id ou reference conforme documentação
       title: produtoVendus.nome, // era 'name' → agora 'title'
       gross_price: dadosProduto.preco, // era 'unit_price' → agora 'gross_price'
-      qty: 1, // era 'quantity' → agora 'qty'
-      tax_id: 1 // IVA normal (substitui 'vat_rate')
+      qty: 1 // era 'quantity' → agora 'qty'
+      // tax_id removido - deixar Vendus calcular automaticamente
     }],
     notes: `Pagamento MBWay - Ref: ${dadosPagamento.reference || dadosPagamento.transactionID}`,
     external_reference: dadosPagamento.reference || dadosPagamento.transactionID,
@@ -51,16 +52,21 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
   try {
     console.log('🧾 Emitindo fatura Vendus:', JSON.stringify(faturaPayload, null, 2));
 
-    // Fazer chamada à API Vendus
-    const vendusUrl = `${VENDUS_CONFIG.base_url}/documents/?api_key=${VENDUS_CONFIG.api_key}`;
+    // Fazer chamada à API Vendus (conforme documentação oficial)
+    const vendusUrl = `${VENDUS_CONFIG.base_url}/v1.1/documents/`;
     
     console.log('🔗 URL Vendus:', vendusUrl);
+    
+    // Basic Auth conforme documentação (não URL parameter)
+    const authHeader = 'Basic ' + Buffer.from(VENDUS_CONFIG.api_key + ':').toString('base64');
+    console.log('🔐 Auth header criado:', authHeader.substring(0, 20) + '...');
 
     const response = await fetch(vendusUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'Authorization': authHeader
       },
       body: JSON.stringify(faturaPayload)
     });
