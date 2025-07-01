@@ -461,13 +461,9 @@
                 return '<div class="action-btn success" disabled>🧾 Fatura Emitida</div>';
             }
 
-            // Se falta email para emitir fatura
-            if (!payment.email) {
-                return '<div class="action-btn" disabled title="Email necessário para emitir fatura">⚠️ Sem Email</div>';
-            }
-
-            // Botão para emitir fatura
-            return `<button class="action-btn" onclick="emitirFatura('${payment.id}')" id="btn-${payment.id}">🧾 Emitir Fatura</button>`;
+            // Sempre permitir emissão de fatura (usará "Consumidor Final" se sem email)
+            const buttonText = payment.email ? '🧾 Emitir Fatura' : '🧾 Fatura (Cons. Final)';
+            return `<button class="action-btn" onclick="emitirFatura('${payment.id}')" id="btn-${payment.id}">${buttonText}</button>`;
         }
 
         // Emitir fatura
@@ -524,7 +520,8 @@
                         loadPayments();
                     }, 1000);
 
-                    alert(`✅ Fatura ${result.fatura.numero} emitida com sucesso!\n\nFatura enviada para: ${payment.email}`);
+                    const emailDestino = payment.email || 'bewater.faturas@gmail.com (Consumidor Final)';
+                    alert(`✅ Fatura ${result.fatura.numero} emitida com sucesso!\n\nFatura enviada para: ${emailDestino}`);
                 } else {
                     throw new Error(result.message || 'Erro desconhecido');
                 }

@@ -1,6 +1,9 @@
 // pagamentos/netlify/functions/mbway-payment.js
 // Netlify Function para pagamentos MBWay seguros
 
+// Base de dados temporária para correlacionar dados do cliente com webhook
+let tempClientData = new Map();
+
 // Função para emitir fatura na Vendus
 async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
   const VENDUS_CONFIG = {
@@ -117,7 +120,7 @@ exports.handler = async (event, context) => {
   const headers = {
     'Access-Control-Allow-Origin': '*', // Ajustar para o teu domínio em produção
     'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'POST',
+    'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
     'Content-Type': 'application/json'
   };
 
@@ -126,7 +129,40 @@ exports.handler = async (event, context) => {
     return { statusCode: 200, headers, body: '' };
   }
 
-  // Apenas aceitar POST
+  // GET: Retornar dados temporários do cliente (para correlação com webhook)
+  if (event.httpMethod === 'GET') {
+    const clientKey = event.queryStringParameters?.key;
+    if (!clientKey) {
+      return {
+        statusCode: 400,
+        headers,
+        body: JSON.stringify({ success: false, message: 'Client key required' })
+      };
+    }
+
+    const clientData = tempClientData.get(clientKey);
+    if (!clientData) {
+      return {
+        statusCode: 404,
+        headers,
+        body: JSON.stringify({ success: false, message: 'Client data not found' })
+      };
+    }
+
+    // Limpar dados após recuperação (one-time use)
+    tempClientData.delete(clientKey);
+
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({
+        success: true,
+        clientData: clientData
+      })
+    };
+  }
+
+  // Apenas aceitar POST para pagamentos
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
@@ -301,9 +337,27 @@ exports.handler = async (event, context) => {
         instructions: 'Após confirmar o pagamento no telemóvel, apresente o comprovativo ao funcionário BE WATER para receber o seu produto.'
       };
 
-          // NOTA: Fatura será emitida pelo staff após verificação do comprovativo MBWay
-    console.log('ℹ️ Pagamento iniciado - fatura será emitida pelo staff após confirmação');
-    dadosResposta.instructions = 'Após confirmar o pagamento no telemóvel, apresente o comprovativo ao funcionário BE WATER para receber o produto e fatura.';
+      // ARMAZENAR dados do cliente para correlação com webhook posterior
+      const clientKey = eupagoResponse.transactionID || eupagoResponse.reference;
+      if (clientKey) {
+        tempClientData.set(clientKey, {
+          nome: nome,
+          email: email,
+          nif: nif,
+          telefone: phone,
+          timestamp: new Date().toISOString(),
+          produtoId: produtoId
+        });
+        console.log(`💾 Dados cliente armazenados para correlação: ${clientKey}`, {
+          nome: nome || 'N/A',
+          email: email || 'N/A', 
+          nif: nif || 'N/A'
+        });
+      }
+
+      // NOTA: Fatura será emitida pelo staff após verificação do comprovativo MBWay
+      console.log('ℹ️ Pagamento iniciado - fatura será emitida pelo staff após confirmação');
+      dadosResposta.instructions = 'Após confirmar o pagamento no telemóvel, apresente o comprovativo ao funcionário BE WATER para receber o produto e fatura.';
 
       return {
         statusCode: 200,

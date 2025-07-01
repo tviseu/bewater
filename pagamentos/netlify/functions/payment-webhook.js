@@ -191,6 +191,33 @@ exports.handler = async (event, context) => {
       
       console.log(`📊 Status mapeado: "${status}" → "${paymentStatus}"`);
 
+      // CORRELACIONAR dados do cliente (se disponíveis)
+      let clientData = null;
+      const clientKey = transactionID || reference;
+      
+      if (clientKey) {
+        try {
+          console.log(`🔍 Buscando dados cliente para: ${clientKey}`);
+          
+          // Buscar dados correlacionados na função de pagamento
+          const clientResponse = await fetch(`${event.headers.host ? `https://${event.headers.host}` : 'https://cool-starship-a7a3e1.netlify.app'}/.netlify/functions/mbway-payment?key=${clientKey}`);
+          
+          if (clientResponse.ok) {
+            const clientResult = await clientResponse.json();
+            if (clientResult.success) {
+              clientData = clientResult.clientData;
+              console.log(`✅ Dados cliente encontrados:`, {
+                nome: clientData.nome || 'N/A',
+                email: clientData.email || 'N/A',
+                nif: clientData.nif || 'N/A'
+              });
+            }
+          }
+        } catch (correlationError) {
+          console.log(`⚠️ Erro na correlação (não crítico): ${correlationError.message}`);
+        }
+      }
+
       // Criar/atualizar registro do pagamento  
       const paymentRecord = {
         id: transactionID || reference || `payment_${Date.now()}`,
@@ -198,10 +225,10 @@ exports.handler = async (event, context) => {
         reference: reference,
         produto: identifier || 'Produto BE WATER',
         valor: amount || 0, // Já convertido para float acima
-        telefone: customerPhone ? customerPhone.substring(0, 3) + '***' + customerPhone.substring(6) : 'N/A',
-        nome: null, // Nome será correlacionado posteriormente se disponível
-        email: null, // Email será correlacionado posteriormente se disponível
-        nif: null, // NIF será correlacionado posteriormente se disponível
+        telefone: clientData?.telefone ? clientData.telefone.substring(0, 3) + '***' + clientData.telefone.substring(6) : 'N/A',
+        nome: clientData?.nome || null, // Dados correlacionados do formulário
+        email: clientData?.email || null, // Dados correlacionados do formulário
+        nif: clientData?.nif || null, // Dados correlacionados do formulário
         status: paymentStatus,
         timestamp: timestamp || new Date().toISOString(),
         lastUpdate: new Date().toISOString(),

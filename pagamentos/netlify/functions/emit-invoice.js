@@ -133,8 +133,8 @@ exports.handler = async (event, context) => {
     // Parse do body
     const input = JSON.parse(event.body);
 
-    // Validar campos obrigatórios
-    const requiredFields = ['transactionID', 'produto', 'valor', 'email'];
+    // Validar campos obrigatórios (email não é obrigatório para "Consumidor Final")
+    const requiredFields = ['transactionID', 'produto', 'valor'];
     for (const field of requiredFields) {
       if (!input[field]) {
         throw new Error(`Campo obrigatório ausente: ${field}`);
@@ -157,11 +157,11 @@ exports.handler = async (event, context) => {
       produtoId = 'SUPLEMENTO_001';
     }
 
-    // Preparar dados para emissão
+    // Preparar dados para emissão (usar "Consumidor Final" se sem dados)
     const dadosCliente = {
       nome: input.nome || null,
       nif: input.nif || null,
-      email: input.email
+      email: input.email || 'bewater.faturas@gmail.com' // Email genérico para consumidor final
     };
 
     const dadosProduto = {
