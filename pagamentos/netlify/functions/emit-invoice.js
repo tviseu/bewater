@@ -29,23 +29,23 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
   // Determinar nome do cliente (usar "Consumidor Final" se não fornecido)
   const nomeCliente = dadosCliente.nome || "Consumidor Final";
 
-  // Payload para Vendus API (estrutura CORRETA baseada nos parâmetros aceites)
+  // Payload para Vendus API (estrutura FINAL baseada nos erros 403)
   const faturaPayload = {
-    type: 'invoice', // Tipo de documento
+    type: 'FT', // Fatura (códigos aceites: FT, FS, FR, NC, DC, PF, OT, EC, GA, GT, GR, GD, RG)
     client: {
       name: nomeCliente,
-      vat: dadosCliente.nif || null,
+      fiscal_id: dadosCliente.nif || null, // era 'vat' → agora 'fiscal_id'
       email: dadosCliente.email
     },
     items: [{
-      name: produtoVendus.nome,
-      unit_price: dadosProduto.preco,
-      quantity: 1,
-      vat_rate: produtoVendus.iva
+      title: produtoVendus.nome, // era 'name' → agora 'title'
+      gross_price: dadosProduto.preco, // era 'unit_price' → agora 'gross_price'
+      qty: 1, // era 'quantity' → agora 'qty'
+      tax_id: 1 // IVA normal (substitui 'vat_rate')
     }],
     notes: `Pagamento MBWay - Ref: ${dadosPagamento.reference || dadosPagamento.transactionID}`,
     external_reference: dadosPagamento.reference || dadosPagamento.transactionID,
-    date: new Date().toISOString().split('T')[0] // Apenas data YYYY-MM-DD
+    date: new Date().toISOString().split('T')[0]
   };
 
   try {

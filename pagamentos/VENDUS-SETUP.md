@@ -230,14 +230,22 @@ A API Vendus **rejeitou TODOS os parâmetros** que estávamos a usar:
 **❌ CAMPOS REJEITADOS:**
 - `customer` → deve ser `client`
 - `line_items` → deve ser `items`  
-- `document_exempt` → **NÃO EXISTE**
-- `tax_exemption_reason` → **NÃO EXISTE**
-- `vat_exemption_code` → **NÃO EXISTE**
-- `payment_method` → **NÃO EXISTE**
-- `payment_date` → **NÃO EXISTE**
+- `type: 'invoice'` → deve ser `type: 'FT'`
+- `client.vat` → deve ser `client.fiscal_id`
+- `items.name` → deve ser `items.title`
+- `items.unit_price` → deve ser `items.gross_price`
+- `items.quantity` → deve ser `items.qty`
+- `items.vat_rate` → deve ser `items.tax_id`
 
 **✅ CAMPOS ACEITES:**
-`register_id, type, discount_code, discount_amount, discount_percentage, date_due, payments, mode, date, date_supply, notes, ncr_id, external_reference, stock_operation, ifthenpay, eupago, multibanco, client, supplier, items, movement_of_goods, invoices, print_discount, output, output_template_id, tx_id, errors_full, rest_room, rest_table, occupation, stamp_retention_amount, irc_retention_id, related_document_id, return_qrcode, doc_to_generate`
+
+**Documento:** `type` (valores: FT, FS, FR, NC, DC, PF, OT, EC, GA, GT, GR, GD, RG)
+
+**Cliente:** `id, fiscal_id, name, address, postalcode, city, phone, mobile, email, website, notes, country, external_reference, send_email, billing_email, irs_retention`
+
+**Items:** `id, reference, gross_price, supply_price, qty, type_id, variant_id, lot_id, title, unit_id, category_id, brand_id, discount_amount, discount_percentage, stock_control, stock_type, tax_id, tax_exemption, tax_exemption_law, tax_custom, reference_document, text, serial`
+
+**Geral:** `register_id, discount_code, discount_amount, discount_percentage, date_due, payments, mode, date, date_supply, notes, ncr_id, external_reference, stock_operation, ifthenpay, eupago, multibanco, client, supplier, items, movement_of_goods, invoices, print_discount, output, output_template_id, tx_id, errors_full, rest_room, rest_table, occupation, stamp_retention_amount, irc_retention_id, related_document_id, return_qrcode, doc_to_generate`
 
 ### **2. Sistema Correlação Falhava**
 O storage temporário `tempClientData` perdia-se entre invocações de função.
@@ -246,25 +254,38 @@ O storage temporário `tempClientData` perdia-se entre invocações de função.
 
 ## ✅ SOLUÇÕES IMPLEMENTADAS:
 
-### **1. Estrutura API Corrigida**
+### **1. Estrutura API Corrigida (FINAL)**
 ```javascript
-// ❌ ANTES (REJEITADO)
+// ❌ REJEITADO (1ª tentativa)
 const faturaPayload = {
   customer: { name, vat, email },
-  line_items: [{ name, unit_price, quantity, vat_rate }],
-  document_exempt: true,
-  tax_exemption_reason: 'Artº 53',
-  payment_method: 'MBWay'
+  line_items: [{ name, unit_price, quantity, vat_rate }]
 };
 
-// ✅ DEPOIS (ACEITE)
+// ❌ REJEITADO (2ª tentativa)  
 const faturaPayload = {
   type: 'invoice',
   client: { name, vat, email },
-  items: [{ name, unit_price, quantity, vat_rate }],
+  items: [{ name, unit_price, quantity, vat_rate }]
+};
+
+// ✅ ACEITE (FINAL - baseado em erros 403)
+const faturaPayload = {
+  type: 'FT', // Fatura
+  client: { 
+    name: nomeCliente, 
+    fiscal_id: nif, // era 'vat' 
+    email: email 
+  },
+  items: [{ 
+    title: produtoNome, // era 'name'
+    gross_price: preco, // era 'unit_price'
+    qty: 1, // era 'quantity'
+    tax_id: 1 // era 'vat_rate'
+  }],
   notes: `Pagamento MBWay - Ref: ${reference}`,
   external_reference: reference,
-  date: new Date().toISOString().split('T')[0]
+  date: '2025-07-01'
 };
 ```
 
