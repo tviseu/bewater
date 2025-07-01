@@ -6,6 +6,250 @@
   <meta name="description" content="BE WATER - Centro de treino inspirado na filosofia de Bruce Lee. Treino funcional, artes marciais e desenvolvimento pessoal em Lisboa. Fundado por Bruno Salgueiro.">
   <title>BE WATER | Flow Like Water, Strike Like Lightning</title>
   
+  <!-- Critical CSS for above-the-fold content -->
+  <style>
+    /* CSS Variables for immediate availability */
+    :root {
+      --color-primary: #FFD700;
+      --color-black: #000000;
+      --color-white: #FFFFFF;
+      --color-gray: #666666;
+      --color-gray-light: #f5f5f5;
+      --spacing-sm: 0.5rem;
+      --spacing-md: 1rem;
+      --spacing-lg: 1.5rem;
+      --spacing-xl: 2rem;
+      --border-width: 4px;
+      --border-radius: 0;
+      --font-primary: system-ui, 'Segoe UI', -apple-system, BlinkMacSystemFont, monospace;
+      --font-heading: system-ui, -apple-system, BlinkMacSystemFont, 'Arial Black', sans-serif;
+    }
+    
+    /* Critical styles for immediate rendering - Hero Section */
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-primary);
+      background-color: var(--color-white);
+      color: var(--color-black);
+      line-height: 1.6;
+    }
+    
+    .hero {
+      background-color: var(--color-white);
+      min-height: 100vh;
+      min-height: 100dvh; /* Dynamic viewport height */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 4rem 0;
+    }
+    
+    .hero__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--spacing-xl);
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      width: 100%;
+    }
+    
+    .hero__title {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      line-height: 0.9;
+      margin: 0 0 var(--spacing-lg) 0;
+      color: var(--color-black);
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      display: block;
+      opacity: 1;
+    }
+    
+    .hero__subtitle {
+      font-family: var(--font-primary);
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      line-height: 1.6;
+      margin: 0 auto var(--spacing-xl) auto;
+      max-width: 600px;
+      color: var(--color-gray);
+      opacity: 1;
+    }
+    
+    .hero__cta {
+      margin: var(--spacing-xl) 0;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: var(--spacing-md) var(--spacing-xl);
+      background-color: var(--color-primary);
+      color: var(--color-black);
+      text-decoration: none;
+      font-weight: 700;
+      font-family: var(--font-primary);
+      text-transform: uppercase;
+      border: var(--border-width) solid var(--color-black);
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+    }
+    
+    .btn:hover {
+      background-color: var(--color-black);
+      color: var(--color-primary);
+      transform: translate(-4px, -4px);
+      box-shadow: 8px 8px 0 var(--color-primary);
+    }
+    
+    .btn--primary {
+      background-color: var(--color-primary);
+      color: var(--color-black);
+    }
+    
+    /* Header critical styles */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 2px solid var(--color-black);
+    }
+    
+    .header__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--spacing-md) var(--spacing-xl);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .header__logo-img {
+      height: 40px;
+      width: auto;
+    }
+    
+    .header__nav {
+      display: none; /* Hide on mobile initially */
+    }
+    
+    @media (min-width: 768px) {
+      .header__nav {
+        display: block;
+      }
+    }
+    
+    /* Countdown critical styles */
+    .countdown-container {
+      margin-top: var(--spacing-xl);
+      opacity: 1;
+    }
+    
+    .countdown-frame {
+      background-color: var(--color-white);
+      border: var(--border-width) solid var(--color-black);
+      padding: var(--spacing-lg);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .countdown-title {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      text-align: center;
+      margin-bottom: var(--spacing-md);
+      color: var(--color-black);
+    }
+    
+    .countdown-display {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: var(--spacing-sm);
+      flex-wrap: wrap;
+    }
+    
+    .countdown-number {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: 2rem;
+      color: var(--color-black);
+    }
+    
+    .countdown-separator {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--color-black);
+    }
+    
+    /* Iframe placeholder styles */
+    .iframe-placeholder {
+      width: 100%;
+      height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f5f5f5;
+      border: 2px solid #000000;
+    }
+    
+    .loading-text {
+      font-size: 1.2rem;
+      color: #666666;
+      font-weight: 700;
+    }
+    
+    /* Progressive font enhancement - When Google Fonts load */
+    .fonts-loaded {
+      --font-primary: 'Space Mono', system-ui, 'Segoe UI', monospace;
+      --font-heading: 'Work Sans', system-ui, 'Arial Black', sans-serif;
+    }
+    
+    /* Mobile optimizations */
+    @media (max-width: 480px) {
+      .hero {
+        padding: 2rem 0;
+        min-height: 100vh;
+      }
+      
+      .hero__container {
+        padding: 0 var(--spacing-md);
+      }
+      
+      .hero__title {
+        font-size: clamp(2rem, 12vw, 3rem);
+        margin-bottom: var(--spacing-md);
+      }
+      
+      .countdown-display {
+        gap: 0.25rem;
+      }
+      
+      .countdown-number {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+  
+  <script>
+    // Progressive font loading enhancement
+    document.fonts.ready.then(function() {
+      document.documentElement.classList.add('fonts-loaded');
+    });
+  </script>
+  
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="src/images/favicon/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="src/images/favicon/favicon-32x32.png">
@@ -15,11 +259,16 @@
   <link rel="icon" type="image/png" sizes="512x512" href="src/images/favicon/android-chrome-512x512.png">
   <link rel="manifest" href="src/images/favicon/site.webmanifest">
   
-  <link rel="stylesheet" href="src/css/styles.css">
+  <!-- Optimized font loading with preconnect and font-display: swap -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@800;900&display=swap" rel="stylesheet"></noscript>
+  
+  <!-- Defer non-critical CSS -->
+  <link rel="stylesheet" href="src/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
 </head>
 <body>
   <!-- Header -->
@@ -651,9 +900,12 @@
         </div>
 
         <div class="modal-regy-container">
-          <!-- Regy Integration for ELITE EARLY BIRD -->
+          <!-- Regy Integration for ELITE EARLY BIRD - Lazy Loaded -->
           <input type="hidden" class="class_regy" id="src_regy5" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_pack.php?id_box=2244&id_int=5&acs=af666614f7fdc7fdce2ce3df584ef520&site=s">
-          <iframe name="frame_regy5" id="frame_regy5" width="100%" height="600px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Elite Early Bird"></iframe>
+          <div id="frame_regy5_placeholder" class="iframe-placeholder">
+            <div class="loading-text">A carregar formulário...</div>
+          </div>
+          <iframe name="frame_regy5" id="frame_regy5" width="100%" height="600px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Elite Early Bird" style="display: none;"></iframe>
         </div>
       </div>
     </div>
@@ -705,9 +957,12 @@
         </div>
 
         <div class="modal-regy-container">
-          <!-- Regy Integration for RISE EARLY BIRD -->
+          <!-- Regy Integration for RISE EARLY BIRD - Lazy Loaded -->
           <input type="hidden" class="class_regy" id="src_regy6" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_pack.php?id_box=2244&id_int=6&acs=0f27a8afcf7f05acda98ef4d1fd786ef&site=s">
-          <iframe name="frame_regy6" id="frame_regy6" width="100%" height="600px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Rise Early Bird"></iframe>
+          <div id="frame_regy6_placeholder" class="iframe-placeholder">
+            <div class="loading-text">A carregar formulário...</div>
+          </div>
+          <iframe name="frame_regy6" id="frame_regy6" width="100%" height="600px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Rise Early Bird" style="display: none;"></iframe>
         </div>
       </div>
     </div>
@@ -759,9 +1014,12 @@
         </div>
 
         <div class="modal-regy-container">
-          <!-- Regy Integration for STARTER EARLY BIRD -->
+          <!-- Regy Integration for STARTER EARLY BIRD - Lazy Loaded -->
           <input type="hidden" class="class_regy" id="src_regy7" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_pack.php?id_box=2244&id_int=7&acs=3cb3adacd70d11c136e208fc822d8ccf&site=s">
-          <iframe name="frame_regy7" id="frame_regy7" width="100%" height="600px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Starter Early Bird"></iframe>
+          <div id="frame_regy7_placeholder" class="iframe-placeholder">
+            <div class="loading-text">A carregar formulário...</div>
+          </div>
+          <iframe name="frame_regy7" id="frame_regy7" width="100%" height="600px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Starter Early Bird" style="display: none;"></iframe>
         </div>
       </div>
     </div>
@@ -822,9 +1080,12 @@
         </div>
 
         <div class="modal-regy-container">
-          <!-- Regy Integration for PRE-REGISTRATION -->
+          <!-- Regy Integration for PRE-REGISTRATION - Lazy Loaded -->
           <input type="hidden" class="class_regy" id="src_regy8" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_pack.php?id_box=2244&id_int=8&acs=3c645e5138da8c429db488638b6a6d62&site=s">
-          <iframe name="frame_regy8" id="frame_regy8" width="100%" height="0px" frameborder="0" scrolling="no"></iframe>
+          <div id="frame_regy8_placeholder" class="iframe-placeholder">
+            <div class="loading-text">A carregar formulário...</div>
+          </div>
+          <iframe name="frame_regy8" id="frame_regy8" width="100%" height="0px" frameborder="0" scrolling="no" style="display: none;"></iframe>
         </div>
       </div>
     </div>
@@ -868,8 +1129,19 @@
     </div>
   </div>
 
-  <!-- Regy website integrations script -->
-  <script async src="https://www.regyfit.com/admin2/modulos/crm/site_integrations/regy.min.js"></script>
+  <!-- Regy website integrations script - Loaded on demand -->
+  <script>
+    // Lazy load Regy script only when modal opens
+    window.loadRegyScript = function() {
+      if (!window.regyScriptLoaded) {
+        const script = document.createElement('script');
+        script.src = 'https://www.regyfit.com/admin2/modulos/crm/site_integrations/regy.min.js';
+        script.async = true;
+        document.head.appendChild(script);
+        window.regyScriptLoaded = true;
+      }
+    };
+  </script>
 
   <!-- Schedule Section -->
   <section id="schedule" class="schedule">
@@ -1159,7 +1431,21 @@
         <!-- Salgueiro Image -->
         <div class="salgueiro__image-container">
           <div class="salgueiro__image">
-            <img src="src/images/general/images-optimized/salgueiro split_optimized.png" alt="Bruno Salgueiro" class="salgueiro__photo">
+            <picture>
+              <source 
+                srcset="src/images/general/images-optimized/salgueiro%20split_mobile.webp" 
+                media="(max-width: 480px)" 
+                type="image/webp">
+              <source 
+                srcset="src/images/general/images-optimized/salgueiro%20split_tablet.webp" 
+                media="(max-width: 768px)" 
+                type="image/webp">
+              <source 
+                srcset="src/images/general/images-optimized/salgueiro%20split_desktop.webp" 
+                type="image/webp">
+              <!-- Fallback for browsers that don't support WebP -->
+              <img src="src/images/general/images-optimized/salgueiro%20split_optimized.png" alt="Bruno Salgueiro" class="salgueiro__photo">
+            </picture>
           </div>
         </div>
         
@@ -1388,19 +1674,19 @@
           <form class="contact__form" action="https://formspree.io/f/xblyrpwd" method="POST" novalidate>
             <div class="form-group">
               <label for="name">NOME</label>
-              <input type="text" id="name" name="name" required>
+              <input type="text" id="name" name="name" autocomplete="name" required>
             </div>
             <div class="form-group">
               <label for="email">EMAIL</label>
-              <input type="email" id="email" name="email" required>
+              <input type="email" id="email" name="email" autocomplete="email" required>
             </div>
             <div class="form-group">
               <label for="phone">TELEMÓVEL</label>
-              <input type="tel" id="phone" name="phone">
+              <input type="tel" id="phone" name="phone" autocomplete="tel">
             </div>
             <div class="form-group">
               <label for="message">MENSAGEM</label>
-              <textarea id="message" name="message" rows="5" required></textarea>
+              <textarea id="message" name="message" rows="5" autocomplete="off" required></textarea>
             </div>
             <!-- Formspree configuration -->
             <input type="hidden" name="_subject" value="Nova mensagem BE WATER">
@@ -1451,7 +1737,7 @@
         <div class="footer__newsletter-section">
           <h4 class="footer__section-title">NEWSLETTER</h4>
           <form class="footer__newsletter-form" action="https://formspree.io/f/mnnvaowp" method="POST" novalidate>
-            <input type="email" name="email" placeholder="O teu email" class="footer__newsletter-input" required>
+            <input type="email" name="email" placeholder="O teu email" class="footer__newsletter-input" autocomplete="email" required>
             <!-- Formspree configuration -->
             <input type="hidden" name="_subject" value="Nova subscrição newsletter BE WATER">
             <button type="submit" class="footer__newsletter-btn">SUBSCREVER</button>

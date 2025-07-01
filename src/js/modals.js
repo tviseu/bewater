@@ -9,11 +9,41 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.classList.add('active');
         document.body.classList.add('modal-open');
         
-        // Load Regy iframe if needed
+        // Lazy load Regy iframe with placeholder
         const iframe = modal.querySelector('iframe');
         const input = modal.querySelector('input.class_regy');
+        const placeholder = modal.querySelector('.iframe-placeholder');
+        
         if (iframe && input && input.value && !iframe.src) {
+          // Show placeholder initially
+          if (placeholder) {
+            placeholder.style.display = 'flex';
+          }
+          iframe.style.display = 'none';
+          
+          // Load Regy script first (if available)
+          if (window.loadRegyScript) {
+            window.loadRegyScript();
+          }
+          
+          // Load iframe
           iframe.src = input.value;
+          
+          // Hide placeholder and show iframe when loaded
+          iframe.onload = function() {
+            if (placeholder) {
+              placeholder.style.display = 'none';
+            }
+            iframe.style.display = 'block';
+          };
+          
+          // Fallback timeout in case onload doesn't fire
+          setTimeout(function() {
+            if (placeholder) {
+              placeholder.style.display = 'none';
+            }
+            iframe.style.display = 'block';
+          }, 3000);
         }
       }
     }
