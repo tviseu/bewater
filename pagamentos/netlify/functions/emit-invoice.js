@@ -29,35 +29,23 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
   // Determinar nome do cliente (usar "Consumidor Final" se não fornecido)
   const nomeCliente = dadosCliente.nome || "Consumidor Final";
 
-  // Payload para Vendus API (estrutura correta conforme documentação)
+  // Payload para Vendus API (estrutura CORRETA baseada nos parâmetros aceites)
   const faturaPayload = {
-    customer: {
+    type: 'invoice', // Tipo de documento
+    client: {
       name: nomeCliente,
       vat: dadosCliente.nif || null,
       email: dadosCliente.email
     },
-    line_items: [{
+    items: [{
       name: produtoVendus.nome,
       unit_price: dadosProduto.preco,
       quantity: 1,
-      vat_rate: produtoVendus.iva,
-      category: produtoVendus.categoria,
-      // 🔧 REGIME DE ISENÇÃO - MÚLTIPLOS CAMPOS
-      tax_exempt: true,
-      tax_exemption_reason: 'Regime de Isenção (Artº 53 do CIVA)',
-      tax_exemption_code: 'ART53',
-      exemption_code: 'ART53',
-      vat_exempt_reason: 'Isenção de IVA ao abrigo do artº 53 do CIVA',
-      exempt_article: '53'
+      vat_rate: produtoVendus.iva
     }],
-    // 🔧 REGIME DE ISENÇÃO - DOCUMENTO GERAL
-    document_exempt: true,
-    tax_exemption_reason: 'Regime de Isenção (Artº 53 do CIVA)',
-    vat_exemption_code: 'ART53',
-    exempt_article: '53',
     notes: `Pagamento MBWay - Ref: ${dadosPagamento.reference || dadosPagamento.transactionID}`,
-    payment_method: 'MBWay',
-    payment_date: new Date().toISOString()
+    external_reference: dadosPagamento.reference || dadosPagamento.transactionID,
+    date: new Date().toISOString().split('T')[0] // Apenas data YYYY-MM-DD
   };
 
   try {

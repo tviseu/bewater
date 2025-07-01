@@ -38,34 +38,23 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
     nomeCliente = dadosCliente.nome;
   }
 
-  // Payload para Vendus API (estrutura correta conforme documentação)
+  // Payload para Vendus API (estrutura CORRETA baseada nos parâmetros aceites)
   const faturaPayload = {
-    customer: {
+    type: 'invoice', // Tipo de documento
+    client: {
       name: nomeCliente,
       vat: dadosCliente.nif || null,
       email: dadosCliente.email
     },
-    line_items: [{
+    items: [{
       name: produtoVendus.nome,
       unit_price: dadosProduto.preco,
       quantity: 1,
-      vat_rate: produtoVendus.iva,
-      category: produtoVendus.categoria,
-      // Campos de regime de isenção - Artº 53 CIVA
-      tax_exempt: true,
-      tax_exemption_reason: 'Regime de Isenção (Artº 53 do CIVA)',
-      tax_exemption_code: 'ART53',
-      exemption_code: 'ART53',
-      vat_exempt_reason: 'Isenção de IVA ao abrigo do artº 53 do CIVA',
-      exempt_article: '53'
+      vat_rate: produtoVendus.iva
     }],
-    // Informações fiscais gerais do documento
-    tax_regime: 'ISENCAO_ART53',
-    tax_exemption_reason: 'Regime de Isenção (Artº 53 do CIVA)',
-    vat_exemption_code: 'ART53',
-    notes: `Pagamento MBWay - Ref: ${dadosPagamento.reference || dadosPagamento.transactionID} | Regime: Isenção IVA (Artº 53)`,
-    payment_method: 'MBWay',
-    payment_date: new Date().toISOString()
+    notes: `Pagamento MBWay - Ref: ${dadosPagamento.reference || dadosPagamento.transactionID}`,
+    external_reference: dadosPagamento.reference || dadosPagamento.transactionID,
+    date: new Date().toISOString().split('T')[0] // Apenas data YYYY-MM-DD
   };
 
   console.log('🧾 Emitindo fatura Vendus:', JSON.stringify(faturaPayload, null, 2));
@@ -269,6 +258,14 @@ exports.handler = async (event, context) => {
       }
     }
 
+    // Criar identifier com dados para correlação (encodifica nome, email, NIF)
+    const clientDataBase64 = Buffer.from(JSON.stringify({
+      nome: nome || '',
+      email: email,
+      nif: nif || '',
+      telefone: phone
+    })).toString('base64');
+    
     // Preparar payload para EuPago (ESTRUTURA CORRETA conforme documentação oficial!)
     const eupagoPayload = {
       payment: {
@@ -276,7 +273,7 @@ exports.handler = async (event, context) => {
           currency: "EUR",
           value: produtoId === 'DONATIVO_001' ? inputAmount : produto.preco
         },
-        identifier: produtoId === 'DONATIVO_001' ? `Donativo €${inputAmount.toFixed(2)} - BE WATER` : `${produto.nome} - BE WATER`,
+        identifier: produtoId === 'DONATIVO_001' ? `Donativo €${inputAmount.toFixed(2)} - BE WATER | ${clientDataBase64}` : `${produto.nome} - BE WATER | ${clientDataBase64}`,
         customerPhone: phone,    // SÓ O NÚMERO sem +351
         countryCode: "+351"      // CÓDIGO SEPARADO conforme documentação
       }

@@ -312,6 +312,17 @@
             </div>
         </div>
 
+        <!-- 🧪 TESTE API VENDUS -->
+        <div class="payments-section" style="text-align: center; margin-bottom: 20px;">
+            <h3 class="section-title">🧪 Teste API Vendus</h3>
+            <button class="filter-btn" onclick="testarVendusAPI()" id="btn-teste-vendus" style="background: #FFD700; font-weight: 700;">
+                🧾 Emitir Fatura Teste €1.00
+            </button>
+            <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.7;">
+                Testa a emissão de fatura Vendus com dados fictícios
+            </p>
+        </div>
+
         <div class="payments-section">
             <div class="section-title">📋 Pagamentos Recentes</div>
             
@@ -554,6 +565,70 @@
 
         // Auto-refresh a cada 10 segundos
         setInterval(loadPayments, 10000);
+
+        // 🧪 TESTE API VENDUS
+        async function testarVendusAPI() {
+            const btn = document.getElementById('btn-teste-vendus');
+            const originalText = btn.innerHTML;
+
+            try {
+                btn.innerHTML = '⏳ Testando Vendus...';
+                btn.disabled = true;
+
+                const faturaTesteData = {
+                    transactionID: 'TEST001',
+                    reference: '12345678',
+                    produto: 'TESTE Café €1.00 - BE WATER',
+                    valor: 1.00,
+                    email: 'joao.teste@bewater.pt',
+                    nome: 'João Teste',
+                    nif: '123456789'
+                };
+
+                console.log('🧪 Testando API Vendus:', faturaTesteData);
+
+                const response = await fetch('/.netlify/functions/emit-invoice', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(faturaTesteData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    btn.innerHTML = '✅ Teste Concluído';
+                    btn.style.background = '#28a745';
+                    btn.style.color = '#ffffff';
+                    
+                    alert(`✅ TESTE VENDUS SUCESSO!\n\n🧾 Fatura: ${result.fatura.numero}\n📧 Email: joao.teste@bewater.pt\n💰 Valor: €1.00\n\n🔗 Download: ${result.fatura.url_download || 'Disponível na Vendus'}`);
+
+                    // Recarregar pagamentos para mostrar o teste
+                    setTimeout(() => {
+                        loadPayments();
+                    }, 1000);
+                } else {
+                    throw new Error(result.message || 'Erro no teste Vendus');
+                }
+
+            } catch (error) {
+                console.error('❌ Erro no teste Vendus:', error);
+                btn.innerHTML = '❌ Teste Falhou';
+                btn.style.background = '#dc3545';
+                btn.style.color = '#ffffff';
+                
+                alert(`❌ TESTE VENDUS FALHOU:\n${error.message}\n\nVerificar:\n- Credenciais Vendus\n- Estrutura da API\n- Logs Netlify`);
+            }
+
+            // Restaurar botão após 3 segundos
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                btn.style.background = '#FFD700';
+                btn.style.color = '#000000';
+            }, 3000);
+        }
 
         // Carregar inicial
         loadPayments();

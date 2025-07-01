@@ -3,6 +3,24 @@ const crypto = require('crypto');
 // Base de dados simples em memória (em produção usar DB real)
 let paymentsDB = new Map();
 
+// 🧪 DADOS DE TESTE - Fatura €1 para testar API Vendus
+paymentsDB.set('test_payment_001', {
+  id: 'test_payment_001',
+  transactionID: 'TEST001',
+  reference: '12345678',
+  produto: 'TESTE Café €1.00 - BE WATER',
+  valor: 1.00,
+  telefone: '935***778',
+  nome: 'João Teste',
+  email: 'joao.teste@bewater.pt',
+  nif: '123456789',
+  status: 'confirmado',
+  timestamp: new Date().toISOString(),
+  lastUpdate: new Date().toISOString(),
+  fatura: null,
+  fatura_emitida: false
+});
+
 exports.handler = async (event, context) => {
   console.log('🔔 Webhook recebido:', event.httpMethod);
   
@@ -191,30 +209,60 @@ exports.handler = async (event, context) => {
       
       console.log(`📊 Status mapeado: "${status}" → "${paymentStatus}"`);
 
-      // CORRELACIONAR dados do cliente (se disponíveis)
+      // 🔍 EXTRAIR dados cliente do identifier (Nova Abordagem Robusta!)
       let clientData = null;
-      const clientKey = transactionID || reference;
       
-      if (clientKey) {
-        try {
-          console.log(`🔍 Buscando dados cliente para: ${clientKey}`);
-          
-          // Buscar dados correlacionados na função de pagamento
-          const clientResponse = await fetch(`${event.headers.host ? `https://${event.headers.host}` : 'https://cool-starship-a7a3e1.netlify.app'}/.netlify/functions/mbway-payment?key=${clientKey}`);
-          
-          if (clientResponse.ok) {
-            const clientResult = await clientResponse.json();
-            if (clientResult.success) {
-              clientData = clientResult.clientData;
-              console.log(`✅ Dados cliente encontrados:`, {
-                nome: clientData.nome || 'N/A',
-                email: clientData.email || 'N/A',
-                nif: clientData.nif || 'N/A'
-              });
-            }
+      // Método 1: Extrair do identifier (formato: "Produto - BE WATER | base64ClientData")
+      try {
+        if (identifier && identifier.includes(' | ')) {
+          const parts = identifier.split(' | ');
+          if (parts.length >= 2) {
+            const clientDataBase64 = parts[1];
+            const clientDataJson = Buffer.from(clientDataBase64, 'base64').toString('utf8');
+            clientData = JSON.parse(clientDataJson);
+            
+            console.log(`✅ Dados cliente extraídos do identifier:`, {
+              nome: clientData.nome || 'N/A',
+              email: clientData.email || 'N/A',
+              nif: clientData.nif || 'N/A',
+              telefone: clientData.telefone || 'N/A'
+            });
           }
-        } catch (correlationError) {
-          console.log(`⚠️ Erro na correlação (não crítico): ${correlationError.message}`);
+        }
+      } catch (extractError) {
+        console.log(`⚠️ Erro ao extrair dados do identifier: ${extractError.message}`);
+      }
+
+      // Método 2: Fallback - Correlação tradicional se necessário
+      if (!clientData) {
+        const clientKey = transactionID || reference;
+        
+        if (clientKey) {
+          try {
+            console.log(`🔍 Fallback: Buscando dados cliente para: ${clientKey}`);
+            
+            const baseUrl = event.headers.host ? `https://${event.headers.host}` : 'https://cool-starship-a7a3e1.netlify.app';
+            const correlationUrl = `${baseUrl}/.netlify/functions/mbway-payment?key=${clientKey}`;
+            
+            const clientResponse = await fetch(correlationUrl, {
+              method: 'GET',
+              headers: { 'User-Agent': 'Netlify-Functions-Webhook/1.0' }
+            });
+            
+            if (clientResponse.ok) {
+              const clientResult = await clientResponse.json();
+              if (clientResult.success) {
+                clientData = clientResult.clientData;
+                console.log(`✅ Dados cliente via fallback:`, {
+                  nome: clientData.nome || 'N/A',
+                  email: clientData.email || 'N/A',
+                  nif: clientData.nif || 'N/A'
+                });
+              }
+            }
+          } catch (correlationError) {
+            console.log(`⚠️ Correlação fallback falhou: ${correlationError.message}`);
+          }
         }
       }
 

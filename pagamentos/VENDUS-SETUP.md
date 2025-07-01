@@ -218,4 +218,105 @@ git push origin main
 
 ---
 
-🎯 **Sistema otimizado para controlo manual de faturas!** 
+🎯 **Sistema otimizado para controlo manual de faturas!**
+
+# 🏥 VENDUS API - CORREÇÕES CRÍTICAS
+
+## ❌ PROBLEMAS IDENTIFICADOS:
+
+### **1. Estrutura API Incorreta**
+A API Vendus **rejeitou TODOS os parâmetros** que estávamos a usar:
+
+**❌ CAMPOS REJEITADOS:**
+- `customer` → deve ser `client`
+- `line_items` → deve ser `items`  
+- `document_exempt` → **NÃO EXISTE**
+- `tax_exemption_reason` → **NÃO EXISTE**
+- `vat_exemption_code` → **NÃO EXISTE**
+- `payment_method` → **NÃO EXISTE**
+- `payment_date` → **NÃO EXISTE**
+
+**✅ CAMPOS ACEITES:**
+`register_id, type, discount_code, discount_amount, discount_percentage, date_due, payments, mode, date, date_supply, notes, ncr_id, external_reference, stock_operation, ifthenpay, eupago, multibanco, client, supplier, items, movement_of_goods, invoices, print_discount, output, output_template_id, tx_id, errors_full, rest_room, rest_table, occupation, stamp_retention_amount, irc_retention_id, related_document_id, return_qrcode, doc_to_generate`
+
+### **2. Sistema Correlação Falhava**
+O storage temporário `tempClientData` perdia-se entre invocações de função.
+
+---
+
+## ✅ SOLUÇÕES IMPLEMENTADAS:
+
+### **1. Estrutura API Corrigida**
+```javascript
+// ❌ ANTES (REJEITADO)
+const faturaPayload = {
+  customer: { name, vat, email },
+  line_items: [{ name, unit_price, quantity, vat_rate }],
+  document_exempt: true,
+  tax_exemption_reason: 'Artº 53',
+  payment_method: 'MBWay'
+};
+
+// ✅ DEPOIS (ACEITE)
+const faturaPayload = {
+  type: 'invoice',
+  client: { name, vat, email },
+  items: [{ name, unit_price, quantity, vat_rate }],
+  notes: `Pagamento MBWay - Ref: ${reference}`,
+  external_reference: reference,
+  date: new Date().toISOString().split('T')[0]
+};
+```
+
+### **2. Correlação Robusta com Base64**
+```javascript
+// ✅ EMBEDAR dados no identifier
+const clientDataBase64 = Buffer.from(JSON.stringify({
+  nome, email, nif, telefone
+})).toString('base64');
+
+const identifier = `${produto.nome} - BE WATER | ${clientDataBase64}`;
+
+// ✅ WEBHOOK extrai dados
+if (identifier.includes(' | ')) {
+  const parts = identifier.split(' | ');
+  const clientDataJson = Buffer.from(parts[1], 'base64').toString('utf8');
+  const clientData = JSON.parse(clientDataJson);
+}
+```
+
+---
+
+## 🧪 TESTE AGORA:
+
+1. **Fazer pagamento** via `cool-starship-a7a3e1.netlify.app/pagamentos/`
+2. **Verificar logs** webhook Netlify
+3. **Ver dashboard** `cool-starship-a7a3e1.netlify.app/pagamentos/staff.html`
+4. **Confirmar**:
+   - ✅ Dados cliente aparecem
+   - ✅ Fatura Vendus emite sem erro
+   - ✅ Status correlacionado corretamente
+
+---
+
+## 📞 PRÓXIMOS PASSOS:
+
+Após confirmar funcionamento:
+- [ ] Remover logs debug excessivos
+- [ ] Configurar produção Vendus  
+- [ ] Implementar regime isenção IVA se necessário
+- [ ] Otimizar performance
+
+---
+
+## 🔧 CONFIGURAÇÃO VENDUS:
+
+**Credenciais:**
+- API Key: `f3842572b2837ff927bad6fbe82c3b35`
+- URL Base: `https://www.vendus.pt/ws/`
+- User: Luis Piçarra
+
+**Estrutura Endpoint:**
+```
+POST https://www.vendus.pt/ws/documents/?api_key={API_KEY}
+``` 
