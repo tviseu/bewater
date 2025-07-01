@@ -13,13 +13,13 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
     throw new Error('VENDUS_API_KEY não configurado');
   }
 
-  // Mapear produtos BE WATER → Vendus
+  // Mapear produtos BE WATER → Vendus (Regime de Isenção Artº 53)
   const PRODUTOS_VENDUS = {
-    'CAFE_001': { nome: 'Café BE WATER', iva: 23, categoria: 'Consumíveis' },
-    'AGUA_001': { nome: 'Água BE WATER', iva: 23, categoria: 'Consumíveis' },
-    'BARRITA_001': { nome: 'Barra Proteína BE WATER', iva: 23, categoria: 'Consumíveis' },
-    'SHAKER_001': { nome: 'Shaker BE WATER', iva: 23, categoria: 'Consumíveis' },
-    'SUPLEMENTO_001': { nome: 'Suplemento Protein BE WATER', iva: 23, categoria: 'Consumíveis' },
+    'CAFE_001': { nome: 'Café BE WATER', iva: 0, categoria: 'Consumíveis' },
+    'AGUA_001': { nome: 'Água BE WATER', iva: 0, categoria: 'Consumíveis' },
+    'BARRITA_001': { nome: 'Barra Proteína BE WATER', iva: 0, categoria: 'Consumíveis' },
+    'SHAKER_001': { nome: 'Shaker BE WATER', iva: 0, categoria: 'Consumíveis' },
+    'SUPLEMENTO_001': { nome: 'Suplemento Protein BE WATER', iva: 0, categoria: 'Consumíveis' },
     'DONATIVO_001': { nome: 'Donativo BE WATER', iva: 0, categoria: 'Donativos' }
   };
 

@@ -52,12 +52,14 @@ Documentação: https://www.vendus.pt/ws/
 
 | **Produto BE WATER** | **Categoria Vendus** | **IVA** |
 |---------------------|---------------------|---------|
-| Café €1.50 | Consumíveis | 23% |
-| Água €1.00 | Consumíveis | 23% |
-| Barra Proteína €3.50 | Consumíveis | 23% |
-| Shaker €12.00 | Consumíveis | 23% |
-| Suplemento €25.00 | Consumíveis | 23% |
+| Café €1.50 | Consumíveis | 0% |
+| Água €1.00 | Consumíveis | 0% |
+| Barra Proteína €3.50 | Consumíveis | 0% |
+| Shaker €12.00 | Consumíveis | 0% |
+| Suplemento €25.00 | Consumíveis | 0% |
 | Donativo €1-100 | Donativos | 0% |
+
+⚖️ **Regime Fiscal**: Isenção de IVA (Artº 53) - Todos os produtos BE WATER
 
 ---
 
@@ -95,12 +97,12 @@ Documentação: https://www.vendus.pt/ws/
 
 | **Nome Categoria** | **Descrição** | **IVA Padrão** |
 |-------------------|---------------|----------------|
-| `Consumíveis` | Café, Água, Barras, Shakers, Suplementos | 23% |
+| `Consumíveis` | Café, Água, Barras, Shakers, Suplementos | 0% |
 | `Donativos` | Contribuições BE WATER | 0% |
 
-### **💰 Verificar Taxas IVA:**
-- ✅ **IVA 23%** (para consumíveis)
-- ✅ **IVA 0%** (para donativos)
+### **💰 Configurar Taxa IVA:**
+- ✅ **IVA 0%** - Regime de Isenção (Artº 53)
+- ⚖️ **Todos os produtos BE WATER** estão isentos de IVA
 
 ### **🎨 Opcional - Upload Logotipo:**
 - **Ir para**: Configurações → Geral → **Logotipo**
@@ -120,6 +122,10 @@ Documentação: https://www.vendus.pt/ws/
 ### **❌ Erro: "Vendus API erro 404"**
 - **Causa**: Endpoint incorreto
 - **Solução**: Verificar URL base: `https://www.vendus.pt/ws`
+
+### **❌ Erro: IVA incorreto nas faturas**
+- **Causa**: Taxa IVA não configurada para 0%
+- **Solução**: Configurar IVA 0% (Regime de Isenção Artº 53) para ambas as categorias
 
 ### **❌ Fatura não é emitida mas pagamento é processado**
 - **Comportamento esperado**: Sistema é "error-proof"
