@@ -301,46 +301,16 @@ exports.handler = async (event, context) => {
         instructions: 'Após confirmar o pagamento no telemóvel, apresente o comprovativo ao funcionário BE WATER para receber o seu produto.'
       };
 
-      // NOVO: Tentar emitir fatura na Vendus
-      let faturaInfo = null;
-      try {
-        console.log('🧾 Tentando emitir fatura Vendus...');
-        
-        const dadosCliente = { nome, nif, email };
-        const dadosProduto = { 
-          id: produtoId, 
-          nome: produtoId === 'DONATIVO_001' ? `Donativo €${inputAmount.toFixed(2)}` : produto.nome,
-          preco: produtoId === 'DONATIVO_001' ? inputAmount : produto.preco 
-        };
-        const dadosPagamento = {
-          reference: eupagoResponse.reference,
-          transactionID: eupagoResponse.transactionID
-        };
-
-        const resultadoFatura = await emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento);
-        
-        if (resultadoFatura.success) {
-          faturaInfo = resultadoFatura.fatura;
-          console.log(`✅ Fatura emitida: ${faturaInfo.numero}`);
-          dadosResposta.fatura = faturaInfo;
-          dadosResposta.instructions = 'Após confirmar o pagamento no telemóvel, apresente o comprovativo ao funcionário BE WATER. A fatura será enviada por email automaticamente.';
-        } else {
-          console.log(`⚠️ Fatura não emitida: ${resultadoFatura.error}`);
-        }
-        
-      } catch (faturaError) {
-        console.error('❌ Erro crítico na emissão fatura:', faturaError.message);
-        // NÃO bloquear pagamento se fatura falhar
-      }
+          // NOTA: Fatura será emitida pelo staff após verificação do comprovativo MBWay
+    console.log('ℹ️ Pagamento iniciado - fatura será emitida pelo staff após confirmação');
+    dadosResposta.instructions = 'Após confirmar o pagamento no telemóvel, apresente o comprovativo ao funcionário BE WATER para receber o produto e fatura.';
 
       return {
         statusCode: 200,
         headers,
         body: JSON.stringify({
           success: true,
-          message: faturaInfo 
-            ? 'Pagamento MBWay enviado! Fatura será emitida automaticamente após confirmação.'
-            : 'Pedido de pagamento MBWay enviado com sucesso! Confirme o pagamento no seu telemóvel e apresente o comprovativo ao funcionário BE WATER para receber o produto.',
+          message: 'Pedido de pagamento MBWay enviado com sucesso! Confirme o pagamento no seu telemóvel e apresente o comprovativo ao funcionário BE WATER para receber o produto.',
           data: dadosResposta
         })
       };

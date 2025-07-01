@@ -206,6 +206,7 @@
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-size: 0.9rem;
         }
 
         .action-btn:hover {
@@ -219,6 +220,23 @@
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
+        }
+
+        .action-btn.success {
+            background: #28a745;
+            color: #ffffff;
+        }
+
+        .action-btn.loading {
+            background: #007bff;
+            color: #ffffff;
+        }
+
+        .payment-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
         }
 
         .auto-refresh {
@@ -250,9 +268,20 @@
                 gap: 15px;
             }
             
+            .payment-actions {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            
             .filters {
                 flex-direction: column;
                 align-items: center;
+            }
+
+            .action-btn {
+                font-size: 0.8rem;
+                padding: 8px 16px;
             }
         }
     </style>
@@ -356,14 +385,18 @@
                         <div class="payment-details">
                             💰 €${payment.valor.toFixed(2)} | ${payment.telefone} | 📅 ${formatDateTime(payment.timestamp)}
                             ${payment.reference ? `<br/>🔗 ${payment.reference}` : ''}
+                            ${payment.transactionID ? `<br/>🆔 ${payment.transactionID}` : ''}
                             ${payment.nome ? `<br/>👤 ${payment.nome}` : ''}
                             ${payment.email ? `<br/>📧 ${payment.email}` : ''}
                             ${payment.nif ? `<br/>🧾 NIF: ${payment.nif}` : ''}
                             ${payment.fatura ? `<br/>🧾 Fatura: ${payment.fatura.numero} | <a href="${payment.fatura.url_download}" target="_blank">📄 Download</a>` : ''}
                         </div>
                     </div>
-                    <div class="payment-status ${payment.status}">
-                        ${getStatusText(payment.status)}
+                    <div class="payment-actions">
+                        <div class="payment-status ${payment.status}">
+                            ${getStatusText(payment.status)}
+                        </div>
+                        ${getActionButton(payment)}
                     </div>
                 </div>
             `).join('');
@@ -414,6 +447,97 @@
                 'falhado': '❌ Falhado'
             };
             return statusTexts[status] || status;
+        }
+
+        // Botão de ação para cada pagamento
+        function getActionButton(payment) {
+            // Só mostrar botão para pagamentos confirmados
+            if (payment.status !== 'confirmado') {
+                return '';
+            }
+
+            // Se já tem fatura emitida
+            if (payment.fatura_emitida || payment.fatura) {
+                return '<div class="action-btn success" disabled>🧾 Fatura Emitida</div>';
+            }
+
+            // Se falta email para emitir fatura
+            if (!payment.email) {
+                return '<div class="action-btn" disabled title="Email necessário para emitir fatura">⚠️ Sem Email</div>';
+            }
+
+            // Botão para emitir fatura
+            return `<button class="action-btn" onclick="emitirFatura('${payment.id}')" id="btn-${payment.id}">🧾 Emitir Fatura</button>`;
+        }
+
+        // Emitir fatura
+        async function emitirFatura(paymentId) {
+            const payment = payments.find(p => p.id === paymentId);
+            if (!payment) {
+                alert('Pagamento não encontrado!');
+                return;
+            }
+
+            const btn = document.getElementById(`btn-${paymentId}`);
+            const originalText = btn.innerHTML;
+
+            try {
+                // Mostrar loading
+                btn.innerHTML = '⏳ Emitindo...';
+                btn.disabled = true;
+                btn.classList.add('loading');
+
+                const faturaData = {
+                    transactionID: payment.transactionID,
+                    reference: payment.reference,
+                    produto: payment.produto,
+                    valor: payment.valor,
+                    email: payment.email,
+                    nome: payment.nome || null,
+                    nif: payment.nif || null
+                };
+
+                console.log('Emitindo fatura:', faturaData);
+
+                const response = await fetch('/.netlify/functions/emit-invoice', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(faturaData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Sucesso
+                    btn.innerHTML = '✅ Fatura Emitida';
+                    btn.classList.remove('loading');
+                    btn.classList.add('success');
+                    
+                    // Atualizar localmente
+                    payment.fatura_emitida = true;
+                    payment.fatura = result.fatura;
+
+                    // Recarregar dados
+                    setTimeout(() => {
+                        loadPayments();
+                    }, 1000);
+
+                    alert(`✅ Fatura ${result.fatura.numero} emitida com sucesso!\n\nFatura enviada para: ${payment.email}`);
+                } else {
+                    throw new Error(result.message || 'Erro desconhecido');
+                }
+
+            } catch (error) {
+                console.error('Erro ao emitir fatura:', error);
+                alert(`❌ Erro ao emitir fatura:\n${error.message}`);
+                
+                // Restaurar botão
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                btn.classList.remove('loading');
+            }
         }
 
         // Atualizar hora da última atualização
