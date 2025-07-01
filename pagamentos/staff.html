@@ -355,8 +355,11 @@
                         <div class="payment-produto">${payment.produto}</div>
                         <div class="payment-details">
                             💰 €${payment.valor.toFixed(2)} | ${payment.telefone} | 📅 ${formatDateTime(payment.timestamp)}
-                            ${payment.reference ? `| 🔗 ${payment.reference}` : ''}
-                            ${payment.nif ? `| 🧾 NIF: ${payment.nif}` : ''}
+                            ${payment.reference ? `<br/>🔗 ${payment.reference}` : ''}
+                            ${payment.nome ? `<br/>👤 ${payment.nome}` : ''}
+                            ${payment.email ? `<br/>📧 ${payment.email}` : ''}
+                            ${payment.nif ? `<br/>🧾 NIF: ${payment.nif}` : ''}
+                            ${payment.fatura ? `<br/>🧾 Fatura: ${payment.fatura.numero} | <a href="${payment.fatura.url_download}" target="_blank">📄 Download</a>` : ''}
                         </div>
                     </div>
                     <div class="payment-status ${payment.status}">

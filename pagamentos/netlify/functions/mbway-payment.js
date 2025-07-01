@@ -1,6 +1,106 @@
 // pagamentos/netlify/functions/mbway-payment.js
 // Netlify Function para pagamentos MBWay seguros
 
+// Função para emitir fatura na Vendus
+async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
+  const VENDUS_CONFIG = {
+    api_key: process.env.VENDUS_API_KEY,
+    base_url: 'https://www.vendus.pt/ws'
+  };
+
+  // Verificar se configuração Vendus existe
+  if (!VENDUS_CONFIG.api_key) {
+    throw new Error('VENDUS_API_KEY não configurado');
+  }
+
+  // Mapear produtos BE WATER → Vendus
+  const PRODUTOS_VENDUS = {
+    'CAFE_001': { nome: 'Café BE WATER', iva: 23, categoria: 'Alimentação' },
+    'AGUA_001': { nome: 'Água BE WATER', iva: 23, categoria: 'Alimentação' },
+    'BARRITA_001': { nome: 'Barra Proteína BE WATER', iva: 23, categoria: 'Alimentação' },
+    'SHAKER_001': { nome: 'Shaker BE WATER', iva: 23, categoria: 'Equipamentos' },
+    'SUPLEMENTO_001': { nome: 'Suplemento Protein BE WATER', iva: 23, categoria: 'Equipamentos' },
+    'DONATIVO_001': { nome: 'Donativo BE WATER', iva: 0, categoria: 'Donativos' }
+  };
+
+  const produtoVendus = PRODUTOS_VENDUS[dadosProduto.id] || {
+    nome: dadosProduto.nome,
+    iva: 23,
+    categoria: 'Diversos'
+  };
+
+  // Determinar nome cliente
+  let nomeCliente = 'Consumidor Final';
+  if (dadosCliente.nome && dadosCliente.nif) {
+    nomeCliente = dadosCliente.nome;
+  }
+
+  // Payload para Vendus API (estrutura correta conforme documentação)
+  const faturaPayload = {
+    customer: {
+      name: nomeCliente,
+      vat: dadosCliente.nif || null,
+      email: dadosCliente.email
+    },
+    line_items: [{
+      name: produtoVendus.nome,
+      unit_price: dadosProduto.preco,
+      quantity: 1,
+      vat_rate: produtoVendus.iva,
+      category: produtoVendus.categoria
+    }],
+    notes: `Pagamento MBWay - Ref: ${dadosPagamento.reference || dadosPagamento.transactionID}`,
+    payment_method: 'MBWay',
+    payment_date: new Date().toISOString()
+  };
+
+  console.log('🧾 Emitindo fatura Vendus:', JSON.stringify(faturaPayload, null, 2));
+
+  try {
+    // URL correta com API key como parâmetro
+    const vendusUrl = `${VENDUS_CONFIG.base_url}/documents/?api_key=${VENDUS_CONFIG.api_key}`;
+    
+    console.log('🔗 URL Vendus:', vendusUrl);
+
+    const response = await fetch(vendusUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'User-Agent': 'BE WATER Payment System'
+      },
+      body: JSON.stringify(faturaPayload)
+    });
+
+    const responseText = await response.text();
+    console.log('📋 Resposta Vendus status:', response.status);
+    console.log('📋 Resposta Vendus body:', responseText);
+
+    if (!response.ok) {
+      throw new Error(`Vendus API erro ${response.status}: ${responseText}`);
+    }
+
+    const faturaData = JSON.parse(responseText);
+    console.log('✅ Fatura Vendus emitida:', faturaData);
+    
+    return {
+      success: true,
+      fatura: {
+        id: faturaData.id || faturaData.document_id,
+        numero: faturaData.number || faturaData.invoice_number,
+        url_download: faturaData.download_url || faturaData.pdf_url,
+        emitida_em: new Date().toISOString()
+      }
+    };
+
+  } catch (error) {
+    console.error('❌ Erro ao emitir fatura Vendus:', error.message);
+    return {
+      success: false,
+      error: error.message
+    };
+  }
+}
+
 exports.handler = async (event, context) => {
   // Headers CORS
   const headers = {
@@ -58,7 +158,7 @@ exports.handler = async (event, context) => {
     const input = JSON.parse(event.body);
 
     // Validar campos obrigatórios
-    const requiredFields = ['amount', 'phone', 'produto_id'];
+    const requiredFields = ['amount', 'phone', 'email', 'produto_id'];
     for (const field of requiredFields) {
       if (!input[field]) {
         throw new Error(`Campo obrigatório ausente: ${field}`);
@@ -93,12 +193,32 @@ exports.handler = async (event, context) => {
       throw new Error('Número de telemóvel inválido');
     }
 
-    // Validar NIF se fornecido
+    // Validar email
+    const email = input.email.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      throw new Error('Email inválido');
+    }
+
+    // Validar nome e NIF (lógica condicional)
+    let nome = null;
     let nif = null;
+    
+    if (input.nome && input.nome.trim()) {
+      nome = input.nome.trim();
+      if (nome.length < 2) {
+        throw new Error('Nome deve ter pelo menos 2 caracteres');
+      }
+    }
+    
     if (input.nif && input.nif.trim()) {
       nif = input.nif.replace(/\D/g, '');
       if (!/^\d{9}$/.test(nif)) {
         throw new Error('NIF inválido');
+      }
+      
+      // Se tem NIF, nome é obrigatório
+      if (!nome) {
+        throw new Error('Nome é obrigatório quando NIF é fornecido');
       }
     }
 
@@ -160,21 +280,57 @@ exports.handler = async (event, context) => {
     }
 
     if (response.ok && eupagoResponse.transactionStatus === 'Success') {
-      // Sucesso
+      // Sucesso no pagamento MBWay
+      const dadosResposta = {
+        reference: eupagoResponse.reference || null,
+        transactionID: eupagoResponse.transactionID || null,
+        amount: produtoId === 'DONATIVO_001' ? inputAmount : produto.preco,
+        produto: produtoId === 'DONATIVO_001' ? `Donativo €${inputAmount.toFixed(2)}` : produto.nome,
+        phone_masked: phone.substring(0, 3) + '***' + phone.substring(6),
+        instructions: 'Após confirmar o pagamento no telemóvel, apresente o comprovativo ao funcionário BE WATER para receber o seu produto.'
+      };
+
+      // NOVO: Tentar emitir fatura na Vendus
+      let faturaInfo = null;
+      try {
+        console.log('🧾 Tentando emitir fatura Vendus...');
+        
+        const dadosCliente = { nome, nif, email };
+        const dadosProduto = { 
+          id: produtoId, 
+          nome: produtoId === 'DONATIVO_001' ? `Donativo €${inputAmount.toFixed(2)}` : produto.nome,
+          preco: produtoId === 'DONATIVO_001' ? inputAmount : produto.preco 
+        };
+        const dadosPagamento = {
+          reference: eupagoResponse.reference,
+          transactionID: eupagoResponse.transactionID
+        };
+
+        const resultadoFatura = await emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento);
+        
+        if (resultadoFatura.success) {
+          faturaInfo = resultadoFatura.fatura;
+          console.log(`✅ Fatura emitida: ${faturaInfo.numero}`);
+          dadosResposta.fatura = faturaInfo;
+          dadosResposta.instructions = 'Após confirmar o pagamento no telemóvel, apresente o comprovativo ao funcionário BE WATER. A fatura será enviada por email automaticamente.';
+        } else {
+          console.log(`⚠️ Fatura não emitida: ${resultadoFatura.error}`);
+        }
+        
+      } catch (faturaError) {
+        console.error('❌ Erro crítico na emissão fatura:', faturaError.message);
+        // NÃO bloquear pagamento se fatura falhar
+      }
+
       return {
         statusCode: 200,
         headers,
         body: JSON.stringify({
           success: true,
-          message: 'Pedido de pagamento MBWay enviado com sucesso! Confirme o pagamento no seu telemóvel e apresente o comprovativo ao funcionário BE WATER para receber o produto.',
-          data: {
-            reference: eupagoResponse.reference || null,
-            transactionID: eupagoResponse.transactionID || null,
-            amount: produtoId === 'DONATIVO_001' ? inputAmount : produto.preco,
-            produto: produtoId === 'DONATIVO_001' ? `Donativo €${inputAmount.toFixed(2)}` : produto.nome,
-            phone_masked: phone.substring(0, 3) + '***' + phone.substring(6),
-            instructions: 'Após confirmar o pagamento no telemóvel, apresente o comprovativo ao funcionário BE WATER para receber o seu produto.'
-          }
+          message: faturaInfo 
+            ? 'Pagamento MBWay enviado! Fatura será emitida automaticamente após confirmação.'
+            : 'Pedido de pagamento MBWay enviado com sucesso! Confirme o pagamento no seu telemóvel e apresente o comprovativo ao funcionário BE WATER para receber o produto.',
+          data: dadosResposta
         })
       };
     } else {

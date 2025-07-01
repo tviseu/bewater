@@ -199,10 +199,13 @@ exports.handler = async (event, context) => {
         produto: identifier || 'Produto BE WATER',
         valor: amount || 0, // Já convertido para float acima
         telefone: customerPhone ? customerPhone.substring(0, 3) + '***' + customerPhone.substring(6) : 'N/A',
+        nome: null, // Nome será correlacionado posteriormente se disponível
+        email: null, // Email será correlacionado posteriormente se disponível
         nif: null, // NIF será correlacionado posteriormente se disponível
         status: paymentStatus,
         timestamp: timestamp || new Date().toISOString(),
-        lastUpdate: new Date().toISOString()
+        lastUpdate: new Date().toISOString(),
+        fatura: null // Informação da fatura Vendus (se emitida)
       };
 
       // Guardar na "base de dados"
