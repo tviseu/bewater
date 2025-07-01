@@ -15,11 +15,11 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
 
   // Mapear produtos BE WATER → Vendus
   const PRODUTOS_VENDUS = {
-    'CAFE_001': { nome: 'Café BE WATER', iva: 23, categoria: 'Alimentação' },
-    'AGUA_001': { nome: 'Água BE WATER', iva: 23, categoria: 'Alimentação' },
-    'BARRITA_001': { nome: 'Barra Proteína BE WATER', iva: 23, categoria: 'Alimentação' },
-    'SHAKER_001': { nome: 'Shaker BE WATER', iva: 23, categoria: 'Equipamentos' },
-    'SUPLEMENTO_001': { nome: 'Suplemento Protein BE WATER', iva: 23, categoria: 'Equipamentos' },
+    'CAFE_001': { nome: 'Café BE WATER', iva: 23, categoria: 'Consumivel' },
+    'AGUA_001': { nome: 'Água BE WATER', iva: 23, categoria: 'Consumivel' },
+    'BARRITA_001': { nome: 'Barra Proteína BE WATER', iva: 23, categoria: 'Consumivel' },
+    'SHAKER_001': { nome: 'Shaker BE WATER', iva: 23, categoria: 'Consumivel' },
+    'SUPLEMENTO_001': { nome: 'Suplemento Protein BE WATER', iva: 23, categoria: 'Consumivel' },
     'DONATIVO_001': { nome: 'Donativo BE WATER', iva: 0, categoria: 'Donativos' }
   };
 
