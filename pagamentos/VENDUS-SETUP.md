@@ -52,11 +52,11 @@ Documentação: https://www.vendus.pt/ws/
 
 | **Produto BE WATER** | **Categoria Vendus** | **IVA** |
 |---------------------|---------------------|---------|
-| Café €1.50 | Consumivel | 23% |
-| Água €1.00 | Consumivel | 23% |
-| Barra Proteína €3.50 | Consumivel | 23% |
-| Shaker €12.00 | Consumivel | 23% |
-| Suplemento €25.00 | Consumivel | 23% |
+| Café €1.50 | Consumíveis | 23% |
+| Água €1.00 | Consumíveis | 23% |
+| Barra Proteína €3.50 | Consumíveis | 23% |
+| Shaker €12.00 | Consumíveis | 23% |
+| Suplemento €25.00 | Consumíveis | 23% |
 | Donativo €1-100 | Donativos | 0% |
 
 ---
@@ -84,6 +84,27 @@ Documentação: https://www.vendus.pt/ws/
   }
 }
 ```
+
+---
+
+## **⚙️ CONFIGURAÇÕES NECESSÁRIAS NA VENDUS**
+
+### **📂 Criar Categorias de Produtos:**
+1. **Ir para**: Vendus → **Produtos** → **Categorias**
+2. **Criar estas 2 categorias**:
+
+| **Nome Categoria** | **Descrição** | **IVA Padrão** |
+|-------------------|---------------|----------------|
+| `Consumíveis` | Café, Água, Barras, Shakers, Suplementos | 23% |
+| `Donativos` | Contribuições BE WATER | 0% |
+
+### **💰 Verificar Taxas IVA:**
+- ✅ **IVA 23%** (para consumíveis)
+- ✅ **IVA 0%** (para donativos)
+
+### **🎨 Opcional - Upload Logotipo:**
+- **Ir para**: Configurações → Geral → **Logotipo**
+- **Upload**: Logo BE WATER (aparecerá nas faturas)
 
 ---
 
@@ -137,26 +158,6 @@ git add .
 git commit -m "VENDUS: API integração corrigida com dados reais"
 git push origin main
 ```
-
----
-
-## **🏗️ CONFIGURAÇÃO VENDUS NECESSÁRIA**
-
-### **📂 Criar APENAS 2 Categorias:**
-
-**Ir para**: Vendus → **Produtos** → **Categorias**
-
-| **Nome Categoria** | **Descrição** | **IVA Padrão** |
-|-------------------|---------------|----------------|
-| `Consumivel` | Café, Água, Shakers, Suplementos | 23% |
-| `Donativos` | Contribuições BE WATER | 0% |
-
-### **💰 Verificar Taxas IVA:**
-
-**Ir para**: Vendus → **Configurações** → **Impostos/IVA**
-
-- ✅ **IVA 23%** (produtos normais)
-- ✅ **IVA 0%** (donativos)
 
 ---
 
