@@ -100,9 +100,16 @@ Documentação: https://www.vendus.pt/ws/
 | `Consumíveis` | Café, Água, Barras, Shakers, Suplementos | 0% |
 | `Donativos` | Contribuições BE WATER | 0% |
 
-### **💰 Configurar Taxa IVA:**
-- ✅ **IVA 0%** - Regime de Isenção (Artº 53)
-- ⚖️ **Todos os produtos BE WATER** estão isentos de IVA
+### **💰 Configuração Fiscal Automática:**
+- ✅ **IVA 0%** - Definido automaticamente via API
+- ⚖️ **Regime de Isenção (Artº 53)** - Enviado em cada fatura
+- 🔧 **Campos API enviados**:
+  - `tax_exempt: true`
+  - `tax_exemption_reason: "Regime de Isenção (Artº 53 do CIVA)"`
+  - `tax_exemption_code: "ART53"`
+  - `vat_exemption_code: "ART53"`
+
+⚠️ **NOTA**: O regime fiscal é definido **diretamente na API**, não sendo necessária configuração manual no site Vendus!
 
 ### **🎨 Opcional - Upload Logotipo:**
 - **Ir para**: Configurações → Geral → **Logotipo**
@@ -124,8 +131,12 @@ Documentação: https://www.vendus.pt/ws/
 - **Solução**: Verificar URL base: `https://www.vendus.pt/ws`
 
 ### **❌ Erro: IVA incorreto nas faturas**
-- **Causa**: Taxa IVA não configurada para 0%
-- **Solução**: Configurar IVA 0% (Regime de Isenção Artº 53) para ambas as categorias
+- **Causa**: Campos de regime de isenção não aceites pela API
+- **Solução**: API agora envia múltiplos campos:
+  - `tax_exempt: true`
+  - `tax_exemption_reason: "Regime de Isenção (Artº 53 do CIVA)"`
+  - `tax_exemption_code: "ART53"`
+  - Vendus deve aceitar pelo menos um destes campos
 
 ### **❌ Fatura não é emitida mas pagamento é processado**
 - **Comportamento esperado**: Sistema é "error-proof"

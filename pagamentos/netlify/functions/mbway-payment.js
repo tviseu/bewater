@@ -47,9 +47,20 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
       unit_price: dadosProduto.preco,
       quantity: 1,
       vat_rate: produtoVendus.iva,
-      category: produtoVendus.categoria
+      category: produtoVendus.categoria,
+      // Campos de regime de isenção - Artº 53 CIVA
+      tax_exempt: true,
+      tax_exemption_reason: 'Regime de Isenção (Artº 53 do CIVA)',
+      tax_exemption_code: 'ART53',
+      exemption_code: 'ART53',
+      vat_exempt_reason: 'Isenção de IVA ao abrigo do artº 53 do CIVA',
+      exempt_article: '53'
     }],
-    notes: `Pagamento MBWay - Ref: ${dadosPagamento.reference || dadosPagamento.transactionID}`,
+    // Informações fiscais gerais do documento
+    tax_regime: 'ISENCAO_ART53',
+    tax_exemption_reason: 'Regime de Isenção (Artº 53 do CIVA)',
+    vat_exemption_code: 'ART53',
+    notes: `Pagamento MBWay - Ref: ${dadosPagamento.reference || dadosPagamento.transactionID} | Regime: Isenção IVA (Artº 53)`,
     payment_method: 'MBWay',
     payment_date: new Date().toISOString()
   };
