@@ -184,4 +184,38 @@ git push origin main
 - **EuPago**: Suporte via dashboard EuPago
 - **Sistema BE WATER**: Verificar logs Netlify Functions
 
-🎯 **Sistema pronto para faturação automática!** 
+---
+
+## **🎯 NOVO FLUXO DE TRABALHO MANUAL**
+
+### **💳 Para o Cliente:**
+1. **Aceder**: `https://cool-starship-a7a3e1.netlify.app/pagamentos/`
+2. **Escolher produto** e inserir dados (email obrigatório!)
+3. **Pagar com MBWay** no telemóvel
+4. **Apresentar comprovativo** ao staff BE WATER
+
+### **👥 Para o Staff:**
+1. **Aceder dashboard**: `https://cool-starship-a7a3e1.netlify.app/pagamentos/staff.html`
+2. **Ver pagamento "confirmado"** em tempo real
+3. **Verificar comprovativo** MBWay do cliente
+4. **Clicar "🧾 Emitir Fatura"** se comprovativo estiver correto
+5. **Entregar produto** ao cliente
+6. **Cliente recebe fatura por email** automaticamente
+
+### **🔧 VANTAGENS DO SISTEMA MANUAL:**
+- ✅ **Controlo total**: Staff verifica antes de emitir fatura
+- ✅ **Sem erros**: Produto só entregue após confirmação visual
+- ✅ **Rastreabilidade**: Dashboard mostra estado de cada fatura
+- ✅ **Flexibilidade**: Pode emitir fatura mais tarde se necessário
+- ✅ **Regime fiscal**: IVA 0% (Artº 53) automático em todas as faturas
+- ✅ **Sem pagamentos falsos**: Comprovativo verificado pessoalmente
+
+### **🧾 ENDPOINTS CRIADOS:**
+- `/.netlify/functions/mbway-payment` - Processar pagamento (sem fatura)
+- `/.netlify/functions/payment-webhook` - Confirmar pagamento via EuPago
+- `/.netlify/functions/emit-invoice` - **NOVO**: Emitir fatura sob demanda
+- `/staff.html` - Dashboard staff com botão "Emitir Fatura"
+
+---
+
+🎯 **Sistema otimizado para controlo manual de faturas!** 
