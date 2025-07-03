@@ -324,6 +324,10 @@
                 <button class="filter-btn" onclick="testarVendusConsumiveis()" id="btn-teste-consumiveis" style="background: #17a2b8; color: white; font-weight: 700;">
                     ☕ Teste Consumível €0.02
                 </button>
+
+                <button class="filter-btn" onclick="testarPagamentoPendente()" id="btn-teste-pendente" style="background: #ffc107; color: black; font-weight: 700;">
+                    ⏳ Teste Pendente
+                </button>
             </div>
             
             <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.7;">
@@ -695,6 +699,55 @@
                 btn.disabled = false;
                 btn.style.background = '#17a2b8';
                 btn.style.color = '#ffffff';
+            }, 3000);
+        }
+
+        // 🧪 TESTE PAGAMENTO PENDENTE
+        async function testarPagamentoPendente() {
+            const btn = document.getElementById('btn-teste-pendente');
+            const originalText = btn.innerHTML;
+
+            try {
+                btn.innerHTML = '⏳ Criando Pendente...';
+                btn.disabled = true;
+
+                console.log('🧪 Testando criação de pagamento pendente');
+
+                const response = await fetch('/.netlify/functions/payment-webhook?test=pending', {
+                    method: 'GET',
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    btn.innerHTML = '✅ Pendente OK';
+                    btn.style.background = '#28a745';
+                    btn.style.color = '#ffffff';
+                    
+                    alert(`✅ TESTE PENDENTE SUCESSO!\n\n📦 Produto: ${result.payment.produto}\n💰 Valor: €${result.payment.valor}\n📧 Email: ${result.payment.email}\n⏳ Status: ${result.payment.status}\n\nVerifica agora a lista de pagamentos pendentes!`);
+
+                    // Recarregar dados para mostrar o novo pagamento pendente
+                    setTimeout(() => {
+                        loadPayments();
+                    }, 500);
+                } else {
+                    throw new Error(result.message || 'Erro no teste Pendente');
+                }
+
+            } catch (error) {
+                console.error('❌ Erro no teste Pendente:', error);
+                btn.innerHTML = '❌ Falhou';
+                btn.style.background = '#dc3545';
+                btn.style.color = '#ffffff';
+                
+                alert(`❌ TESTE PENDENTE FALHOU:\n${error.message}`);
+            }
+
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                btn.style.background = '#ffc107';
+                btn.style.color = '#000000';
             }, 3000);
         }
 

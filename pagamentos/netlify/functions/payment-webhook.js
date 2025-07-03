@@ -57,8 +57,41 @@ exports.handler = async (event, context) => {
     return { statusCode: 200, headers, body: '' };
   }
 
-  // GET: Listar pagamentos (para interface staff)
+  // GET: Listar pagamentos (para interface staff) OU criar teste pendente
   if (event.httpMethod === 'GET') {
+    // Parâmetro especial para criar registo de teste pendente
+    if (event.queryStringParameters?.test === 'pending') {
+      const testPayment = {
+        id: `test_pending_${Date.now()}`,
+        transactionID: `TEST-PEN-${Date.now()}`,
+        reference: Math.floor(Math.random() * 90000000) + 10000000,
+        produto: 'TESTE Consumível - BE WATER (Pendente)',
+        valor: 1.50,
+        telefone: '935***123',
+        nome: 'Teste Pendente',
+        email: 'teste@bewater.pt',
+        nif: null,
+        status: 'pendente',
+        timestamp: new Date().toISOString(),
+        lastUpdate: new Date().toISOString(),
+        fatura: null,
+        fatura_emitida: false
+      };
+
+      paymentsDB.set(testPayment.id, testPayment);
+      console.log('🧪 Registo de teste pendente criado:', testPayment);
+
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({
+          success: true,
+          message: 'Registo de teste pendente criado',
+          payment: testPayment
+        })
+      };
+    }
+
     const payments = Array.from(paymentsDB.values())
       .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
       .slice(0, 50); // Últimos 50 pagamentos

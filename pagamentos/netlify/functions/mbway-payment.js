@@ -364,14 +364,17 @@ exports.handler = async (event, context) => {
         const pendingPaymentData = {
           transactionID: eupagoResponse.transactionID,
           reference: eupagoResponse.reference,
-          amount: produtoId === 'DONATIVO_001' ? inputAmount : produto.preco,
+          amount: { value: produtoId === 'DONATIVO_001' ? inputAmount : produto.preco }, // Formato EuPago
           status: 'pending', // Status EuPago para pendente
           identifier: produtoId === 'DONATIVO_001' ? `Donativo €${inputAmount.toFixed(2)} - BE WATER | ${clientDataBase64}` : `${produto.nome} - BE WATER | ${clientDataBase64}`,
           date: new Date().toISOString()
         };
 
+        console.log('🚀 Criando registo pendente:', pendingPaymentData);
+
         // Simular webhook call para criar registo pendente
-        const webhookResponse = await fetch('/.netlify/functions/payment-webhook', {
+        const webhookUrl = 'https://cool-starship-a7a3e1.netlify.app/.netlify/functions/payment-webhook';
+        const webhookResponse = await fetch(webhookUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -387,10 +390,13 @@ exports.handler = async (event, context) => {
           })
         });
 
+        const webhookResult = await webhookResponse.text();
+        console.log('📋 Resposta webhook interno:', webhookResponse.status, webhookResult);
+
         if (webhookResponse.ok) {
           console.log('✅ Registo pendente criado no staff.html');
         } else {
-          console.log('⚠️ Não foi possível criar registo pendente (não é crítico)');
+          console.log('⚠️ Não foi possível criar registo pendente:', webhookResult);
         }
       } catch (webhookError) {
         console.log('⚠️ Erro ao criar registo pendente:', webhookError.message);
