@@ -315,11 +315,16 @@
         <!-- 🧪 TESTE API VENDUS -->
         <div class="payments-section" style="text-align: center; margin-bottom: 20px;">
             <h3 class="section-title">🧪 Teste API Vendus</h3>
-            <button class="filter-btn" onclick="testarVendusAPI()" id="btn-teste-vendus" style="background: #FFD700; font-weight: 700;">
-                🧾 Emitir Fatura Teste €0.01
-            </button>
+            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                <button class="filter-btn" onclick="testarVendusAPI()" id="btn-teste-vendus" style="background: #FFD700; font-weight: 700;">
+                    🧾 Emitir Fatura Teste €0.01
+                </button>
+                <button class="filter-btn" onclick="consultarFaturaVendus()" id="btn-consultar-fatura" style="background: #17a2b8; color: white; font-weight: 700;">
+                    🔍 Consultar Fatura 266855012
+                </button>
+            </div>
             <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.7;">
-                Testa a emissão de fatura Vendus com dados fictícios
+                Testa emissão e consulta status de faturas na Vendus
             </p>
         </div>
 
@@ -627,6 +632,77 @@
                 btn.disabled = false;
                 btn.style.background = '#FFD700';
                 btn.style.color = '#000000';
+            }, 3000);
+        }
+
+        // 🔍 CONSULTAR FATURA VENDUS
+        async function consultarFaturaVendus() {
+            const btn = document.getElementById('btn-consultar-fatura');
+            const originalText = btn.innerHTML;
+
+            try {
+                btn.innerHTML = '⏳ Consultando...';
+                btn.disabled = true;
+
+                console.log('🔍 Consultando fatura 266855012 na Vendus...');
+
+                const response = await fetch('/.netlify/functions/emit-invoice?id=266855012', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    btn.innerHTML = '✅ Fatura Encontrada';
+                    btn.style.background = '#28a745';
+                    btn.style.color = '#ffffff';
+                    
+                    console.log('✅ Dados da fatura encontrada:', result.fatura);
+                    
+                    // Mostrar informações detalhadas
+                    const info = result.fatura;
+                    let statusMsg = `✅ FATURA ENCONTRADA NA VENDUS!\n\n`;
+                    statusMsg += `🆔 ID: ${info.id || 'N/A'}\n`;
+                    statusMsg += `📄 Número: ${info.number || 'N/A'}\n`;
+                    statusMsg += `📅 Data: ${info.date || 'N/A'}\n`;
+                    statusMsg += `💰 Valor: €${info.amount_gross || 'N/A'}\n`;
+                    statusMsg += `📊 Status: ${info.status || 'N/A'}\n`;
+                    statusMsg += `🔐 Hash: ${info.hash || 'N/A'}\n`;
+                    statusMsg += `📋 ATCUD: ${info.atcud || 'N/A'}\n`;
+                    
+                    if (info.pdf_url) {
+                        statusMsg += `\n📄 PDF: ${info.pdf_url}`;
+                    }
+                    
+                    if (info.output_data) {
+                        statusMsg += `\n📤 Output: Disponível`;
+                    } else {
+                        statusMsg += `\n⚠️ Output: null (possível rascunho)`;
+                    }
+
+                    alert(statusMsg);
+                } else {
+                    throw new Error(result.message || 'Erro ao consultar fatura');
+                }
+
+            } catch (error) {
+                console.error('❌ Erro ao consultar fatura:', error);
+                btn.innerHTML = '❌ Consulta Falhou';
+                btn.style.background = '#dc3545';
+                btn.style.color = '#ffffff';
+                
+                alert(`❌ ERRO NA CONSULTA:\n${error.message}\n\nPossíveis causas:\n- Fatura não existe\n- Problemas de autenticação\n- API indisponível\n\nVerificar logs Netlify para mais detalhes.`);
+            }
+
+            // Restaurar botão após 3 segundos
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                btn.style.background = '#17a2b8';
+                btn.style.color = '#ffffff';
             }, 3000);
         }
 
