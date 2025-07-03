@@ -28,13 +28,49 @@ paymentsDB.set('test_payment_consumiveis', {
   id: 'test_payment_consumiveis',
   transactionID: 'TEST-CON-001',
   reference: '12345678',
-  produto: 'TESTE Café €0.02 - BE WATER',
+  produto: 'TESTE Consumível €0.02 - BE WATER',
   valor: 0.02,
   telefone: '935***778',
   nome: 'João Teste',
   email: 'joao.teste@bewater.pt',
   nif: '238494900',
   status: 'confirmado',
+  timestamp: new Date().toISOString(),
+  lastUpdate: new Date().toISOString(),
+  fatura: null,
+  fatura_emitida: false
+});
+
+// Pagamento teste 3: PENDENTE (€1.50)
+paymentsDB.set('test_payment_pendente', {
+  id: 'test_payment_pendente',
+  transactionID: 'TEST-PEN-001',
+  reference: '11111111',
+  produto: 'TESTE Consumível €1.50 - BE WATER (Pendente)',
+  valor: 1.50,
+  telefone: '935***456',
+  nome: 'Maria Pendente',
+  email: 'maria@bewater.pt',
+  nif: null,
+  status: 'pendente',
+  timestamp: new Date().toISOString(),
+  lastUpdate: new Date().toISOString(),
+  fatura: null,
+  fatura_emitida: false
+});
+
+// Pagamento teste 4: FALHADO (€3.50)
+paymentsDB.set('test_payment_falhado', {
+  id: 'test_payment_falhado',
+  transactionID: 'TEST-FAL-001',
+  reference: '99999999',
+  produto: 'TESTE Barra Proteína €3.50 - BE WATER (Falhado)',
+  valor: 3.50,
+  telefone: '935***789',
+  nome: 'José Falhado',
+  email: 'jose@bewater.pt',
+  nif: '123456789',
+  status: 'falhado',
   timestamp: new Date().toISOString(),
   lastUpdate: new Date().toISOString(),
   fatura: null,
@@ -96,14 +132,37 @@ exports.handler = async (event, context) => {
       .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
       .slice(0, 50); // Últimos 50 pagamentos
 
-    return {
+    console.log('📊 GET /payment-webhook - Retornando pagamentos:');
+    console.log(`📈 Total na DB: ${paymentsDB.size}`);
+    console.log(`📤 Enviando: ${payments.length} pagamentos`);
+    
+    // Log detalhado dos primeiros 3 pagamentos
+    payments.slice(0, 3).forEach((payment, index) => {
+      console.log(`📋 Pagamento ${index + 1}:`, {
+        id: payment.id,
+        produto: payment.produto,
+        valor: payment.valor,
+        status: payment.status,
+        timestamp: payment.timestamp
+      });
+    });
+
+    const response = {
       statusCode: 200,
       headers,
       body: JSON.stringify({
         success: true,
-        payments: payments
+        payments: payments,
+        debug: {
+          totalInDB: paymentsDB.size,
+          returning: payments.length,
+          timestamp: new Date().toISOString()
+        }
       })
     };
+
+    console.log('✅ Resposta enviada para staff.html');
+    return response;
   }
 
   // POST: Receber webhook do EuPago
