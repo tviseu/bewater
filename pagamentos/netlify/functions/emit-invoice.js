@@ -20,10 +20,11 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
     'DONATIVO_001': { nome: 'Donativo BE WATER', iva: 0, categoria: 'Donativos' }
   };
 
+  // Fallback para produtos não mapeados - usar "Consumível BE WATER" exceto para donativos
   const produtoVendus = PRODUTOS_VENDUS[dadosProduto.id] || {
-    nome: dadosProduto.nome || 'Produto BE WATER',
+    nome: dadosProduto.id?.includes('DONATIVO') ? 'Donativo BE WATER' : 'Consumível BE WATER',
     iva: 0,
-    categoria: 'Consumíveis'
+    categoria: dadosProduto.id?.includes('DONATIVO') ? 'Donativos' : 'Consumíveis'
   };
 
   // Determinar nome do cliente (usar "Consumidor Final" se não fornecido)
