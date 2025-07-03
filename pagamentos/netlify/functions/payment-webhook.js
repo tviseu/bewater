@@ -3,17 +3,17 @@ const crypto = require('crypto');
 // Base de dados simples em memória (em produção usar DB real)
 let paymentsDB = new Map();
 
-// 🧪 DADOS DE TESTE - Fatura €1 para testar API Vendus
+// 🧪 DADOS DE TESTE - Fatura €0.01 para testar API Vendus
 paymentsDB.set('test_payment_001', {
   id: 'test_payment_001',
   transactionID: 'TEST001',
   reference: '12345678',
-  produto: 'TESTE Café €1.00 - BE WATER',
-  valor: 1.00,
+  produto: 'TESTE Café €0.01 - BE WATER',
+  valor: 0.01,
   telefone: '935***778',
   nome: 'João Teste',
   email: 'joao.teste@bewater.pt',
-  nif: '123456789',
+  nif: '238494900',
   status: 'confirmado',
   timestamp: new Date().toISOString(),
   lastUpdate: new Date().toISOString(),

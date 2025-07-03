@@ -70,7 +70,7 @@ Documentação: https://www.vendus.pt/ws/
 {
   "customer": {
     "name": "João Silva",
-    "vat": "123456789",
+    "vat": "238494900",
     "email": "joao@email.com"
   }
 }

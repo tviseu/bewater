@@ -316,7 +316,7 @@
         <div class="payments-section" style="text-align: center; margin-bottom: 20px;">
             <h3 class="section-title">🧪 Teste API Vendus</h3>
             <button class="filter-btn" onclick="testarVendusAPI()" id="btn-teste-vendus" style="background: #FFD700; font-weight: 700;">
-                🧾 Emitir Fatura Teste €1.00
+                🧾 Emitir Fatura Teste €0.01
             </button>
             <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.7;">
                 Testa a emissão de fatura Vendus com dados fictícios
@@ -578,11 +578,11 @@
                 const faturaTesteData = {
                     transactionID: 'TEST001',
                     reference: '12345678',
-                    produto: 'TESTE Café €1.00 - BE WATER',
-                    valor: 1.00,
+                    produto: 'TESTE Café €0.01 - BE WATER',
+                    valor: 0.01,
                     email: 'joao.teste@bewater.pt',
                     nome: 'João Teste',
-                    nif: '123456789'
+                    nif: '238494900'
                 };
 
                 console.log('🧪 Testando API Vendus:', faturaTesteData);
@@ -602,7 +602,7 @@
                     btn.style.background = '#28a745';
                     btn.style.color = '#ffffff';
                     
-                    alert(`✅ TESTE VENDUS SUCESSO!\n\n🧾 Fatura: ${result.fatura.numero}\n📧 Email: joao.teste@bewater.pt\n💰 Valor: €1.00\n\n🔗 Download: ${result.fatura.url_download || 'Disponível na Vendus'}`);
+                    alert(`✅ TESTE VENDUS SUCESSO!\n\n🧾 Fatura: ${result.fatura.numero}\n📧 Email: joao.teste@bewater.pt\n💰 Valor: €0.01\n\n🔗 Download: ${result.fatura.url_download || 'Disponível na Vendus'}`);
 
                     // Recarregar pagamentos para mostrar o teste
                     setTimeout(() => {
