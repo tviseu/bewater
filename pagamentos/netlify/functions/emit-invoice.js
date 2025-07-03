@@ -105,7 +105,7 @@ exports.handler = async (event, context) => {
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Content-Type': 'application/json'
   };
 
@@ -114,73 +114,7 @@ exports.handler = async (event, context) => {
     return { statusCode: 200, headers, body: '' };
   }
 
-  // GET: Consultar status de fatura específica (para debug)
-  if (event.httpMethod === 'GET') {
-    const faturaId = event.queryStringParameters?.id;
-    
-    if (!faturaId) {
-      return {
-        statusCode: 400,
-        headers,
-        body: JSON.stringify({ success: false, message: 'ID da fatura obrigatório' })
-      };
-    }
-
-    try {
-      const VENDUS_CONFIG = {
-        api_key: process.env.VENDUS_API_KEY,
-        base_url: 'https://www.vendus.pt/ws'
-      };
-
-      console.log(`🔍 Consultando fatura ID: ${faturaId}`);
-      
-      const authHeader = 'Basic ' + Buffer.from(VENDUS_CONFIG.api_key + ':').toString('base64');
-      const vendusUrl = `${VENDUS_CONFIG.base_url}/v1.1/documents/${faturaId}`;
-      
-      const response = await fetch(vendusUrl, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': authHeader
-        }
-      });
-
-      const responseText = await response.text();
-      console.log('📋 Resposta consulta Vendus status:', response.status);
-      console.log('📋 Resposta consulta Vendus body:', responseText);
-
-      if (!response.ok) {
-        throw new Error(`Vendus API erro ${response.status}: ${responseText}`);
-      }
-
-      const faturaData = JSON.parse(responseText);
-      
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({
-          success: true,
-          fatura: faturaData,
-          message: `Fatura ${faturaId} encontrada na Vendus`
-        })
-      };
-      
-    } catch (error) {
-      console.error('❌ Erro ao consultar fatura Vendus:', error.message);
-      
-      return {
-        statusCode: 400,
-        headers,
-        body: JSON.stringify({
-          success: false,
-          message: `Erro ao consultar fatura: ${error.message}`
-        })
-      };
-    }
-  }
-
-  // POST: Emitir fatura (código existente)
+  // Só aceitar POST
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
