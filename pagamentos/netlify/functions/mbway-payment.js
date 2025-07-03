@@ -18,7 +18,7 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
 
   // Mapear produtos BE WATER → Vendus (Regime de Isenção Artº 53)
   const PRODUTOS_VENDUS = {
-    'CAFE_001': { nome: 'Café BE WATER', iva: 0, categoria: 'Consumíveis' },
+    'CAFE_001': { nome: 'Consumível BE WATER', iva: 0, categoria: 'Consumíveis' },
     'AGUA_001': { nome: 'Água BE WATER', iva: 0, categoria: 'Consumíveis' },
     'BARRITA_001': { nome: 'Barra Proteína BE WATER', iva: 0, categoria: 'Consumíveis' },
     'SHAKER_001': { nome: 'Shaker BE WATER', iva: 0, categoria: 'Consumíveis' },
@@ -188,7 +188,7 @@ exports.handler = async (event, context) => {
 
     // Produtos permitidos (validação de segurança)
     const PRODUTOS_PERMITIDOS = {
-      'CAFE_001': { nome: 'Café', preco: 1.50 },
+      'CAFE_001': { nome: 'Consumível', preco: 1.50 },
       'SUPLEMENTO_001': { nome: 'Suplemento Protein', preco: 25.00 },
       'AGUA_001': { nome: 'Água', preco: 1.00 },
       'BARRITA_001': { nome: 'Barra Proteína', preco: 3.50 },

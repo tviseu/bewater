@@ -52,7 +52,7 @@ Documentação: https://www.vendus.pt/ws/
 
 | **Produto BE WATER** | **Categoria Vendus** | **IVA** |
 |---------------------|---------------------|---------|
-| Café €1.50 | Consumíveis | 0% |
+| Consumível €1.50 | Consumíveis | 0% |
 | Água €1.00 | Consumíveis | 0% |
 | Barra Proteína €3.50 | Consumíveis | 0% |
 | Shaker €12.00 | Consumíveis | 0% |
