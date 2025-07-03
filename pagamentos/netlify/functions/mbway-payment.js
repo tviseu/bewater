@@ -359,6 +359,44 @@ exports.handler = async (event, context) => {
         });
       }
 
+      // 🆕 CRIAR registo "pendente" para aparecer no staff.html
+      try {
+        const pendingPaymentData = {
+          transactionID: eupagoResponse.transactionID,
+          reference: eupagoResponse.reference,
+          amount: produtoId === 'DONATIVO_001' ? inputAmount : produto.preco,
+          status: 'pending', // Status EuPago para pendente
+          identifier: produtoId === 'DONATIVO_001' ? `Donativo €${inputAmount.toFixed(2)} - BE WATER | ${clientDataBase64}` : `${produto.nome} - BE WATER | ${clientDataBase64}`,
+          date: new Date().toISOString()
+        };
+
+        // Simular webhook call para criar registo pendente
+        const webhookResponse = await fetch('/.netlify/functions/payment-webhook', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-nf-client-connection-ip': '127.0.0.1', // IP local para bypass validação
+            'user-agent': 'BE WATER Payment System - Internal Call',
+            'x-signature': 'internal-call',
+            'x-initialization-vector': 'internal-call'
+          },
+          body: JSON.stringify({
+            data: Buffer.from(JSON.stringify({
+              transaction: pendingPaymentData
+            })).toString('base64')
+          })
+        });
+
+        if (webhookResponse.ok) {
+          console.log('✅ Registo pendente criado no staff.html');
+        } else {
+          console.log('⚠️ Não foi possível criar registo pendente (não é crítico)');
+        }
+      } catch (webhookError) {
+        console.log('⚠️ Erro ao criar registo pendente:', webhookError.message);
+        // Não é crítico, continuar
+      }
+
       // NOTA: Fatura será emitida pelo staff após verificação do comprovativo MBWay
       console.log('ℹ️ Pagamento iniciado - fatura será emitida pelo staff após confirmação');
       dadosResposta.instructions = 'Após confirmar o pagamento no telemóvel, apresente o comprovativo ao funcionário BE WATER para receber o produto e fatura.';

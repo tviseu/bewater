@@ -101,6 +101,9 @@ exports.handler = async (event, context) => {
       const clientIP = event.headers['x-nf-client-connection-ip'] || event.headers['x-forwarded-for'];
       const userAgent = event.headers['user-agent'];
       
+      // Verificar se é chamada interna do sistema BE WATER
+      const isInternalCall = userAgent && userAgent.includes('BE WATER Payment System - Internal Call');
+      
       // Validar IP da EuPago (range conhecido)
       const isEupagoIP = clientIP && (
         clientIP.startsWith('3.75.') ||     // AWS EuPago
@@ -114,11 +117,12 @@ exports.handler = async (event, context) => {
       console.log('🔍 Verificações de segurança:');
       console.log('📍 IP Cliente:', clientIP);
       console.log('🤖 User-Agent:', userAgent);
+      console.log('🏠 Chamada interna:', isInternalCall);
       console.log('✅ IP EuPago válido:', isEupagoIP);
       console.log('✅ User-Agent EuPago:', isEupagoUA);
       
-      // BLOQUEAR se não for da EuPago
-      if (!isEupagoIP || !isEupagoUA) {
+      // ACEITAR chamadas internas do sistema OU da EuPago
+      if (!isInternalCall && (!isEupagoIP || !isEupagoUA)) {
         console.error('🚫 ACESSO NEGADO - Origem suspeita:', { clientIP, userAgent });
         return {
           statusCode: 403,
@@ -127,11 +131,11 @@ exports.handler = async (event, context) => {
         };
       }
       
-      // Verificar presença de assinatura e IV (mesmo que não validemos ainda)
+      // Verificar presença de assinatura e IV (pular validação para chamadas internas)
       const signature = event.headers['x-signature'];
       const iv = event.headers['x-initialization-vector'];
       
-      if (!signature || !iv) {
+      if (!isInternalCall && (!signature || !iv)) {
         console.error('🚫 WEBHOOK INVÁLIDO - Falta assinatura ou IV');
         return {
           statusCode: 400,
@@ -146,9 +150,19 @@ exports.handler = async (event, context) => {
       const webhookData = JSON.parse(body);
       console.log('📦 Dados webhook (raw):', JSON.stringify(webhookData, null, 2));
 
-      // Decriptar dados EuPago (usam AES encryption)
+      // Decriptar dados EuPago (ou usar dados diretos para chamadas internas)
       let decryptedData = {};
-      if (webhookData.data) {
+      if (isInternalCall) {
+        // Para chamadas internas, dados já estão decodificados
+        try {
+          const internalData = Buffer.from(webhookData.data, 'base64').toString('utf8');
+          decryptedData = JSON.parse(internalData);
+          console.log('🏠 Dados internos processados:', JSON.stringify(decryptedData, null, 2));
+        } catch (internalError) {
+          console.error('❌ Erro ao processar dados internos:', internalError.message);
+          decryptedData = {}; // Fallback
+        }
+      } else if (webhookData.data) {
         try {
           const ivBuffer = Buffer.from(iv, 'base64');
           const encryptedData = Buffer.from(webhookData.data, 'base64');
