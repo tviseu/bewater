@@ -3,13 +3,33 @@ const crypto = require('crypto');
 // Base de dados simples em memória (em produção usar DB real)
 let paymentsDB = new Map();
 
-// 🧪 DADOS DE TESTE - Fatura €0.01 para testar API Vendus
-paymentsDB.set('test_payment_001', {
-  id: 'test_payment_001',
-  transactionID: 'TEST001',
+// �� DADOS DE TESTE - Faturas para testar API Vendus (2 categorias)
+
+// Pagamento teste 1: DONATIVOS (€5.00)
+paymentsDB.set('test_payment_donativos', {
+  id: 'test_payment_donativos',
+  transactionID: 'TEST-DON-001',
+  reference: '87654321',
+  produto: 'TESTE Donativo €5.00 - BE WATER',
+  valor: 5.00,
+  telefone: '935***778',
+  nome: 'João Teste',
+  email: 'joao.teste@bewater.pt',
+  nif: '238494900',
+  status: 'confirmado',
+  timestamp: new Date().toISOString(),
+  lastUpdate: new Date().toISOString(),
+  fatura: null,
+  fatura_emitida: false
+});
+
+// Pagamento teste 2: CONSUMÍVEIS (€0.02)
+paymentsDB.set('test_payment_consumiveis', {
+  id: 'test_payment_consumiveis',
+  transactionID: 'TEST-CON-001',
   reference: '12345678',
-  produto: 'TESTE Café €0.01 - BE WATER',
-  valor: 0.01,
+  produto: 'TESTE Café €0.02 - BE WATER',
+  valor: 0.02,
   telefone: '935***778',
   nome: 'João Teste',
   email: 'joao.teste@bewater.pt',
