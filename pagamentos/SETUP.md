@@ -184,6 +184,31 @@ vercel dev
 
 ---
 
+## 🔐 CONTROLO DE ACESSO
+
+### **Staff Dashboard Protegido**
+O painel de staff (`/pagamentos/staff.html`) está protegido por **Netlify Identity**:
+
+```
+✅ Só staff autorizado pode aceder
+✅ Login/logout seguro
+✅ Gestão de utilizadores via dashboard
+✅ Gratuito até 1000 users/mês
+```
+
+### **Setup Rápido:**
+```bash
+1. Netlify Dashboard → Site Settings → Identity
+2. Enable Identity
+3. Registration → "Open" (temporário)
+4. Staff acede /staff.html → Sign Up
+5. Mudar Registration → "Invite only"
+```
+
+📖 **Guia Completo**: [CONTROLO-ACESSO.md](./CONTROLO-ACESSO.md)
+
+---
+
 ## 🔄 WORKFLOW COMPLETO
 
 1. **Cliente escaneia QR Code**
@@ -193,6 +218,8 @@ vercel dev
 5. **Function valida e chama EuPago API**
 6. **Cliente confirma no MBWay**
 7. **Pagamento concluído**
+8. **Staff autenticado acede dashboard**
+9. **Emite faturas via Vendus API**
 
 ---
 
