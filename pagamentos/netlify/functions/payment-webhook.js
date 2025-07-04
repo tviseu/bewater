@@ -23,7 +23,7 @@ paymentsDB.set('test_payment_donativos', {
   fatura_emitida: false
 });
 
-// Pagamento teste 2: CONSUMÍVEIS (€0.02)
+// Pagamento teste 2: CONSUMÍVEIS (€0.02) - CONFIRMADO
 paymentsDB.set('test_payment_consumiveis', {
   id: 'test_payment_consumiveis',
   transactionID: 'TEST-CON-001',
@@ -41,44 +41,45 @@ paymentsDB.set('test_payment_consumiveis', {
   fatura_emitida: false
 });
 
-// Pagamento teste 3: PENDENTE (€1.50)
-paymentsDB.set('test_payment_pendente', {
-  id: 'test_payment_pendente',
-  transactionID: 'TEST-PEN-001',
+// Pagamento teste 3: ÁGUA (€1.00) - PENDENTE
+paymentsDB.set('test_payment_pendente_fixo', {
+  id: 'test_payment_pendente_fixo',
+  transactionID: 'TEST-PEN-FIXO',
   reference: '11111111',
-  produto: 'TESTE Consumível €1.50 - BE WATER (Pendente)',
-  valor: 1.50,
-  telefone: '935***456',
-  nome: 'Maria Pendente',
-  email: 'maria@bewater.pt',
+  produto: 'TESTE Água €1.00 - BE WATER (Pendente)',
+  valor: 1.00,
+  telefone: '918***456',
+  nome: 'Cliente Pendente',
+  email: 'pendente@bewater.pt',
   nif: null,
   status: 'pendente',
-  timestamp: new Date().toISOString(),
-  lastUpdate: new Date().toISOString(),
+  timestamp: new Date(Date.now() - 30000).toISOString(), // 30 segundos atrás
+  lastUpdate: new Date(Date.now() - 30000).toISOString(),
   fatura: null,
   fatura_emitida: false
 });
 
-// Pagamento teste 4: FALHADO (€3.50)
-paymentsDB.set('test_payment_falhado', {
-  id: 'test_payment_falhado',
-  transactionID: 'TEST-FAL-001',
+// Pagamento teste 4: SHAKER (€12.00) - FALHADO
+paymentsDB.set('test_payment_falhado_fixo', {
+  id: 'test_payment_falhado_fixo',
+  transactionID: 'TEST-FAL-FIXO',
   reference: '99999999',
-  produto: 'TESTE Barra Proteína €3.50 - BE WATER (Falhado)',
-  valor: 3.50,
-  telefone: '935***789',
-  nome: 'José Falhado',
-  email: 'jose@bewater.pt',
-  nif: '123456789',
+  produto: 'TESTE Shaker €12.00 - BE WATER (Falhado)',
+  valor: 12.00,
+  telefone: '966***789',
+  nome: 'Cliente Falhado',
+  email: 'falhado@bewater.pt',
+  nif: null,
   status: 'falhado',
-  timestamp: new Date().toISOString(),
-  lastUpdate: new Date().toISOString(),
+  timestamp: new Date(Date.now() - 60000).toISOString(), // 1 minuto atrás
+  lastUpdate: new Date(Date.now() - 60000).toISOString(),
   fatura: null,
   fatura_emitida: false
 });
 
 exports.handler = async (event, context) => {
   console.log('🔔 Webhook recebido:', event.httpMethod);
+  console.log('💾 Base de dados inicializada com', paymentsDB.size, 'pagamentos de teste');
   
   // Headers CORS
   const headers = {
@@ -132,37 +133,17 @@ exports.handler = async (event, context) => {
       .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
       .slice(0, 50); // Últimos 50 pagamentos
 
-    console.log('📊 GET /payment-webhook - Retornando pagamentos:');
-    console.log(`📈 Total na DB: ${paymentsDB.size}`);
-    console.log(`📤 Enviando: ${payments.length} pagamentos`);
-    
-    // Log detalhado dos primeiros 3 pagamentos
-    payments.slice(0, 3).forEach((payment, index) => {
-      console.log(`📋 Pagamento ${index + 1}:`, {
-        id: payment.id,
-        produto: payment.produto,
-        valor: payment.valor,
-        status: payment.status,
-        timestamp: payment.timestamp
-      });
-    });
+    console.log('📋 Retornando', payments.length, 'pagamentos para staff.html');
+    console.log('📊 Status dos pagamentos:', payments.map(p => `${p.produto} (${p.status})`));
 
-    const response = {
+    return {
       statusCode: 200,
       headers,
       body: JSON.stringify({
         success: true,
-        payments: payments,
-        debug: {
-          totalInDB: paymentsDB.size,
-          returning: payments.length,
-          timestamp: new Date().toISOString()
-        }
+        payments: payments
       })
     };
-
-    console.log('✅ Resposta enviada para staff.html');
-    return response;
   }
 
   // POST: Receber webhook do EuPago

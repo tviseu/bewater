@@ -373,63 +373,33 @@
         // Carregar pagamentos
         async function loadPayments() {
             try {
-                console.log('🔄 Iniciando carregamento de pagamentos...');
-                
                 const response = await fetch('/.netlify/functions/payment-webhook');
-                console.log('📡 Resposta recebida:', response.status, response.statusText);
-                
                 const data = await response.json();
-                console.log('📦 Dados recebidos:', data);
                 
                 if (data.success) {
                     payments = data.payments || [];
-                    console.log(`✅ Pagamentos carregados: ${payments.length}`);
-                    
-                    // Log dos primeiros 3 pagamentos para debug
-                    payments.slice(0, 3).forEach((payment, index) => {
-                        console.log(`📋 Frontend - Pagamento ${index + 1}:`, {
-                            id: payment.id,
-                            produto: payment.produto,
-                            status: payment.status,
-                            valor: payment.valor
-                        });
-                    });
-                    
                     renderPayments();
                     updateStats();
                     updateLastUpdateTime();
                 } else {
-                    console.error('❌ Erro ao carregar pagamentos:', data.message);
-                    paymentsList.innerHTML = '<div class="loading">❌ Erro: ' + data.message + '</div>';
+                    console.error('Erro ao carregar pagamentos:', data.message);
                 }
             } catch (error) {
-                console.error('❌ Erro na requisição:', error);
-                paymentsList.innerHTML = '<div class="loading">❌ Erro ao carregar pagamentos: ' + error.message + '</div>';
+                console.error('Erro na requisição:', error);
+                paymentsList.innerHTML = '<div class="loading">❌ Erro ao carregar pagamentos</div>';
             }
         }
 
         // Renderizar pagamentos
         function renderPayments() {
-            console.log(`🎨 Renderizando pagamentos - Filtro atual: ${currentFilter}`);
-            console.log(`📊 Total de pagamentos disponíveis: ${payments.length}`);
-            
             const filteredPayments = currentFilter === 'all' 
                 ? payments 
                 : payments.filter(p => p.status === currentFilter);
 
-            console.log(`📋 Pagamentos após filtro: ${filteredPayments.length}`);
-            
             if (filteredPayments.length === 0) {
-                const message = payments.length === 0 
-                    ? '📭 Nenhum pagamento encontrado na base de dados'
-                    : `📭 Nenhum pagamento encontrado para o filtro "${currentFilter}"`;
-                
-                console.log('⚠️ Lista vazia:', message);
-                paymentsList.innerHTML = `<div class="no-payments">${message}</div>`;
+                paymentsList.innerHTML = '<div class="no-payments">📭 Nenhum pagamento encontrado</div>';
                 return;
             }
-
-            console.log('✅ Renderizando', filteredPayments.length, 'pagamentos');
 
             paymentsList.innerHTML = filteredPayments.map(payment => `
                 <div class="payment-card ${payment.status}" data-id="${payment.id}">
