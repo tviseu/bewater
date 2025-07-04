@@ -62,10 +62,10 @@ export default async function handler(req, res) {
     const produto = PRODUTOS_PERMITIDOS[produtoId];
     const inputAmount = parseFloat(input.amount);
     
-    // Para donativos, permitir valores variáveis entre €0.50 e €100.00
+    // Para donativos, permitir valores variáveis entre €1.00 e €100.00
 if (produtoId === 'DONATIVO_001') {
-  if (inputAmount < 0.50 || inputAmount > 100.00) {
-    throw new Error('Valor do donativo deve estar entre €0.50 e €100.00');
+  if (inputAmount < 1.00 || inputAmount > 100.00) {
+    throw new Error('Valor do donativo deve estar entre €1.00 e €100.00');
   }
     } else {
       // Para outros produtos, preço deve ser exato
