@@ -106,11 +106,13 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
     notes: `Pagamento MBWay - Ref: ${dadosPagamento.reference || dadosPagamento.transactionID}`,
     external_reference: dadosPagamento.reference || dadosPagamento.transactionID,
     date: new Date().toISOString().split('T')[0],
-    // 💳 MARCAR COMO PAGA - Pagamento MBWay já confirmado
-    paid: true,
-    payment_method: 'MBWay',
-    payment_date: new Date().toISOString().split('T')[0],
-    payment_reference: dadosPagamento.reference || dadosPagamento.transactionID
+    // 💳 MARCAR COMO PAGA - Array de pagamentos conforme documentação Vendus
+    payments: [{
+      amount: dadosProduto.preco,
+      payment_method: 'MBWay',
+      payment_date: new Date().toISOString().split('T')[0],
+      reference: dadosPagamento.reference || dadosPagamento.transactionID
+    }]
   };
 
   try {
