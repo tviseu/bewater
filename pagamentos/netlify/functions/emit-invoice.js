@@ -12,12 +12,12 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
 
   // Mapear produtos BE WATER → Vendus (Regime de Isenção Artº 53)
   const PRODUTOS_VENDUS = {
-    'CAFE_001': { nome: 'Consumível BE WATER', iva: 0, categoria: 'Consumíveis', tax_id: 'ISE' },
-    'AGUA_001': { nome: 'Água BE WATER', iva: 0, categoria: 'Consumíveis', tax_id: 'ISE' },
-    'BARRITA_001': { nome: 'Barra Proteína BE WATER', iva: 0, categoria: 'Consumíveis', tax_id: 'ISE' },
-    'SHAKER_001': { nome: 'Shaker BE WATER', iva: 0, categoria: 'Consumíveis', tax_id: 'ISE' },
-    'SUPLEMENTO_001': { nome: 'Suplemento Protein BE WATER', iva: 0, categoria: 'Consumíveis', tax_id: 'ISE' },
-    'DONATIVO_001': { nome: 'Donativo BE WATER', iva: 0, categoria: 'Donativos', tax_id: 'ISE' }
+    'CAFE_001': { nome: 'Consumível BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'AGUA_001': { nome: 'Água BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'BARRITA_001': { nome: 'Barra Proteína BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'SHAKER_001': { nome: 'Shaker BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'SUPLEMENTO_001': { nome: 'Suplemento Protein BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'DONATIVO_001': { nome: 'Donativo BE WATER', iva: 0, categoria: 'Donativos', tax_exempt_reason: 'Artigo 53º do CIVA' }
   };
 
   // Fallback para produtos não mapeados - usar "Consumível BE WATER" exceto para donativos
@@ -25,7 +25,7 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
     nome: dadosProduto.id?.includes('DONATIVO') ? 'Donativo BE WATER' : 'Consumível BE WATER',
     iva: 0,
     categoria: dadosProduto.id?.includes('DONATIVO') ? 'Donativos' : 'Consumíveis',
-    tax_id: 'ISE' // Forçar isenção artigo 53º
+    tax_exempt_reason: 'Artigo 53º do CIVA' // Forçar isenção artigo 53º
   };
 
   // Determinar nome do cliente (usar "Consumidor Final" se não fornecido)
@@ -44,7 +44,8 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
       title: produtoVendus.nome, // era 'name' → agora 'title'
       gross_price: dadosProduto.preco, // era 'unit_price' → agora 'gross_price'
       qty: 1, // era 'quantity' → agora 'qty'
-      tax_id: produtoVendus.tax_id // Forçar Regime de Isenção Artº 53 ('ISE')
+      vat_rate: 0, // Taxa IVA 0%
+      tax_exempt_reason: produtoVendus.tax_exempt_reason // Artigo 53º do CIVA
     }],
     notes: `Pagamento MBWay - Ref: ${dadosPagamento.reference || dadosPagamento.transactionID}`,
     external_reference: dadosPagamento.reference || dadosPagamento.transactionID,
