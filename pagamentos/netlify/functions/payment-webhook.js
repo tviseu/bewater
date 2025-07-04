@@ -3,88 +3,10 @@ const crypto = require('crypto');
 // Base de dados simples em memória (em produção usar DB real)
 let paymentsDB = new Map();
 
-// �� DADOS DE TESTE - Faturas para testar API Vendus (2 categorias)
-
-// Pagamento teste 1: DONATIVOS (€5.00)
-paymentsDB.set('test_payment_donativos', {
-  id: 'test_payment_donativos',
-  transactionID: 'TEST-DON-001',
-  reference: '87654321',
-  produto: 'TESTE Donativo €5.00 - BE WATER',
-  valor: 5.00,
-  telefone: '935***778',
-  nome: 'João Teste',
-  email: 'joao.teste@bewater.pt',
-  nif: '238494900',
-  status: 'confirmado',
-  timestamp: new Date().toISOString(),
-  lastUpdate: new Date().toISOString(),
-  fatura: null,
-  fatura_emitida: false
-});
-
-// Pagamento teste 2: CONSUMÍVEIS (€0.02) - CONFIRMADO
-paymentsDB.set('test_payment_consumiveis', {
-  id: 'test_payment_consumiveis',
-  transactionID: 'TEST-CON-001',
-  reference: '12345678',
-  produto: 'TESTE Consumível €0.02 - BE WATER',
-  valor: 0.02,
-  telefone: '935***778',
-  nome: 'João Teste',
-  email: 'joao.teste@bewater.pt',
-  nif: '238494900',
-  status: 'confirmado',
-  timestamp: new Date().toISOString(),
-  lastUpdate: new Date().toISOString(),
-  fatura: null,
-  fatura_emitida: false
-});
-
-// Pagamento teste 3: ÁGUA (€1.00) - PENDENTE
-paymentsDB.set('test_payment_pendente_fixo', {
-  id: 'test_payment_pendente_fixo',
-  transactionID: 'TEST-PEN-FIXO',
-  reference: '11111111',
-  produto: 'TESTE Água €1.00 - BE WATER (Pendente)',
-  valor: 1.00,
-  telefone: '918***456',
-  nome: 'Cliente Pendente',
-  email: 'pendente@bewater.pt',
-  nif: null,
-  status: 'pendente',
-  timestamp: new Date(Date.now() - 30000).toISOString(), // 30 segundos atrás
-  lastUpdate: new Date(Date.now() - 30000).toISOString(),
-  fatura: null,
-  fatura_emitida: false
-});
-
-// Pagamento teste 4: SHAKER (€12.00) - FALHADO
-paymentsDB.set('test_payment_falhado_fixo', {
-  id: 'test_payment_falhado_fixo',
-  transactionID: 'TEST-FAL-FIXO',
-  reference: '99999999',
-  produto: 'TESTE Shaker €12.00 - BE WATER (Falhado)',
-  valor: 12.00,
-  telefone: '966***789',
-  nome: 'Cliente Falhado',
-  email: 'falhado@bewater.pt',
-  nif: null,
-  status: 'falhado',
-  timestamp: new Date(Date.now() - 60000).toISOString(), // 1 minuto atrás
-  lastUpdate: new Date(Date.now() - 60000).toISOString(),
-  fatura: null,
-  fatura_emitida: false
-});
-
 exports.handler = async (event, context) => {
   try {
     console.log('🔔 Webhook recebido:', event.httpMethod);
-    
-    // Verificar se temos dados de teste
-    console.log('🔍 Verificando dados de teste existentes...');
-    
-    console.log('💾 Base de dados tem', paymentsDB.size, 'pagamentos de teste');
+    console.log('💾 Base de dados tem', paymentsDB.size, 'pagamentos');
   } catch (initError) {
     console.error('❌ Erro na inicialização:', initError);
     return {
@@ -113,46 +35,14 @@ exports.handler = async (event, context) => {
     return { statusCode: 200, headers, body: '' };
   }
 
-  // GET: Listar pagamentos (para interface staff) OU criar teste pendente
+  // GET: Listar pagamentos (para interface staff)
   if (event.httpMethod === 'GET') {
-    // Parâmetro especial para criar registo de teste pendente
-    if (event.queryStringParameters?.test === 'pending') {
-      const testPayment = {
-        id: `test_pending_${Date.now()}`,
-        transactionID: `TEST-PEN-${Date.now()}`,
-        reference: Math.floor(Math.random() * 90000000) + 10000000,
-        produto: 'TESTE Consumível - BE WATER (Pendente)',
-        valor: 1.50,
-        telefone: '935***123',
-        nome: 'Teste Pendente',
-        email: 'teste@bewater.pt',
-        nif: null,
-        status: 'pendente',
-        timestamp: new Date().toISOString(),
-        lastUpdate: new Date().toISOString(),
-        fatura: null,
-        fatura_emitida: false
-      };
-
-      paymentsDB.set(testPayment.id, testPayment);
-      console.log('🧪 Registo de teste pendente criado:', testPayment);
-
-      return {
-        statusCode: 200,
-        headers,
-        body: JSON.stringify({
-          success: true,
-          message: 'Registo de teste pendente criado',
-          payment: testPayment
-        })
-      };
-    }
 
     const payments = Array.from(paymentsDB.values())
       .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
       .slice(0, 50); // Últimos 50 pagamentos
 
-    console.log('📋 Retornando', payments.length, 'pagamentos para staff.html');
+    console.log('📋 Retornando', payments.length, 'pagamentos reais para staff.html');
     console.log('📊 Status dos pagamentos:', payments.map(p => `${p.produto} (${p.status})`));
 
     return {
