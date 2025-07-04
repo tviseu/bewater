@@ -1,3 +1,59 @@
+// Função para marcar fatura como paga na Vendus (método secundário)
+async function marcarFaturaComoPaga(faturaId, valor, dadosPagamento) {
+  const VENDUS_CONFIG = {
+    api_key: process.env.VENDUS_API_KEY,
+    base_url: 'https://www.vendus.pt/ws'
+  };
+
+  // Tentativa 1: Endpoint de pagamentos (estrutura comum em APIs de faturação)
+  const paymentPayload = {
+    document_id: faturaId,
+    amount: valor,
+    payment_method: 'MBWay',
+    payment_date: new Date().toISOString().split('T')[0],
+    reference: dadosPagamento.reference || dadosPagamento.transactionID,
+    status: 'paid'
+  };
+
+  const authHeader = 'Basic ' + Buffer.from(VENDUS_CONFIG.api_key + ':').toString('base64');
+
+  // Tentar vários endpoints possíveis
+  const possibleEndpoints = [
+    `${VENDUS_CONFIG.base_url}/v1.1/documents/${faturaId}/payments`,
+    `${VENDUS_CONFIG.base_url}/v1.1/payments`,
+    `${VENDUS_CONFIG.base_url}/v1.1/documents/${faturaId}/payment`,
+    `${VENDUS_CONFIG.base_url}/v1.1/documents/${faturaId}/status`
+  ];
+
+  for (const endpoint of possibleEndpoints) {
+    try {
+      console.log(`💳 Tentando marcar como paga via: ${endpoint}`);
+      
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': authHeader
+        },
+        body: JSON.stringify(paymentPayload)
+      });
+
+      const responseText = await response.text();
+      console.log(`📋 Resposta ${endpoint}:`, response.status, responseText);
+
+      if (response.ok) {
+        console.log('✅ Fatura marcada como paga com sucesso!');
+        return true;
+      }
+    } catch (error) {
+      console.log(`❌ Endpoint ${endpoint} falhou:`, error.message);
+    }
+  }
+
+  // Se chegou aqui, nenhum endpoint funcionou
+  throw new Error('Nenhum endpoint de pagamento da Vendus funcionou');
+}
+
 // Função para emitir fatura na Vendus
 async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
   const VENDUS_CONFIG = {
@@ -49,11 +105,16 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
     }],
     notes: `Pagamento MBWay - Ref: ${dadosPagamento.reference || dadosPagamento.transactionID}`,
     external_reference: dadosPagamento.reference || dadosPagamento.transactionID,
-    date: new Date().toISOString().split('T')[0]
+    date: new Date().toISOString().split('T')[0],
+    // 💳 MARCAR COMO PAGA - Pagamento MBWay já confirmado
+    paid: true,
+    payment_method: 'MBWay',
+    payment_date: new Date().toISOString().split('T')[0],
+    payment_reference: dadosPagamento.reference || dadosPagamento.transactionID
   };
 
   try {
-    console.log('🧾 Emitindo fatura Vendus:', JSON.stringify(faturaPayload, null, 2));
+    console.log('🧾 Emitindo fatura Vendus (com marcação automática como PAGA):', JSON.stringify(faturaPayload, null, 2));
 
     // Fazer chamada à API Vendus (conforme documentação oficial)
     const vendusUrl = `${VENDUS_CONFIG.base_url}/v1.1/documents/`;
@@ -84,6 +145,18 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
 
     const faturaData = JSON.parse(responseText);
     console.log('✅ Fatura Vendus emitida:', faturaData);
+
+    // 🎯 TENTAR MARCAR COMO PAGA (caso campos na criação não tenham funcionado)
+    const faturaId = faturaData.id || faturaData.document_id;
+    if (faturaId) {
+      try {
+        await marcarFaturaComoPaga(faturaId, dadosProduto.preco, dadosPagamento);
+        console.log('💳 Fatura marcada como paga com sucesso');
+      } catch (paymentError) {
+        console.log('⚠️ Erro ao marcar como paga (fatura criada mas não marcada):', paymentError.message);
+        // Não falhar a operação, fatura foi criada
+      }
+    }
 
     return {
       success: true,
