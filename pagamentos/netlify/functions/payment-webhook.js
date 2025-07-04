@@ -78,8 +78,27 @@ paymentsDB.set('test_payment_falhado_fixo', {
 });
 
 exports.handler = async (event, context) => {
-  console.log('🔔 Webhook recebido:', event.httpMethod);
-  console.log('💾 Base de dados inicializada com', paymentsDB.size, 'pagamentos de teste');
+  try {
+    console.log('🔔 Webhook recebido:', event.httpMethod);
+    
+    // Verificar se temos dados de teste
+    console.log('🔍 Verificando dados de teste existentes...');
+    
+    console.log('💾 Base de dados tem', paymentsDB.size, 'pagamentos de teste');
+  } catch (initError) {
+    console.error('❌ Erro na inicialização:', initError);
+    return {
+      statusCode: 500,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ 
+        success: false, 
+        message: 'Erro de inicialização: ' + initError.message 
+      })
+    };
+  }
   
   // Headers CORS
   const headers = {

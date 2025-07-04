@@ -424,20 +424,36 @@
         // Carregar pagamentos
         async function loadPayments() {
             try {
+                console.log('🔄 Iniciando carregamento dos pagamentos...');
+                
                 const response = await fetch('/.netlify/functions/payment-webhook');
+                console.log('📡 Response status:', response.status);
+                console.log('📡 Response headers:', response.headers);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
                 const data = await response.json();
+                console.log('📦 Data recebida:', data);
                 
                 if (data.success) {
                     payments = data.payments || [];
+                    console.log('✅ Pagamentos carregados:', payments.length);
                     renderPayments();
                     updateStats();
                     updateLastUpdateTime();
                 } else {
-                    console.error('Erro ao carregar pagamentos:', data.message);
+                    console.error('❌ API retornou erro:', data.message);
+                    paymentsList.innerHTML = `<div class="loading">❌ Erro API: ${data.message || 'Desconhecido'}</div>`;
                 }
             } catch (error) {
-                console.error('Erro na requisição:', error);
-                paymentsList.innerHTML = '<div class="loading">❌ Erro ao carregar pagamentos</div>';
+                console.error('❌ Erro na requisição:', error);
+                paymentsList.innerHTML = `<div class="loading">❌ Erro de conectividade: ${error.message}<br/><br/>
+                    <button onclick="loadPayments()" style="background: #FFD700; border: 2px solid #000; padding: 10px; cursor: pointer;">
+                        🔄 Tentar Novamente
+                    </button>
+                </div>`;
             }
         }
 
