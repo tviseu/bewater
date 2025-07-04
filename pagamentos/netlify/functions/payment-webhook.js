@@ -407,7 +407,8 @@ exports.handler = async (event, context) => {
         timestamp: timestamp || new Date().toISOString(),
         lastUpdate: new Date().toISOString(),
         fatura: null, // Informação da fatura Vendus (se emitida)
-        fatura_emitida: false // Flag para controlar se fatura já foi emitida pelo staff
+        fatura_emitida: false, // Flag para controlar se fatura já foi emitida pelo staff
+        fatura_tentativas: 0 // Contador de tentativas de emissão
       };
 
       // Guardar na "base de dados"

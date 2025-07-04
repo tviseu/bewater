@@ -18,19 +18,20 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
 
   // Mapear produtos BE WATER → Vendus (Regime de Isenção Artº 53)
   const PRODUTOS_VENDUS = {
-    'CAFE_001': { nome: 'Consumível BE WATER', iva: 0, categoria: 'Consumíveis' },
-    'AGUA_001': { nome: 'Água BE WATER', iva: 0, categoria: 'Consumíveis' },
-    'BARRITA_001': { nome: 'Barra Proteína BE WATER', iva: 0, categoria: 'Consumíveis' },
-    'SHAKER_001': { nome: 'Shaker BE WATER', iva: 0, categoria: 'Consumíveis' },
-    'SUPLEMENTO_001': { nome: 'Suplemento Protein BE WATER', iva: 0, categoria: 'Consumíveis' },
-    'DONATIVO_001': { nome: 'Donativo BE WATER', iva: 0, categoria: 'Donativos' }
+    'CAFE_001': { nome: 'Consumível BE WATER', iva: 0, categoria: 'Consumíveis', tax_id: 'ISE' },
+    'AGUA_001': { nome: 'Água BE WATER', iva: 0, categoria: 'Consumíveis', tax_id: 'ISE' },
+    'BARRITA_001': { nome: 'Barra Proteína BE WATER', iva: 0, categoria: 'Consumíveis', tax_id: 'ISE' },
+    'SHAKER_001': { nome: 'Shaker BE WATER', iva: 0, categoria: 'Consumíveis', tax_id: 'ISE' },
+    'SUPLEMENTO_001': { nome: 'Suplemento Protein BE WATER', iva: 0, categoria: 'Consumíveis', tax_id: 'ISE' },
+    'DONATIVO_001': { nome: 'Donativo BE WATER', iva: 0, categoria: 'Donativos', tax_id: 'ISE' }
   };
 
   // Fallback para produtos não mapeados - usar "Consumível BE WATER" exceto para donativos
   const produtoVendus = PRODUTOS_VENDUS[dadosProduto.id] || {
     nome: dadosProduto.id?.includes('DONATIVO') ? 'Donativo BE WATER' : 'Consumível BE WATER',
     iva: 0,
-    categoria: dadosProduto.id?.includes('DONATIVO') ? 'Donativos' : 'Consumíveis'
+    categoria: dadosProduto.id?.includes('DONATIVO') ? 'Donativos' : 'Consumíveis',
+    tax_id: 'ISE' // Forçar isenção artigo 53º
   };
 
   // Determinar nome cliente
@@ -51,8 +52,8 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
       reference: dadosProduto.id, // OBRIGATÓRIO: id ou reference conforme documentação
       title: produtoVendus.nome, // era 'name' → agora 'title'
       gross_price: dadosProduto.preco, // era 'unit_price' → agora 'gross_price'
-      qty: 1 // era 'quantity' → agora 'qty'
-      // tax_id removido - deixar Vendus calcular automaticamente
+      qty: 1, // era 'quantity' → agora 'qty'
+      tax_id: produtoVendus.tax_id // Forçar Regime de Isenção Artº 53 ('ISE')
     }],
     notes: `Pagamento MBWay - Ref: ${dadosPagamento.reference || dadosPagamento.transactionID}`,
     external_reference: dadosPagamento.reference || dadosPagamento.transactionID,
