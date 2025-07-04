@@ -44,8 +44,8 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
       title: produtoVendus.nome, // era 'name' → agora 'title'
       gross_price: dadosProduto.preco, // era 'unit_price' → agora 'gross_price'
       qty: 1, // era 'quantity' → agora 'qty'
-      vat_rate: 0, // Taxa IVA 0%
-      tax_exempt_reason: produtoVendus.tax_exempt_reason // Artigo 53º do CIVA
+      tax_exemption: true, // Produto isento de IVA
+      tax_exemption_law: 'Artigo 53º do CIVA' // Lei de isenção específica
     }],
     notes: `Pagamento MBWay - Ref: ${dadosPagamento.reference || dadosPagamento.transactionID}`,
     external_reference: dadosPagamento.reference || dadosPagamento.transactionID,
