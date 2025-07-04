@@ -600,7 +600,7 @@
                 <div class="produto-nome">Donativo Solidário</div>
                 <div class="produto-preco-variavel">
                     <span>€</span>
-                    <input type="number" id="donativo-valor" min="1" max="100" step="0.50" placeholder="5.00" value="5.00">
+                    <input type="number" id="donativo-valor" min="0.01" max="100" step="0.01" placeholder="5.00" value="5.00">
                 </div>
                 <div class="produto-descricao">"A tua moedinha faz milagres no tatami."<br>Ajuda a apoiar eventos, formações e treinos para todos. Um euro pode ser o primeiro passo de alguém.</div>
                 <button class="produto-btn donativo-btn">Salvar um Músculo</button>
@@ -689,8 +689,8 @@
                     preco = parseFloat(donativoInput.value);
                     
                     // Validar valor do donativo
-                    if (!preco || preco < 1 || preco > 100) {
-                        alert('Por favor, insira um valor entre €1.00 e €100.00 para o donativo');
+                    if (!preco || preco < 0.01 || preco > 100) {
+                        alert('Por favor, insira um valor entre €0.01 e €100.00 para o donativo');
                         donativoInput.focus();
                         return;
                     }
@@ -728,8 +728,8 @@
             const preco = parseFloat(donativoInput.value);
             
             // Validar valor do donativo
-            if (!preco || preco < 1 || preco > 100) {
-                alert('Por favor, insira um valor entre €1.00 e €100.00 para o donativo');
+            if (!preco || preco < 0.01 || preco > 100) {
+                alert('Por favor, insira um valor entre €0.01 e €100.00 para o donativo');
                 donativoInput.focus();
                 return;
             }
