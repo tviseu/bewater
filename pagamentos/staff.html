@@ -133,12 +133,21 @@
 
         .payment-card {
             border: 3px solid #000000;
-            padding: 20px;
+            padding: 15px;
             display: grid;
             grid-template-columns: 1fr auto;
-            align-items: center;
-            gap: 20px;
+            align-items: start;
+            gap: 15px;
             transition: all 0.3s ease;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .payment-card {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
         }
 
         .payment-card.confirmado {
@@ -157,27 +166,74 @@
 
         .payment-info {
             display: grid;
-            gap: 5px;
+            gap: 8px;
+            min-width: 0; /* Allow shrinking */
         }
 
         .payment-produto {
             font-family: 'Work Sans', sans-serif;
             font-weight: 600;
             font-size: 1.1rem;
+            word-wrap: break-word;
         }
 
         .payment-details {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             opacity: 0.8;
+            line-height: 1.4;
+        }
+
+        .payment-details .detail-line {
+            margin-bottom: 3px;
+            word-wrap: break-word;
+        }
+
+        .payment-ref {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: #666;
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        .payment-ref:hover {
+            white-space: normal;
+            overflow: visible;
+            background: #ffffcc;
+            padding: 2px 4px;
+            border-radius: 3px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .payment-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            min-width: 120px;
         }
 
         .payment-status {
             text-align: center;
-            padding: 8px 16px;
+            padding: 6px 12px;
             border: 2px solid #000000;
             font-family: 'Work Sans', sans-serif;
             font-weight: 600;
             text-transform: uppercase;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .payment-actions {
+                flex-direction: row;
+                justify-content: space-between;
+                min-width: 100%;
+            }
         }
 
         .payment-status.confirmado {
@@ -198,15 +254,17 @@
 
 
         .action-btn {
-            padding: 10px 20px;
-            border: 3px solid #000000;
+            padding: 8px 12px;
+            border: 2px solid #000000;
             background: #FFD700;
             color: #000000;
             font-family: 'Space Mono', monospace;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            text-align: center;
         }
 
         .action-btn:hover {
@@ -230,13 +288,6 @@
         .action-btn.loading {
             background: #007bff;
             color: #ffffff;
-        }
-
-        .payment-actions {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            flex-wrap: wrap;
         }
 
         .auto-refresh {
@@ -406,13 +457,15 @@
                     <div class="payment-info">
                         <div class="payment-produto">${payment.produto}</div>
                         <div class="payment-details">
-                            💰 €${payment.valor.toFixed(2)} | ${payment.telefone} | 📅 ${formatDateTime(payment.timestamp)}
-                            ${payment.reference ? `<br/>🔗 ${payment.reference}` : ''}
-                            ${payment.transactionID ? `<br/>🆔 ${payment.transactionID}` : ''}
-                            ${payment.nome ? `<br/>👤 ${payment.nome}` : ''}
-                            ${payment.email ? `<br/>📧 ${payment.email}` : ''}
-                            ${payment.nif ? `<br/>🧾 NIF: ${payment.nif}` : ''}
-                            ${payment.fatura ? `<br/>🧾 Fatura: ${payment.fatura.numero} | <a href="${payment.fatura.url_download}" target="_blank">📄 Download</a>` : ''}
+                            <div class="detail-line">
+                                💰 €${payment.valor.toFixed(2)} | ${payment.telefone} | 📅 ${formatDateTime(payment.timestamp)}
+                            </div>
+                            ${payment.reference ? `<div class="detail-line">🔗 Ref: <span class="payment-ref" title="${payment.reference}">${truncateRef(payment.reference)}</span></div>` : ''}
+                            ${payment.transactionID ? `<div class="detail-line">🆔 ID: <span class="payment-ref" title="${payment.transactionID}">${truncateRef(payment.transactionID)}</span></div>` : ''}
+                            ${payment.nome ? `<div class="detail-line">👤 ${payment.nome}</div>` : ''}
+                            ${payment.email ? `<div class="detail-line">📧 ${truncateEmail(payment.email)}</div>` : ''}
+                            ${payment.nif ? `<div class="detail-line">🧾 NIF: ${payment.nif}</div>` : ''}
+                            ${payment.fatura ? `<div class="detail-line">🧾 Fatura: ${payment.fatura.numero} | <a href="${payment.fatura.url_download}" target="_blank">📄 Download</a></div>` : ''}
                         </div>
                     </div>
                     <div class="payment-actions">
@@ -462,6 +515,24 @@
             return `${dateStr} ${timeStr}`;
         }
 
+        // Truncar referências longas
+        function truncateRef(ref) {
+            if (!ref) return '';
+            if (ref.length <= 12) return ref;
+            return ref.substring(0, 8) + '...';
+        }
+
+        // Truncar emails longos
+        function truncateEmail(email) {
+            if (!email) return '';
+            if (email.length <= 25) return email;
+            const [local, domain] = email.split('@');
+            if (local.length > 12) {
+                return local.substring(0, 8) + '...@' + domain;
+            }
+            return email;
+        }
+
         // Texto do status
         function getStatusText(status) {
             const statusTexts = {
@@ -481,11 +552,11 @@
 
             // Se já tem fatura emitida
             if (payment.fatura_emitida || payment.fatura) {
-                return '<div class="action-btn success" disabled>🧾 Fatura Emitida</div>';
+                return '<div class="action-btn success" disabled>✅ Emitida</div>';
             }
 
             // Sempre permitir emissão de fatura (usará "Consumidor Final" se sem email)
-            const buttonText = payment.email ? '🧾 Emitir Fatura' : '🧾 Fatura (Cons. Final)';
+            const buttonText = payment.email ? '🧾 Emitir' : '🧾 Cons.Final';
             return `<button class="action-btn" onclick="emitirFatura('${payment.id}')" id="btn-${payment.id}">${buttonText}</button>`;
         }
 
