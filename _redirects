@@ -1,0 +1,7 @@
+# Redirect para domínio personalizado de pagamentos
+# Quando acessar pagamentos.bewaterlisboa.pt → vai para /pagamentos/
+# Mantém todos os paths e parâmetros
+
+# Redirect do domínio pagamentos.bewaterlisboa.pt para /pagamentos/
+/  /pagamentos/  200  Domain=pagamentos.bewaterlisboa.pt
+/*  /pagamentos/:splat  200  Domain=pagamentos.bewaterlisboa.pt 

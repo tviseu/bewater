@@ -25,4 +25,11 @@
 [[redirects]]
   from = "/pay"
   to = "/pagamentos/"
-  status = 200 
+  status = 200
+
+# Redirect para domínio personalizado pagamentos.bewaterlisboa.pt
+[[redirects]]
+  from = "/*"
+  to = "/pagamentos/:splat"
+  status = 200
+  conditions = {Domain = ["pagamentos.bewaterlisboa.pt"]} 
