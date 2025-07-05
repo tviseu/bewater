@@ -7372,8 +7372,8 @@ html, body {
 
 .popup-close {
   position: absolute;
-  top: -15px;
-  right: -15px;
+  top: 10px;
+  right: 10px;
   width: 50px;
   height: 50px;
   background-color: var(--color-black);
@@ -7418,7 +7418,7 @@ html, body {
 .popup-caption {
   margin-top: var(--spacing-md);
   font-family: var(--font-primary);
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -7454,8 +7454,9 @@ html, body {
   }
   
   .popup-caption {
-    font-size: 1.3rem;
-    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: 1.1rem;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-width: 2px;
   }
 }
 
@@ -7487,8 +7488,8 @@ html, body {
     width: 40px;
     height: 40px;
     font-size: 1.5rem;
-    top: -10px;
-    right: -10px;
+    top: 8px;
+    right: 8px;
   }
 
   .popup-caption {
@@ -7530,8 +7531,8 @@ html, body {
     width: 35px;
     height: 35px;
     font-size: 1.2rem;
-    top: -8px;
-    right: -8px;
+    top: 6px;
+    right: 6px;
     box-shadow: 4px 4px 0 var(--color-yellow);
   }
 

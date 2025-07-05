@@ -1028,7 +1028,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update desktop navigation
     desktopNavLinks.forEach(link => {
       link.classList.remove('active');
-      if (link.getAttribute('href') === `#${activeSectionId}`) {
+      if (activeSectionId && link.getAttribute('href') === `#${activeSectionId}`) {
         link.classList.add('active');
         console.log('Added active class to desktop link:', link.getAttribute('href'));
       }
@@ -1037,17 +1037,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update mobile navigation - but keep PREÇOS yellow and just add underline
     mobileNavLinks.forEach(link => {
       link.classList.remove('active');
-      if (link.getAttribute('href') === `#${activeSectionId}`) {
+      if (activeSectionId && link.getAttribute('href') === `#${activeSectionId}`) {
         link.classList.add('active');
         console.log('Added active class to mobile link:', link.getAttribute('href'));
       }
     });
   }
+
+  // Don't automatically set any section as active - let the detection system work naturally
   
   // Use Intersection Observer for more accurate detection
   const observerOptions = {
     root: null,
-    rootMargin: '-20% 0px -70% 0px', // Only trigger when section is prominently in view
+    rootMargin: '-10% 0px -60% 0px', // Only trigger when section is prominently in view
     threshold: 0
   };
   
@@ -1063,6 +1065,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
     });
+    
+    // If no sections are prominently visible, check if we're in HERO
+    const hasVisibleSection = entries.some(entry => entry.isIntersecting);
+    if (!hasVisibleSection || window.scrollY < window.innerHeight * 0.3) {
+      if (currentActiveSection !== null) {
+        currentActiveSection = null;
+        updateActiveNav(null);
+      }
+    }
   }, observerOptions);
   
   // Observe all sections
@@ -1073,19 +1084,32 @@ document.addEventListener('DOMContentLoaded', function() {
   // Fallback: manual detection for edge cases
   function getCurrentSectionFallback() {
     const headerHeight = document.querySelector('.header').offsetHeight || 120;
-    const viewportMiddle = window.scrollY + window.innerHeight / 2;
+    const scrollY = window.scrollY;
+    const viewportHeight = window.innerHeight;
     
-    let activeSection = sections[0].id;
+    // If at the very top of the page (in HERO section), return null - no nav should be active
+    if (scrollY < viewportHeight * 0.3) {
+      return null; // No section should be active when in HERO
+    }
+    
+    // Find the section that's most prominently visible
+    const viewportMiddle = scrollY + viewportHeight / 2;
+    let activeSection = null;
     let minDistance = Infinity;
     
     sections.forEach(section => {
       const sectionTop = section.offsetTop;
-      const sectionMiddle = sectionTop + (section.offsetHeight / 2);
-      const distance = Math.abs(viewportMiddle - sectionMiddle);
+      const sectionBottom = sectionTop + section.offsetHeight;
       
-      if (distance < minDistance) {
-        minDistance = distance;
-        activeSection = section.id;
+      // Check if section is visible
+      if (sectionBottom > scrollY && sectionTop < scrollY + viewportHeight) {
+        const sectionMiddle = sectionTop + (section.offsetHeight / 2);
+        const distance = Math.abs(viewportMiddle - sectionMiddle);
+        
+        if (distance < minDistance) {
+          minDistance = distance;
+          activeSection = section.id;
+        }
       }
     });
     
@@ -1097,6 +1121,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const initialSection = getCurrentSectionFallback();
     updateActiveNav(initialSection);
   }, 100);
+
+  // Additional initialization after all content is loaded
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const initialSection = getCurrentSectionFallback();
+      updateActiveNav(initialSection);
+    }, 200);
+  });
+
+  // Also update on first scroll to ensure proper detection
+  let hasScrolled = false;
+  window.addEventListener('scroll', () => {
+    if (!hasScrolled) {
+      hasScrolled = true;
+      setTimeout(() => {
+        const currentSection = getCurrentSectionFallback();
+        updateActiveNav(currentSection);
+      }, 50);
+    }
+  }, { once: true });
   
   console.log(`Active navigation initialized with ${sections.length} sections and ${desktopNavLinks.length + mobileNavLinks.length} nav links`);
 });
