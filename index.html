@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="BE WATER - Centro de treino inspirado na filosofia de Bruce Lee. Treino funcional, artes marciais e desenvolvimento pessoal em Lisboa. Fundado por Bruno Salgueiro.">
-  <title>BE WATER | Flow Like Water, Strike Like Lightning</title>
+  <meta name="description" content="BE WATER - Centro de treino inspirado na filosofia de Bruce Lee. Treino funcional, artes marciais e desenvolvimento pessoal em Lisboa. Fundado por Bruno Salgueiro." data-i18n="meta.description">
+  <title data-i18n="meta.title">BE WATER | Flow Like Water, Strike Like Lightning</title>
   
   <!-- Critical CSS for above-the-fold content -->
   <style>
@@ -284,12 +284,12 @@
       </div>
       <nav class="header__nav">
         <ul>
-          <li><a href="#gym">GYM</a></li>
-          <li><a href="#pricing">PREÇOS</a></li>
-          <li><a href="#schedule">HORÁRIOS</a></li>
-          <li><a href="#salgueiro">SALGUEIRO</a></li>
-          <li><a href="#trainers">TREINADORES</a></li>
-          <li><a href="#contact">CONTACTO</a></li>
+          <li><a href="#gym" data-i18n="nav.gym">GYM</a></li>
+          <li><a href="#pricing" data-i18n="nav.pricing">PREÇOS</a></li>
+          <li><a href="#schedule" data-i18n="nav.schedule">HORÁRIOS</a></li>
+          <li><a href="#salgueiro" data-i18n="nav.salgueiro">SALGUEIRO</a></li>
+          <li><a href="#trainers" data-i18n="nav.trainers">TREINADORES</a></li>
+          <li><a href="#contact" data-i18n="nav.contact">CONTACTO</a></li>
         </ul>
       </nav>
       <button class="header__menu-toggle" aria-label="Toggle Menu">
@@ -320,38 +320,38 @@
     </div>
     
     <div class="hero__container">
-              <h1 class="hero__title">BE WATER,<br>MY FRIEND</h1>
-      <p class="hero__subtitle">Desenvolve a tua força, agilidade e flexibilidade num espaço que reflecte a filosofia "be water" popularizada por Bruce Lee. Vem fazer parte desta corrente.</p>
+              <h1 class="hero__title" data-i18n="hero.title">BE WATER,<br>MY FRIEND</h1>
+      <p class="hero__subtitle" data-i18n="hero.subtitle">Desenvolve a tua força, agilidade e flexibilidade num espaço que reflecte a filosofia "be water" popularizada por Bruce Lee. Vem fazer parte desta corrente.</p>
       <div class="hero__cta">
-        <a href="#pricing" class="btn btn--primary">INSCREVE-TE JÁ</a>
+        <a href="#pricing" class="btn btn--primary" data-i18n="hero.cta">INSCREVE-TE JÁ</a>
       </div>
       
       <!-- Countdown Timer -->
       <div class="countdown-container">
         <div class="countdown-frame">
-          <div class="countdown-title">ABERTURA EM:</div>
+          <div class="countdown-title" data-i18n="hero.countdown.title">ABERTURA EM:</div>
           <div class="countdown-display">
             <div class="countdown-segment">
               <span class="countdown-number" id="countdown-days">000</span>
-              <span class="countdown-label">DIAS</span>
+              <span class="countdown-label" data-i18n="hero.countdown.days">DIAS</span>
             </div>
             <span class="countdown-separator">:</span>
             <div class="countdown-segment">
               <span class="countdown-number" id="countdown-hours">00</span>
-              <span class="countdown-label">HRS</span>
+              <span class="countdown-label" data-i18n="hero.countdown.hours">HRS</span>
             </div>
             <span class="countdown-separator">:</span>
             <div class="countdown-segment">
               <span class="countdown-number" id="countdown-minutes">00</span>
-              <span class="countdown-label">MIN</span>
+              <span class="countdown-label" data-i18n="hero.countdown.minutes">MIN</span>
             </div>
             <span class="countdown-separator">:</span>
             <div class="countdown-segment">
               <span class="countdown-number" id="countdown-seconds">00</span>
-              <span class="countdown-label">SEC</span>
+              <span class="countdown-label" data-i18n="hero.countdown.seconds">SEC</span>
             </div>
           </div>
-          <div class="countdown-date">14 JULHO 2025</div>
+          <div class="countdown-date" data-i18n="hero.countdown.date">14 JULHO 2025</div>
         </div>
       </div>
     </div>
@@ -365,27 +365,32 @@
       <div class="gym-hero__overlay"></div>
       <div class="gym-hero__container">
         <div class="gym-hero__content">
-          <h2 class="gym-hero__title">O CENTRO<br>DE TREINO</h2>
+          <h2 class="gym-hero__title" data-i18n="gym.hero.title">O CENTRO<br>DE TREINO</h2>
         </div>
       </div>
     </div>
     
     <div class="about__container">
       <div class="about__header">
-        <h2 class="section-title">CONHECE O ESPAÇO</h2>
+        <h2 class="section-title" data-i18n="about.title">CONHECE O ESPAÇO</h2>
         <div class="section-line"></div>
       </div>
       <div class="about__intro">
-        <p class="about__lead">
+        <p class="about__lead" data-i18n="about.lead">
           Vem treinar com o Bruno Salgueiro, das <a href="#salgueiro" class="dicas-link">"Dicas do Salgueiro"</a> e com a sua equipa de instrutores escolhidos a dedo.
         </p>
-        <p class="about__secondary">
+        <p class="about__secondary" data-i18n="about.secondary">
           <span class="brand-highlight">BE WATER</span> - O teu clube no centro de Lisboa com 3 zonas distintas: Um lounge de convívio e co-working, um ginásio de treino físico com regime de aulas de grupo e open gym e ainda um dojo dedicado à prática de artes marciais e meditação. Junta-te a esta comunidade!
         </p>
       </div>
 
       <!-- SINGLE PHOTO SLIDER BRUTAL -->
       <div class="gym-collage-slider">
+        <!-- Mobile Swipe Instruction -->
+        <div class="gym-collage-slider__mobile-instruction">
+          <span data-i18n="gym.collage.mobile.instruction">👈 Arrasta para o lado para ver mais fotos 👉</span>
+        </div>
+        
         <div class="gym-collage-slider__track" id="gymCollageTrack">
           
           <!-- Slide 1 -->
@@ -771,12 +776,12 @@
   <section id="pricing" class="pricing">
     <div class="pricing__container">
       <div class="pricing__header">
-        <h2 class="section-title">
+        <h2 class="section-title" data-i18n="pricing.preregistration.title">
           PRÉ-INSCRIÇÃO<br>
           <span class="early-bird-text">GARANTIA EARLY BIRD</span>
         </h2>
         <div class="section-line"></div>
-        <p class="pricing__promo-text">Garante já o teu preço especial de lançamento!</p>
+        <p class="pricing__promo-text" data-i18n="pricing.preregistration.promo">Garante já o teu preço especial de lançamento!</p>
       </div>
       <div class="pricing__grid">
         <div class="price-card price-card--elite price-card--promo">
@@ -786,14 +791,14 @@
             <div class="price-card__price">
               <div class="price-card__original">€94.90</div>
               <span class="price-card__amount price-card__amount--promo">€84.90</span>
-              <span class="price-card__period">/mês</span>
+              <span class="price-card__period" data-i18n="pricing.period">/mês</span>
             </div>
           </div>
           <div class="price-card__features">
             <ul>
-              <li>Acesso <strong>livre trânsito (ilimitado)</strong> a todas as modalidades e open gym</li>
-              <li><strong>Sem fidelização</strong></li>
-              <li>A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar</li>
+              <li data-i18n="pricing.elite.feature1">Acesso <strong>livre trânsito (ilimitado)</strong> a todas as modalidades e open gym</li>
+              <li data-i18n="pricing.elite.feature2"><strong>Sem fidelização</strong></li>
+              <li data-i18n="pricing.elite.feature3">A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar</li>
             </ul>
           </div>
         </div>
@@ -804,14 +809,14 @@
             <div class="price-card__price">
               <div class="price-card__original">€79.90</div>
               <span class="price-card__amount price-card__amount--promo">€69.90</span>
-              <span class="price-card__period">/mês</span>
+              <span class="price-card__period" data-i18n="pricing.period">/mês</span>
             </div>
           </div>
           <div class="price-card__features">
             <ul>
-              <li>Acesso <strong>3x por semana</strong> a todas as modalidades e open gym</li>
-              <li><strong>Sem fidelização</strong></li>
-              <li>A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar</li>
+              <li data-i18n="pricing.rise.feature1">Acesso <strong>3x por semana</strong> a todas as modalidades e open gym</li>
+              <li data-i18n="pricing.rise.feature2"><strong>Sem fidelização</strong></li>
+              <li data-i18n="pricing.rise.feature3">A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar</li>
             </ul>
           </div>
         </div>
@@ -822,21 +827,21 @@
             <div class="price-card__price">
               <div class="price-card__original">€64.90</div>
               <span class="price-card__amount price-card__amount--promo">€54.90</span>
-              <span class="price-card__period">/mês</span>
+              <span class="price-card__period" data-i18n="pricing.period">/mês</span>
             </div>
           </div>
           <div class="price-card__features">
             <ul>
-              <li>Acesso <strong>2x por semana</strong> a todas as modalidades e open gym</li>
-              <li><strong>Sem fidelização</strong></li>
-              <li>A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar</li>
+              <li data-i18n="pricing.starter.feature1">Acesso <strong>2x por semana</strong> a todas as modalidades e open gym</li>
+              <li data-i18n="pricing.starter.feature2"><strong>Sem fidelização</strong></li>
+              <li data-i18n="pricing.starter.feature3">A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar</li>
             </ul>
           </div>
         </div>
       </div>
       <!-- Single Pre-Registration Button -->
       <div class="pricing__pre-registration">
-        <button type="button" class="btn btn--primary btn--full" data-modal="pre-registration">
+        <button type="button" class="btn btn--primary btn--full" data-modal="pre-registration" data-i18n="pricing.preregistration.button">
           FAZ A TUA PRÉ-INSCRIÇÃO!
         </button>
       </div>
@@ -844,7 +849,7 @@
       <!-- Test Gym Note -->
       <div class="pricing__test-note">
         <div class="test-note__content">
-          <p class="test-note__text">
+          <p class="test-note__text" data-i18n="pricing.test.note">
             <strong>TESTA PRIMEIRO, DECIDE DEPOIS!</strong><br>
             <a href="#contact" class="test-note__link">Clicka aqui</a> para usar o formulário de contacto e agendar a tua visita.
           </p>
@@ -858,7 +863,7 @@
   <div id="modal-elite" class="modal-overlay">
     <div class="modal-container">
       <div class="modal-header">
-        <h3 class="modal-title">PLANO ELITE</h3>
+        <h3 class="modal-title" data-i18n="modal.elite.title">PLANO ELITE</h3>
         <button class="modal-close" data-close="elite">&times;</button>
       </div>
       <div class="modal-content">
@@ -869,32 +874,32 @@
             <span class="plan-price__badge">EARLY BIRD</span>
           </div>
           <div class="plan-features">
-            <p><strong>Acesso livre trânsito (ilimitado) a todas as modalidades e open gym</strong></p>
-            <p>• <strong>Sem fidelização</strong></p>
-            <p>• A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar</p>
+            <p><strong data-i18n="modal.elite.access">Acesso livre trânsito (ilimitado) a todas as modalidades e open gym</strong></p>
+            <p>• <strong data-i18n="modal.elite.commitment">Sem fidelização</strong></p>
+            <p>• <span data-i18n="modal.elite.billing">A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar</span></p>
           </div>
         </div>
         
         <!-- Early Bird Payment Information -->
         <div class="modal-payment-info">
           <div class="payment-info-header">
-            <h4>⚠️ INFORMAÇÃO IMPORTANTE SOBRE O PAGAMENTO</h4>
+            <h4 data-i18n="modal.payment.warning">⚠️ INFORMAÇÃO IMPORTANTE SOBRE O PAGAMENTO</h4>
           </div>
           <div class="payment-info-content">
             <div class="payment-breakdown">
-              <p><strong>O que estás a pagar hoje:</strong></p>
+              <p><strong data-i18n="modal.payment.today">O que estás a pagar hoje:</strong></p>
               <ul>
-                <li>✅ <strong>1ª Mensalidade (€84.90)</strong> - Já está paga!</li>
-                <li>✅ <strong>Seguro Anual (€10)</strong> - Obrigatório</li>
+                <li>✅ <strong data-i18n="modal.payment.first">1ª Mensalidade (€84.90)</strong> - <span data-i18n="modal.payment.paid">Já está paga!</span></li>
+                <li>✅ <strong data-i18n="modal.payment.insurance">Seguro Anual (€10)</strong> - <span data-i18n="modal.payment.required">Obrigatório</span></li>
               </ul>
             </div>
             <div class="payment-timing">
-              <p><strong>🗓️ Quando começa a contar a próxima mensalidade:</strong></p>
-              <p class="timing-highlight">A tua próxima mensalidade só começará a ser cobrada quando o ginásio abrir oficialmente e começares a treinar. Não pagas nada extra até lá!</p>
+              <p><strong data-i18n="modal.payment.when">🗓️ Quando começa a contar a próxima mensalidade:</strong></p>
+              <p class="timing-highlight" data-i18n="modal.payment.next">A tua próxima mensalidade só começará a ser cobrada quando o ginásio abrir oficialmente e começares a treinar. Não pagas nada extra até lá!</p>
             </div>
             <div class="payment-proportional">
-              <p><strong>💡 COBRANÇA PROPORCIONAL:</strong></p>
-              <p class="timing-highlight">Se começares a treinar a meio do mês, pagas apenas a parte proporcional da mensalidade! Exemplo: se iniciares dia 15, pagas apenas metade da mensalidade desse mês. Justo e transparente - pagas apenas pelos dias que treinas.</p>
+              <p><strong data-i18n="modal.payment.proportional">💡 COBRANÇA PROPORCIONAL:</strong></p>
+              <p class="timing-highlight" data-i18n="modal.payment.proportional.text">Se começares a treinar a meio do mês, pagas apenas a parte proporcional da mensalidade! Exemplo: se iniciares dia 15, pagas apenas metade da mensalidade desse mês. Justo e transparente - pagas apenas pelos dias que treinas.</p>
             </div>
           </div>
         </div>
@@ -915,7 +920,7 @@
   <div id="modal-rise" class="modal-overlay">
     <div class="modal-container">
       <div class="modal-header">
-        <h3 class="modal-title">PLANO RISE</h3>
+        <h3 class="modal-title" data-i18n="modal.rise.title">PLANO RISE</h3>
         <button class="modal-close" data-close="rise">&times;</button>
       </div>
       <div class="modal-content">
@@ -926,9 +931,9 @@
             <span class="plan-price__badge">EARLY BIRD</span>
           </div>
           <div class="plan-features">
-            <p><strong>Acesso 3x por semana a todas as modalidades e open gym</strong></p>
-            <p>• <strong>Sem fidelização</strong></p>
-            <p>• A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar</p>
+            <p><strong data-i18n="modal.rise.access">Acesso 3x por semana a todas as modalidades e open gym</strong></p>
+            <p>• <strong data-i18n="modal.rise.commitment">Sem fidelização</strong></p>
+            <p>• <span data-i18n="modal.rise.billing">A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar</span></p>
           </div>
         </div>
         
@@ -972,7 +977,7 @@
   <div id="modal-starter" class="modal-overlay">
     <div class="modal-container">
       <div class="modal-header">
-        <h3 class="modal-title">PLANO STARTER</h3>
+        <h3 class="modal-title" data-i18n="modal.starter.title">PLANO STARTER</h3>
         <button class="modal-close" data-close="starter">&times;</button>
       </div>
       <div class="modal-content">
@@ -983,9 +988,9 @@
             <span class="plan-price__badge">EARLY BIRD</span>
           </div>
           <div class="plan-features">
-            <p><strong>Acesso 2x por semana a todas as modalidades e open gym</strong></p>
-            <p>• <strong>Sem fidelização</strong></p>
-            <p>• A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar</p>
+            <p><strong data-i18n="modal.starter.access">Acesso 2x por semana a todas as modalidades e open gym</strong></p>
+            <p>• <strong data-i18n="modal.starter.commitment">Sem fidelização</strong></p>
+            <p>• <span data-i18n="modal.starter.billing">A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar</span></p>
           </div>
         </div>
         
@@ -1029,53 +1034,53 @@
   <div id="modal-pre-registration" class="modal-overlay">
     <div class="modal-container">
               <div class="modal-header">
-          <h3 class="modal-title">PRÉ-INSCRIÇÃO<br><span class="modal-subtitle">GARANTIA EARLY BIRD</span></h3>
+          <h3 class="modal-title" data-i18n="modal.prereg.title">PRÉ-INSCRIÇÃO<br><span class="modal-subtitle" data-i18n="modal.prereg.subtitle">GARANTIA EARLY BIRD</span></h3>
           <button class="modal-close" data-close="pre-registration">&times;</button>
         </div>
       <div class="modal-content">
         <div class="modal-plan-summary">
           <div class="plan-price">
-            <span class="plan-price__current">Abertura:<br>14 de Julho 2025</span>
+            <span class="plan-price__current" data-i18n="modal.prereg.opening">Abertura:<br>14 de Julho 2025</span>
           </div>
           <div class="plan-features">
-            <h4><strong>🎯 O QUE É A PRÉ-INSCRIÇÃO?</strong></h4>
-            <p>Garante-te acesso privilegiado aos preços promocionais Early Bird.</p>
+            <h4><strong data-i18n="modal.prereg.what.title">🎯 O QUE É A PRÉ-INSCRIÇÃO?</strong></h4>
+            <p data-i18n="modal.prereg.what.text">Garante-te acesso privilegiado aos preços promocionais Early Bird.</p>
             
             <br>
             
-            <h4><strong>📞 COMO FUNCIONA?</strong></h4>
-            <p><strong>1.</strong> Faz a tua pré-inscrição agora por <strong>25€</strong></p>
-            <p><strong>2.</strong> Serás <strong>contactado diretamente</strong> quando estivermos prestes a abrir</p>
-            <p><strong>3.</strong> Escolhe e paga a tua mensalidade preferida com <strong>desconto garantido</strong></p>
-            <p><strong>4.</strong> A tua primeira mensalidade será calculada proporcionalmente aos dias restantes do mês em que começares a treinar - <strong>pagas apenas pelos dias que usas o ginásio!</strong></p>
+            <h4><strong data-i18n="modal.prereg.how.title">📞 COMO FUNCIONA?</strong></h4>
+            <p data-i18n="modal.prereg.how.step1"><strong>1.</strong> Faz a tua pré-inscrição agora por <strong>25€</strong></p>
+            <p data-i18n="modal.prereg.how.step2"><strong>2.</strong> Serás <strong>contactado diretamente</strong> quando estivermos prestes a abrir</p>
+            <p data-i18n="modal.prereg.how.step3"><strong>3.</strong> Escolhe e paga a tua mensalidade preferida com <strong>desconto garantido</strong></p>
+            <p data-i18n="modal.prereg.how.step4"><strong>4.</strong> A tua primeira mensalidade será calculada proporcionalmente aos dias restantes do mês em que começares a treinar - <strong>pagas apenas pelos dias que usas o ginásio!</strong></p>
             
             <div style="background-color: #f0f8ff; border-left: 4px solid #FFD700; padding: 15px; margin: 15px 0; border-radius: 4px;">
-              <p style="margin: 0; font-weight: bold; color: #333;">💡 O seguro e custos de inscrição já estão incluídos - <strong>não pagas outra vez!</strong></p>
+              <p style="margin: 0; font-weight: bold; color: #333;" data-i18n="modal.prereg.insurance.note">💡 O seguro e custos de inscrição já estão incluídos - <strong>não pagas outra vez!</strong></p>
             </div>
             
             <br>
             
-            <h4><strong>💰 MENSALIDADES DISPONÍVEIS COM EARLY BIRD:</strong></h4>
+            <h4><strong data-i18n="modal.prereg.plans.title">💰 MENSALIDADES DISPONÍVEIS COM EARLY BIRD:</strong></h4>
             <div class="pre-registration-plans">
               <div class="pre-plan">
-                <strong>PLANO STARTER</strong><br>
+                <strong data-i18n="modal.prereg.plans.starter.title">PLANO STARTER</strong><br>
                 <span class="price-original">€64.90</span> → <span class="price-early-bird">€54.90/mês</span><br>
-                <small>Acesso <strong>2x por semana</strong></small>
+                <small data-i18n="modal.prereg.plans.starter.access">Acesso <strong>2x por semana</strong></small>
               </div>
               <div class="pre-plan">
-                <strong>PLANO RISE</strong><br>
+                <strong data-i18n="modal.prereg.plans.rise.title">PLANO RISE</strong><br>
                 <span class="price-original">€79.90</span> → <span class="price-early-bird">€69.90/mês</span><br>
-                <small>Acesso <strong>3x por semana</strong></small>
+                <small data-i18n="modal.prereg.plans.rise.access">Acesso <strong>3x por semana</strong></small>
               </div>
               <div class="pre-plan">
-                <strong>PLANO ELITE</strong><br>
+                <strong data-i18n="modal.prereg.plans.elite.title">PLANO ELITE</strong><br>
                 <span class="price-original">€94.90</span> → <span class="price-early-bird">€84.90/mês</span><br>
-                <small>Acesso <strong>ilimitado</strong></small>
+                <small data-i18n="modal.prereg.plans.elite.access">Acesso <strong>ilimitado</strong></small>
               </div>
             </div>
             
-            <h4><strong>⏰ GARANTIA DE PREÇO:</strong></h4>
-            <p class="timing-highlight">Os preços Early Bird ficam garantidos durante <strong>1 ANO COMPLETO</strong> na mensalidade que escolheres!</p>
+            <h4><strong data-i18n="modal.prereg.guarantee.title">⏰ GARANTIA DE PREÇO:</strong></h4>
+            <p class="timing-highlight" data-i18n="modal.prereg.guarantee.text">Os preços Early Bird ficam garantidos durante <strong>1 ANO COMPLETO</strong> na mensalidade que escolheres!</p>
           </div>
         </div>
 
@@ -1083,7 +1088,7 @@
           <!-- Regy Integration for PRE-REGISTRATION - Lazy Loaded -->
           <input type="hidden" class="class_regy" id="src_regy8" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_pack.php?id_box=2244&id_int=8&acs=3c645e5138da8c429db488638b6a6d62&site=s">
           <div id="frame_regy8_placeholder" class="iframe-placeholder">
-            <div class="loading-text">A carregar formulário...</div>
+            <div class="loading-text" data-i18n="modal.prereg.loading">A carregar formulário...</div>
           </div>
           <iframe name="frame_regy8" id="frame_regy8" width="100%" height="0px" frameborder="0" scrolling="no" style="display: none;"></iframe>
         </div>
@@ -1095,35 +1100,35 @@
   <div id="modal-privacy-policy" class="modal-overlay">
     <div class="modal-container">
       <div class="modal-header">
-        <h3 class="modal-title">POLÍTICA DE PRIVACIDADE</h3>
+        <h3 class="modal-title" data-i18n="modal.privacy.title">POLÍTICA DE PRIVACIDADE</h3>
         <button class="modal-close" data-close="privacy-policy">&times;</button>
       </div>
       <div class="modal-content">
         <div class="privacy-content">
-          <h4><strong>INFORMAÇÃO EMPRESARIAL</strong></h4>
-          <p><strong>Denominação:</strong> ASSOCIAÇÃO SÊ COMO ÁGUA</p>
-          <p><strong>NIPC:</strong> 517851849</p>
-          <p><strong>Morada:</strong> Av. do Brasil 7, 1700-062 Lisboa</p>
+          <h4><strong data-i18n="modal.privacy.info.title">INFORMAÇÃO EMPRESARIAL</strong></h4>
+          <p><strong data-i18n="modal.privacy.info.name">Denominação:</strong> ASSOCIAÇÃO SÊ COMO ÁGUA</p>
+          <p><strong data-i18n="modal.privacy.info.tax">NIPC:</strong> 517851849</p>
+          <p><strong data-i18n="modal.privacy.info.address">Morada:</strong> Av. do Brasil 7, 1700-062 Lisboa</p>
           
           <br>
           
-          <h4><strong>RECOLHA E TRATAMENTO DE DADOS</strong></h4>
-          <p>A ASSOCIAÇÃO SÊ COMO ÁGUA recolhe e trata dados pessoais de acordo com o Regulamento Geral sobre a Proteção de Dados (RGPD) e demais legislação aplicável.</p>
+          <h4><strong data-i18n="modal.privacy.data.title">RECOLHA E TRATAMENTO DE DADOS</strong></h4>
+          <p data-i18n="modal.privacy.data.text">A ASSOCIAÇÃO SÊ COMO ÁGUA recolhe e trata dados pessoais de acordo com o Regulamento Geral sobre a Proteção de Dados (RGPD) e demais legislação aplicável.</p>
           
-          <h4><strong>FINALIDADES</strong></h4>
-          <p>Os dados pessoais recolhidos destinam-se a:</p>
+          <h4><strong data-i18n="modal.privacy.purposes.title">FINALIDADES</strong></h4>
+          <p data-i18n="modal.privacy.purposes.text">Os dados pessoais recolhidos destinam-se a:</p>
           <ul>
-            <li>Gestão de pré-inscrições e inscrições no ginásio</li>
-            <li>Comunicação com os clientes e potenciais clientes</li>
-            <li>Envio de newsletter e informações promocionais</li>
-            <li>Cumprimento de obrigações legais</li>
+            <li data-i18n="modal.privacy.purposes.registration">Gestão de pré-inscrições e inscrições no ginásio</li>
+            <li data-i18n="modal.privacy.purposes.communication">Comunicação com os clientes e potenciais clientes</li>
+            <li data-i18n="modal.privacy.purposes.newsletter">Envio de newsletter e informações promocionais</li>
+            <li data-i18n="modal.privacy.purposes.legal">Cumprimento de obrigações legais</li>
           </ul>
           
-          <h4><strong>DIREITOS DOS TITULARES</strong></h4>
-          <p>Os titulares dos dados têm direito ao acesso, retificação, apagamento, limitação do tratamento, portabilidade e oposição ao tratamento dos seus dados pessoais.</p>
+          <h4><strong data-i18n="modal.privacy.rights.title">DIREITOS DOS TITULARES</strong></h4>
+          <p data-i18n="modal.privacy.rights.text">Os titulares dos dados têm direito ao acesso, retificação, apagamento, limitação do tratamento, portabilidade e oposição ao tratamento dos seus dados pessoais.</p>
           
-          <h4><strong>CONTACTO</strong></h4>
-          <p>Para exercer os seus direitos ou esclarecer dúvidas sobre o tratamento de dados pessoais, contacte-nos através dos meios disponibilizados na seção de contacto do website.</p>
+          <h4><strong data-i18n="modal.privacy.contact.title">CONTACTO</strong></h4>
+          <p data-i18n="modal.privacy.contact.text">Para exercer os seus direitos ou esclarecer dúvidas sobre o tratamento de dados pessoais, contacte-nos através dos meios disponibilizados na seção de contacto do website.</p>
         </div>
       </div>
     </div>
@@ -1147,13 +1152,13 @@
   <section id="schedule" class="schedule">
     <div class="schedule__container">
       <div class="schedule__header">
-        <h2 class="section-title">HORÁRIOS E MODALIDADES</h2>
+        <h2 class="section-title" data-i18n="schedule.title">HORÁRIOS E MODALIDADES</h2>
         <div class="section-line"></div>
       </div>
 
       <!-- Mobile Swipe Instruction -->
       <div class="schedule__mobile-instruction">
-        <span>👈 Arrasta para o lado para ver todos os dias 👉</span>
+        <span data-i18n="schedule.mobile.instruction">👈 Arrasta para o lado para ver todos os dias 👉</span>
       </div>
 
       <!-- Schedule Grid -->
@@ -1161,7 +1166,7 @@
         <!-- Monday -->
         <div class="schedule__day">
           <div class="day__header">
-            <h3 class="day__title">SEG</h3>
+            <h3 class="day__title" data-i18n="schedule.days.mon">SEG</h3>
           </div>
           <div class="day__timeline">
             <div class="activity activity--opengym activity--opengym-main">
@@ -1198,7 +1203,7 @@
         <!-- Tuesday -->
         <div class="schedule__day">
           <div class="day__header">
-            <h3 class="day__title">TER</h3>
+            <h3 class="day__title" data-i18n="schedule.days.tue">TER</h3>
           </div>
           <div class="day__timeline">
             <div class="activity activity--opengym activity--opengym-main">
@@ -1223,7 +1228,7 @@
         <!-- Wednesday -->
         <div class="schedule__day">
           <div class="day__header">
-            <h3 class="day__title">QUA</h3>
+            <h3 class="day__title" data-i18n="schedule.days.wed">QUA</h3>
           </div>
           <div class="day__timeline">
             <div class="activity activity--opengym activity--opengym-main">
@@ -1260,7 +1265,7 @@
         <!-- Thursday -->
         <div class="schedule__day">
           <div class="day__header">
-            <h3 class="day__title">QUI</h3>
+            <h3 class="day__title" data-i18n="schedule.days.thu">QUI</h3>
           </div>
           <div class="day__timeline">
             <div class="activity activity--opengym activity--opengym-main">
@@ -1285,7 +1290,7 @@
         <!-- Friday -->
         <div class="schedule__day">
           <div class="day__header">
-            <h3 class="day__title">SEX</h3>
+            <h3 class="day__title" data-i18n="schedule.days.fri">SEX</h3>
           </div>
           <div class="day__timeline">
             <div class="activity activity--opengym activity--opengym-main">
@@ -1318,7 +1323,7 @@
         <!-- Saturday -->
         <div class="schedule__day">
           <div class="day__header">
-            <h3 class="day__title">SÁB</h3>
+            <h3 class="day__title" data-i18n="schedule.days.sat">SÁB</h3>
           </div>
           <div class="day__timeline">
             <div class="activity activity--bewater">
@@ -1331,13 +1336,13 @@
         <!-- Sunday -->
         <div class="schedule__day schedule__day--rest">
           <div class="day__header day__header--sunday">
-            <h3 class="day__title">DOM</h3>
+            <h3 class="day__title" data-i18n="schedule.days.sun">DOM</h3>
           </div>
           <div class="day__timeline">
             <div class="rest-message">
               <span class="rest-icon">💧</span>
-              <span class="rest-text">DIA DE DESCANSO</span>
-              <span class="rest-subtitle">BE WATER, REST DEEP</span>
+              <span class="rest-text" data-i18n="schedule.rest.text">DIA DE DESCANSO</span>
+              <span class="rest-subtitle" data-i18n="schedule.rest.subtitle">BE WATER, REST DEEP</span>
             </div>
           </div>
         </div>
@@ -1349,43 +1354,43 @@
           <span class="legend__color"></span>
           <div class="legend__content">
             <span class="legend__label">OPEN GYM</span>
-            <span class="legend__description">Acesso livre a todo o ginásio: área de treino funcional, dojo, sacos de boxe, barras, halteres e tatamis. Treina à tua maneira!</span>
+            <span class="legend__description" data-i18n="schedule.legend.opengym">Acesso livre a todo o ginásio: área de treino funcional, dojo, sacos de boxe, barras, halteres e tatamis. Treina à tua maneira!</span>
           </div>
         </div>
         <div class="legend__item legend__item--bewater">
           <span class="legend__color"></span>
           <div class="legend__content">
             <span class="legend__label">BE WATER</span>
-            <span class="legend__description">Treino funcional completo que junta força, condicionamento, calistenia e técnicas híbridas. O treino mais desafiante para te tornar numa máquina!</span>
+            <span class="legend__description" data-i18n="schedule.legend.bewater">Treino funcional completo que junta força, condicionamento, calistenia e técnicas híbridas. O treino mais desafiante para te tornar numa máquina!</span>
           </div>
         </div>
         <div class="legend__item legend__item--lone-warrior">
           <span class="legend__color"></span>
           <div class="legend__content">
             <span class="legend__label">LONE WARRIOR</span>
-            <span class="legend__description">Treino express minimalista com peso corporal, halteres e bandas. Intenso, rápido e sem desculpas - ideal para repetir em qualquer lugar.</span>
+            <span class="legend__description" data-i18n="schedule.legend.lonewarrior">Treino express minimalista com peso corporal, halteres e bandas. Intenso, rápido e sem desculpas - ideal para repetir em qualquer lugar.</span>
           </div>
         </div>
         <div class="legend__item legend__item--jiujitsu">
           <span class="legend__color"></span>
           <div class="legend__content">
             <span class="legend__label">JIU-JITSU</span>
-            <span class="legend__description">Arte marcial tradicional focada em técnicas de solo, defesa pessoal e condicionamento físico e mental no nosso dojo especializado.</span>
+            <span class="legend__description" data-i18n="schedule.legend.jiujitsu">Arte marcial tradicional focada em técnicas de solo, defesa pessoal e condicionamento físico e mental no nosso dojo especializado.</span>
           </div>
         </div>
         <div class="legend__item legend__item--boxe">
           <span class="legend__color"></span>
           <div class="legend__content">
             <span class="legend__label">BOXE</span>
-            <span class="legend__description">Treino de boxe com foco em técnica, condicionamento cardiovascular e força. Usa os sacos pesados e desenvolve potência e agilidade.</span>
+            <span class="legend__description" data-i18n="schedule.legend.boxe">Treino de boxe com foco em técnica, condicionamento cardiovascular e força. Usa os sacos pesados e desenvolve potência e agilidade.</span>
           </div>
         </div>
         
         <!-- Schedule Note -->
         <div class="schedule__note">
-          <small><strong>🌊 Horários em Fase Beta:</strong> Estamos na época de verão e ainda em fase de testes e afinações das modalidades. Os horários apresentados são iniciais e poderão sofrer ajustes conforme a resposta da comunidade BE WATER e otimização das dinâmicas do clube.</small>
+          <small data-i18n="schedule.note.beta"><strong>🌊 Horários em Fase Beta:</strong> Estamos na época de verão e ainda em fase de testes e afinações das modalidades. Os horários apresentados são iniciais e poderão sofrer ajustes conforme a resposta da comunidade BE WATER e otimização das dinâmicas do clube.</small>
           <br><br>
-          <small><strong>Nota:</strong> Teremos ainda frequentemente modalidades surpresa e eventos de treino, cultura e convívio no clube.</small>
+          <small data-i18n="schedule.note.events"><strong>Nota:</strong> Teremos ainda frequentemente modalidades surpresa e eventos de treino, cultura e convívio no clube.</small>
         </div>
       </div>
     </div>
@@ -1395,15 +1400,15 @@
   <section id="salgueiro" class="salgueiro">
     <div class="salgueiro__container">
       <div class="salgueiro__header">
-        <h2 class="section-title">O CRIADOR</h2>
+        <h2 class="section-title" data-i18n="salgueiro.title">O CRIADOR</h2>
         <div class="section-line"></div>
       </div>
       
       <!-- Bruno Salgueiro Bio -->
       <div class="salgueiro__bio">
         <div class="bio-intro">
-          <h3 class="bio-title">BRUNO SALGUEIRO</h3>
-          <p class="bio-subtitle">DUPLO PROFISSIONAL DE TELEVISÃO E CINEMA | PERSONAL TRAINER CERTIFICADO</p>
+          <h3 class="bio-title" data-i18n="salgueiro.name">BRUNO SALGUEIRO</h3>
+          <p class="bio-subtitle" data-i18n="salgueiro.subtitle">DUPLO PROFISSIONAL DE TELEVISÃO E CINEMA | PERSONAL TRAINER CERTIFICADO</p>
         </div>
         
         <!-- Salgueiro Image -->
@@ -1429,25 +1434,25 @@
         
         <div class="bio-content">
           <div class="bio-section">
-            <div class="bio-highlight">CARREIRA</div>
-            <p>Bruno Salgueiro é um Duplo Profissional de Televisão e Cinema, com diversos trabalhos não só em Portugal mas a nível internacional nos últimos 16 anos.</p>
-            <p>Com um background de artes marciais (Kung-Fu e Kickboxing), Ginástica e Treino de Força, é a conjugação estas áreas por onde passou que lhe deu a preparação física necessária para estar 'pronto para tudo', no seio da sua profissão.</p>
-            <p>Personal Trainer certificado desde 2012.</p>
+            <div class="bio-highlight" data-i18n="salgueiro.career.title">CARREIRA</div>
+            <p data-i18n="salgueiro.career.p1">Bruno Salgueiro é um Duplo Profissional de Televisão e Cinema, com diversos trabalhos não só em Portugal mas a nível internacional nos últimos 16 anos.</p>
+            <p data-i18n="salgueiro.career.p2">Com um background de artes marciais (Kung-Fu e Kickboxing), Ginástica e Treino de Força, é a conjugação estas áreas por onde passou que lhe deu a preparação física necessária para estar 'pronto para tudo', no seio da sua profissão.</p>
+            <p data-i18n="salgueiro.career.p3">Personal Trainer certificado desde 2012.</p>
             <!-- Professional Credentials -->
             <p>
-              <a href="https://www.imdb.com/name/nm3397858/" target="_blank" rel="noopener" class="brand-highlight">VER FILMOGRAFIA IMDB</a>
+              <a href="https://www.imdb.com/name/nm3397858/" target="_blank" rel="noopener" class="brand-highlight" data-i18n="salgueiro.career.imdb">VER FILMOGRAFIA IMDB</a>
             </p>
           </div>
           
           <div class="bio-section bio-section--featured">
-            <div class="bio-highlight">DICAS DO SALGUEIRO</div>
-            <p>Co-criou há 11 anos (2013) a Plataforma Dicas do Salgueiro, um canal de YouTube (mais tarde presente em todas as redes sociais mais relevantes) com o seu sócio Luís Piçarra (Produção) onde partilha dicas de treino e motivação, que conta já com cerca de 400 mil seguidores só no YouTube e mais de 49 milhões de visualizações.</p>
+            <div class="bio-highlight" data-i18n="salgueiro.dicas.title">DICAS DO SALGUEIRO</div>
+            <p data-i18n="salgueiro.dicas.p1">Co-criou há 11 anos (2013) a Plataforma Dicas do Salgueiro, um canal de YouTube (mais tarde presente em todas as redes sociais mais relevantes) com o seu sócio Luís Piçarra (Produção) onde partilha dicas de treino e motivação, que conta já com cerca de 400 mil seguidores só no YouTube e mais de 49 milhões de visualizações.</p>
           </div>
           
           <div class="bio-section bio-section--mission">
-            <div class="bio-highlight">HOJE - BE WATER</div>
-            <p>Decidiu aplicar essa visão e com as devidas adaptações ao público geral, de forma a fomenter que TODOS consigam estar na sua melhor forma, não apenas a nível estético mas performativo.</p>
-            <p>E com vista a reduzir a distância entre o digital e o real, cumpre o seu sonho de ter um espaço aberto ao público. Nasceu em 2025 o BE WATER, um centro de treino onde todos se possam motivar e crescer juntos, não só fisicamente como mental e espiritualmente.</p>
+            <div class="bio-highlight" data-i18n="salgueiro.bewater.title">HOJE - BE WATER</div>
+            <p data-i18n="salgueiro.bewater.p1">Decidiu aplicar essa visão e com as devidas adaptações ao público geral, de forma a fomenter que TODOS consigam estar na sua melhor forma, não apenas a nível estético mas performativo.</p>
+            <p data-i18n="salgueiro.bewater.p2">E com vista a reduzir a distância entre o digital e o real, cumpre o seu sonho de ter um espaço aberto ao público. Nasceu em 2025 o BE WATER, um centro de treino onde todos se possam motivar e crescer juntos, não só fisicamente como mental e espiritualmente.</p>
           </div>
         </div>
       </div>
@@ -1476,17 +1481,17 @@
           <a href="https://www.youtube.com/@dicasdosalgueiro" target="_blank" class="salgueiro__social-item">
             <i class="fab fa-youtube"></i>
             <div class="salgueiro__social-number">400K</div>
-            <div class="salgueiro__social-label">SEGUIDORES</div>
+            <div class="salgueiro__social-label" data-i18n="salgueiro.social.followers">SEGUIDORES</div>
           </a>
           <a href="https://www.instagram.com/dicasdosalgueiro" target="_blank" class="salgueiro__social-item">
             <i class="fab fa-instagram"></i>
             <div class="salgueiro__social-number">107K</div>
-            <div class="salgueiro__social-label">SEGUIDORES</div>
+            <div class="salgueiro__social-label" data-i18n="salgueiro.social.followers">SEGUIDORES</div>
           </a>
           <a href="https://facebook.com/asdicasdosalgueiro" target="_blank" class="salgueiro__social-item">
             <i class="fab fa-facebook"></i>
             <div class="salgueiro__social-number">200K</div>
-            <div class="salgueiro__social-label">SEGUIDORES</div>
+            <div class="salgueiro__social-label" data-i18n="salgueiro.social.followers">SEGUIDORES</div>
           </a>
         </div>
       </div>
@@ -1497,124 +1502,124 @@
   <section id="trainers" class="trainers">
     <div class="trainers__container">
       <div class="trainers__header">
-        <h2 class="section-title">TREINADORES</h2>
+        <h2 class="section-title" data-i18n="trainers.title">TREINADORES</h2>
         <div class="section-line"></div>
       </div>
       <div class="trainers__grid">
         <div class="trainer-card">
           <div class="trainer-card__image trainer-card__image--salgueiro"></div>
           <div class="trainer-card__content">
-            <h3 class="trainer-card__name">BRUNO SALGUEIRO</h3>
-            <p class="trainer-card__specialty">Fundador & Head Coach</p>
-            <p class="trainer-card__bio">Duplo profissional de televisão e cinema com 16 anos de experiência. Background em artes marciais, ginástica e treino de força. Criador da plataforma "Dicas do Salgueiro".</p>
+            <h3 class="trainer-card__name" data-i18n="trainers.bruno.name">BRUNO SALGUEIRO</h3>
+            <p class="trainer-card__specialty" data-i18n="trainers.bruno.specialty">Fundador & Head Coach</p>
+            <p class="trainer-card__bio" data-i18n="trainers.bruno.bio">Duplo profissional de televisão e cinema com 16 anos de experiência. Background em artes marciais, ginástica e treino de força. Criador da plataforma "Dicas do Salgueiro".</p>
             <div class="trainer-card__certs">
-              <span>PT certificado</span>
-              <span>Kung-Fu & Kickboxing</span>
-              <span>Duplo Profissional</span>
+              <span data-i18n="trainers.bruno.cert1">PT certificado</span>
+              <span data-i18n="trainers.bruno.cert2">Kung-Fu & Kickboxing</span>
+              <span data-i18n="trainers.bruno.cert3">Duplo Profissional</span>
             </div>
           </div>
         </div>
         <div class="trainer-card">
           <div class="trainer-card__image trainer-card__image--segurado"></div>
           <div class="trainer-card__content">
-            <h3 class="trainer-card__name">JORGE SEGURADO</h3>
-            <p class="trainer-card__specialty">Preparador Físico</p>
-            <p class="trainer-card__bio">Ex-seleção nacional de Rugby e preparador físico com vasta experiência no desporto de alto rendimento. Licenciado em Treino Desportivo pela Universidade Lusófona. Especialista em desenvolvimento de força e condicionamento atlético.</p>
+            <h3 class="trainer-card__name" data-i18n="trainers.jorge.name">JORGE SEGURADO</h3>
+            <p class="trainer-card__specialty" data-i18n="trainers.jorge.specialty">Preparador Físico</p>
+            <p class="trainer-card__bio" data-i18n="trainers.jorge.bio">Ex-seleção nacional de Rugby e preparador físico com vasta experiência no desporto de alto rendimento. Licenciado em Treino Desportivo pela Universidade Lusófona. Especialista em desenvolvimento de força e condicionamento atlético.</p>
             <div class="trainer-card__certs">
-              <span>Ex-Seleção Nacional Rugby</span>
-              <span>Preparador Físico</span>
-              <span>Strength & Conditioning</span>
+              <span data-i18n="trainers.jorge.cert1">Ex-Seleção Nacional Rugby</span>
+              <span data-i18n="trainers.jorge.cert2">Preparador Físico</span>
+              <span data-i18n="trainers.jorge.cert3">Strength & Conditioning</span>
             </div>
           </div>
         </div>
         <div class="trainer-card">
           <div class="trainer-card__image trainer-card__image--catarino"></div>
           <div class="trainer-card__content">
-            <h3 class="trainer-card__name">LUÍS CATARINO</h3>
-            <p class="trainer-card__specialty">Performance Coach & Formador</p>
-            <p class="trainer-card__bio">Performance Coach no Sport Lisboa e Benfica com 9 anos de experiência no desporto de alto rendimento. Mestrado em Biocinética e Performance Specialist pela EXOS. Formador especializado em metodologia do treino desportivo.</p>
+            <h3 class="trainer-card__name" data-i18n="trainers.luis.name">LUÍS CATARINO</h3>
+            <p class="trainer-card__specialty" data-i18n="trainers.luis.specialty">Performance Coach & Formador</p>
+            <p class="trainer-card__bio" data-i18n="trainers.luis.bio">Performance Coach no Sport Lisboa e Benfica com 9 anos de experiência no desporto de alto rendimento. Mestrado em Biocinética e Performance Specialist pela EXOS. Formador especializado em metodologia do treino desportivo.</p>
             <div class="trainer-card__certs">
-              <span>Performance Coach SL Benfica</span>
-              <span>Mestrado Biocinética</span>
-              <span>EXOS Performance Specialist</span>
+              <span data-i18n="trainers.luis.cert1">Performance Coach SL Benfica</span>
+              <span data-i18n="trainers.luis.cert2">Mestrado Biocinética</span>
+              <span data-i18n="trainers.luis.cert3">EXOS Performance Specialist</span>
             </div>
           </div>
         </div>
         <div class="trainer-card">
           <div class="trainer-card__image trainer-card__image--ines"></div>
           <div class="trainer-card__content">
-            <h3 class="trainer-card__name">INÊS PIRES</h3>
-            <p class="trainer-card__specialty">Strength & Conditioning Coach & Investigadora</p>
-            <p class="trainer-card__bio">S&C Coach no Sport Lisboa e Benfica com experiência em diversas modalidades do alto rendimento. Mestrado em Treino de Alto Rendimento, Pós-Graduação em S&C e Performance Specialist pela EXOS. Doutoranda em Educação Física e Desporto na Universidade Lusófona.</p>
+            <h3 class="trainer-card__name" data-i18n="trainers.ines.name">INÊS PIRES</h3>
+            <p class="trainer-card__specialty" data-i18n="trainers.ines.specialty">Strength & Conditioning Coach & Investigadora</p>
+            <p class="trainer-card__bio" data-i18n="trainers.ines.bio">S&C Coach no Sport Lisboa e Benfica com experiência em diversas modalidades do alto rendimento. Mestrado em Treino de Alto Rendimento, Pós-Graduação em S&C e Performance Specialist pela EXOS. Doutoranda em Educação Física e Desporto na Universidade Lusófona.</p>
             <div class="trainer-card__certs">
-              <span>S&C Coach SL Benfica</span>
-              <span>Mestrado Treino Alto Rendimento</span>
-              <span>EXOS Performance Specialist</span>
+              <span data-i18n="trainers.ines.cert1">S&C Coach SL Benfica</span>
+              <span data-i18n="trainers.ines.cert2">Mestrado Treino Alto Rendimento</span>
+              <span data-i18n="trainers.ines.cert3">EXOS Performance Specialist</span>
             </div>
           </div>
         </div>
         <div class="trainer-card">
           <div class="trainer-card__image trainer-card__image--joaquim"></div>
           <div class="trainer-card__content">
-            <h3 class="trainer-card__name">JOAQUIM COELHO</h3>
-            <p class="trainer-card__specialty">Fisioterapeuta & S&C</p>
-            <p class="trainer-card__bio">Fisioterapeuta com experiência no desporto de alto rendimento, especializado em reabilitação, prevenção de lesões e performance física. Trabalha com atletas na melhoria das qualidades físicas e redução do risco de lesão.</p>
+            <h3 class="trainer-card__name" data-i18n="trainers.joaquim.name">JOAQUIM COELHO</h3>
+            <p class="trainer-card__specialty" data-i18n="trainers.joaquim.specialty">Fisioterapeuta & S&C</p>
+            <p class="trainer-card__bio" data-i18n="trainers.joaquim.bio">Fisioterapeuta com experiência no desporto de alto rendimento, especializado em reabilitação, prevenção de lesões e performance física. Trabalha com atletas na melhoria das qualidades físicas e redução do risco de lesão.</p>
             <div class="trainer-card__certs">
-              <span>Fisioterapia Desportiva</span>
-              <span>S&C</span>
-              <span>Reabilitação Funcional</span>
+              <span data-i18n="trainers.joaquim.cert1">Fisioterapia Desportiva</span>
+              <span data-i18n="trainers.joaquim.cert2">S&C</span>
+              <span data-i18n="trainers.joaquim.cert3">Reabilitação Funcional</span>
             </div>
           </div>
         </div>
         <div class="trainer-card">
           <div class="trainer-card__image trainer-card__image--morgado"></div>
           <div class="trainer-card__content">
-            <h3 class="trainer-card__name">LUÍS MORGADO</h3>
-            <p class="trainer-card__specialty">Professor de Surf & CrossFit</p>
-            <p class="trainer-card__bio">Professor de surf e especialista em CrossFit e treino funcional. Combina a filosofia aquática com movimentos funcionais para um treino completo e desafiante.</p>
+            <h3 class="trainer-card__name" data-i18n="trainers.morgado.name">LUÍS MORGADO</h3>
+            <p class="trainer-card__specialty" data-i18n="trainers.morgado.specialty">Professor de Surf & CrossFit</p>
+            <p class="trainer-card__bio" data-i18n="trainers.morgado.bio">Professor de surf e especialista em CrossFit e treino funcional. Combina a filosofia aquática com movimentos funcionais para um treino completo e desafiante.</p>
             <div class="trainer-card__certs">
-              <span>Professor de Surf</span>
-              <span>CrossFit Level 2</span>
-              <span>Treino Funcional</span>
+              <span data-i18n="trainers.morgado.cert1">Professor de Surf</span>
+              <span data-i18n="trainers.morgado.cert2">CrossFit Level 2</span>
+              <span data-i18n="trainers.morgado.cert3">Treino Funcional</span>
             </div>
           </div>
         </div>
         <div class="trainer-card">
           <div class="trainer-card__image trainer-card__image--lourenco"></div>
           <div class="trainer-card__content">
-            <h3 class="trainer-card__name">LOURENÇO SANTOS</h3>
-            <p class="trainer-card__specialty">Personal Trainer & Coach de Corrida</p>
-            <p class="trainer-card__bio">Licenciado em Educação Física e Desporto e mestrando em Exercício e Saúde na Faculdade de Motricidade Humana. Ex-atleta de karaté e atletismo, foi também treinador de vela. Com dez anos de treino de ginásio, dedica-se à fisiologia do exercício clínico e ao aperfeiçoamento da corrida.</p>
+            <h3 class="trainer-card__name" data-i18n="trainers.lourenco.name">LOURENÇO SANTOS</h3>
+            <p class="trainer-card__specialty" data-i18n="trainers.lourenco.specialty">Personal Trainer & Coach de Corrida</p>
+            <p class="trainer-card__bio" data-i18n="trainers.lourenco.bio">Licenciado em Educação Física e Desporto e mestrando em Exercício e Saúde na Faculdade de Motricidade Humana. Ex-atleta de karaté e atletismo, foi também treinador de vela. Com dez anos de treino de ginásio, dedica-se à fisiologia do exercício clínico e ao aperfeiçoamento da corrida.</p>
             <div class="trainer-card__certs">
-              <span>Personal Training</span>
-              <span>Coach de Corrida</span>
-              <span>Fisiologia do Exercício</span>
+              <span data-i18n="trainers.lourenco.cert1">Personal Training</span>
+              <span data-i18n="trainers.lourenco.cert2">Coach de Corrida</span>
+              <span data-i18n="trainers.lourenco.cert3">Fisiologia do Exercício</span>
             </div>
           </div>
         </div>
         <div class="trainer-card">
           <div class="trainer-card__image trainer-card__image--alexandre"></div>
           <div class="trainer-card__content">
-            <h3 class="trainer-card__name">ALEXANDRE IZIDRO</h3>
-            <p class="trainer-card__specialty">Mestre de Jiu-Jitsu</p>
-            <p class="trainer-card__bio">Faixa-preta 6.º grau e mestre da Icon Jiu-Jitsu Lisboa com mais de 25 anos de experiência. Ex-lutador profissional, foi 3.º no Campeonato do Mundo e campeão Cage Warriors. Especialista em defesa pessoal e performance marcial.</p>
+            <h3 class="trainer-card__name" data-i18n="trainers.alexandre.name">ALEXANDRE IZIDRO</h3>
+            <p class="trainer-card__specialty" data-i18n="trainers.alexandre.specialty">Mestre de Jiu-Jitsu</p>
+            <p class="trainer-card__bio" data-i18n="trainers.alexandre.bio">Faixa-preta 6.º grau e mestre da Icon Jiu-Jitsu Lisboa com mais de 25 anos de experiência. Ex-lutador profissional, foi 3.º no Campeonato do Mundo e campeão Cage Warriors. Especialista em defesa pessoal e performance marcial.</p>
             <div class="trainer-card__certs">
-              <span>Faixa-preta 6.º grau</span>
-              <span>Ex-lutador profissional</span>
-              <span>Campeão Cage Warriors</span>
+              <span data-i18n="trainers.alexandre.cert1">Faixa-preta 6.º grau</span>
+              <span data-i18n="trainers.alexandre.cert2">Ex-lutador profissional</span>
+              <span data-i18n="trainers.alexandre.cert3">Campeão Cage Warriors</span>
             </div>
           </div>
         </div>
         <div class="trainer-card">
           <div class="trainer-card__image trainer-card__image--carlos"></div>
           <div class="trainer-card__content">
-            <h3 class="trainer-card__name">CARLOS FERNANDES</h3>
-            <p class="trainer-card__specialty">Treinador de Boxe & Fundador Spartacus CF</p>
-            <p class="trainer-card__bio">Treinador de boxe certificado pelo IPDJ com mais de nove anos de experiência. Conta com 200 combates como treinador e é fundador da equipa Spartacus CF Boxing.</p>
+            <h3 class="trainer-card__name" data-i18n="trainers.carlos.name">CARLOS FERNANDES</h3>
+            <p class="trainer-card__specialty" data-i18n="trainers.carlos.specialty">Treinador de Boxe & Fundador Spartacus CF</p>
+            <p class="trainer-card__bio" data-i18n="trainers.carlos.bio">Treinador de boxe certificado pelo IPDJ com mais de nove anos de experiência. Conta com 200 combates como treinador e é fundador da equipa Spartacus CF Boxing.</p>
             <div class="trainer-card__certs">
-              <span>Curso Treinador Boxe IPDJ</span>
-              <span>Fundador Spartacus CF Boxing</span>
-              <span>200 Combates como Treinador</span>
+              <span data-i18n="trainers.carlos.cert1">Curso Treinador Boxe IPDJ</span>
+              <span data-i18n="trainers.carlos.cert2">Fundador Spartacus CF Boxing</span>
+              <span data-i18n="trainers.carlos.cert3">200 Combates como Treinador</span>
             </div>
           </div>
         </div>
@@ -1626,34 +1631,34 @@
   <section id="contact" class="contact">
     <div class="contact__container">
       <div class="contact__header">
-        <h2 class="section-title">CONTACTO</h2>
+        <h2 class="section-title" data-i18n="contact.title">CONTACTO</h2>
         <div class="section-line"></div>
       </div>
       <div class="contact__content">
         <div class="contact__info">
           <div class="contact__address">
-            <h3>ONDE ESTAMOS</h3>
-            <p>Av. do Brasil 7<br>1700-062 Lisboa</p>
+            <h3 data-i18n="contact.address.title">ONDE ESTAMOS</h3>
+            <p data-i18n="contact.address.text">Av. do Brasil 7<br>1700-062 Lisboa</p>
           </div>
           <div class="contact__hours">
-            <h3>HORÁRIO</h3>
+            <h3 data-i18n="contact.hours.title">HORÁRIO</h3>
             <div class="contact__hours-grid">
-              <span>SEG-6ª:</span>
-              <span>7H-21H</span>
-              <span>(disponível em horário de aulas)</span>
+              <span data-i18n="contact.hours.weekdays">SEG-6ª:</span>
+              <span data-i18n="contact.hours.weekdays.time">7H-21H</span>
+              <span data-i18n="contact.hours.weekdays.note">(disponível em horário de aulas)</span>
               <span></span>
-              <span>SÁB:</span>
-              <span>10H-13H</span>
-              <span>(disponível em horário de aulas)</span>
+              <span data-i18n="contact.hours.saturday">SÁB:</span>
+              <span data-i18n="contact.hours.saturday.time">10H-13H</span>
+              <span data-i18n="contact.hours.saturday.note">(disponível em horário de aulas)</span>
               <span></span>
             </div>
           </div>
           <div class="contact__parking">
-            <h3>ONDE ESTACIONAR</h3>
-            <p><a href="https://maps.app.goo.gl/cfPrhDAkCMFZCjZK6" target="_blank" rel="noopener noreferrer" class="contact__parking-link">Queres saber onde estacionar? Tens um parque público mesmo ao lado! 🚗</a></p>
+            <h3 data-i18n="contact.parking.title">ONDE ESTACIONAR</h3>
+            <p><a href="https://maps.app.goo.gl/cfPrhDAkCMFZCjZK6" target="_blank" rel="noopener noreferrer" class="contact__parking-link" data-i18n="contact.parking.text">Queres saber onde estacionar? Tens um parque público mesmo ao lado! 🚗</a></p>
           </div>
           <div class="contact__social">
-            <h3>SEGUE-NOS</h3>
+            <h3 data-i18n="contact.social.title">SEGUE-NOS</h3>
             <div class="contact__social-icons">
               <a href="https://www.instagram.com/bewaterlisboa" target="_blank" class="contact__social-icon">IG</a>
               <a href="https://www.youtube.com/@dicasdosalgueiro" target="_blank" class="contact__social-icon">YT</a>
@@ -1664,25 +1669,25 @@
         <div class="contact__form-container">
           <form class="contact__form" action="https://formspree.io/f/xblyrpwd" method="POST" novalidate>
             <div class="form-group">
-              <label for="name">NOME</label>
+              <label for="name" data-i18n="contact.form.name">NOME</label>
               <input type="text" id="name" name="name" autocomplete="name" required>
             </div>
             <div class="form-group">
-              <label for="email">EMAIL</label>
+              <label for="email" data-i18n="contact.form.email">EMAIL</label>
               <input type="email" id="email" name="email" autocomplete="email" required>
             </div>
             <div class="form-group">
-              <label for="phone">TELEMÓVEL</label>
+              <label for="phone" data-i18n="contact.form.phone">TELEMÓVEL</label>
               <input type="tel" id="phone" name="phone" autocomplete="tel">
             </div>
             <div class="form-group">
-              <label for="message">MENSAGEM</label>
+              <label for="message" data-i18n="contact.form.message">MENSAGEM</label>
               <textarea id="message" name="message" rows="5" autocomplete="off" required></textarea>
             </div>
             <!-- Formspree configuration -->
             <input type="hidden" name="_subject" value="Nova mensagem BE WATER">
             <input type="hidden" name="_replyto" value="email">
-            <button type="submit" class="btn btn--full">ENVIAR MENSAGEM</button>
+            <button type="submit" class="btn btn--full" data-i18n="contact.form.submit">ENVIAR MENSAGEM</button>
           </form>
         </div>
       </div>
@@ -1707,31 +1712,31 @@
             </a>
           </div>
           <div class="footer__description">
-            <p>Flow like water, strike like lightning.</p>
+            <p data-i18n="footer.tagline">Flow like water, strike like lightning.</p>
           </div>
         </div>
 
         <!-- Navigation Links -->
         <div class="footer__links-section">
-          <h4 class="footer__section-title">NAVEGAÇÃO</h4>
+          <h4 class="footer__section-title" data-i18n="footer.nav.title">NAVEGAÇÃO</h4>
           <ul class="footer__links-list">
-            <li><a href="#gym">GYM</a></li>
-            <li><a href="#pricing">PREÇOS</a></li>
-            <li><a href="#schedule">HORÁRIOS</a></li>
-            <li><a href="#salgueiro">SALGUEIRO</a></li>
-            <li><a href="#trainers">TREINADORES</a></li>
-            <li><a href="#contact">CONTACTO</a></li>
+            <li><a href="#gym" data-i18n="nav.gym">GYM</a></li>
+            <li><a href="#pricing" data-i18n="nav.pricing">PREÇOS</a></li>
+            <li><a href="#schedule" data-i18n="nav.schedule">HORÁRIOS</a></li>
+            <li><a href="#salgueiro" data-i18n="nav.salgueiro">SALGUEIRO</a></li>
+            <li><a href="#trainers" data-i18n="nav.trainers">TREINADORES</a></li>
+            <li><a href="#contact" data-i18n="nav.contact">CONTACTO</a></li>
           </ul>
         </div>
 
         <!-- Newsletter Section -->
         <div class="footer__newsletter-section">
-          <h4 class="footer__section-title">NEWSLETTER</h4>
+          <h4 class="footer__section-title" data-i18n="footer.newsletter.title">NEWSLETTER</h4>
           <form class="footer__newsletter-form" action="https://formspree.io/f/mnnvaowp" method="POST" novalidate>
-            <input type="email" name="email" placeholder="O teu email" class="footer__newsletter-input" autocomplete="email" required>
+            <input type="email" name="email" placeholder="O teu email" class="footer__newsletter-input" autocomplete="email" required data-i18n="footer.newsletter.placeholder">
             <!-- Formspree configuration -->
             <input type="hidden" name="_subject" value="Nova subscrição newsletter BE WATER">
-            <button type="submit" class="footer__newsletter-btn">SUBSCREVER</button>
+            <button type="submit" class="footer__newsletter-btn" data-i18n="footer.newsletter.submit">SUBSCREVER</button>
           </form>
         </div>
       </div>
@@ -1741,10 +1746,10 @@
         <!-- Legal Information Section -->
         <div class="footer__legal">
           <div class="footer__legal-links">
-            <a href="#" class="footer__legal-link" data-modal="privacy-policy">Política de Privacidade</a>
+            <a href="#" class="footer__legal-link" data-modal="privacy-policy" data-i18n="footer.legal.privacy">Política de Privacidade</a>
           </div>
         </div>
-        <p class="footer__copyright">&copy; 2025 BE WATER. TODOS OS DIREITOS RESERVADOS.</p>
+        <p class="footer__copyright" data-i18n="footer.copyright">&copy; 2025 BE WATER. TODOS OS DIREITOS RESERVADOS.</p>
       </div>
     </div>
   </footer>
@@ -1753,5 +1758,6 @@
   <script src="src/js/modals.js"></script>
   <script src="src/js/gym-collage-slider.js"></script>
   <script src="src/js/countdown.js"></script>
+  <script src="src/js/i18n.js"></script>
 </body>
 </html> 

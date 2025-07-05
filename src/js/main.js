@@ -707,16 +707,6 @@ class BrutalistGallery {
   constructor() {
     this.currentIndex = 0;
     this.images = [];
-    this.captions = [
-      'FORÇA ATRAVÉS DA DISCIPLINA',
-      'MESTRE EM ACÇÃO - TREINO INTENSO',
-      'A ARTE DA GUERRA INTERIOR',
-      'CAMINHO DO GUERREIRO MODERNO',
-      'MENTE, CORPO E ESPÍRITO UNIDOS',
-      'TRADIÇÃO E INOVAÇÃO EM HARMONIA',
-      'O DOJO: ESPAÇO SAGRADO DE CRESCIMENTO',
-      'TÉCNICA PERFEITA ATRAVÉS DA REPETIÇÃO'
-    ];
     
     this.track = document.getElementById('galleryTrack');
     this.prevBtn = document.getElementById('galleryPrev');
@@ -736,6 +726,7 @@ class BrutalistGallery {
       this.setupEventListeners();
       this.addTouchSupport();
       this.updateDisplay();
+      this.addLanguageListener();
     } catch (error) {
       console.error('Gallery initialization failed:', error);
       this.showPlaceholder();
@@ -915,12 +906,21 @@ class BrutalistGallery {
     this.updateDisplay();
   }
   
+  addLanguageListener() {
+    // Listen for language changes
+    window.addEventListener('languageChanged', () => {
+      this.updateDisplay();
+    });
+  }
+  
   updateDisplay() {
     const translateX = -this.currentIndex * 100;
     this.track.style.transform = `translateX(${translateX}%)`;
     
-    // Update caption
-    const captionText = this.captions[this.currentIndex % this.captions.length];
+    // Update caption using the translation system
+    const captionKey = `salgueiro.gallery.caption.${this.currentIndex + 1}`;
+    const captionText = window.i18n ? window.i18n.t(captionKey) : `Caption ${this.currentIndex + 1}`;
+    
     this.caption.textContent = captionText;
     
     // Add animation to caption
@@ -958,7 +958,9 @@ class BrutalistGallery {
       </div>
     `;
     
-    this.caption.textContent = 'AGUARDE POR CONTEÚDO ÉPICO';
+    // Use translation system if available
+    const placeholderCaption = window.i18n ? window.i18n.t('salgueiro.gallery.caption.1') : 'AGUARDE POR CONTEÚDO ÉPICO';
+    this.caption.textContent = placeholderCaption;
     this.prevBtn.style.display = 'none';
     this.nextBtn.style.display = 'none';
   }

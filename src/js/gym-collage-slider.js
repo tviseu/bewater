@@ -83,6 +83,9 @@ class GymCollageSlider {
     // Keyboard navigation
     document.addEventListener('keydown', (e) => this.handleKeyPress(e));
 
+    // Touch/Swipe support for mobile
+    this.addTouchSupport();
+
     // Auto-advance slider (disabled - manual navigation only)
     // this.startAutoSlide();
   }
@@ -185,6 +188,102 @@ class GymCollageSlider {
         this.nextSlide();
       }
     }, 6000);
+  }
+
+  // Touch/Swipe support for mobile devices
+  addTouchSupport() {
+    if (!this.track) return;
+
+    let startX = 0;
+    let currentX = 0;
+    let startY = 0;
+    let currentY = 0;
+    let isDragging = false;
+    let hasMoved = false;
+    const minSwipeDistance = 50; // Minimum distance for a valid swipe
+
+    // Touch start
+    this.track.addEventListener('touchstart', (e) => {
+      // Only enable on mobile/tablet
+      if (window.innerWidth > 768) return;
+
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      currentX = startX;
+      currentY = startY;
+      isDragging = true;
+      hasMoved = false;
+
+      // Disable transition during drag
+      this.track.style.transition = 'none';
+    });
+
+    // Touch move
+    this.track.addEventListener('touchmove', (e) => {
+      if (!isDragging || window.innerWidth > 768) return;
+
+      currentX = e.touches[0].clientX;
+      currentY = e.touches[0].clientY;
+      
+      const deltaX = currentX - startX;
+      const deltaY = currentY - startY;
+      
+      // If movement is more horizontal than vertical, prevent default scrolling
+      if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        e.preventDefault();
+        hasMoved = true;
+      }
+    });
+
+    // Touch end
+    this.track.addEventListener('touchend', (e) => {
+      if (!isDragging || window.innerWidth > 768) return;
+
+      // Re-enable transition
+      this.track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+
+      if (hasMoved) {
+        const deltaX = currentX - startX;
+        const deltaY = currentY - startY;
+
+        // Only swipe if horizontal movement is greater than vertical
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
+          if (deltaX > 0) {
+            // Swipe right - go to previous slide
+            this.previousSlide();
+          } else {
+            // Swipe left - go to next slide
+            this.nextSlide();
+          }
+        }
+      }
+
+      // Reset values
+      isDragging = false;
+      hasMoved = false;
+      startX = 0;
+      currentX = 0;
+      startY = 0;
+      currentY = 0;
+    });
+
+    // Touch cancel (if user drags off screen)
+    this.track.addEventListener('touchcancel', (e) => {
+      if (!isDragging || window.innerWidth > 768) return;
+
+      // Re-enable transition
+      this.track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+
+      // Reset values
+      isDragging = false;
+      hasMoved = false;
+      startX = 0;
+      currentX = 0;
+      startY = 0;
+      currentY = 0;
+    });
+
+    console.log('Touch/Swipe support added to gym collage slider');
   }
 
   // Public method to stop auto-slide
