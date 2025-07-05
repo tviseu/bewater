@@ -32,10 +32,4 @@
   from = "/*"
   to = "/pagamentos/:splat"
   status = 200
-  conditions = {Domain = ["pagamentos.bewaterlisboa.pt"]}
-
-# Autenticação HTTP Basic para staff.html
-[[headers]]
-  for = "/pagamentos/staff.html"
-  [headers.values]
-    Basic-Auth = "admin:$2y$10$N9qo8uLOickgx2ZMRZoMye7BZBLqNOhGnUJPIkuUuQpHMJXmILaS." 
+  conditions = {Domain = ["pagamentos.bewaterlisboa.pt"]} 
