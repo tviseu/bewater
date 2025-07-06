@@ -10,6 +10,7 @@ const translations = {
     'meta.description': 'BE WATER - Centro de treino inspirado na filosofia de Bruce Lee. Treino funcional, artes marciais e desenvolvimento pessoal em Lisboa. Fundado por Bruno Salgueiro.',
     
     // Header Navigation
+    'header.logo.tagline': 'by Dicas do Salgueiro',
     'nav.gym': 'GYM',
     'nav.pricing': 'PREÇOS',
     'nav.schedule': 'HORÁRIOS',
@@ -163,7 +164,7 @@ const translations = {
     'salgueiro.career.p3': 'Personal Trainer certificado desde 2012.',
     'salgueiro.career.imdb': 'VER FILMOGRAFIA IMDB',
     'salgueiro.dicas.title': 'DICAS DO SALGUEIRO',
-    'salgueiro.dicas.p1': 'Co-criou há 11 anos (2013) a Plataforma Dicas do Salgueiro, um canal de YouTube (mais tarde presente em todas as redes sociais mais relevantes) com o seu sócio Luís Piçarra (Produção) onde partilha dicas de treino e motivação, que conta já com cerca de 400 mil seguidores só no YouTube e mais de 49 milhões de visualizações.',
+    'salgueiro.dicas.p1': 'Co-criou há 11 anos (2013) a Plataforma Dicas do Salgueiro, um canal de YouTube (mais tarde presente em todas as redes sociais mais relevantes) com o seu sócio Luís Piçarra (Produção) onde partilha dicas de treino e motivação, que conta já com cerca de 400 mil seguidores só no YouTube e mais de 49 milhões de visualizações. Mais recentemente, criou a plataforma inglesa <a href="https://www.instagram.com/thebrucewillow/" target="_blank" rel="noopener noreferrer" class="dicas-link">Bruce Willow</a>, com o mesmo propósito.',
     'salgueiro.bewater.title': 'HOJE - BE WATER',
     'salgueiro.bewater.p1': 'Decidiu aplicar essa visão e com as devidas adaptações ao público geral, de forma a fomenter que TODOS consigam estar na sua melhor forma, não apenas a nível estético mas performativo.',
     'salgueiro.bewater.p2': 'E com vista a reduzir a distância entre o digital e o real, cumpre o seu sonho de ter um espaço aberto ao público. Nasceu em 2025 o BE WATER, um centro de treino onde todos se possam motivar e crescer juntos, não só fisicamente como mental e espiritualmente.',
@@ -341,6 +342,7 @@ const translations = {
     'meta.description': 'BE WATER - Training center inspired by Bruce Lee philosophy. Functional training, martial arts and personal development in Lisbon. Founded by Bruno Salgueiro.',
     
     // Header Navigation
+    'header.logo.tagline': 'by Bruce Willow',
     'nav.gym': 'GYM',
     'nav.pricing': 'PRICING',
     'nav.schedule': 'SCHEDULE',
@@ -494,7 +496,7 @@ const translations = {
     'salgueiro.career.p3': 'Certified Personal Trainer since 2012.',
     'salgueiro.career.imdb': 'VIEW IMDB FILMOGRAPHY',
     'salgueiro.dicas.title': 'DICAS DO SALGUEIRO',
-    'salgueiro.dicas.p1': 'Co-created 11 years ago (2013) the Dicas do Salgueiro Platform, a YouTube channel (later present on all relevant social networks) with his partner Luís Piçarra (Production) where he shares training tips and motivation, which already has about 400 thousand followers on YouTube alone and over 49 million views.',
+    'salgueiro.dicas.p1': 'Co-created 11 years ago (2013) the Dicas do Salgueiro Platform, a YouTube channel (later present on all relevant social networks) with his partner Luís Piçarra (Production) where he shares training tips and motivation, which already has about 400 thousand followers on YouTube alone and over 49 million views. More recently, created the english platform <a href="https://www.instagram.com/thebrucewillow/" target="_blank" rel="noopener noreferrer" class="dicas-link">Bruce Willow</a>, with the same purpose in mind.',
     'salgueiro.bewater.title': 'TODAY - BE WATER',
     'salgueiro.bewater.p1': 'He decided to apply this vision and with the appropriate adaptations to the general public, in order to encourage EVERYONE to be in their best shape, not only aesthetically but also performatively.',
     'salgueiro.bewater.p2': 'And with a view to reducing the distance between digital and real, he fulfills his dream of having a space open to the public. Born in 2025, BE WATER, a training center where everyone can motivate and grow together, not only physically but also mentally and spiritually.',
