@@ -4068,6 +4068,16 @@ button.btn:active {
   letter-spacing: 3px;
 }
 
+.bio-alias {
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 500;
+  color: #CCCCCC;
+  margin: 0;
+  margin-bottom: var(--spacing-sm);
+  text-align: center;
+}
+
 .bio-subtitle {
   font-family: var(--font-primary);
   font-size: 1.2rem;
@@ -4199,6 +4209,10 @@ button.btn:active {
     letter-spacing: 2px;
   }
   
+  .bio-alias {
+    font-size: 0.9rem;
+  }
+  
   .bio-subtitle {
     font-size: 1rem;
     letter-spacing: 0.5px;
@@ -4229,6 +4243,10 @@ button.btn:active {
   .bio-title {
     font-size: 1.8rem;
     letter-spacing: 1px;
+  }
+  
+  .bio-alias {
+    font-size: 0.8rem;
   }
   
   .bio-subtitle {

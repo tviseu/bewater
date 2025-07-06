@@ -32,7 +32,7 @@ const translations = {
     // About Section
     'gym.hero.title': 'O CENTRO<br>DE TREINO',
     'about.title': 'CONHECE O ESPAÇO',
-    'about.lead': 'Vem treinar com o Bruno Salgueiro, das <a href="#salgueiro" class="dicas-link">"Dicas do Salgueiro"</a> e com a sua equipa de instrutores escolhidos a dedo.',
+    'about.lead': 'Vem treinar com o Bruno Salgueiro (aka <a href="https://www.instagram.com/thebrucewillow/" target="_blank" rel="noopener noreferrer" class="dicas-link">Bruce Willow</a>), das <a href="#salgueiro" class="dicas-link">"Dicas do Salgueiro"</a> e com a sua equipa de instrutores escolhidos a dedo.',
     'about.secondary': '<span class="brand-highlight">BE WATER</span> - O teu clube no centro de Lisboa com 3 zonas distintas: Um lounge de convívio e co-working, um ginásio de treino físico com regime de aulas de grupo e open gym e ainda um dojo dedicado à prática de artes marciais e meditação. Junta-te a esta comunidade!',
     
     // Gym Section
@@ -79,6 +79,7 @@ const translations = {
     'schedule.days.fri': 'SEX',
     'schedule.days.sat': 'SÁB',
     'schedule.days.sun': 'DOM',
+    'schedule.activities.boxe': 'BOXE',
     'schedule.rest.text': 'DIA DE DESCANSO',
     'schedule.rest.subtitle': 'BE WATER, REST DEEP',
     'schedule.legend.opengym': 'Acesso livre a todo o ginásio: área de treino funcional, dojo, sacos de boxe, barras, halteres e tatamis. Treina à tua maneira!',
@@ -157,6 +158,7 @@ const translations = {
     // Salgueiro Section
     'salgueiro.title': 'O CRIADOR',
     'salgueiro.name': 'BRUNO SALGUEIRO',
+    'salgueiro.alias': 'aka Bruce Willow',
     'salgueiro.subtitle': 'DUPLO PROFISSIONAL DE TELEVISÃO E CINEMA | PERSONAL TRAINER CERTIFICADO',
     'salgueiro.career.title': 'CARREIRA',
     'salgueiro.career.p1': 'Bruno Salgueiro é um Duplo Profissional de Televisão e Cinema, com diversos trabalhos não só em Portugal mas a nível internacional nos últimos 16 anos.',
@@ -364,7 +366,7 @@ const translations = {
     // About Section
     'gym.hero.title': 'THE TRAINING<br>CENTER',
     'about.title': 'MEET THE SPACE',
-    'about.lead': 'Come train with Bruno Salgueiro, from <a href="#salgueiro" class="dicas-link">"Dicas do Salgueiro"</a> and his hand-picked team of instructors.',
+    'about.lead': 'Come train with Bruno Salgueiro (aka <a href="https://www.instagram.com/thebrucewillow/" target="_blank" rel="noopener noreferrer" class="dicas-link">Bruce Willow</a>), from <a href="#salgueiro" class="dicas-link">"Dicas do Salgueiro"</a> and his hand-picked team of instructors.',
     'about.secondary': '<span class="brand-highlight">BE WATER</span> - Your club in the center of Lisbon with 3 distinct zones: A social lounge and co-working space, a physical training gym with group classes and open gym, and a dojo dedicated to martial arts and meditation practice. Join this community!',
     
     // Gym Section
@@ -411,6 +413,7 @@ const translations = {
     'schedule.days.fri': 'FRI',
     'schedule.days.sat': 'SAT',
     'schedule.days.sun': 'SUN',
+    'schedule.activities.boxe': 'BOXING',
     'schedule.rest.text': 'REST DAY',
     'schedule.rest.subtitle': 'BE WATER, REST DEEP',
     'schedule.legend.opengym': 'Free access to the entire gym: functional training area, dojo, boxing bags, bars, dumbbells and mats. Train your way!',
@@ -489,6 +492,7 @@ const translations = {
     // Salgueiro Section
     'salgueiro.title': 'THE CREATOR',
     'salgueiro.name': 'BRUNO SALGUEIRO',
+    'salgueiro.alias': 'aka Bruce Willow',
     'salgueiro.subtitle': 'TELEVISION AND CINEMA PROFESSIONAL STUNT DOUBLE | CERTIFIED PERSONAL TRAINER',
     'salgueiro.career.title': 'CAREER',
     'salgueiro.career.p1': 'Bruno Salgueiro is a Professional Stunt Double for Television and Cinema, with diverse work not only in Portugal but internationally over the past 16 years.',
