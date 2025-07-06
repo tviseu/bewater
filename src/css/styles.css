@@ -4100,13 +4100,17 @@ button.btn:active {
 }
 
 .bio-section--featured {
-  background-color: #FFD700;
+  background-color: #666666;
   border-color: #000000;
   box-shadow: 8px 8px 0 #000000;
 }
 
 .bio-section--featured:hover {
   box-shadow: 12px 12px 0 #000000;
+}
+
+.bio-section--featured p {
+  color: #FFFFFF !important;
 }
 
 .bio-section--mission {
@@ -4242,7 +4246,7 @@ button.btn:active {
 }
 
 .bio-section--featured {
-  background-color: #FFD700;
+  background-color: #666666;
   border-color: #000000;
   box-shadow: 8px 8px 0 #000000;
 }
