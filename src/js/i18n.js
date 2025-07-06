@@ -691,8 +691,8 @@ class LanguageManager {
   }
 
   detectBrowserLanguage() {
-    const browserLang = navigator.language || navigator.userLanguage;
-    return browserLang.startsWith('pt') ? 'pt' : 'en';
+    // Always default to Portuguese - users can switch to English using the toggle
+    return 'pt';
   }
 
   setStoredLanguage(lang) {
