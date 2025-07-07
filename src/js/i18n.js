@@ -32,7 +32,7 @@ const translations = {
     // About Section
     'gym.hero.title': 'O CENTRO<br>DE TREINO',
     'about.title': 'CONHECE O ESPAÇO',
-    'about.lead': 'Vem treinar com o Bruno Salgueiro (aka <a href="https://www.instagram.com/thebrucewillow/" target="_blank" rel="noopener noreferrer" class="dicas-link">Bruce Willow</a>), das <a href="#salgueiro" class="dicas-link">"Dicas do Salgueiro"</a> e com a sua equipa de instrutores escolhidos a dedo.',
+    'about.lead': 'Vem treinar com o Bruno Salgueiro (aka <a href="https://www.instagram.com/thebrucewillow/" target="_blank" rel="noopener noreferrer" class="dicas-link">Bruce Willow</a>), conhecido por ser o rosto por detrás das <a href="#salgueiro" class="dicas-link">"Dicas do Salgueiro"</a>, e trabalha diretamente com a sua equipa de treinadores pessoalmente selecionada.',
     'about.secondary': '<span class="brand-highlight">BE WATER</span> - O teu clube no centro de Lisboa com 3 zonas distintas: Um lounge de convívio e co-working, um ginásio de treino físico com regime de aulas de grupo e open gym e ainda um dojo dedicado à prática de artes marciais e meditação. Junta-te a esta comunidade!',
     
     // Gym Section
@@ -366,7 +366,7 @@ const translations = {
     // About Section
     'gym.hero.title': 'THE TRAINING<br>CENTER',
     'about.title': 'MEET THE SPACE',
-    'about.lead': 'Come train with Bruno Salgueiro (aka <a href="https://www.instagram.com/thebrucewillow/" target="_blank" rel="noopener noreferrer" class="dicas-link">Bruce Willow</a>), from <a href="#salgueiro" class="dicas-link">"Dicas do Salgueiro"</a> and his hand-picked team of instructors.',
+    'about.lead': 'Come train with Bruno Salgueiro (aka <a href="https://www.instagram.com/thebrucewillow/" target="_blank" rel="noopener noreferrer" class="dicas-link">Bruce Willow</a>), known for being the face behind <a href="#salgueiro" class="dicas-link">"Dicas do Salgueiro"</a>, and work directly with his personally selected team of trainers.',
     'about.secondary': '<span class="brand-highlight">BE WATER</span> - Your club in the center of Lisbon with 3 distinct zones: A social lounge and co-working space, a physical training gym with group classes and open gym, and a dojo dedicated to martial arts and meditation practice. Join this community!',
     
     // Gym Section
