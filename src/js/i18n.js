@@ -32,7 +32,7 @@ const translations = {
     // About Section
     'gym.hero.title': 'O CENTRO<br>DE TREINO',
     'about.title': 'CONHECE O ESPAÇO',
-    'about.lead': 'Vem treinar com o Bruno Salgueiro (aka <a href="https://www.instagram.com/thebrucewillow/" target="_blank" rel="noopener noreferrer" class="dicas-link">Bruce Willow</a>), conhecido por ser o rosto por detrás das <a href="#salgueiro" class="dicas-link">"Dicas do Salgueiro"</a>, e trabalha diretamente com a sua equipa de treinadores pessoalmente selecionada.',
+    'about.lead': 'Vem treinar com o Bruno Salgueiro, conhecido por ser o rosto por detrás das <a href="#salgueiro" class="dicas-link">"Dicas do Salgueiro"</a>, e trabalha diretamente com a sua equipa de treinadores pessoalmente selecionada.',
     'about.secondary': '<span class="brand-highlight">BE WATER</span> - O teu clube no centro de Lisboa com 3 zonas distintas: Um lounge de convívio e co-working, um ginásio de treino físico com regime de aulas de grupo e open gym e ainda um dojo dedicado à prática de artes marciais e meditação. Junta-te a esta comunidade!',
     
     // Gym Section
@@ -158,7 +158,7 @@ const translations = {
     // Salgueiro Section
     'salgueiro.title': 'O CRIADOR',
     'salgueiro.name': 'BRUNO SALGUEIRO',
-    'salgueiro.alias': 'aka Bruce Willow',
+    'salgueiro.alias': '',
     'salgueiro.subtitle': 'DUPLO PROFISSIONAL DE TELEVISÃO E CINEMA | PERSONAL TRAINER CERTIFICADO',
     'salgueiro.career.title': 'CARREIRA',
     'salgueiro.career.p1': 'Bruno Salgueiro é um Duplo Profissional de Televisão e Cinema, com diversos trabalhos não só em Portugal mas a nível internacional nos últimos 16 anos.',
@@ -856,12 +856,16 @@ class LanguageManager {
       const key = element.getAttribute('data-i18n');
       const translation = this.getTranslation(key, lang);
       
-      if (translation) {
-        // Verificar se é um input placeholder
-        if (element.tagName === 'INPUT' && element.type !== 'submit') {
-          element.placeholder = translation;
+      // Verificar se é um input placeholder
+      if (element.tagName === 'INPUT' && element.type !== 'submit') {
+        element.placeholder = translation;
+      } else {
+        element.innerHTML = translation;
+        // Esconder elemento se tradução for vazia
+        if (translation === '') {
+          element.style.display = 'none';
         } else {
-          element.innerHTML = translation;
+          element.style.display = '';
         }
       }
     });
@@ -879,7 +883,13 @@ class LanguageManager {
 
   getTranslation(key, lang = this.currentLang) {
     const langTranslations = translations[lang] || translations[this.defaultLang];
-    return langTranslations[key] || translations[this.defaultLang][key] || key;
+    if (langTranslations.hasOwnProperty(key)) {
+      return langTranslations[key];
+    }
+    if (translations[this.defaultLang].hasOwnProperty(key)) {
+      return translations[this.defaultLang][key];
+    }
+    return key;
   }
 
   updateURL(lang) {
@@ -951,7 +961,12 @@ window.i18n = {
       return window.languageManager.getTranslation(key);
     } else if (window.translations) {
       const currentLang = document.documentElement.lang || 'pt';
-      return window.translations[currentLang]?.[key] || window.translations.pt?.[key] || key;
+      if (window.translations[currentLang]?.hasOwnProperty(key)) {
+        return window.translations[currentLang][key];
+      }
+      if (window.translations.pt?.hasOwnProperty(key)) {
+        return window.translations.pt[key];
+      }
     }
     return key;
   },
