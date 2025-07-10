@@ -80,6 +80,7 @@ const translations = {
     'schedule.days.sat': 'SÁB',
     'schedule.days.sun': 'DOM',
     'schedule.activities.boxe': 'BOXE',
+    'schedule.activities.closed': 'FECHADO',
     'schedule.rest.text': 'DIA DE DESCANSO',
     'schedule.rest.subtitle': 'BE WATER, REST DEEP',
     'schedule.legend.opengym': 'Acesso livre a todo o ginásio: área de treino funcional, dojo, sacos de boxe, barras, halteres e tatamis. Treina à tua maneira!',
@@ -87,6 +88,7 @@ const translations = {
     'schedule.legend.lonewarrior': 'Treino express minimalista com peso corporal, halteres e bandas. Intenso, rápido e sem desculpas - ideal para repetir em qualquer lugar.',
     'schedule.legend.jiujitsu': 'Arte marcial tradicional focada em técnicas de solo, defesa pessoal e condicionamento físico e mental no nosso dojo especializado.',
     'schedule.legend.boxe': 'Treino de boxe com foco em técnica, condicionamento cardiovascular e força. Usa os sacos pesados e desenvolve potência e agilidade.',
+    'schedule.legend.closed': 'Ginásio encerrado para pausa de almoço e manutenção. Reabrimos às 16h30!',
     'schedule.note.beta': '<strong>🌊 Horários em Fase Beta:</strong> Estamos na época de verão e ainda em fase de testes e afinações das modalidades. Os horários apresentados são iniciais e poderão sofrer ajustes conforme a resposta da comunidade BE WATER e otimização das dinâmicas do clube.',
     'schedule.note.events': '<strong>Nota:</strong> Teremos ainda frequentemente modalidades surpresa e eventos de treino, cultura e convívio no clube.',
     
@@ -414,6 +416,7 @@ const translations = {
     'schedule.days.sat': 'SAT',
     'schedule.days.sun': 'SUN',
     'schedule.activities.boxe': 'BOXING',
+    'schedule.activities.closed': 'CLOSED',
     'schedule.rest.text': 'REST DAY',
     'schedule.rest.subtitle': 'BE WATER, REST DEEP',
     'schedule.legend.opengym': 'Free access to the entire gym: functional training area, dojo, boxing bags, bars, dumbbells and mats. Train your way!',
@@ -421,6 +424,7 @@ const translations = {
     'schedule.legend.lonewarrior': 'Minimalist express training with bodyweight, dumbbells and bands. Intense, fast and no excuses - ideal to repeat anywhere.',
     'schedule.legend.jiujitsu': 'Traditional martial art focused on ground techniques, self-defense and physical and mental conditioning in our specialized dojo.',
     'schedule.legend.boxe': 'Boxing training focused on technique, cardiovascular conditioning and strength. Use the heavy bags and develop power and agility.',
+    'schedule.legend.closed': 'Gym closed for lunch break. We reopen at 4:30 PM!',
     'schedule.note.beta': '<strong>🌊 Beta Phase Schedule:</strong> We are in summer season and still in testing and fine-tuning phase of activities. The schedules presented are initial and may be adjusted according to the BE WATER community response and club dynamics optimization.',
     'schedule.note.events': '<strong>Note:</strong> We will also frequently have surprise activities and training, cultural and social events at the club.',
     
