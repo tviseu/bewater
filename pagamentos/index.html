@@ -665,17 +665,27 @@
 
             <form id="mbwayForm">
                 <div class="form-group">
-                    <label for="phone">📱 Número de Telemóvel</label>
+                    <label for="phone">📱 Número de Telemóvel MBWay</label>
                     <input type="tel" id="phone" name="phone" placeholder="9XXXXXXXX" required maxlength="9">
+                </div>
+
+                <button type="submit" class="btn-pagar" id="payBtn">
+                    🚀 Enviar Pagamento MBWay
+                </button>
+
+                <div style="margin: 30px 0 20px 0; padding: 20px; background: #f8f9fa; border: 2px solid #e9ecef; text-align: center;">
+                    <p style="margin: 0; color: #666; font-weight: 600;">
+                        📧 Se quiseres factura preenche os campos abaixo
+                    </p>
                 </div>
 
                 <div class="form-group">
                     <label for="email">📧 Email</label>
-                    <input type="email" id="email" name="email" placeholder="exemplo@email.com" required>
+                    <input type="email" id="email" name="email" placeholder="exemplo@email.com">
                 </div>
 
                 <div class="form-group">
-                    <label for="nome">👤 Nome (opcional)</label>
+                    <label for="nome">👤 Nome</label>
                     <input type="text" id="nome" name="nome" placeholder="Seu nome completo">
                     <small style="color: #666; font-size: 0.8rem; display: block; margin-top: 5px;">
                         💡 Obrigatório apenas se preencher NIF
@@ -683,16 +693,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="nif">🆔 NIF (opcional)</label>
+                    <label for="nif">🆔 NIF</label>
                     <input type="text" id="nif" name="nif" placeholder="XXXXXXXXX" maxlength="9">
                     <small style="color: #666; font-size: 0.8rem; display: block; margin-top: 5px;">
                         💡 Se preencher NIF, nome torna-se obrigatório
                     </small>
                 </div>
-
-                <button type="submit" class="btn-pagar" id="payBtn">
-                    🚀 Enviar Pedido MBWay
-                </button>
             </form>
 
             <div class="loading" id="loading">
@@ -827,7 +833,8 @@
                 return;
             }
 
-            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            // Email opcional - só validar se preenchido
+            if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                 showError('Email inválido');
                 return;
             }

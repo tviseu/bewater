@@ -50,7 +50,7 @@ export default async function handler(req, res) {
     // Parse do body
     const input = req.body;
 
-    // Validar campos obrigatórios
+    // Validar campos obrigatórios  
     const requiredFields = ['amount', 'phone', 'produto_id'];
     for (const field of requiredFields) {
       if (!input[field]) {

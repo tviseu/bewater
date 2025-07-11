@@ -18,23 +18,23 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
 
   // Mapear produtos BE WATER → Vendus (Regime de Isenção Artº 53)
   const PRODUTOS_VENDUS = {
-    'CAFE_001': { nome: 'Café BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
-    'AGUA_PEQUENA_001': { nome: 'Água Pequena BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
-    'AGUA_GRANDE_001': { nome: 'Água Grande BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
-    'BATIDO_PROTEINA_001': { nome: 'Batido Proteína BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
-    'BARRA_PROTEINA_001': { nome: 'Barra Proteína BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
-    'COOKIES_PROTEICA_001': { nome: 'Cookies Proteica BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
-    'LIMONADA_001': { nome: 'Limonada BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
-    'AMINOX_001': { nome: 'AminoX BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
-    'TOALHA_001': { nome: 'Toalha Treino/Banho BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
-    'CERVEJA_MINI_001': { nome: 'Cerveja Mini BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
-    'AGUA_GAS_001': { nome: 'Água com Gás BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'CAFE_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'AGUA_PEQUENA_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'AGUA_GRANDE_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'BATIDO_PROTEINA_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'BARRA_PROTEINA_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'COOKIES_PROTEICA_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'LIMONADA_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'AMINOX_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'TOALHA_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'CERVEJA_MINI_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'AGUA_GAS_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'DONATIVO_001': { nome: 'Donativo BE WATER', iva: 0, categoria: 'Donativos', tax_exempt_reason: 'Artigo 53º do CIVA' }
   };
 
-  // Fallback para produtos não mapeados - usar "Consumível BE WATER" exceto para donativos
+  // Fallback para produtos não mapeados - usar "Consumivel BEWATER" exceto para donativos
   const produtoVendus = PRODUTOS_VENDUS[dadosProduto.id] || {
-    nome: dadosProduto.id?.includes('DONATIVO') ? 'Donativo BE WATER' : 'Consumível BE WATER',
+    nome: dadosProduto.id?.includes('DONATIVO') ? 'Donativo BE WATER' : 'Consumivel BEWATER',
     iva: 0,
     categoria: dadosProduto.id?.includes('DONATIVO') ? 'Donativos' : 'Consumíveis',
     tax_exempt_reason: 'Artigo 53º do CIVA' // Forçar isenção artigo 53º
@@ -215,7 +215,7 @@ exports.handler = async (event, context) => {
     const input = JSON.parse(event.body);
 
     // Validar campos obrigatórios
-    const requiredFields = ['amount', 'phone', 'email', 'produto_id'];
+    const requiredFields = ['amount', 'phone', 'produto_id'];
     for (const field of requiredFields) {
       if (!input[field]) {
         throw new Error(`Campo obrigatório ausente: ${field}`);
@@ -250,10 +250,13 @@ exports.handler = async (event, context) => {
       throw new Error('Número de telemóvel inválido');
     }
 
-    // Validar email
-    const email = input.email.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      throw new Error('Email inválido');
+    // Validar email (opcional)
+    let email = null;
+    if (input.email && input.email.trim()) {
+      email = input.email.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        throw new Error('Email inválido');
+      }
     }
 
     // Validar nome e NIF (lógica condicional)
@@ -282,7 +285,7 @@ exports.handler = async (event, context) => {
     // Criar identifier com dados para correlação (encodifica nome, email, NIF)
     const clientDataBase64 = Buffer.from(JSON.stringify({
       nome: nome || '',
-      email: email,
+      email: email || '',
       nif: nif || '',
       telefone: phone
     })).toString('base64');
@@ -360,7 +363,7 @@ exports.handler = async (event, context) => {
       if (clientKey) {
         tempClientData.set(clientKey, {
           nome: nome,
-          email: email,
+          email: email || '',
           nif: nif,
           telefone: phone,
           timestamp: new Date().toISOString(),
