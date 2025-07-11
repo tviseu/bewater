@@ -2520,34 +2520,11 @@ section {
 }
 
 /* === DESKTOP SMALL (1000px-1199px) === */
-@media (min-width: 1000px) and (max-width: 1199px) {
-  .header__container {
-    overflow: hidden;
-  }
-  
-  .header__logo {
-    min-width: clamp(120px, 12vw, 240px);
-    max-width: clamp(160px, 16vw, 280px);
-  }
-  
-  .header__nav a {
-    font-size: 1.0rem;
-    padding: 3px 5px;
-  }
-  
-  .header__nav ul {
-    gap: 4px;
-  }
-  
-  .header__nav a[href="#pricing"] {
-    padding: 3px 6px;
-    font-size: 0.95rem;
-  }
-}
+/* Removed conflicting breakpoint - now handled by hamburger menu activation at max-width: 1199px */
 
 /* === HAMBURGER MENU ACTIVATION === */
 /* Force hamburger menu for screens that might cut menu items */
-@media (max-width: 999px) {
+@media (max-width: 1199px) {
   /* Prevent horizontal scroll */
   html, body {
     overflow-x: hidden !important;
@@ -2589,6 +2566,13 @@ section {
     order: 2;
   }
   
+  /* Language toggle positioning for intermediate breakpoint */
+  .language-toggle {
+    order: 3 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  
   .header__nav {
     display: none !important;
   }
@@ -2606,8 +2590,9 @@ section {
     padding: 5px !important;
     border-radius: 4px !important;
     order: 1 !important;
+    flex-shrink: 0 !important;
     box-shadow: 2px 2px 0 #000000 !important;
-    margin-right: var(--spacing-md) !important;
+    margin-right: 0 !important;
     pointer-events: auto !important;
   }
   
@@ -6412,27 +6397,10 @@ html, body {
   }
 }
 
-/* Very Small Desktops (1000px-1149px) - Last attempt before hamburger */
-@media (min-width: 1000px) and (max-width: 1149px) {
-  .header__logo {
-    min-width: clamp(150px, 12vw, 280px);
-    max-width: clamp(200px, 16vw, 320px);
-  }
-  .header__nav a {
-    font-size: 0.75rem;
-    padding: 3px 5px;
-  }
-  .header__nav ul {
-    gap: 5px;
-  }
-  .header__nav a[href="#pricing"] {
-    padding: 3px 6px;
-    font-size: 0.7rem;
-  }
-}
+/* Removed - now covered by hamburger menu activation at max-width: 1199px */
 
-/* === HAMBURGER MENU ACTIVATION === */
-/* All screens 1149px and below use hamburger menu */
+/* === MOBILE RESPONSIVE LAYOUT === */
+/* Additional responsive adjustments for remaining smaller screens */
 @media (max-width: 1149px) {
   /* Prevent horizontal scroll in mobile */
   html, body {
