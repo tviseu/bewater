@@ -12,11 +12,17 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
 
   // Mapear produtos BE WATER → Vendus (Regime de Isenção Artº 53)
   const PRODUTOS_VENDUS = {
-    'CAFE_001': { nome: 'Consumível BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
-    'AGUA_001': { nome: 'Água BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
-    'BARRITA_001': { nome: 'Barra Proteína BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
-    'SHAKER_001': { nome: 'Shaker BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
-    'SUPLEMENTO_001': { nome: 'Suplemento Protein BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'CAFE_001': { nome: 'Café BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'AGUA_PEQUENA_001': { nome: 'Água Pequena BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'AGUA_GRANDE_001': { nome: 'Água Grande BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'BATIDO_PROTEINA_001': { nome: 'Batido Proteína BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'BARRA_PROTEINA_001': { nome: 'Barra Proteína BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'COOKIES_PROTEICA_001': { nome: 'Cookies Proteica BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'LIMONADA_001': { nome: 'Limonada BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'AMINOX_001': { nome: 'AminoX BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'TOALHA_001': { nome: 'Toalha Treino/Banho BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'CERVEJA_MINI_001': { nome: 'Cerveja Mini BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'AGUA_GAS_001': { nome: 'Água com Gás BE WATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'DONATIVO_001': { nome: 'Donativo BE WATER', iva: 0, categoria: 'Donativos', tax_exempt_reason: 'Artigo 53º do CIVA' }
   };
 
@@ -147,14 +153,28 @@ exports.handler = async (event, context) => {
     
     if (produtoNome.includes('donativo')) {
       produtoId = 'DONATIVO_001';
+    } else if (produtoNome.includes('água pequena')) {
+      produtoId = 'AGUA_PEQUENA_001';
+    } else if (produtoNome.includes('água grande')) {
+      produtoId = 'AGUA_GRANDE_001';
+    } else if (produtoNome.includes('água com gás')) {
+      produtoId = 'AGUA_GAS_001';
     } else if (produtoNome.includes('água')) {
-      produtoId = 'AGUA_001';
-    } else if (produtoNome.includes('barra') || produtoNome.includes('proteína')) {
-      produtoId = 'BARRITA_001';
-    } else if (produtoNome.includes('shaker')) {
-      produtoId = 'SHAKER_001';
-    } else if (produtoNome.includes('suplemento')) {
-      produtoId = 'SUPLEMENTO_001';
+      produtoId = 'AGUA_PEQUENA_001'; // Default para água
+    } else if (produtoNome.includes('batido proteína')) {
+      produtoId = 'BATIDO_PROTEINA_001';
+    } else if (produtoNome.includes('barra proteína') || produtoNome.includes('barra')) {
+      produtoId = 'BARRA_PROTEINA_001';
+    } else if (produtoNome.includes('cookies proteica') || produtoNome.includes('cookies')) {
+      produtoId = 'COOKIES_PROTEICA_001';
+    } else if (produtoNome.includes('limonada')) {
+      produtoId = 'LIMONADA_001';
+    } else if (produtoNome.includes('aminox')) {
+      produtoId = 'AMINOX_001';
+    } else if (produtoNome.includes('toalha')) {
+      produtoId = 'TOALHA_001';
+    } else if (produtoNome.includes('cerveja mini') || produtoNome.includes('cerveja')) {
+      produtoId = 'CERVEJA_MINI_001';
     }
 
     // Preparar dados para emissão (usar "Consumidor Final" se sem dados)

@@ -33,11 +33,17 @@ export default async function handler(req, res) {
 
     // Produtos permitidos (validação de segurança)
     const PRODUTOS_PERMITIDOS = {
-      'CAFE_001': { nome: 'Café', preco: 1.50 },
-      'SUPLEMENTO_001': { nome: 'Suplemento Protein', preco: 25.00 },
-      'AGUA_001': { nome: 'Água', preco: 1.00 },
-      'BARRITA_001': { nome: 'Barra Proteína', preco: 3.50 },
-      'SHAKER_001': { nome: 'Shaker BE WATER', preco: 12.00 },
+      'CAFE_001': { nome: 'Café', preco: 0.85 },
+      'AGUA_PEQUENA_001': { nome: 'Água Pequena', preco: 1.00 },
+      'AGUA_GRANDE_001': { nome: 'Água Grande', preco: 2.00 },
+      'BATIDO_PROTEINA_001': { nome: 'Batido Proteína', preco: 2.50 },
+      'BARRA_PROTEINA_001': { nome: 'Barra Proteína', preco: 2.50 },
+      'COOKIES_PROTEICA_001': { nome: 'Cookies Proteica', preco: 2.00 },
+      'LIMONADA_001': { nome: 'Limonada', preco: 2.50 },
+      'AMINOX_001': { nome: 'AminoX', preco: 2.50 },
+      'TOALHA_001': { nome: 'Toalha Treino/Banho', preco: 15.00 },
+      'CERVEJA_MINI_001': { nome: 'Cerveja Mini', preco: 2.00 },
+      'AGUA_GAS_001': { nome: 'Água com Gás', preco: 1.50 },
       'DONATIVO_001': { nome: 'Donativo - Salvem os Músculos Abandonados', preco: 5.00 }
     };
 
