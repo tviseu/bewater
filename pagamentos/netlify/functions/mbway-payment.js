@@ -250,35 +250,57 @@ exports.handler = async (event, context) => {
       throw new Error('Número de telemóvel inválido');
     }
 
-    // Validar email (opcional)
+    // Validar dados de fatura: se qualquer campo for fornecido, todos são obrigatórios
     let email = null;
-    if (input.email && input.email.trim()) {
-      email = input.email.trim();
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        throw new Error('Email inválido');
-      }
-    }
-
-    // Validar nome e NIF (lógica condicional)
     let nome = null;
     let nif = null;
     
-    if (input.nome && input.nome.trim()) {
-      nome = input.nome.trim();
-      if (nome.length < 2) {
-        throw new Error('Nome deve ter pelo menos 2 caracteres');
-      }
-    }
+    // Verificar se algum campo de fatura foi preenchido
+    const temEmail = input.email && input.email.trim();
+    const temNome = input.nome && input.nome.trim();
+    const temNif = input.nif && input.nif.trim();
+    const temDadosFatura = temEmail || temNome || temNif;
     
-    if (input.nif && input.nif.trim()) {
-      nif = input.nif.replace(/\D/g, '');
-      if (!/^\d{9}$/.test(nif)) {
-        throw new Error('NIF inválido');
+    if (temDadosFatura) {
+      // Se tem dados de fatura, todos os campos são obrigatórios
+      if (!temEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email.trim())) {
+        throw new Error('Para emitir fatura, email é obrigatório e deve ser válido');
       }
       
-      // Se tem NIF, nome é obrigatório
-      if (!nome) {
-        throw new Error('Nome é obrigatório quando NIF é fornecido');
+      if (!temNome || input.nome.trim().length < 2) {
+        throw new Error('Para emitir fatura, nome é obrigatório (mínimo 2 caracteres)');
+      }
+      
+      const nifLimpo = input.nif ? input.nif.replace(/\D/g, '') : '';
+      if (!temNif || !/^\d{9}$/.test(nifLimpo)) {
+        throw new Error('Para emitir fatura, NIF é obrigatório e deve ter 9 dígitos');
+      }
+      
+      // Se chegou até aqui, todos os campos são válidos
+      email = input.email.trim();
+      nome = input.nome.trim();
+      nif = nifLimpo;
+    } else {
+      // Sem dados de fatura - validar só se preenchidos individualmente
+      if (temEmail) {
+        email = input.email.trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          throw new Error('Email inválido');
+        }
+      }
+      
+      if (temNome) {
+        nome = input.nome.trim();
+        if (nome.length < 2) {
+          throw new Error('Nome deve ter pelo menos 2 caracteres');
+        }
+      }
+      
+      if (temNif) {
+        nif = input.nif.replace(/\D/g, '');
+        if (!/^\d{9}$/.test(nif)) {
+          throw new Error('NIF inválido');
+        }
       }
     }
 
