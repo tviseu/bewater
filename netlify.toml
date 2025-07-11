@@ -27,6 +27,13 @@
   to = "/pagamentos/"
   status = 200
 
+# Forçar HTTPS para o domínio personalizado
+[[redirects]]
+  from = "http://pagamentos.bewaterlisboa.pt/*"
+  to = "https://pagamentos.bewaterlisboa.pt/:splat"
+  status = 301
+  force = true
+
 # Redirect para domínio personalizado pagamentos.bewaterlisboa.pt
 [[redirects]]
   from = "/*"
