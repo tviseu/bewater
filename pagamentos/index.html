@@ -17,6 +17,9 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
+    <!-- Tradução -->
+    <script src="i18n.js"></script>
+    
     <style>
         :root {
             /* BE WATER Colors (exatas do site principal) */
@@ -580,116 +583,116 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🏋️ BE WATER</h1>
-            <p>Pagamentos MBWay - Selecione o produto desejado</p>
+            <h1 data-payment-i18n="header.title">🏋️ BE WATER</h1>
+            <p data-payment-i18n="header.subtitle">Pagamentos MBWay - Selecione o produto desejado</p>
         </div>
 
         <!-- GRID DE PRODUTOS -->
         <div class="produtos-grid">
             <div class="produto-card" data-id="CAFE_001" data-nome="Café" data-preco="0.85">
                 <div class="produto-icon">☕</div>
-                <div class="produto-nome">Café</div>
+                <div class="produto-nome" data-payment-i18n="product.cafe">Café</div>
                 <div class="produto-preco">€0.85</div>
-                <div class="produto-descricao">Combustível para treinos épicos</div>
-                <button class="produto-btn">Pagar com MBWay</button>
+                <div class="produto-descricao" data-payment-i18n="product.cafe.desc">Combustível para treinos épicos</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
             </div>
 
             <div class="produto-card" data-id="AGUA_PEQUENA_001" data-nome="Água Pequena" data-preco="1.00">
                 <div class="produto-icon">💧</div>
-                <div class="produto-nome">Água Pequena</div>
+                <div class="produto-nome" data-payment-i18n="product.agua-pequena">Água Pequena</div>
                 <div class="produto-preco">€1.00</div>
-                <div class="produto-descricao">Hidratação essencial</div>
-                <button class="produto-btn">Pagar com MBWay</button>
+                <div class="produto-descricao" data-payment-i18n="product.agua-pequena.desc">Hidratação essencial</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
             </div>
 
             <div class="produto-card" data-id="AGUA_GRANDE_001" data-nome="Água Grande" data-preco="2.00">
                 <div class="produto-icon">💧</div>
-                <div class="produto-nome">Água Grande</div>
+                <div class="produto-nome" data-payment-i18n="product.agua-grande">Água Grande</div>
                 <div class="produto-preco">€2.00</div>
-                <div class="produto-descricao">Hidratação máxima</div>
-                <button class="produto-btn">Pagar com MBWay</button>
+                <div class="produto-descricao" data-payment-i18n="product.agua-grande.desc">Hidratação máxima</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
             </div>
 
             <div class="produto-card" data-id="BATIDO_PROTEINA_001" data-nome="Batido Proteína" data-preco="2.50">
                 <div class="produto-icon">🥤</div>
-                <div class="produto-nome">Batido Proteína</div>
+                <div class="produto-nome" data-payment-i18n="product.batido-proteina">Batido Proteína</div>
                 <div class="produto-preco">€2.50</div>
-                <div class="produto-descricao">Recuperação e força</div>
-                <button class="produto-btn">Pagar com MBWay</button>
+                <div class="produto-descricao" data-payment-i18n="product.batido-proteina.desc">Recuperação e força</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
             </div>
 
             <div class="produto-card" data-id="BARRA_PROTEINA_001" data-nome="Barra Proteína" data-preco="2.50">
                 <div class="produto-icon">🍫</div>
-                <div class="produto-nome">Barra Proteína</div>
+                <div class="produto-nome" data-payment-i18n="product.barra-proteina">Barra Proteína</div>
                 <div class="produto-preco">€2.50</div>
-                <div class="produto-descricao">Energia para atletas determinados</div>
-                <button class="produto-btn">Pagar com MBWay</button>
+                <div class="produto-descricao" data-payment-i18n="product.barra-proteina.desc">Energia para atletas determinados</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
             </div>
 
             <div class="produto-card" data-id="COOKIES_PROTEICA_001" data-nome="Cookies Proteica" data-preco="2.00">
                 <div class="produto-icon">🍪</div>
-                <div class="produto-nome">Cookies Proteica</div>
+                <div class="produto-nome" data-payment-i18n="product.cookies-proteica">Cookies Proteica</div>
                 <div class="produto-preco">€2.00</div>
-                <div class="produto-descricao">Doce tentação proteica</div>
-                <button class="produto-btn">Pagar com MBWay</button>
+                <div class="produto-descricao" data-payment-i18n="product.cookies-proteica.desc">Doce tentação proteica</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
             </div>
 
             <div class="produto-card" data-id="LIMONADA_001" data-nome="Limonada" data-preco="2.50">
                 <div class="produto-icon">🍋</div>
-                <div class="produto-nome">Limonada</div>
+                <div class="produto-nome" data-payment-i18n="product.limonada">Limonada</div>
                 <div class="produto-preco">€2.50</div>
-                <div class="produto-descricao">Refrescante e natural</div>
-                <button class="produto-btn">Pagar com MBWay</button>
+                <div class="produto-descricao" data-payment-i18n="product.limonada.desc">Refrescante e natural</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
             </div>
 
             <div class="produto-card" data-id="AMINOX_001" data-nome="AminoX" data-preco="2.50">
                 <div class="produto-icon">⚡</div>
-                <div class="produto-nome">AminoX</div>
+                <div class="produto-nome" data-payment-i18n="product.aminox">AminoX</div>
                 <div class="produto-preco">€2.50</div>
-                <div class="produto-descricao">Energia e resistência</div>
-                <button class="produto-btn">Pagar com MBWay</button>
+                <div class="produto-descricao" data-payment-i18n="product.aminox.desc">Energia e resistência</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
             </div>
 
             <div class="produto-card" data-id="TOALHA_001" data-nome="Toalha Treino/Banho" data-preco="15.00">
                 <div class="produto-icon">🏊</div>
-                <div class="produto-nome">Toalha Treino/Banho</div>
+                <div class="produto-nome" data-payment-i18n="product.toalha">Toalha Treino/Banho</div>
                 <div class="produto-preco">€15.00</div>
-                <div class="produto-descricao">Essencial BE WATER</div>
-                <button class="produto-btn">Pagar com MBWay</button>
+                <div class="produto-descricao" data-payment-i18n="product.toalha.desc">Essencial BE WATER</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
             </div>
 
             <div class="produto-card" data-id="CERVEJA_MINI_001" data-nome="Cerveja Mini" data-preco="2.00">
                 <div class="produto-icon">🍺</div>
-                <div class="produto-nome">Cerveja Mini</div>
+                <div class="produto-nome" data-payment-i18n="product.cerveja-mini">Cerveja Mini</div>
                 <div class="produto-preco">€2.00</div>
-                <div class="produto-descricao">Celebração pós-treino</div>
-                <button class="produto-btn">Pagar com MBWay</button>
+                <div class="produto-descricao" data-payment-i18n="product.cerveja-mini.desc">Celebração pós-treino</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
             </div>
 
             <div class="produto-card" data-id="AGUA_GAS_001" data-nome="Água com Gás" data-preco="1.50">
                 <div class="produto-icon">🫧</div>
-                <div class="produto-nome">Água com Gás</div>
+                <div class="produto-nome" data-payment-i18n="product.agua-gas">Água com Gás</div>
                 <div class="produto-preco">€1.50</div>
-                <div class="produto-descricao">Hidratação com estilo</div>
-                <button class="produto-btn">Pagar com MBWay</button>
+                <div class="produto-descricao" data-payment-i18n="product.agua-gas.desc">Hidratação com estilo</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
             </div>
 
             <!-- DONATIVO ENGRAÇADO -->
             <div class="produto-card produto-card--donativo" data-id="DONATIVO_001" data-nome="Donativo - Salvem os Músculos Abandonados">
                 <div class="produto-icon">🥹🫶</div>
-                <div class="produto-nome">Donativo Solidário</div>
+                <div class="produto-nome" data-payment-i18n="product.donativo">Donativo Solidário</div>
                 <div class="produto-preco-variavel">
                     <span>€</span>
                     <input type="number" id="donativo-valor" min="1.00" max="100" step="0.50" placeholder="5.00" value="5.00">
                 </div>
-                <div class="produto-descricao">"A tua moedinha faz milagres no tatami."<br>Ajuda a apoiar eventos, formações e treinos para todos. Um euro pode ser o primeiro passo de alguém.</div>
-                <button class="produto-btn donativo-btn">Salvar um Músculo</button>
+                <div class="produto-descricao" data-payment-i18n="product.donativo.desc">"A tua moedinha faz milagres no tatami."<br>Ajuda a apoiar eventos, formações e treinos para todos. Um euro pode ser o primeiro passo de alguém.</div>
+                <button class="produto-btn donativo-btn" data-payment-i18n="product.donativo.btn">Salvar um Músculo</button>
             </div>
         </div>
 
         <!-- FORMULÁRIO DE PAGAMENTO -->
         <div class="payment-form hidden" id="paymentForm">
-            <div class="form-title">💳 Pagamento MBWay</div>
+            <div class="form-title" data-payment-i18n="form.title">💳 Pagamento MBWay</div>
             
             <div class="produto-selecionado" id="produtoSelecionado">
                 <!-- Produto selecionado aparece aqui -->
@@ -697,43 +700,43 @@
 
             <form id="mbwayForm">
                 <div class="form-group">
-                    <label for="phone">📱 Número de Telemóvel MBWay</label>
-                    <input type="tel" id="phone" name="phone" placeholder="9XXXXXXXX" required maxlength="9">
+                    <label for="phone" data-payment-i18n="form.phone.label">📱 Número de Telemóvel MBWay</label>
+                    <input type="tel" id="phone" name="phone" data-payment-i18n="form.phone.placeholder" placeholder="9XXXXXXXX" required maxlength="9">
                 </div>
 
-                <button type="submit" class="btn-pagar" id="payBtn">
+                <button type="submit" class="btn-pagar" id="payBtn" data-payment-i18n="form.pay.btn">
                     🚀 Enviar Pagamento MBWay
                 </button>
 
                 <div style="margin: 30px 0 20px 0; padding: 20px; background: #f8f9fa; border: 2px solid #e9ecef; text-align: center;">
-                    <p style="margin: 0; color: #666; font-weight: 600;">
+                    <p style="margin: 0; color: #666; font-weight: 600;" data-payment-i18n="form.invoice.note">
                         📧 Se quiseres factura preenche <strong>TODOS</strong> os campos abaixo
                     </p>
-                    <p style="margin: 5px 0 0 0; color: #999; font-size: 0.85rem;">
+                    <p style="margin: 5px 0 0 0; color: #999; font-size: 0.85rem;" data-payment-i18n="form.invoice.warning">
                         ⚠️ Se preencheres um campo, tens que preencher todos
                     </p>
                 </div>
 
                 <div class="form-group">
-                    <label for="email">📧 Email</label>
-                    <input type="email" id="email" name="email" placeholder="exemplo@email.com">
+                    <label for="email" data-payment-i18n="form.email.label">📧 Email</label>
+                    <input type="email" id="email" name="email" data-payment-i18n="form.email.placeholder" placeholder="exemplo@email.com">
                 </div>
 
                 <div class="form-group">
-                    <label for="nome">👤 Nome</label>
-                    <input type="text" id="nome" name="nome" placeholder="Seu nome completo">
+                    <label for="nome" data-payment-i18n="form.name.label">👤 Nome</label>
+                    <input type="text" id="nome" name="nome" data-payment-i18n="form.name.placeholder" placeholder="Seu nome completo">
                 </div>
 
                 <div class="form-group">
-                    <label for="nif">🆔 NIF</label>
-                    <input type="text" id="nif" name="nif" placeholder="XXXXXXXXX" maxlength="9">
+                    <label for="nif" data-payment-i18n="form.nif.label">🆔 NIF</label>
+                    <input type="text" id="nif" name="nif" data-payment-i18n="form.nif.placeholder" placeholder="XXXXXXXXX" maxlength="9">
                 </div>
             </form>
 
             <div class="loading" id="loading">
-                <div class="loading-text">⏳ A processar pagamento...</div>
+                <div class="loading-text" data-payment-i18n="loading.title">⏳ A processar pagamento...</div>
                 <div class="spinner"></div>
-                <p>Confirma o pagamento na app MBWay</p>
+                <p data-payment-i18n="loading.subtitle">Confirma o pagamento na app MBWay</p>
             </div>
 
             <div class="success-message" id="successMessage"></div>
@@ -786,9 +789,14 @@
 
                 // Mostrar no formulário
                 produtoSelecionadoDiv.innerHTML = `
-                    <strong>📦 Produto:</strong> ${nome}<br>
-                    <strong>💰 Preço:</strong> €${preco.toFixed(2)}
+                    <strong data-payment-i18n="form.selected.product">📦 Produto:</strong> ${nome}<br>
+                    <strong data-payment-i18n="form.selected.price">💰 Preço:</strong> €${preco.toFixed(2)}
                 `;
+                
+                // Aplicar tradução ao produto selecionado
+                if (window.paymentLanguageManager) {
+                    window.paymentLanguageManager.applyLanguage(window.paymentLanguageManager.currentLang);
+                }
 
                 // Mostrar formulário
                 paymentForm.classList.remove('hidden');
@@ -826,9 +834,14 @@
 
             // Mostrar no formulário
             produtoSelecionadoDiv.innerHTML = `
-                <strong>📦 Produto:</strong> Donativo - Salvem os Músculos Abandonados<br>
-                <strong>💰 Preço:</strong> €${preco.toFixed(2)}
+                <strong data-payment-i18n="form.selected.product">📦 Produto:</strong> Donativo - Salvem os Músculos Abandonados<br>
+                <strong data-payment-i18n="form.selected.price">💰 Preço:</strong> €${preco.toFixed(2)}
             `;
+            
+            // Aplicar tradução ao produto selecionado
+            if (window.paymentLanguageManager) {
+                window.paymentLanguageManager.applyLanguage(window.paymentLanguageManager.currentLang);
+            }
 
             // Mostrar formulário
             paymentForm.classList.remove('hidden');
@@ -1024,9 +1037,14 @@
             };
 
             produtoSelecionadoDiv.innerHTML = `
-                <strong>📦 Produto:</strong> ${produtoUrl}<br>
-                <strong>💰 Preço:</strong> €${parseFloat(precoUrl).toFixed(2)}
+                <strong data-payment-i18n="form.selected.product">📦 Produto:</strong> ${produtoUrl}<br>
+                <strong data-payment-i18n="form.selected.price">💰 Preço:</strong> €${parseFloat(precoUrl).toFixed(2)}
             `;
+            
+            // Aplicar tradução ao produto selecionado
+            if (window.paymentLanguageManager) {
+                window.paymentLanguageManager.applyLanguage(window.paymentLanguageManager.currentLang);
+            }
 
             paymentForm.classList.remove('hidden');
         }
