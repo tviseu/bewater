@@ -60,6 +60,16 @@
         .header {
             text-align: center;
             margin-bottom: 40px;
+            padding: 30px;
+            background: var(--color-accent);
+            border: var(--border-thick);
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-primary);
+            transition: all 0.2s ease;
+        }
+
+        .header:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 12px 12px 0 var(--color-primary);
         }
 
         .header h1 {
@@ -73,9 +83,9 @@
         }
 
         .header p {
-            color: var(--color-secondary);
+            color: var(--color-primary);
             font-size: 1.1rem;
-            font-weight: 400;
+            font-weight: 600;
         }
 
         /* GRID DE PRODUTOS - Estilo BE WATER */
@@ -381,6 +391,17 @@
                 padding: 15px;
             }
 
+            .header {
+                padding: 20px;
+                margin-bottom: 30px;
+                box-shadow: 6px 6px 0 var(--color-primary);
+            }
+
+            .header:hover {
+                transform: translate(-3px, -3px);
+                box-shadow: 9px 9px 0 var(--color-primary);
+            }
+
             .header h1 {
                 font-size: 2rem;
             }
@@ -463,6 +484,17 @@
         @media (max-width: 480px) {
             body {
                 padding: 10px;
+            }
+
+            .header {
+                padding: 15px;
+                margin-bottom: 25px;
+                box-shadow: 4px 4px 0 var(--color-primary);
+            }
+
+            .header:hover {
+                transform: translate(-2px, -2px);
+                box-shadow: 6px 6px 0 var(--color-primary);
             }
 
             .header h1 {
