@@ -106,7 +106,6 @@
             text-align: center;
             margin-bottom: 40px;
             padding: 20px;
-            background: var(--color-accent);
             border: var(--border-thick);
             box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-primary);
             transition: all 0.2s ease;
@@ -115,6 +114,15 @@
         .secao-titulo:hover {
             transform: translate(-4px, -4px);
             box-shadow: 12px 12px 0 var(--color-primary);
+        }
+
+        /* Cores específicas para cada seção */
+        .secao-titulo.comidas-bebidas {
+            background: #E8F5E8; /* Verde claro */
+        }
+
+        .secao-titulo.acessorios-misc {
+            background: #F0F8FF; /* Azul claro */
         }
 
         /* GRID DE PRODUTOS - Estilo BE WATER */
@@ -388,6 +396,92 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* POPUP DE SUCESSO - Estilo BE WATER */
+        .success-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .success-popup.show {
+            display: flex;
+        }
+
+        .success-popup-content {
+            background: var(--color-background);
+            border: var(--border-thick);
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 16px 16px 0 var(--color-primary);
+            position: relative;
+            animation: popupSlideIn 0.3s ease-out;
+        }
+
+        @keyframes popupSlideIn {
+            from {
+                transform: translate(-50px, -50px);
+                opacity: 0;
+            }
+            to {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+        }
+
+        .success-popup-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .success-popup-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .success-popup-message {
+            font-size: 1.1rem;
+            color: var(--color-primary);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .success-popup-btn {
+            background: var(--color-primary);
+            color: var(--color-background);
+            border: var(--border-thick);
+            border-color: var(--color-primary);
+            padding: 15px 30px;
+            font-size: 1rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .success-popup-btn:hover {
+            background: var(--color-background);
+            color: var(--color-primary);
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 var(--color-primary);
+        }
+
         .success-message, .error-message {
             padding: 30px;
             margin-top: 30px;
@@ -615,7 +709,7 @@
 
         <!-- SEÇÃO: COMIDAS & BEBIDAS -->
         <div class="produtos-secao">
-            <h2 class="secao-titulo">🍽️ Comidas & Bebidas</h2>
+            <h2 class="secao-titulo comidas-bebidas">🍽️ Comidas & Bebidas</h2>
             <div class="produtos-grid">
                 <div class="produto-card" data-id="CAFE_001" data-nome="Café" data-preco="0.85">
                     <div class="produto-icon">☕</div>
@@ -701,7 +795,7 @@
 
         <!-- SEÇÃO: ACESSÓRIOS & MISC -->
         <div class="produtos-secao">
-            <h2 class="secao-titulo">🔧 Acessórios & Misc</h2>
+            <h2 class="secao-titulo acessorios-misc">🔧 Acessórios & Misc</h2>
             <div class="produtos-grid">
                 <div class="produto-card" data-id="CADEADO_001" data-nome="Cadeado" data-preco="10.00">
                     <div class="produto-icon">🔒</div>
@@ -784,6 +878,18 @@
 
             <div class="success-message" id="successMessage"></div>
             <div class="error-message" id="errorMessage"></div>
+        </div>
+    </div>
+
+    <!-- POPUP DE SUCESSO -->
+    <div class="success-popup" id="successPopup">
+        <div class="success-popup-content">
+            <div class="success-popup-icon">✅</div>
+            <div class="success-popup-title">Pagamento Enviado!</div>
+            <div class="success-popup-message">
+                Pedido de pagamento MBWay enviado com sucesso! Confirme o pagamento no seu telemóvel e apresente o comprovativo ao funcionário BE WATER para receber o produto.
+            </div>
+            <button class="success-popup-btn" onclick="closeSuccessPopup()">Entendi</button>
         </div>
     </div>
 
@@ -1006,26 +1112,15 @@
         }
 
         function showSuccess(message, data) {
-            successMessage.innerHTML = `
-                <div style="margin-bottom: 20px;">
-                    <strong style="font-size: 1.1em; color: #000;">✅ ${message}</strong>
-                </div>
-                
-                <div style="margin-bottom: 15px;">
-                    <div style="margin-bottom: 8px;">📦 <strong>Produto:</strong> ${data.produto}</div>
-                    <div style="margin-bottom: 8px;">💰 <strong>Valor:</strong> €${data.amount}</div>
-                    <div style="margin-bottom: 8px;">📱 <strong>Telemóvel:</strong> ${data.phone_masked}</div>
-                    ${data.reference ? `<div style="margin-bottom: 8px;">🔢 <strong>Referência:</strong> ${data.reference}</div>` : ''}
-                    ${data.transactionID ? `<div style="margin-bottom: 8px;">🆔 <strong>ID Transação:</strong><br><span style="font-size: 0.8em; word-break: break-all;">${data.transactionID}</span></div>` : ''}
-                </div>
-
-                <div style="margin-top: 20px; padding-top: 15px; border-top: 2px solid #000;">
-                    <div style="margin-bottom: 10px;"><strong>📋 Próximos passos:</strong></div>
-                    <div style="font-size: 0.9em; line-height: 1.6;">${data.instructions}</div>
-                </div>
-            `;
-            successMessage.style.display = 'block';
-            hideMessages(false);
+            // Mostrar popup de sucesso
+            const successPopup = document.getElementById('successPopup');
+            successPopup.classList.add('show');
+            
+            // Esconder formulário
+            document.getElementById('paymentForm').classList.add('hidden');
+            
+            // Scroll para o topo
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function showError(message) {
@@ -1063,6 +1158,27 @@
                     word.charAt(0).toUpperCase() + word.slice(1)
                 ).join(' ');
                 e.target.value = capitalized;
+            }
+        });
+
+        // Função para fechar popup de sucesso
+        function closeSuccessPopup() {
+            const successPopup = document.getElementById('successPopup');
+            successPopup.classList.remove('show');
+            
+            // Limpar seleção e resetar formulário
+            produtoSelecionado = null;
+            produtoSelecionadoDiv.innerHTML = '';
+            document.getElementById('mbwayForm').reset();
+            
+            // Scroll para o topo
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Fechar popup clicando no fundo escuro
+        document.getElementById('successPopup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSuccessPopup();
             }
         });
 
