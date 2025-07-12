@@ -884,13 +884,15 @@
     <!-- POPUP DE SUCESSO -->
     <div class="success-popup" id="successPopup">
         <div class="success-popup-content">
-            <div class="success-popup-icon">✅</div>
-            <div class="success-popup-title">Pedido Enviado!</div>
+            <div class="success-popup-icon">📱</div>
+            <div class="success-popup-title">Vá ao seu Telemóvel!</div>
             <div class="success-popup-message">
-                O pedido de pagamento MBWay foi enviado para o seu telemóvel. <strong>O pagamento ainda não está confirmado.</strong><br><br>
-                Por favor, <strong>confirme o pagamento na aplicação MBWay</strong> no seu telemóvel para concluir a compra.
+                <strong>ATENÇÃO:</strong> O pagamento ainda <strong>NÃO</strong> foi realizado!<br><br>
+                📱 <strong>Abra a aplicação MBWay no seu telemóvel AGORA</strong><br>
+                💳 <strong>Confirme o pagamento de €<span id="popup-preco">0.00</span></strong><br><br>
+                <em>Só após confirmar no telemóvel é que o pagamento será processado.</em>
             </div>
-            <button class="success-popup-btn" onclick="closeSuccessPopup()">Entendi</button>
+            <button class="success-popup-btn" onclick="closeSuccessPopup()">Vou Confirmar no Telemóvel</button>
         </div>
     </div>
 
@@ -1113,6 +1115,9 @@
         }
 
         function showSuccess(message, data) {
+            // Atualizar preço no popup
+            document.getElementById('popup-preco').textContent = data.amount;
+            
             // Mostrar popup de sucesso
             const successPopup = document.getElementById('successPopup');
             successPopup.classList.add('show');
