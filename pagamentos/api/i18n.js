@@ -20,7 +20,7 @@ const paymentTranslations = {
     'product.batido-proteina.desc': 'Recuperação e força',
     'product.barra-proteina': 'Barra Proteína',
     'product.barra-proteina.desc': 'Energia para atletas determinados',
-    'product.cookies-proteica': 'Cookies Proteica',
+    'product.cookies-proteica': 'Cookies Proteicas',
     'product.cookies-proteica.desc': 'Doce tentação proteica',
     'product.limonada': 'Limonada',
     'product.limonada.desc': 'Refrescante e natural',

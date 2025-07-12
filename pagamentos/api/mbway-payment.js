@@ -38,7 +38,7 @@ export default async function handler(req, res) {
       'AGUA_GRANDE_001': { nome: 'Água Grande', preco: 2.00 },
       'BATIDO_PROTEINA_001': { nome: 'Batido Proteína', preco: 2.50 },
       'BARRA_PROTEINA_001': { nome: 'Barra Proteína', preco: 2.50 },
-      'COOKIES_PROTEICA_001': { nome: 'Cookies Proteica', preco: 2.00 },
+      'COOKIES_PROTEICA_001': { nome: 'Cookies Proteicas', preco: 2.00 },
       'LIMONADA_001': { nome: 'Limonada', preco: 2.50 },
       'AMINOX_001': { nome: 'AminoX', preco: 2.50 },
       'TOALHA_001': { nome: 'Toalha Treino/Banho', preco: 15.00 },

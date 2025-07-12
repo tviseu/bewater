@@ -165,7 +165,7 @@ exports.handler = async (event, context) => {
       produtoId = 'BATIDO_PROTEINA_001';
     } else if (produtoNome.includes('barra proteína') || produtoNome.includes('barra')) {
       produtoId = 'BARRA_PROTEINA_001';
-    } else if (produtoNome.includes('cookies proteica') || produtoNome.includes('cookies')) {
+            } else if (produtoNome.includes('cookies proteicas') || produtoNome.includes('cookies')) {
       produtoId = 'COOKIES_PROTEICA_001';
     } else if (produtoNome.includes('limonada')) {
       produtoId = 'LIMONADA_001';
