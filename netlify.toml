@@ -34,21 +34,7 @@
   status = 301
   force = true
 
-# Exceções para functions do pagamentos subdomain - deve vir ANTES do catch-all
-[[redirects]]
-  from = "/.netlify/functions/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
-  conditions = {Domain = ["pagamentos.bewaterlisboa.pt"]}
-
-# Redirect para raiz do pagamentos no subdomain
-[[redirects]]
-  from = "/"
-  to = "/pagamentos/"
-  status = 200
-  conditions = {Domain = ["pagamentos.bewaterlisboa.pt"]}
-
-# Redirect para domínio personalizado pagamentos.bewaterlisboa.pt (catch-all)
+# Redirect para domínio personalizado pagamentos.bewaterlisboa.pt
 [[redirects]]
   from = "/*"
   to = "/pagamentos/:splat"

@@ -193,7 +193,6 @@ git push origin main
 - 🍋 **Limonada** - €2.50
 - 🍺 **Cerveja Mini** - €2.00
 - 🏊 **Toalha BE WATER** - €15.00
-- 🔒 **Cadeado** - €10.00
 - 🥹 **Donativos** - €1-€100
 
 ---
