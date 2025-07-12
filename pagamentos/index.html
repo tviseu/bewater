@@ -660,7 +660,7 @@
 
         <!-- SEÇÃO: COMIDAS & BEBIDAS -->
         <div class="produtos-secao">
-            <h2 class="secao-titulo comidas-bebidas">🍽️ Comidas & Bebidas</h2>
+            <h2 class="secao-titulo comidas-bebidas" data-payment-i18n="section.food-drinks">🍽️ Comidas & Bebidas</h2>
             <div class="produtos-grid">
                 <div class="produto-card" data-id="CAFE_001" data-nome="Café" data-preco="0.85">
                     <div class="produto-icon">☕</div>
@@ -746,7 +746,7 @@
 
         <!-- SEÇÃO: ACESSÓRIOS & MISC -->
         <div class="produtos-secao">
-            <h2 class="secao-titulo acessorios-misc">🔧 Acessórios & Misc</h2>
+            <h2 class="secao-titulo acessorios-misc" data-payment-i18n="section.accessories-misc">🔧 Acessórios & Misc</h2>
             <div class="produtos-grid">
                 <div class="produto-card" data-id="CADEADO_001" data-nome="Cadeado" data-preco="10.00">
                     <div class="produto-icon">🔒</div>
@@ -835,14 +835,14 @@
     <div class="success-popup" id="successPopup">
         <div class="success-popup-content">
             <div class="success-popup-icon">📱</div>
-            <div class="success-popup-title">Vá ao seu Telemóvel!</div>
+            <div class="success-popup-title" data-payment-i18n="popup.title">Vá ao seu Telemóvel!</div>
             <div class="success-popup-message">
-                <strong>ATENÇÃO:</strong> O pagamento ainda <strong>NÃO</strong> foi realizado!<br><br>
-                📱 <strong>Abra a aplicação MBWay no seu telemóvel AGORA</strong><br>
-                💳 <strong>Confirme o pagamento de €<span id="popup-preco">0.00</span></strong><br><br>
-                <em>Só após confirmar no telemóvel é que o pagamento será processado.</em>
+                <span data-payment-i18n="popup.attention">ATENÇÃO:</span> <span data-payment-i18n="popup.not-paid">O pagamento ainda <strong>NÃO</strong> foi realizado!</span><br><br>
+                <span data-payment-i18n="popup.open-app">📱 <strong>Abra a aplicação MBWay no seu telemóvel AGORA</strong></span><br>
+                <span data-payment-i18n="popup.confirm-payment">💳 <strong>Confirme o pagamento de €</span><span id="popup-preco">0.00</span></strong><br><br>
+                <span data-payment-i18n="popup.only-after"><em>Só após confirmar no telemóvel é que o pagamento será processado.</em></span>
             </div>
-            <button class="success-popup-btn" onclick="closeSuccessPopup()">Vou Confirmar no Telemóvel</button>
+            <button class="success-popup-btn" onclick="closeSuccessPopup()" data-payment-i18n="popup.btn">Vou Confirmar no Telemóvel</button>
         </div>
     </div>
 
@@ -1066,6 +1066,11 @@
             // Atualizar preço no popup
             document.getElementById('popup-preco').textContent = data.amount;
             
+            // Aplicar traduções ao popup
+            if (window.paymentLanguageManager) {
+                window.paymentLanguageManager.applyLanguage(window.paymentLanguageManager.currentLang);
+            }
+            
             // Mostrar popup de sucesso
             const successPopup = document.getElementById('successPopup');
             successPopup.classList.add('show');
@@ -1156,6 +1161,9 @@
 
             paymentForm.classList.remove('hidden');
         }
+
+        // Inicializar sistema de tradução
+        window.paymentLanguageManager = new PaymentLanguageManager();
     </script>
 </body>
 </html> 

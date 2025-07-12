@@ -9,6 +9,10 @@ const paymentTranslations = {
     'header.title': '🏋️ BE WATER',
     'header.subtitle': 'Pagamentos MBWay - Selecione o produto desejado',
     
+    // Seções
+    'section.food-drinks': '🍽️ Comidas & Bebidas',
+    'section.accessories-misc': '🔧 Acessórios & Misc',
+    
     // Produtos
     'product.cafe': 'Café',
     'product.cafe.desc': 'Combustível para treinos épicos',
@@ -59,6 +63,15 @@ const paymentTranslations = {
     'loading.title': '⏳ A processar pagamento...',
     'loading.subtitle': 'Confirma o pagamento na app MBWay',
     
+    // Popup de sucesso
+    'popup.title': 'Vá ao seu Telemóvel!',
+    'popup.attention': 'ATENÇÃO:',
+    'popup.not-paid': 'O pagamento ainda <strong>NÃO</strong> foi realizado!',
+    'popup.open-app': '📱 <strong>Abra a aplicação MBWay no seu telemóvel AGORA</strong>',
+    'popup.confirm-payment': '💳 <strong>Confirme o pagamento de €',
+    'popup.only-after': '<em>Só após confirmar no telemóvel é que o pagamento será processado.</em>',
+    'popup.btn': 'Vou Confirmar no Telemóvel',
+    
     // Language Toggle
     'lang.current': 'PT',
     'lang.switch': 'EN'
@@ -68,6 +81,10 @@ const paymentTranslations = {
     // Header
     'header.title': '🏋️ BE WATER',
     'header.subtitle': 'MBWay Payments - Select your product',
+    
+    // Seções
+    'section.food-drinks': '🍽️ Food & Drinks',
+    'section.accessories-misc': '🔧 Accessories & Misc',
     
     // Produtos
     'product.cafe': 'Coffee',
@@ -118,6 +135,15 @@ const paymentTranslations = {
     // Loading e mensagens
     'loading.title': '⏳ Processing payment...',
     'loading.subtitle': 'Confirm payment in MBWay app',
+    
+    // Popup de sucesso
+    'popup.title': 'Go to your Phone!',
+    'popup.attention': 'ATTENTION:',
+    'popup.not-paid': 'Payment has <strong>NOT</strong> been completed yet!',
+    'popup.open-app': '📱 <strong>Open the MBWay app on your phone NOW</strong>',
+    'popup.confirm-payment': '💳 <strong>Confirm the payment of €',
+    'popup.only-after': '<em>Only after confirming on your phone will the payment be processed.</em>',
+    'popup.btn': 'I\'ll Confirm on Phone',
     
     // Language Toggle
     'lang.current': 'EN',
