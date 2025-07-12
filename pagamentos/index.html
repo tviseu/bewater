@@ -91,23 +91,28 @@
             font-weight: 600;
         }
 
-        /* GRID DE PRODUTOS - Estilo BE WATER */
-        .produtos-section {
-            margin-bottom: 50px;
-        }
-
+        /* SEÇÕES */
         .section-title {
-            color: var(--color-primary);
-            font-family: var(--font-heading);
-            font-size: 2rem;
-            font-weight: 900;
-            margin-bottom: 30px;
             text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            text-shadow: 2px 2px 0 var(--color-background);
+            margin: 40px 0 30px 0;
+            padding: 20px;
+            background: var(--color-background);
+            border: var(--border-thick);
+            border-radius: 15px;
+            box-shadow: 6px 6px 0 var(--color-primary);
         }
 
+        .section-title h2 {
+            font-size: 2rem;
+            margin: 0;
+            color: var(--color-primary);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: var(--font-heading);
+        }
+
+        /* GRID DE PRODUTOS - Estilo BE WATER */
         .produtos-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -604,122 +609,122 @@
         </div>
 
         <!-- SEÇÃO COMIDAS & BEBIDAS -->
-        <div class="produtos-section">
-            <h2 class="section-title">🍽️ Comidas & Bebidas</h2>
-            <div class="produtos-grid">
-                <div class="produto-card" data-id="CAFE_001" data-nome="Café" data-preco="0.85">
-                    <div class="produto-icon">☕</div>
-                    <div class="produto-nome" data-payment-i18n="product.cafe">Café</div>
-                    <div class="produto-preco">€0.85</div>
-                    <div class="produto-descricao" data-payment-i18n="product.cafe.desc">Combustível para treinos épicos</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
-                </div>
+        <div class="section-title">
+            <h2 data-payment-i18n="section.food-drinks">Comidas & Bebidas</h2>
+        </div>
+        <div class="produtos-grid">
+            <div class="produto-card" data-id="CAFE_001" data-nome="Café" data-preco="0.85">
+                <div class="produto-icon">☕</div>
+                <div class="produto-nome" data-payment-i18n="product.cafe">Café</div>
+                <div class="produto-preco">€0.85</div>
+                <div class="produto-descricao" data-payment-i18n="product.cafe.desc">Combustível para treinos épicos</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+            </div>
 
-                <div class="produto-card" data-id="AGUA_PEQUENA_001" data-nome="Água Pequena" data-preco="1.00">
-                    <div class="produto-icon">💧</div>
-                    <div class="produto-nome" data-payment-i18n="product.agua-pequena">Água Pequena</div>
-                    <div class="produto-preco">€1.00</div>
-                    <div class="produto-descricao" data-payment-i18n="product.agua-pequena.desc">Hidratação essencial</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
-                </div>
+            <div class="produto-card" data-id="AGUA_PEQUENA_001" data-nome="Água Pequena" data-preco="1.00">
+                <div class="produto-icon">💧</div>
+                <div class="produto-nome" data-payment-i18n="product.agua-pequena">Água Pequena</div>
+                <div class="produto-preco">€1.00</div>
+                <div class="produto-descricao" data-payment-i18n="product.agua-pequena.desc">Hidratação essencial</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+            </div>
 
-                <div class="produto-card" data-id="AGUA_GRANDE_001" data-nome="Água Grande" data-preco="2.00">
-                    <div class="produto-icon">💧💧</div>
-                    <div class="produto-nome" data-payment-i18n="product.agua-grande">Água Grande</div>
-                    <div class="produto-preco">€2.00</div>
-                    <div class="produto-descricao" data-payment-i18n="product.agua-grande.desc">Hidratação máxima</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
-                </div>
+            <div class="produto-card" data-id="AGUA_GRANDE_001" data-nome="Água Grande" data-preco="2.00">
+                <div class="produto-icon">💧💧</div>
+                <div class="produto-nome" data-payment-i18n="product.agua-grande">Água Grande</div>
+                <div class="produto-preco">€2.00</div>
+                <div class="produto-descricao" data-payment-i18n="product.agua-grande.desc">Hidratação máxima</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+            </div>
 
-                <div class="produto-card" data-id="AGUA_GAS_001" data-nome="Água com Gás" data-preco="1.50">
-                    <div class="produto-icon">🫧</div>
-                    <div class="produto-nome" data-payment-i18n="product.agua-gas">Água com Gás</div>
-                    <div class="produto-preco">€1.50</div>
-                    <div class="produto-descricao" data-payment-i18n="product.agua-gas.desc">Hidratação com estilo</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
-                </div>
+            <div class="produto-card" data-id="AGUA_GAS_001" data-nome="Água com Gás" data-preco="1.50">
+                <div class="produto-icon">🫧</div>
+                <div class="produto-nome" data-payment-i18n="product.agua-gas">Água com Gás</div>
+                <div class="produto-preco">€1.50</div>
+                <div class="produto-descricao" data-payment-i18n="product.agua-gas.desc">Hidratação com estilo</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+            </div>
 
-                <div class="produto-card" data-id="BATIDO_PROTEINA_001" data-nome="Batido Proteína" data-preco="2.50">
-                    <div class="produto-icon">🥤</div>
-                    <div class="produto-nome" data-payment-i18n="product.batido-proteina">Batido Proteína</div>
-                    <div class="produto-preco">€2.50</div>
-                    <div class="produto-descricao" data-payment-i18n="product.batido-proteina.desc">Recuperação e força</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
-                </div>
+            <div class="produto-card" data-id="BATIDO_PROTEINA_001" data-nome="Batido Proteína" data-preco="2.50">
+                <div class="produto-icon">🥤</div>
+                <div class="produto-nome" data-payment-i18n="product.batido-proteina">Batido Proteína</div>
+                <div class="produto-preco">€2.50</div>
+                <div class="produto-descricao" data-payment-i18n="product.batido-proteina.desc">Recuperação e força</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+            </div>
 
-                <div class="produto-card" data-id="BARRA_PROTEINA_001" data-nome="Barra Proteína" data-preco="2.50">
-                    <div class="produto-icon">🍫</div>
-                    <div class="produto-nome" data-payment-i18n="product.barra-proteina">Barra Proteína</div>
-                    <div class="produto-preco">€2.50</div>
-                    <div class="produto-descricao" data-payment-i18n="product.barra-proteina.desc">Energia para atletas determinados</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
-                </div>
+            <div class="produto-card" data-id="BARRA_PROTEINA_001" data-nome="Barra Proteína" data-preco="2.50">
+                <div class="produto-icon">🍫</div>
+                <div class="produto-nome" data-payment-i18n="product.barra-proteina">Barra Proteína</div>
+                <div class="produto-preco">€2.50</div>
+                <div class="produto-descricao" data-payment-i18n="product.barra-proteina.desc">Energia para atletas determinados</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+            </div>
 
-                <div class="produto-card" data-id="COOKIES_PROTEICA_001" data-nome="Cookies Proteicas" data-preco="2.00">
-                    <div class="produto-icon">🍪</div>
-                    <div class="produto-nome" data-payment-i18n="product.cookies-proteica">Cookies Proteicas</div>
-                    <div class="produto-preco">€2.00</div>
-                    <div class="produto-descricao" data-payment-i18n="product.cookies-proteica.desc">Doce tentação proteica</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
-                </div>
+            <div class="produto-card" data-id="COOKIES_PROTEICA_001" data-nome="Cookies Proteicas" data-preco="2.00">
+                <div class="produto-icon">🍪</div>
+                <div class="produto-nome" data-payment-i18n="product.cookies-proteica">Cookies Proteicas</div>
+                <div class="produto-preco">€2.00</div>
+                <div class="produto-descricao" data-payment-i18n="product.cookies-proteica.desc">Doce tentação proteica</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+            </div>
 
-                <div class="produto-card" data-id="LIMONADA_001" data-nome="Limonada" data-preco="2.50">
-                    <div class="produto-icon">🍋</div>
-                    <div class="produto-nome" data-payment-i18n="product.limonada">Limonada</div>
-                    <div class="produto-preco">€2.50</div>
-                    <div class="produto-descricao" data-payment-i18n="product.limonada.desc">Refrescante e deliciosa</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
-                </div>
+            <div class="produto-card" data-id="LIMONADA_001" data-nome="Limonada" data-preco="2.50">
+                <div class="produto-icon">🍋</div>
+                <div class="produto-nome" data-payment-i18n="product.limonada">Limonada</div>
+                <div class="produto-preco">€2.50</div>
+                <div class="produto-descricao" data-payment-i18n="product.limonada.desc">Refrescante e deliciosa</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+            </div>
 
-                <div class="produto-card" data-id="AMINOX_001" data-nome="AminoX" data-preco="2.50">
-                    <div class="produto-icon">⚡</div>
-                    <div class="produto-nome" data-payment-i18n="product.aminox">AminoX</div>
-                    <div class="produto-preco">€2.50</div>
-                    <div class="produto-descricao" data-payment-i18n="product.aminox.desc">Energia e resistência</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
-                </div>
+            <div class="produto-card" data-id="AMINOX_001" data-nome="AminoX" data-preco="2.50">
+                <div class="produto-icon">⚡</div>
+                <div class="produto-nome" data-payment-i18n="product.aminox">AminoX</div>
+                <div class="produto-preco">€2.50</div>
+                <div class="produto-descricao" data-payment-i18n="product.aminox.desc">Energia e resistência</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+            </div>
 
-                <div class="produto-card" data-id="CERVEJA_MINI_001" data-nome="Cerveja Mini" data-preco="2.00">
-                    <div class="produto-icon">🍺</div>
-                    <div class="produto-nome" data-payment-i18n="product.cerveja-mini">Cerveja Mini</div>
-                    <div class="produto-preco">€2.00</div>
-                    <div class="produto-descricao" data-payment-i18n="product.cerveja-mini.desc">Celebração pós-treino</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
-                </div>
+            <div class="produto-card" data-id="CERVEJA_MINI_001" data-nome="Cerveja Mini" data-preco="2.00">
+                <div class="produto-icon">🍺</div>
+                <div class="produto-nome" data-payment-i18n="product.cerveja-mini">Cerveja Mini</div>
+                <div class="produto-preco">€2.00</div>
+                <div class="produto-descricao" data-payment-i18n="product.cerveja-mini.desc">Celebração pós-treino</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
             </div>
         </div>
 
-        <!-- SEÇÃO MISC -->
-        <div class="produtos-section">
-            <h2 class="section-title">🛍️ Misc</h2>
-            <div class="produtos-grid">
-                <div class="produto-card" data-id="CADEADO_001" data-nome="Cadeado" data-preco="10.00">
-                    <div class="produto-icon">🔒</div>
-                    <div class="produto-nome" data-payment-i18n="product.cadeado">Cadeado</div>
-                    <div class="produto-preco">€10.00</div>
-                    <div class="produto-descricao" data-payment-i18n="product.cadeado.desc">Segurança para teus pertences</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
-                </div>
+        <!-- SEÇÃO DIVERSOS -->
+        <div class="section-title">
+            <h2 data-payment-i18n="section.misc">Diversos</h2>
+        </div>
+        <div class="produtos-grid">
+            <div class="produto-card" data-id="TOALHA_001" data-nome="Toalha Treino/Banho" data-preco="15.00">
+                <div class="produto-icon">🏊</div>
+                <div class="produto-nome" data-payment-i18n="product.toalha">Toalha Treino/Banho</div>
+                <div class="produto-preco">€15.00</div>
+                <div class="produto-descricao" data-payment-i18n="product.toalha.desc">Essencial BE WATER</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+            </div>
 
-                <div class="produto-card" data-id="TOALHA_001" data-nome="Toalha Treino/Banho" data-preco="15.00">
-                    <div class="produto-icon">🏊</div>
-                    <div class="produto-nome" data-payment-i18n="product.toalha">Toalha Treino/Banho</div>
-                    <div class="produto-preco">€15.00</div>
-                    <div class="produto-descricao" data-payment-i18n="product.toalha.desc">Essencial BE WATER</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
-                </div>
+            <div class="produto-card" data-id="CADEADO_001" data-nome="Cadeado" data-preco="10.00">
+                <div class="produto-icon">🔒</div>
+                <div class="produto-nome" data-payment-i18n="product.cadeado">Cadeado</div>
+                <div class="produto-preco">€10.00</div>
+                <div class="produto-descricao" data-payment-i18n="product.cadeado.desc">Segurança para os teus pertences</div>
+                <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+            </div>
 
-                <!-- DONATIVO ENGRAÇADO -->
-                <div class="produto-card produto-card--donativo" data-id="DONATIVO_001" data-nome="Donativo - Salvem os Músculos Abandonados">
-                    <div class="produto-icon">🥹🫶</div>
-                    <div class="produto-nome" data-payment-i18n="product.donativo">Donativo Solidário</div>
-                    <div class="produto-preco-variavel">
-                        <span>€</span>
-                        <input type="number" id="donativo-valor" min="1.00" max="100" step="0.50" placeholder="5.00" value="5.00">
-                    </div>
-                    <div class="produto-descricao" data-payment-i18n="product.donativo.desc">"A tua moedinha faz milagres no tatami."<br>Ajuda a apoiar eventos, formações e treinos para todos. Um euro pode ser o primeiro passo de alguém.</div>
-                    <button class="produto-btn donativo-btn" data-payment-i18n="product.donativo.btn">Salvar um Músculo</button>
+            <!-- DONATIVO ENGRAÇADO -->
+            <div class="produto-card produto-card--donativo" data-id="DONATIVO_001" data-nome="Donativo - Salvem os Músculos Abandonados">
+                <div class="produto-icon">🥹🫶</div>
+                <div class="produto-nome" data-payment-i18n="product.donativo">Donativo Solidário</div>
+                <div class="produto-preco-variavel">
+                    <span>€</span>
+                    <input type="number" id="donativo-valor" min="1.00" max="100" step="0.50" placeholder="5.00" value="5.00">
                 </div>
+                <div class="produto-descricao" data-payment-i18n="product.donativo.desc">"A tua moedinha faz milagres no tatami."<br>Ajuda a apoiar eventos, formações e treinos para todos. Um euro pode ser o primeiro passo de alguém.</div>
+                <button class="produto-btn donativo-btn" data-payment-i18n="product.donativo.btn">Salvar um Músculo</button>
             </div>
         </div>
 
@@ -948,7 +953,7 @@
                 }
             }
 
-            // Mostrar loading IMEDIATAMENTE para ficar óbvio que foi enviado
+            // Mostrar loading
             showLoading();
 
             try {
@@ -988,11 +993,6 @@
             loadingDiv.classList.add('show');
             payBtn.disabled = true;
             hideMessages();
-            
-            // Scroll suave para a janela de loading para ficar óbvio que foi enviado
-            setTimeout(() => {
-                loadingDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 100);
         }
 
         function hideLoading() {

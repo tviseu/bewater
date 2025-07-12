@@ -21,9 +21,9 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
     'LIMONADA_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'AMINOX_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'TOALHA_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'CADEADO_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'CERVEJA_MINI_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'AGUA_GAS_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
-    'CADEADO_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'DONATIVO_001': { nome: 'Donativo BE WATER', iva: 0, categoria: 'Donativos', tax_exempt_reason: 'Artigo 53º do CIVA' }
   };
 
@@ -172,12 +172,12 @@ exports.handler = async (event, context) => {
       produtoId = 'LIMONADA_001';
     } else if (produtoNome.includes('aminox')) {
       produtoId = 'AMINOX_001';
-    } else if (produtoNome.includes('toalha')) {
-      produtoId = 'TOALHA_001';
+          } else if (produtoNome.includes('toalha')) {
+        produtoId = 'TOALHA_001';
+      } else if (produtoNome.includes('cadeado')) {
+        produtoId = 'CADEADO_001';
     } else if (produtoNome.includes('cerveja mini') || produtoNome.includes('cerveja')) {
       produtoId = 'CERVEJA_MINI_001';
-    } else if (produtoNome.includes('cadeado')) {
-      produtoId = 'CADEADO_001';
     }
 
     // Preparar dados para emissão (usar "Consumidor Final" se sem dados)

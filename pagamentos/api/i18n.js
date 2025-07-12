@@ -28,16 +28,20 @@ const paymentTranslations = {
     'product.aminox.desc': 'Energia e resistência',
     'product.toalha': 'Toalha Treino/Banho',
     'product.toalha.desc': 'Essencial BE WATER',
+    'product.cadeado': 'Cadeado',
+    'product.cadeado.desc': 'Segurança para os teus pertences',
     'product.cerveja-mini': 'Cerveja Mini',
     'product.cerveja-mini.desc': 'Celebração pós-treino',
     'product.agua-gas': 'Água com Gás',
     'product.agua-gas.desc': 'Hidratação com estilo',
-    'product.cadeado': 'Cadeado',
-    'product.cadeado.desc': 'Segurança para teus pertences',
     'product.donativo': 'Donativo Solidário',
     'product.donativo.desc': '"A tua moedinha faz milagres no tatami."<br>Ajuda a apoiar eventos, formações e treinos para todos. Um euro pode ser o primeiro passo de alguém.',
     'product.btn': 'Pagar com MBWay',
     'product.donativo.btn': 'Salvar um Músculo',
+    
+    // Seções
+    'section.food-drinks': 'Comidas & Bebidas',
+    'section.misc': 'Diversos',
     
     // Formulário
     'form.title': '💳 Pagamento MBWay',
@@ -88,16 +92,20 @@ const paymentTranslations = {
     'product.aminox.desc': 'Energy and endurance',
     'product.toalha': 'Training/Bath Towel',
     'product.toalha.desc': 'BE WATER essential',
+    'product.cadeado': 'Padlock',
+    'product.cadeado.desc': 'Security for your belongings',
     'product.cerveja-mini': 'Mini Beer',
     'product.cerveja-mini.desc': 'Post-workout celebration',
     'product.agua-gas': 'Sparkling Water',
     'product.agua-gas.desc': 'Hydration with style',
-    'product.cadeado': 'Padlock',
-    'product.cadeado.desc': 'Security for your belongings',
     'product.donativo': 'Solidarity Donation',
     'product.donativo.desc': '"Your coin works miracles on the tatami."<br>Help support events, training and workouts for everyone. One euro can be someone\'s first step.',
     'product.btn': 'Pay with MBWay',
     'product.donativo.btn': 'Save a Muscle',
+    
+    // Seções
+    'section.food-drinks': 'Food & Drinks',
+    'section.misc': 'Miscellaneous',
     
     // Formulário
     'form.title': '💳 MBWay Payment',
