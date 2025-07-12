@@ -192,6 +192,7 @@ git push origin main
 - 🍪 **Cookies Proteicas** - €2.00
 - 🍋 **Limonada** - €2.50
 - 🍺 **Cerveja Mini** - €2.00
+- 🔒 **Cadeado** - €10.00
 - 🏊 **Toalha BE WATER** - €15.00
 - 🥹 **Donativos** - €1-€100
 

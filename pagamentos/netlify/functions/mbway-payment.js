@@ -29,6 +29,7 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
     'TOALHA_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'CERVEJA_MINI_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'AGUA_GAS_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'CADEADO_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'DONATIVO_001': { nome: 'Donativo BE WATER', iva: 0, categoria: 'Donativos', tax_exempt_reason: 'Artigo 53º do CIVA' }
   };
 
@@ -200,15 +201,16 @@ exports.handler = async (event, context) => {
       'CAFE_001': { nome: 'Café', preco: 0.85 },
       'AGUA_PEQUENA_001': { nome: 'Água Pequena', preco: 1.00 },
       'AGUA_GRANDE_001': { nome: 'Água Grande', preco: 2.00 },
-      'BATIDO_PROTEINA_001': { nome: 'Batido Proteína', preco: 2.50 },
-      'BARRA_PROTEINA_001': { nome: 'Barra Proteína', preco: 2.50 },
-      'COOKIES_PROTEICA_001': { nome: 'Cookies Proteicas', preco: 2.00 },
-      'LIMONADA_001': { nome: 'Limonada', preco: 2.50 },
-      'AMINOX_001': { nome: 'AminoX', preco: 2.50 },
-      'TOALHA_001': { nome: 'Toalha Treino/Banho', preco: 15.00 },
-      'CERVEJA_MINI_001': { nome: 'Cerveja Mini', preco: 2.00 },
-      'AGUA_GAS_001': { nome: 'Água com Gás', preco: 1.50 },
-      'DONATIVO_001': { nome: 'Donativo - Salvem os Músculos Abandonados', preco: 5.00 }
+          'BATIDO_PROTEINA_001': { nome: 'Batido Proteína', preco: 2.50 },
+    'BARRA_PROTEINA_001': { nome: 'Barra Proteína', preco: 2.50 },
+    'COOKIES_PROTEICA_001': { nome: 'Cookies Proteicas', preco: 2.00 },
+    'LIMONADA_001': { nome: 'Limonada', preco: 2.50 },
+    'AMINOX_001': { nome: 'AminoX', preco: 2.50 },
+    'CERVEJA_MINI_001': { nome: 'Cerveja Mini', preco: 2.00 },
+    'AGUA_GAS_001': { nome: 'Água com Gás', preco: 1.50 },
+    'CADEADO_001': { nome: 'Cadeado', preco: 10.00 },
+    'TOALHA_001': { nome: 'Toalha Treino/Banho', preco: 15.00 },
+    'DONATIVO_001': { nome: 'Donativo - Salvem os Músculos Abandonados', preco: 5.00 }
     };
 
     // Parse do body
