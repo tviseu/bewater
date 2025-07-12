@@ -482,27 +482,7 @@
             box-shadow: 4px 4px 0 var(--color-primary);
         }
 
-        .success-message, .error-message {
-            padding: 30px;
-            margin-top: 30px;
-            text-align: left;
-            display: none;
-            border: var(--border-thick);
-            box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-primary);
-            font-family: var(--font-heading);
-            font-weight: 700;
-            line-height: 1.8;
-        }
-
-        .success-message {
-            background: var(--color-accent);
-            color: var(--color-primary);
-        }
-
-        .error-message {
-            background: #FF6B35;
-            color: var(--color-background);
-        }
+        /* CSS antigo removido - agora usamos apenas popup */
 
         .hidden {
             display: none;
@@ -588,20 +568,7 @@
                 font-size: 2rem;
             }
 
-            /* MELHORAR SUCCESS MESSAGE EM MOBILE */
-            .success-message, .error-message {
-                padding: 20px;
-                margin: 20px 10px;
-                font-size: 0.9rem;
-                line-height: 2;
-                box-shadow: 4px 4px 0 var(--color-primary);
-            }
-
-            .success-message strong {
-                display: block;
-                margin-bottom: 8px;
-                font-size: 1rem;
-            }
+            /* CSS antigo removido - agora usamos apenas popup */
         }
 
         @media (max-width: 480px) {
@@ -680,23 +647,7 @@
                 font-size: 1.8rem;
             }
 
-            /* OTIMIZAR SUCCESS MESSAGE PARA TELAS PEQUENAS */
-            .success-message, .error-message {
-                padding: 15px;
-                margin: 15px 5px;
-                font-size: 0.85rem;
-                line-height: 2.2;
-                box-shadow: 3px 3px 0 var(--color-primary);
-            }
-
-            .success-message strong {
-                font-size: 0.9rem;
-                margin-bottom: 6px;
-            }
-
-            .success-message br {
-                line-height: 3;
-            }
+            /* CSS antigo removido - agora usamos apenas popup */
         }
     </style>
 </head>
@@ -876,8 +827,7 @@
                 <p data-payment-i18n="loading.subtitle">Confirma o pagamento na app MBWay</p>
             </div>
 
-            <div class="success-message" id="successMessage"></div>
-            <div class="error-message" id="errorMessage"></div>
+            <!-- Mensagens antigas removidas - agora usamos popup -->
         </div>
     </div>
 
@@ -905,8 +855,6 @@
         const produtoSelecionadoDiv = document.getElementById('produtoSelecionado');
         const mbwayForm = document.getElementById('mbwayForm');
         const loadingDiv = document.getElementById('loading');
-        const successMessage = document.getElementById('successMessage');
-        const errorMessage = document.getElementById('errorMessage');
         const payBtn = document.getElementById('payBtn');
 
         // Event listeners para cards de produtos
@@ -1130,16 +1078,11 @@
         }
 
         function showError(message) {
-            errorMessage.innerHTML = `<strong>❌ Erro:</strong> ${message}`;
-            errorMessage.style.display = 'block';
-            hideMessages(false);
+            alert(`❌ Erro: ${message}`);
         }
 
         function hideMessages(hideAll = true) {
-            if (hideAll) {
-                successMessage.style.display = 'none';
-                errorMessage.style.display = 'none';
-            }
+            // Função mantida para compatibilidade, mas não faz nada
         }
 
         // Auto-format phone number
