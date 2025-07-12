@@ -191,6 +191,7 @@ git push origin main
 - 🥤 **Batidos/Barras Proteína** - €2.50
 - 🍪 **Cookies Proteicas** - €2.00
 - 🍋 **Limonada** - €2.50
+- 🔒 **Cadeado** - €10.00
 - 🍺 **Cerveja Mini** - €2.00
 - 🏊 **Toalha BE WATER** - €15.00
 - 🥹 **Donativos** - €1-€100
