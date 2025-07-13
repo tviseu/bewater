@@ -7041,11 +7041,11 @@ html, body {
 .gym-collage-slider__track {
   display: flex;
   transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  width: 1300%; /* 13 slides */
+  width: 1400%; /* 14 slides */
 }
 
 .gym-collage-slide {
-  width: 7.69%; /* 1/13 of the track */
+  width: 7.14%; /* 1/14 of the track */
   flex-shrink: 0;
   position: relative;
   padding: var(--spacing-lg) 0;
@@ -7339,6 +7339,23 @@ html, body {
   box-shadow: 40px 40px 0 #FFD700;
 }
 
+/* Photo 14 - Center Right */
+.gym-photo--single-14 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-35%, -45%) rotate(4deg);
+  width: 720px;
+  height: 545px;
+  border: 11px solid var(--color-black);
+  box-shadow: -30px 25px 0 #E74C3C;
+  z-index: 2;
+}
+
+.gym-photo--single-14:hover {
+  transform: translate(-35%, -45%) rotate(1deg) scale(1.08);
+  box-shadow: -38px 32px 0 #E74C3C;
+}
+
 /* Single Photo Text Graphics */
 .gym-graphic--single-text {
   position: absolute;
@@ -7386,7 +7403,7 @@ html, body {
   .gym-photo--single-4, .gym-photo--single-5, .gym-photo--single-6,
   .gym-photo--single-7, .gym-photo--single-8, .gym-photo--single-9,
   .gym-photo--single-10, .gym-photo--single-11, .gym-photo--single-12,
-  .gym-photo--single-13 {
+  .gym-photo--single-13, .gym-photo--single-14 {
     width: 450px !important;
     height: 340px !important;
     border-width: 6px !important;
@@ -7406,6 +7423,7 @@ html, body {
   .gym-photo--single-11 { box-shadow: 16px 10px 0 #16A085 !important; }
   .gym-photo--single-12 { box-shadow: -12px 16px 0 #7B1FA2 !important; }
   .gym-photo--single-13 { box-shadow: 14px 14px 0 #FFD700 !important; }
+  .gym-photo--single-14 { box-shadow: -12px 10px 0 #E74C3C !important; }
   
   .gym-graphic--single-text {
     font-size: 1.8rem;
@@ -7432,7 +7450,7 @@ html, body {
   .gym-photo--single-4, .gym-photo--single-5, .gym-photo--single-6,
   .gym-photo--single-7, .gym-photo--single-8, .gym-photo--single-9,
   .gym-photo--single-10, .gym-photo--single-11, .gym-photo--single-12,
-  .gym-photo--single-13 {
+  .gym-photo--single-13, .gym-photo--single-14 {
     width: 350px !important;
     height: 265px !important;
     border-width: 5px !important;
@@ -7452,6 +7470,7 @@ html, body {
   .gym-photo--single-11 { box-shadow: 10px 6px 0 #16A085 !important; }
   .gym-photo--single-12 { box-shadow: -6px 10px 0 #7B1FA2 !important; }
   .gym-photo--single-13 { box-shadow: 8px 8px 0 #FFD700 !important; }
+  .gym-photo--single-14 { box-shadow: -6px 8px 0 #E74C3C !important; }
   
   .gym-graphic--single-text {
     font-size: 1.4rem;
