@@ -344,28 +344,7 @@ const translations = {
       'modal.dropin.step2': 'Escolhe o dia e hora e que aula queres fazer 📅',
       'modal.dropin.step3': 'Confirma a reserva e faz o pagamento ✅',
       
-      // Pre-registration Modal
-      'modal.prereg.title': 'PRÉ-INSCRIÇÃO',
-      'modal.prereg.subtitle': 'GARANTIA EARLY BIRD',
-      'modal.prereg.opening': 'Abertura:<br>14 de Julho 2025',
-      'modal.prereg.what.title': '🎯 O QUE É A PRÉ-INSCRIÇÃO?',
-      'modal.prereg.what.text': 'Garante-te acesso privilegiado aos preços promocionais Early Bird.',
-      'modal.prereg.how.title': '📞 COMO FUNCIONA?',
-      'modal.prereg.how.step1': '<strong>1.</strong> Faz a tua pré-inscrição agora por <strong>25€</strong>',
-      'modal.prereg.how.step2': '<strong>2.</strong> Serás <strong>contactado diretamente</strong> quando estivermos prestes a abrir',
-      'modal.prereg.how.step3': '<strong>3.</strong> Escolhe e paga a tua mensalidade preferida com <strong>desconto garantido</strong>',
-      'modal.prereg.how.step4': '<strong>4.</strong> A tua primeira mensalidade será calculada proporcionalmente aos dias restantes do mês em que começares a treinar - <strong>pagas apenas pelos dias que usas o ginásio!</strong>',
-      'modal.prereg.insurance.note': '💡 O seguro e custos de inscrição já estão incluídos - <strong>não pagas outra vez!</strong>',
-      'modal.prereg.plans.title': '💰 MENSALIDADES DISPONÍVEIS COM EARLY BIRD:',
-      'modal.prereg.plans.starter.title': 'PLANO STARTER',
-      'modal.prereg.plans.starter.access': 'Acesso <strong>2x por semana</strong>',
-      'modal.prereg.plans.rise.title': 'PLANO RISE',
-      'modal.prereg.plans.rise.access': 'Acesso <strong>3x por semana</strong>',
-      'modal.prereg.plans.elite.title': 'PLANO ELITE',
-      'modal.prereg.plans.elite.access': 'Acesso <strong>ilimitado</strong>',
-      'modal.prereg.guarantee.title': '⏰ GARANTIA DE PREÇO:',
-      'modal.prereg.guarantee.text': 'Os preços Early Bird ficam garantidos durante <strong>1 ANO COMPLETO</strong> na mensalidade que escolheres!',
-      'modal.prereg.loading': 'A carregar formulário...',
+
       
       // Purchase Instructions
       'modal.purchase.title': 'Como comprar o teu pack:',
@@ -733,28 +712,7 @@ const translations = {
       'modal.dropin.step2': 'Choose the day and time and which class you want to take 📅',
       'modal.dropin.step3': 'Confirm the booking and make the payment ✅',
       
-      // Pre-registration Modal
-      'modal.prereg.title': 'PRE-REGISTRATION',
-      'modal.prereg.subtitle': 'EARLY BIRD GUARANTEE',
-      'modal.prereg.opening': 'Opening:<br>July 14, 2025',
-      'modal.prereg.what.title': '🎯 WHAT IS PRE-REGISTRATION?',
-      'modal.prereg.what.text': 'Guarantees you privileged access to Early Bird promotional prices.',
-      'modal.prereg.how.title': '📞 HOW DOES IT WORK?',
-      'modal.prereg.how.step1': '<strong>1.</strong> Do your pre-registration now for <strong>€25</strong>',
-      'modal.prereg.how.step2': '<strong>2.</strong> You will be <strong>contacted directly</strong> when we are about to open',
-      'modal.prereg.how.step3': '<strong>3.</strong> Choose and pay your preferred monthly fee with <strong>guaranteed discount</strong>',
-      'modal.prereg.how.step4': '<strong>4.</strong> Your first monthly fee will be calculated proportionally to the remaining days of the month when you start training - <strong>you only pay for the days you use the gym!</strong>',
-      'modal.prereg.insurance.note': '💡 Insurance and registration costs are already included - <strong>you don\'t pay again!</strong>',
-      'modal.prereg.plans.title': '💰 MONTHLY FEES AVAILABLE WITH EARLY BIRD:',
-      'modal.prereg.plans.starter.title': 'STARTER PLAN',
-      'modal.prereg.plans.starter.access': 'Access <strong>2x per week</strong>',
-      'modal.prereg.plans.rise.title': 'RISE PLAN',
-      'modal.prereg.plans.rise.access': 'Access <strong>3x per week</strong>',
-      'modal.prereg.plans.elite.title': 'ELITE PLAN',
-      'modal.prereg.plans.elite.access': '<strong>Unlimited</strong> access',
-      'modal.prereg.guarantee.title': '⏰ PRICE GUARANTEE:',
-      'modal.prereg.guarantee.text': 'Early Bird prices are guaranteed for <strong>1 COMPLETE YEAR</strong> on the monthly fee you choose!',
-      'modal.prereg.loading': 'Loading form...',
+
       
       // Purchase Instructions
       'modal.purchase.title': 'How to purchase your pack:',
@@ -773,7 +731,7 @@ const translations = {
       'modal.privacy.data.text': 'ASSOCIAÇÃO SÊ COMO ÁGUA collects and processes personal data in accordance with the General Data Protection Regulation (GDPR) and other applicable legislation.',
       'modal.privacy.purposes.title': 'PURPOSES',
       'modal.privacy.purposes.text': 'The personal data collected is intended for:',
-      'modal.privacy.purposes.registration': 'Management of pre-registrations and gym registrations',
+      'modal.privacy.purposes.registration': 'Management of gym registrations',
       'modal.privacy.purposes.communication': 'Communication with customers and potential customers',
       'modal.privacy.purposes.newsletter': 'Sending newsletter and promotional information',
       'modal.privacy.purposes.legal': 'Compliance with legal obligations',

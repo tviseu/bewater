@@ -495,67 +495,7 @@ const products = {
   3: { id: 3, name: 'BE WATER Gym Bag', price: 39.99 }
 };
 
-let cart = [];
 
-// Cart functionality
-function updateCartCount() {
-  const cartCount = document.querySelector('.cart-count');
-  if (cartCount) {
-    cartCount.textContent = cart.length;
-    // Update the cart icon text to show "items"
-    const cartText = cart.length === 1 ? 'item' : 'items';
-    cartCount.setAttribute('title', `${cart.length} ${cartText} in cart`);
-  }
-}
-
-function updateCartTotal() {
-  const total = cart.reduce((sum, item) => sum + products[item.id].price, 0);
-  const totalElement = document.getElementById('cart-total-amount');
-  if (totalElement) {
-    totalElement.textContent = `€${total.toFixed(2)}`;
-  }
-  return total;
-}
-
-function addToCart(productId) {
-  cart.push({ id: productId });
-  updateCartCount();
-  updateCartDisplay();
-  
-  // Show feedback animation
-  const cartIcon = document.querySelector('.cart-icon');
-  cartIcon.classList.add('cart-icon--shake');
-  setTimeout(() => {
-    cartIcon.classList.remove('cart-icon--shake');
-  }, 500);
-}
-
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  updateCartCount();
-  updateCartDisplay();
-}
-
-function updateCartDisplay() {
-  const cartItems = document.getElementById('cart-items');
-  cartItems.innerHTML = '';
-
-  cart.forEach((item, index) => {
-    const product = products[item.id];
-    const cartItem = document.createElement('div');
-    cartItem.className = 'cart-item';
-    cartItem.innerHTML = `
-      <div class="cart-item__info">
-        <div class="cart-item__title">${product.name}</div>
-        <div class="cart-item__price">€${product.price.toFixed(2)}</div>
-      </div>
-      <button class="cart-item__remove" onclick="removeFromCart(${index})">&times;</button>
-    `;
-    cartItems.appendChild(cartItem);
-  });
-
-  updateCartTotal();
-}
 
 // Modal functionality
 function openModal(modalId) {
@@ -610,7 +550,7 @@ async function handleMBWayPayment() {
       },
       body: JSON.stringify({
         phoneNumber,
-        amount: updateCartTotal()
+        amount: 0
       })
     });
 
@@ -628,40 +568,11 @@ async function handleMBWayPayment() {
 
 function handlePaymentSuccess() {
   alert('Pagamento realizado com sucesso! Obrigado pela tua compra.');
-  cart = [];
-  updateCartCount();
   closeModal('payment-modal');
-  closeModal('cart-modal');
 }
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize cart display - commented out since there's no cart in this website
-  // updateCartCount();
-  // updateCartDisplay();
-  
-  // Add to cart buttons - commented out since there's no cart in this website
-  // document.querySelectorAll('.add-to-cart').forEach(button => {
-  //   button.addEventListener('click', () => {
-  //     const productId = parseInt(button.dataset.productId);
-  //     addToCart(productId);
-  //     
-  //     // Add feedback animation to the button
-  //     button.classList.add('btn--added');
-  //     button.textContent = 'ADICIONADO!';
-  //     setTimeout(() => {
-  //       button.classList.remove('btn--added');
-  //       button.textContent = 'ADICIONAR AO CARRINHO';
-  //     }, 1000);
-  //   });
-  // });
-
-  // Cart toggle - commented out since there's no cart in this website
-  // document.getElementById('cart-toggle').addEventListener('click', (e) => {
-  //   e.preventDefault();
-  //   openModal('cart-modal');
-  // });
-
   // Close buttons
   document.querySelectorAll('.modal__close').forEach(button => {
     button.addEventListener('click', () => {
@@ -669,35 +580,6 @@ document.addEventListener('DOMContentLoaded', () => {
       closeModal(modal.id);
     });
   });
-
-  // Checkout button - commented out since there's no cart in this website
-  // document.getElementById('checkout-btn').addEventListener('click', () => {
-  //   closeModal('cart-modal');
-  //   openModal('payment-modal');
-  // });
-
-  // Payment options - commented out since there's no cart in this website
-  // document.querySelectorAll('.payment-option').forEach(option => {
-  //   option.addEventListener('click', () => {
-  //     const paymentMethod = option.dataset.payment;
-  //     document.querySelectorAll('.payment-form').forEach(form => {
-  //       form.style.display = 'none';
-  //     });
-  //     document.getElementById(`${paymentMethod}-payment-form`).style.display = 'block';
-  //     
-  //     if (paymentMethod === 'card') {
-  //       initializeStripe();
-  //     }
-  //   });
-  // });
-
-  // Pay button - commented out since there's no cart in this website
-  // document.getElementById('pay-btn').addEventListener('click', () => {
-  //   const activePaymentForm = document.querySelector('.payment-form[style="display: block;"]');
-  //   if (activePaymentForm.id === 'card-payment-form') {
-  //     handleCardPayment(updateCartTotal());
-  //   } else if (activePaymentForm.id === 'mbway-payment-form') {
-  //     handleMBWayPayment();
   //   }
   // });
 });
