@@ -892,9 +892,11 @@ function validateEmail(email) {
 
 // Active Navigation State Management
 document.addEventListener('DOMContentLoaded', function() {
-  const desktopNavLinks = document.querySelectorAll('.header__nav a[href^="#"]');
-  const mobileNavLinks = document.querySelectorAll('.mobile-menu a[href^="#"]');
-  const sections = document.querySelectorAll('section[id]');
+  // Wait for mobile menu to be created
+  setTimeout(() => {
+    const desktopNavLinks = document.querySelectorAll('.header__nav a[href^="#"]');
+    const mobileNavLinks = document.querySelectorAll('.mobile-menu a[href^="#"]');
+    const sections = document.querySelectorAll('section[id]');
   
   if (!sections.length) {
     console.log('No sections found for navigation highlighting');
@@ -904,6 +906,8 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log('Found sections:', Array.from(sections).map(s => s.id));
   console.log('Found desktop nav links:', Array.from(desktopNavLinks).map(l => l.getAttribute('href')));
   console.log('Found mobile nav links:', Array.from(mobileNavLinks).map(l => l.getAttribute('href')));
+  
+
   
   // Function to update active navigation link
   function updateActiveNav(activeSectionId) {
@@ -924,6 +928,8 @@ document.addEventListener('DOMContentLoaded', function() {
       if (activeSectionId && link.getAttribute('href') === `#${activeSectionId}`) {
         link.classList.add('active');
         console.log('Added active class to mobile link:', link.getAttribute('href'));
+        
+
       }
     });
   }
@@ -1027,6 +1033,8 @@ document.addEventListener('DOMContentLoaded', function() {
   }, { once: true });
   
   console.log(`Active navigation initialized with ${sections.length} sections and ${desktopNavLinks.length + mobileNavLinks.length} nav links`);
+  
+  }, 500); // Wait for mobile menu creation
 });
 
 // Schedule Activity Click to Scroll to Legend

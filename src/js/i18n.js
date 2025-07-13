@@ -348,10 +348,10 @@ const translations = {
       
       // Purchase Instructions
       'modal.purchase.title': 'Como comprar o teu pack:',
-      'modal.purchase.step1': 'Escolhe a <strong>start date</strong> 📅',
+      'modal.purchase.step1': 'Escolhe a <strong>data de início</strong> 📅',
       'modal.purchase.step2': 'Click no <strong>VALOR TOTAL</strong> 💰',
-      'modal.purchase.step3': 'Register your details on the BeWater app 📱',
-      'modal.purchase.step4': 'Escolher a forma de pagamento preferida para finalizar a inscrição! 💳',
+      'modal.purchase.step3': 'Preenche os teus dados 📱',
+      'modal.purchase.step4': 'Escolhe a forma de pagamento preferida para finalizar a inscrição! 💳',
       
       // Privacy Policy Modal
       'modal.privacy.title': 'POLÍTICA DE PRIVACIDADE',
@@ -718,7 +718,7 @@ const translations = {
       'modal.purchase.title': 'How to purchase your pack:',
       'modal.purchase.step1': 'Choose your <strong>start date</strong> 📅',
       'modal.purchase.step2': 'Click on <strong>TOTAL AMOUNT</strong> 💰',
-      'modal.purchase.step3': 'Register your details on the BeWater app 📱',
+      'modal.purchase.step3': 'Fill in your details 📱',
       'modal.purchase.step4': 'Choose your preferred payment method to complete registration! 💳',
       
       // Privacy Policy Modal
