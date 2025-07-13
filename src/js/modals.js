@@ -1,5 +1,42 @@
-// Pricing Modals Functionality
+// Pricing Modals Functionality - Simple Version with Dynamic Sizing
 document.addEventListener('DOMContentLoaded', function() {
+  
+  // Function to make iframes responsive and dynamic
+  function makeIframesDynamic() {
+    const allIframes = document.querySelectorAll('iframe[name^="frame_regy"]');
+    
+    allIframes.forEach(function(iframe) {
+      // Set initial responsive styles
+      iframe.style.width = '100%';
+      iframe.style.minHeight = '800px';
+      iframe.style.border = 'none';
+      iframe.style.display = 'block';
+      
+      // Enable scrolling for better UX
+      iframe.setAttribute('scrolling', 'auto');
+      
+      // Try to auto-resize based on content (when possible)
+      iframe.onload = function() {
+        try {
+          // This might work for same-origin content
+          const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+          if (iframeDoc) {
+            const iframeHeight = iframeDoc.body.scrollHeight;
+            if (iframeHeight > 400) {
+              iframe.style.height = Math.min(iframeHeight + 50, window.innerHeight * 0.8) + 'px';
+            }
+          }
+        } catch (e) {
+          // Cross-origin restrictions - use fixed responsive height
+          console.log('Auto-resize not possible due to cross-origin restrictions');
+        }
+      };
+    });
+  }
+  
+  // Apply dynamic sizing
+  makeIframesDynamic();
+  
   setTimeout(function() {
     // Modal functions
     function openModal(modalId) {
@@ -8,46 +45,16 @@ document.addEventListener('DOMContentLoaded', function() {
       if (modal) {
         modal.classList.add('active');
         document.body.classList.add('modal-open');
+        console.log('Modal opened:', modalId);
         
-        // Lazy load Regy iframe with placeholder
-        const iframe = modal.querySelector('iframe');
-        const input = modal.querySelector('input.class_regy');
-        const placeholder = modal.querySelector('.iframe-placeholder');
-        
-        if (iframe && input && input.value && !iframe.src) {
-          // Show placeholder initially
-          if (placeholder) {
-            placeholder.style.display = 'flex';
-          }
-          iframe.style.display = 'none';
-          
-          // Load Regy script first (if available)
-          if (window.loadRegyScript) {
-            window.loadRegyScript();
-          }
-          
-          // Load iframe
-          iframe.src = input.value;
-          
-          // Hide placeholder and show iframe when loaded
-          iframe.onload = function() {
-            if (placeholder) {
-              placeholder.style.display = 'none';
-            }
-            iframe.style.display = 'block';
-          };
-          
-          // Fallback timeout in case onload doesn't fire
-          setTimeout(function() {
-            if (placeholder) {
-              placeholder.style.display = 'none';
-            }
-            iframe.style.display = 'block';
-          }, 3000);
+        // Ensure iframe is properly sized when modal opens
+        const iframe = modal.querySelector('iframe[name^="frame_regy"]');
+        if (iframe) {
+          makeIframesDynamic();
         }
       }
     }
-    
+
     function closeModal(modalId) {
       const modal = document.getElementById('modal-' + modalId);
       if (modal) {
@@ -104,5 +111,10 @@ document.addEventListener('DOMContentLoaded', function() {
     window.openModal = openModal;
     window.closeModal = closeModal;
     
-  }, 500); // Small delay to ensure DOM is ready
+    // Re-apply dynamic sizing when window resizes
+    window.addEventListener('resize', function() {
+      makeIframesDynamic();
+    });
+    
+  }, 500);
 }); 

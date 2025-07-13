@@ -598,6 +598,14 @@
   <!-- 
   ORIGINAL PRICING SECTION - COMMENTED FOR FUTURE USE
   
+  PARA ATIVAR MODO "LIVE":
+  1. Comentar a seção "PRE-INSCRIÇÃO SECTION" atual
+  2. Descomentar esta seção "ORIGINAL PRICING SECTION" OU a seção "EARLY BIRDS PROMOTIONAL PRICING SECTION"
+  3. Os modais já têm as integrações RegyFit corretas:
+     - ELITE: id_int=1, src_regy1, frame_regy1
+     - RISE: id_int=3, src_regy3, frame_regy3
+     - STARTER: id_int=2, src_regy2, frame_regy2
+  
   <section id="pricing" class="pricing">
     <div class="pricing__container">
       <div class="pricing__header">
@@ -679,18 +687,16 @@
   </section>
   -->
 
-  <!-- 
-  EARLY BIRDS PROMOTIONAL PRICING SECTION - COMMENTED FOR FUTURE USE
-  
+  <!-- EARLY BIRDS PROMOTIONAL PRICING SECTION - NOW ACTIVE -->
   <section id="pricing" class="pricing">
     <div class="pricing__container">
       <div class="pricing__header">
-        <h2 class="section-title">
+        <h2 class="section-title" data-i18n="pricing.title">
           PREÇOS<br>
           <span class="early-bird-text">EARLY BIRD</span>
         </h2>
         <div class="section-line"></div>
-        <p class="pricing__promo-text">Oferta de lançamento por tempo limitado!</p>
+        <p class="pricing__promo-text" data-i18n="pricing.promo">Oferta de lançamento por tempo limitado!</p>
       </div>
       <div class="pricing__grid">
         <div class="price-card price-card--elite price-card--promo">
@@ -700,22 +706,18 @@
             <div class="price-card__price">
               <div class="price-card__original">€94.90</div>
               <span class="price-card__amount price-card__amount--promo">€84.90</span>
-              <span class="price-card__period">/mês</span>
+              <span class="price-card__period" data-i18n="pricing.period">/mês</span>
             </div>
           </div>
           <div class="price-card__features">
             <ul>
-              <li>Acesso livre trânsito (ilimitado)</li>
-              <li>Sem fidelização - cancelável quando quiseres</li>
-              <li>Acesso ao open gym nos horários definidos</li>
-              <li>Acesso a aulas de treino funcional</li>
-              <li>Acesso a modalidades</li>
-              <li>Easter eggs (aulas surpresa)</li>
-              <li>Eventos a preço reduzido ou gratuitos</li>
+              <li data-i18n="pricing.elite.feature1">Acesso livre trânsito (ilimitado) a todas as modalidades e open gym</li>
+              <li data-i18n="pricing.elite.feature2">Sem fidelização</li>
+              <li data-i18n="pricing.elite.feature3">A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar</li>
             </ul>
           </div>
           <div class="price-card__cta">
-            <button type="button" class="btn" data-modal="elite">INSCREVE-TE JÁ</button>
+            <button type="button" class="btn" data-modal="elite" data-i18n="pricing.elite.cta">INSCREVE-TE JÁ</button>
           </div>
         </div>
         <div class="price-card price-card--featured price-card--promo">
@@ -725,22 +727,18 @@
             <div class="price-card__price">
               <div class="price-card__original">€79.90</div>
               <span class="price-card__amount price-card__amount--promo">€69.90</span>
-              <span class="price-card__period">/mês</span>
+              <span class="price-card__period" data-i18n="pricing.period">/mês</span>
             </div>
           </div>
           <div class="price-card__features">
             <ul>
-              <li>Acesso 3x por semana</li>
-              <li>Sem fidelização - cancelável quando quiseres</li>
-              <li>Acesso ao open gym nos horários definidos</li>
-              <li>Acesso a aulas de treino funcional</li>
-              <li>Acesso a modalidades</li>
-              <li>Easter eggs (aulas surpresa)</li>
-              <li>Eventos a preço reduzido ou gratuitos</li>
+              <li data-i18n="pricing.rise.feature1">Acesso livre trânsito (ilimitado) a todas as modalidades e open gym</li>
+              <li data-i18n="pricing.rise.feature2">Sem fidelização</li>
+              <li data-i18n="pricing.rise.feature3">A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar</li>
             </ul>
           </div>
           <div class="price-card__cta">
-            <button type="button" class="btn" data-modal="rise">INSCREVE-TE JÁ</button>
+            <button type="button" class="btn" data-modal="rise" data-i18n="pricing.rise.cta">INSCREVE-TE JÁ</button>
           </div>
         </div>
         <div class="price-card price-card--student price-card--promo">
@@ -750,30 +748,36 @@
             <div class="price-card__price">
               <div class="price-card__original">€64.90</div>
               <span class="price-card__amount price-card__amount--promo">€54.90</span>
-              <span class="price-card__period">/mês</span>
+              <span class="price-card__period" data-i18n="pricing.period">/mês</span>
             </div>
           </div>
           <div class="price-card__features">
             <ul>
-              <li>Acesso 2x por semana</li>
-              <li>Sem fidelização - cancelável quando quiseres</li>
-              <li>Acesso ao open gym nos horários definidos</li>
-              <li>Acesso a aulas de treino funcional</li>
-              <li>Acesso a modalidades</li>
-              <li>Easter eggs (aulas surpresa)</li>
-              <li>Eventos a preço reduzido ou gratuitos</li>
+              <li data-i18n="pricing.starter.feature1">Acesso livre trânsito (ilimitado) a todas as modalidades e open gym</li>
+              <li data-i18n="pricing.starter.feature2">Sem fidelização</li>
+              <li data-i18n="pricing.starter.feature3">A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar</li>
             </ul>
           </div>
           <div class="price-card__cta">
-            <button type="button" class="btn" data-modal="starter">INSCREVE-TE JÁ</button>
+            <button type="button" class="btn" data-modal="starter" data-i18n="pricing.starter.cta">INSCREVE-TE JÁ</button>
           </div>
+        </div>
+      </div>
+      
+      <!-- Test Gym Note -->
+      <div class="pricing__test-note">
+        <div class="test-note__content">
+          <p class="test-note__text" data-i18n="pricing.test.note">
+            <strong>TESTA PRIMEIRO, DECIDE DEPOIS!</strong><br>
+            <a href="#contact" class="test-note__link">Clicka aqui</a> para usar o formulário de contacto e agendar a tua visita.
+          </p>
         </div>
       </div>
     </div>
   </section>
-  -->
 
-  <!-- PRE-INSCRIÇÃO SECTION -->
+  <!-- PRE-INSCRIÇÃO SECTION - COMMENTED FOR EARLY BIRD MODE -->
+  <!-- 
   <section id="pricing" class="pricing">
     <div class="pricing__container">
       <div class="pricing__header">
@@ -840,14 +844,12 @@
           </div>
         </div>
       </div>
-      <!-- Single Pre-Registration Button -->
       <div class="pricing__pre-registration">
         <button type="button" class="btn btn--primary btn--full" data-modal="pre-registration" data-i18n="pricing.preregistration.button">
           FAZ A TUA PRÉ-INSCRIÇÃO!
         </button>
       </div>
       
-      <!-- Test Gym Note -->
       <div class="pricing__test-note">
         <div class="test-note__content">
           <p class="test-note__text" data-i18n="pricing.test.note">
@@ -858,9 +860,42 @@
       </div>
     </div>
   </section>
+  -->
 
   <!-- Pricing Modals -->
-  <!-- Modal for ELITE Plan -->
+  <!-- Modal for ELITE Plan - COMMENTED FOR NORMAL MODE -->
+  <!-- 
+  <div id="modal-elite-normal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title" data-i18n="modal.elite.title">PLANO ELITE</h3>
+        <button class="modal-close" data-close="elite">&times;</button>
+      </div>
+      <div class="modal-content">
+        <div class="modal-plan-summary">
+          <div class="plan-price">
+            <span class="plan-price__current">€94.90/mês</span>
+          </div>
+          <div class="plan-features">
+            <p><strong data-i18n="modal.elite.access">Acesso livre trânsito (ilimitado) a todas as modalidades e open gym</strong></p>
+            <p>• <strong data-i18n="modal.elite.commitment">Sem fidelização</strong></p>
+            <p>• <span data-i18n="modal.elite.billing">A mensalidade é cobrada proporcionalmente aos dias que usas o ginásio</span></p>
+          </div>
+        </div>
+
+        <div class="modal-regy-container">
+          <input type="hidden" class="class_regy" id="src_regy1" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=1&acs=38e6d410bd1118bc516ba1a7a0b91264&site=s">
+          <div id="frame_regy1_placeholder" class="iframe-placeholder">
+            <div class="loading-text">A carregar formulário...</div>
+          </div>
+          <iframe name="frame_regy1" id="frame_regy1" width="100%" height="600px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Elite" style="display: none;"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+  -->
+
+  <!-- Modal for ELITE Early Bird - NOW ACTIVE -->
   <div id="modal-elite" class="modal-overlay">
     <div class="modal-container">
       <div class="modal-header">
@@ -881,43 +916,72 @@
           </div>
         </div>
         
-        <!-- Early Bird Payment Information -->
-        <div class="modal-payment-info">
-          <div class="payment-info-header">
-            <h4 data-i18n="modal.payment.warning">⚠️ INFORMAÇÃO IMPORTANTE SOBRE O PAGAMENTO</h4>
+        <div class="modal-purchase-instructions">
+          <div class="purchase-instructions-header">
+            <h4 data-i18n="modal.purchase.title">Como comprar o teu pack:</h4>
           </div>
-          <div class="payment-info-content">
-            <div class="payment-breakdown">
-              <p><strong data-i18n="modal.payment.today">O que estás a pagar hoje:</strong></p>
-              <ul>
-                <li>✅ <strong data-i18n="modal.payment.first">1ª Mensalidade (€84.90)</strong> - <span data-i18n="modal.payment.paid">Já está paga!</span></li>
-                <li>✅ <strong data-i18n="modal.payment.insurance">Seguro Anual (€10)</strong> - <span data-i18n="modal.payment.required">Obrigatório</span></li>
-              </ul>
+          <div class="purchase-steps">
+            <div class="purchase-step">
+              <div class="step-number">1</div>
+              <div class="step-text" data-i18n="modal.purchase.step1">Escolhe a data de início</div>
             </div>
-            <div class="payment-timing">
-              <p><strong data-i18n="modal.payment.when">🗓️ Quando começa a contar a próxima mensalidade:</strong></p>
-              <p class="timing-highlight" data-i18n="modal.payment.next">A tua próxima mensalidade só começará a ser cobrada quando o ginásio abrir oficialmente e começares a treinar. Não pagas nada extra até lá!</p>
+            <div class="purchase-step">
+              <div class="step-number">2</div>
+              <div class="step-text" data-i18n="modal.purchase.step2">Carrega no valor "total a pagar"</div>
             </div>
-            <div class="payment-proportional">
-              <p><strong data-i18n="modal.payment.proportional">💡 COBRANÇA PROPORCIONAL:</strong></p>
-              <p class="timing-highlight" data-i18n="modal.payment.proportional.text">Se começares a treinar a meio do mês, pagas apenas a parte proporcional da mensalidade! Exemplo: se iniciares dia 15, pagas apenas metade da mensalidade desse mês. Justo e transparente - pagas apenas pelos dias que treinas.</p>
+            <div class="purchase-step">
+              <div class="step-number">3</div>
+              <div class="step-text" data-i18n="modal.purchase.step3">Faz o registo da conta na app Be Water</div>
+            </div>
+            <div class="purchase-step">
+              <div class="step-number">4</div>
+              <div class="step-text" data-i18n="modal.purchase.step4">"Ir para pagamento" e escolhe a forma de pagamento preferida</div>
             </div>
           </div>
         </div>
 
         <div class="modal-regy-container">
-          <!-- Regy Integration for ELITE EARLY BIRD - Lazy Loaded -->
-          <input type="hidden" class="class_regy" id="src_regy5" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_pack.php?id_box=2244&id_int=5&acs=af666614f7fdc7fdce2ce3df584ef520&site=s">
-          <div id="frame_regy5_placeholder" class="iframe-placeholder">
-            <div class="loading-text">A carregar formulário...</div>
-          </div>
-          <iframe name="frame_regy5" id="frame_regy5" width="100%" height="600px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Elite Early Bird" style="display: none;"></iframe>
+          <!-- Regy Integration for ELITE Early Bird - Lazy Loaded -->
+          <input type="hidden" class="class_regy" id="src_regy5" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=1&acs=38e6d410bd1118bc516ba1a7a0b91264&site=s">
+          <iframe name="frame_regy5" id="frame_regy5" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Elite Early Bird" style="display: block;"></iframe>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal for RISE Plan -->
+  <!-- Modal for RISE Plan - COMMENTED FOR NORMAL MODE -->
+  <!-- 
+  <div id="modal-rise-normal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title" data-i18n="modal.rise.title">PLANO RISE</h3>
+        <button class="modal-close" data-close="rise">&times;</button>
+      </div>
+      <div class="modal-content">
+        <div class="modal-plan-summary">
+          <div class="plan-price">
+            <span class="plan-price__current">€79.90/mês</span>
+          </div>
+          <div class="plan-features">
+            <p><strong data-i18n="modal.rise.access">Acesso 3x por semana a todas as modalidades e open gym</strong></p>
+            <p>• <strong data-i18n="modal.rise.commitment">Sem fidelização</strong></p>
+            <p>• <span data-i18n="modal.rise.billing">A mensalidade é cobrada proporcionalmente aos dias que usas o ginásio</span></p>
+          </div>
+        </div>
+
+        <div class="modal-regy-container">
+          <input type="hidden" class="class_regy" id="src_regy3" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=3&acs=3ddf69e0b105421fc7423c06a6ffccbd&site=s">
+          <div id="frame_regy3_placeholder" class="iframe-placeholder">
+            <div class="loading-text">A carregar formulário...</div>
+          </div>
+          <iframe name="frame_regy3" id="frame_regy3" width="100%" height="600px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Rise" style="display: none;"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+  -->
+
+  <!-- Modal for RISE Early Bird - NOW ACTIVE -->
   <div id="modal-rise" class="modal-overlay">
     <div class="modal-container">
       <div class="modal-header">
@@ -938,43 +1002,72 @@
           </div>
         </div>
         
-        <!-- Early Bird Payment Information -->
-        <div class="modal-payment-info">
-          <div class="payment-info-header">
-            <h4>⚠️ INFORMAÇÃO IMPORTANTE SOBRE O PAGAMENTO</h4>
+        <div class="modal-purchase-instructions">
+          <div class="purchase-instructions-header">
+            <h4 data-i18n="modal.purchase.title">Como comprar o teu pack:</h4>
           </div>
-          <div class="payment-info-content">
-            <div class="payment-breakdown">
-              <p><strong>O que estás a pagar hoje:</strong></p>
-              <ul>
-                <li>✅ <strong>1ª Mensalidade (€69.90)</strong> - Já está paga!</li>
-                <li>✅ <strong>Seguro Anual (€10)</strong> - Obrigatório</li>
-              </ul>
+          <div class="purchase-steps">
+            <div class="purchase-step">
+              <div class="step-number">1</div>
+              <div class="step-text" data-i18n="modal.purchase.step1">Escolhe a data de início</div>
             </div>
-            <div class="payment-timing">
-              <p><strong>🗓️ Quando começa a contar a próxima mensalidade:</strong></p>
-              <p class="timing-highlight">A tua próxima mensalidade só começará a ser cobrada quando o ginásio abrir oficialmente e começares a treinar. Não pagas nada extra até lá!</p>
+            <div class="purchase-step">
+              <div class="step-number">2</div>
+              <div class="step-text" data-i18n="modal.purchase.step2">Carrega no valor "total a pagar"</div>
             </div>
-            <div class="payment-proportional">
-              <p><strong>💡 COBRANÇA PROPORCIONAL:</strong></p>
-              <p class="timing-highlight">Se começares a treinar a meio do mês, pagas apenas a parte proporcional da mensalidade! Exemplo: se iniciares dia 15, pagas apenas metade da mensalidade desse mês. Justo e transparente - pagas apenas pelos dias que treinas.</p>
+            <div class="purchase-step">
+              <div class="step-number">3</div>
+              <div class="step-text" data-i18n="modal.purchase.step3">Faz o registo da conta na app Be Water</div>
+            </div>
+            <div class="purchase-step">
+              <div class="step-number">4</div>
+              <div class="step-text" data-i18n="modal.purchase.step4">"Ir para pagamento" e escolhe a forma de pagamento preferida</div>
             </div>
           </div>
         </div>
 
         <div class="modal-regy-container">
-          <!-- Regy Integration for RISE EARLY BIRD - Lazy Loaded -->
-          <input type="hidden" class="class_regy" id="src_regy6" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_pack.php?id_box=2244&id_int=6&acs=0f27a8afcf7f05acda98ef4d1fd786ef&site=s">
-          <div id="frame_regy6_placeholder" class="iframe-placeholder">
-            <div class="loading-text">A carregar formulário...</div>
-          </div>
-          <iframe name="frame_regy6" id="frame_regy6" width="100%" height="600px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Rise Early Bird" style="display: none;"></iframe>
+          <!-- Regy Integration for RISE Early Bird - Lazy Loaded -->
+          <input type="hidden" class="class_regy" id="src_regy6" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=3&acs=3ddf69e0b105421fc7423c06a6ffccbd&site=s">
+          <iframe name="frame_regy6" id="frame_regy6" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Rise Early Bird" style="display: block;"></iframe>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal for STARTER Plan -->
+  <!-- Modal for STARTER Plan - COMMENTED FOR NORMAL MODE -->
+  <!-- 
+  <div id="modal-starter-normal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title" data-i18n="modal.starter.title">PLANO STARTER</h3>
+        <button class="modal-close" data-close="starter">&times;</button>
+      </div>
+      <div class="modal-content">
+        <div class="modal-plan-summary">
+          <div class="plan-price">
+            <span class="plan-price__current">€64.90/mês</span>
+          </div>
+          <div class="plan-features">
+            <p><strong data-i18n="modal.starter.access">Acesso 2x por semana a todas as modalidades e open gym</strong></p>
+            <p>• <strong data-i18n="modal.starter.commitment">Sem fidelização</strong></p>
+            <p>• <span data-i18n="modal.starter.billing">A mensalidade é cobrada proporcionalmente aos dias que usas o ginásio</span></p>
+          </div>
+        </div>
+
+        <div class="modal-regy-container">
+          <input type="hidden" class="class_regy" id="src_regy2" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=2&acs=7efff90d4101aed0cec7330e5d7c8b6a&site=s">
+          <div id="frame_regy2_placeholder" class="iframe-placeholder">
+            <div class="loading-text">A carregar formulário...</div>
+          </div>
+          <iframe name="frame_regy2" id="frame_regy2" width="100%" height="600px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Starter" style="display: none;"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+  -->
+
+  <!-- Modal for STARTER Early Bird - NOW ACTIVE -->
   <div id="modal-starter" class="modal-overlay">
     <div class="modal-container">
       <div class="modal-header">
@@ -995,43 +1088,41 @@
           </div>
         </div>
         
-        <!-- Early Bird Payment Information -->
-        <div class="modal-payment-info">
-          <div class="payment-info-header">
-            <h4>⚠️ INFORMAÇÃO IMPORTANTE SOBRE O PAGAMENTO</h4>
+        <div class="modal-purchase-instructions">
+          <div class="purchase-instructions-header">
+            <h4 data-i18n="modal.purchase.title">Como comprar o teu pack:</h4>
           </div>
-          <div class="payment-info-content">
-            <div class="payment-breakdown">
-              <p><strong>O que estás a pagar hoje:</strong></p>
-              <ul>
-                <li>✅ <strong>1ª Mensalidade (€54.90)</strong> - Já está paga!</li>
-                <li>✅ <strong>Seguro Anual (€10)</strong> - Obrigatório</li>
-              </ul>
+          <div class="purchase-steps">
+            <div class="purchase-step">
+              <div class="step-number">1</div>
+              <div class="step-text" data-i18n="modal.purchase.step1">Escolhe a data de início</div>
             </div>
-            <div class="payment-timing">
-              <p><strong>🗓️ Quando começa a contar a próxima mensalidade:</strong></p>
-              <p class="timing-highlight">A tua próxima mensalidade só começará a ser cobrada quando o ginásio abrir oficialmente e começares a treinar. Não pagas nada extra até lá!</p>
+            <div class="purchase-step">
+              <div class="step-number">2</div>
+              <div class="step-text" data-i18n="modal.purchase.step2">Carrega no valor "total a pagar"</div>
             </div>
-            <div class="payment-proportional">
-              <p><strong>💡 COBRANÇA PROPORCIONAL:</strong></p>
-              <p class="timing-highlight">Se começares a treinar a meio do mês, pagas apenas a parte proporcional da mensalidade! Exemplo: se iniciares dia 15, pagas apenas metade da mensalidade desse mês. Justo e transparente - pagas apenas pelos dias que treinas.</p>
+            <div class="purchase-step">
+              <div class="step-number">3</div>
+              <div class="step-text" data-i18n="modal.purchase.step3">Faz o registo da conta na app Be Water</div>
+            </div>
+            <div class="purchase-step">
+              <div class="step-number">4</div>
+              <div class="step-text" data-i18n="modal.purchase.step4">"Ir para pagamento" e escolhe a forma de pagamento preferida</div>
             </div>
           </div>
         </div>
 
         <div class="modal-regy-container">
-          <!-- Regy Integration for STARTER EARLY BIRD - Lazy Loaded -->
-          <input type="hidden" class="class_regy" id="src_regy7" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_pack.php?id_box=2244&id_int=7&acs=3cb3adacd70d11c136e208fc822d8ccf&site=s">
-          <div id="frame_regy7_placeholder" class="iframe-placeholder">
-            <div class="loading-text">A carregar formulário...</div>
-          </div>
-          <iframe name="frame_regy7" id="frame_regy7" width="100%" height="600px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Starter Early Bird" style="display: none;"></iframe>
+          <!-- Regy Integration for STARTER Early Bird - Lazy Loaded -->
+          <input type="hidden" class="class_regy" id="src_regy7" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=2&acs=7efff90d4101aed0cec7330e5d7c8b6a&site=s">
+          <iframe name="frame_regy7" id="frame_regy7" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Starter Early Bird" style="display: block;"></iframe>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Modal for PRE-REGISTRATION -->
+  <!-- Modal for PRE-REGISTRATION - COMMENTED FOR EARLY BIRD MODE -->
+  <!-- 
   <div id="modal-pre-registration" class="modal-overlay">
     <div class="modal-container">
               <div class="modal-header">
@@ -1086,7 +1177,6 @@
         </div>
 
         <div class="modal-regy-container">
-          <!-- Regy Integration for PRE-REGISTRATION - Lazy Loaded -->
           <input type="hidden" class="class_regy" id="src_regy8" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_pack.php?id_box=2244&id_int=8&acs=3c645e5138da8c429db488638b6a6d62&site=s">
           <div id="frame_regy8_placeholder" class="iframe-placeholder">
             <div class="loading-text" data-i18n="modal.prereg.loading">A carregar formulário...</div>
@@ -1096,6 +1186,7 @@
       </div>
     </div>
   </div>
+  -->
 
   <!-- Modal for Privacy Policy -->
   <div id="modal-privacy-policy" class="modal-overlay">
@@ -1827,7 +1918,7 @@
                 <span class="faq-icon">▼</span>
               </button>
               <div class="faq-answer" data-faq-answer="11">
-                <p data-i18n="faq.answer.12">Sim, temos estacionamento gratuito para membros. Lugares limitados.</p>
+                <p data-i18n="faq.answer.12">Temos zona de parking EMEL nas traseiras. Mais informações na secção de contactos.</p>
               </div>
             </div>
             
@@ -1847,16 +1938,6 @@
         <div class="faq__section">
           <h3 class="faq__section-title faq__section-title--support" data-i18n="faq.section.support">SUPORTE</h3>
           <div class="faq__grid">
-            <div class="faq-item">
-              <button class="faq-question" data-faq="13">
-                <span data-i18n="faq.question.6">Preciso de acompanhamento individual?</span>
-                <span class="faq-icon">▼</span>
-              </button>
-              <div class="faq-answer" data-faq-answer="13">
-                <p data-i18n="faq.answer.6">Temos vários Personal Trainers (PTs). Se te interessar, fala com qualquer membro da equipa Be Water para agendar sessões one-on-one.</p>
-              </div>
-            </div>
-            
             <div class="faq-item">
               <button class="faq-question" data-faq="18">
                 <span data-i18n="faq.question.18">Tenho outras dúvidas, como posso contactar?</span>
@@ -2006,5 +2087,8 @@
   <script src="src/js/gym-collage-slider.js"></script>
   <script src="src/js/countdown.js"></script>
   <script src="src/js/i18n.js"></script>
+  
+  <!-- Regy website integrations -->
+  <script async src="https://www.regyfit.com/admin2/modulos/crm/site_integrations/regy.min.js"></script>
 </body>
 </html> 

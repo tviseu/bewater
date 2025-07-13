@@ -1117,7 +1117,7 @@ section {
 }
 
 .price-card__cta {
-  padding: 0 var(--spacing-md) var(--spacing-sm);
+  padding: 0 var(--spacing-md) var(--spacing-lg);
   text-align: center;
 }
 
@@ -1302,7 +1302,7 @@ section {
   }
   
   .price-card__cta {
-    padding: 0 var(--spacing-md) var(--spacing-xs);
+    padding: 0 var(--spacing-md) var(--spacing-md);
   }
   
   .price-card__badge {
@@ -4573,9 +4573,9 @@ button.btn:active {
   background-color: var(--color-background);
   border: 6px solid var(--color-primary);
   box-shadow: 16px 16px 0 var(--color-primary);
-  max-width: 800px;
-  width: 100%;
-  max-height: 90vh;
+  max-width: 1000px;
+  width: 95%;
+  max-height: 95vh;
   overflow-y: auto;
   position: relative;
   transform: scale(0.8);
@@ -4586,6 +4586,57 @@ button.btn:active {
 .modal-overlay.active .modal-container {
   transform: scale(1);
   opacity: 1;
+}
+
+/* Estilo específico para modais com RegyFit */
+.modal-container:has(.modal-regy-container) {
+  max-width: 1200px;
+  width: 98%;
+  max-height: 95vh;
+}
+
+/* Responsividade dinâmica dos iframes */
+.modal-regy-container iframe {
+  width: 100%;
+  min-height: 1300px;
+  height: auto;
+  border: none;
+  display: block;
+  scrolling: auto;
+}
+
+/* Adaptação automática baseada no viewport */
+@media (max-height: 900px) {
+  .modal-regy-container iframe {
+    min-height: 80vh;
+    max-height: 85vh;
+  }
+  
+  .modal-container:has(.modal-regy-container) {
+    max-height: 90vh;
+  }
+}
+
+@media (max-height: 700px) {
+  .modal-regy-container iframe {
+    min-height: 70vh;
+    max-height: 75vh;
+  }
+  
+  .modal-container:has(.modal-regy-container) {
+    max-height: 85vh;
+  }
+}
+
+@media (max-width: 1024px) {
+  .modal-container:has(.modal-regy-container) {
+    max-width: 95%;
+    width: 95%;
+  }
+  
+  .modal-regy-container iframe {
+    min-height: 1100px;
+  }
 }
 
 .modal-header {
@@ -4964,6 +5015,126 @@ body.modal-open {
   
   .timing-highlight {
     font-size: 0.9rem;
+  }
+}
+
+/* Purchase Instructions Styles */
+.modal-purchase-instructions {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: 3px solid #000000;
+  border-radius: 8px;
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.1);
+}
+
+.purchase-instructions-header {
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.purchase-instructions-header h4 {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.purchase-steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.purchase-step {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 6px;
+  border: 2px solid #000000;
+  transition: all 0.3s ease;
+}
+
+.purchase-step:hover {
+  transform: translateY(-1px);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.step-number {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #0088CC 0%, #0066AA 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1rem;
+  border: 2px solid #000000;
+  flex-shrink: 0;
+}
+
+.step-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.4;
+}
+
+/* Responsive adjustments for purchase instructions */
+@media (max-width: 768px) {
+  .modal-purchase-instructions {
+    margin: var(--spacing-xs) 0;
+    padding: var(--spacing-sm);
+  }
+  
+  .purchase-instructions-header h4 {
+    font-size: 1.1rem;
+  }
+  
+  .purchase-step {
+    padding: calc(var(--spacing-sm) * 0.8);
+  }
+  
+  .step-number {
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
+  }
+  
+  .step-text {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-purchase-instructions {
+    margin: calc(var(--spacing-xs) * 0.5) 0;
+    padding: calc(var(--spacing-sm) * 0.7);
+  }
+  
+  .purchase-instructions-header h4 {
+    font-size: 1rem;
+  }
+  
+  .purchase-step {
+    padding: calc(var(--spacing-xs) * 0.8);
+    gap: var(--spacing-xs);
+  }
+  
+  .step-number {
+    width: 26px;
+    height: 26px;
+    font-size: 0.85rem;
+  }
+  
+  .step-text {
+    font-size: 0.8rem;
   }
 }
 
