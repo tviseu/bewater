@@ -1194,3 +1194,29 @@ document.addEventListener('DOMContentLoaded', function() {
   
   console.log(`Added click handlers to ${activities.length} schedule activities`);
 });
+
+// FAQ functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', function() {
+            const faqNumber = this.dataset.faq;
+            const answer = document.querySelector(`[data-faq-answer="${faqNumber}"]`);
+            const icon = this.querySelector('.faq-icon');
+            
+            // Close other open answers
+            document.querySelectorAll('.faq-answer.active').forEach(openAnswer => {
+                if (openAnswer !== answer) {
+                    openAnswer.classList.remove('active');
+                    const otherIcon = openAnswer.previousElementSibling.querySelector('.faq-icon');
+                    otherIcon.classList.remove('rotated');
+                }
+            });
+            
+            // Toggle current answer
+            answer.classList.toggle('active');
+            icon.classList.toggle('rotated');
+        });
+    });
+});
