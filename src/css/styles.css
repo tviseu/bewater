@@ -4580,7 +4580,7 @@ button.btn:active {
 /* Responsividade dinâmica dos iframes */
 .modal-regy-container iframe {
   width: 100%;
-  min-height: 1300px;
+  min-height: 1400px;
   height: auto;
   border: none;
   display: block;
@@ -4617,7 +4617,7 @@ button.btn:active {
   }
   
   .modal-regy-container iframe {
-    min-height: 1100px;
+    min-height: 1200px;
   }
 }
 
@@ -4840,7 +4840,7 @@ button.btn:active {
   }
   
   .modal-regy-container iframe {
-    min-height: 650px !important;
+    min-height: 800px !important;
   }
 }
 
@@ -4882,7 +4882,7 @@ button.btn:active {
   }
   
   .modal-regy-container iframe {
-    min-height: 600px !important;
+    min-height: 750px !important;
   }
 }
 
