@@ -1009,6 +1009,70 @@ section {
   gap: var(--spacing-md);
 }
 
+/* Center the 4th card (drop-in) when there are 4 cards total */
+@media (min-width: 1200px) {
+  .pricing__grid {
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+  }
+  
+  .pricing__grid > .price-card:nth-child(4) {
+    grid-column: 2 / 3;
+    margin-top: var(--spacing-sm);
+  }
+}
+
+/* For medium-large screens, maintain good spacing for 4 cards */
+@media (min-width: 1000px) and (max-width: 1199px) {
+  .pricing__grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    justify-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+}
+
+/* For smaller desktop screens, ensure grid works nicely with 4 cards */
+@media (min-width: 900px) and (max-width: 999px) {
+  .pricing__grid {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    gap: var(--spacing-lg);
+  }
+}
+
+/* For tablet screens, stack in 2 columns with good spacing */
+@media (min-width: 768px) and (max-width: 899px) {
+  .pricing__grid {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    gap: var(--spacing-md);
+  }
+}
+
+/* For mobile screens, single column with full width */
+@media (max-width: 767px) {
+  .pricing__grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: var(--spacing-md);
+  }
+}
+
+/* For very wide screens, keep the same centering behavior */
+@media (min-width: 1600px) {
+  .pricing__grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .pricing__grid > .price-card:nth-child(4) {
+    grid-column: 2 / 3;
+    margin-top: var(--spacing-sm);
+  }
+}
+
 .price-card {
   background-color: var(--color-background);
   border: 2px solid var(--color-primary);
@@ -1044,6 +1108,12 @@ section {
 
 .price-card--elite .price-card__header {
   background-color: #000000;
+  color: #FFFFFF;
+  border-bottom: var(--border-thick);
+}
+
+.price-card--dropin .price-card__header {
+  background-color: #16A085;
   color: #FFFFFF;
   border-bottom: var(--border-thick);
 }

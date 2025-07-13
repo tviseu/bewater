@@ -67,6 +67,14 @@ const translations = {
     'pricing.starter.feature3': 'A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar',
       'pricing.badge': 'EARLY BIRD',
       
+      // Drop-in pricing
+      'pricing.dropin.period': '/aula',
+      'pricing.dropin.feature1': 'Aula avulsa única',
+      'pricing.dropin.feature2': 'Compra apenas 1 aula sem compromisso',
+      'pricing.dropin.feature3': 'Acesso a todas as modalidades e open gym',
+      'pricing.dropin.feature4': 'Sem mensalidade - pagas apenas pela aula',
+      'pricing.dropin.cta': 'RESERVAR AULA',
+      
       // Schedule Section
       'schedule.title': 'HORÁRIOS E MODALIDADES',
       'schedule.mobile.instruction': '👈 Arrasta para o lado para ver todos os dias 👉',
@@ -326,6 +334,16 @@ const translations = {
       'modal.starter.commitment': 'Sem fidelização',
       'modal.starter.billing': 'A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar',
       
+      // Drop-in Modal
+      'modal.dropin.title': 'AULA AVULSA',
+      'modal.dropin.access': 'Aula avulsa única',
+      'modal.dropin.test': 'Compra apenas 1 aula sem compromisso',
+      'modal.dropin.access_all': 'Acesso a todas as modalidades e open gym',
+      'modal.dropin.ideal': 'Sem mensalidade - pagas apenas pela aula',
+      'modal.dropin.step1': 'Escolhe o número de pessoas que vão fazer drop-in e preenche os teus dados 👥',
+      'modal.dropin.step2': 'Escolhe o dia e hora e que aula queres fazer 📅',
+      'modal.dropin.step3': 'Confirma a reserva e faz o pagamento ✅',
+      
       // Pre-registration Modal
       'modal.prereg.title': 'PRÉ-INSCRIÇÃO',
       'modal.prereg.subtitle': 'GARANTIA EARLY BIRD',
@@ -351,10 +369,10 @@ const translations = {
       
       // Purchase Instructions
       'modal.purchase.title': 'Como comprar o teu pack:',
-      'modal.purchase.step1': 'Escolhe a <strong>data de início</strong> 📅',
+      'modal.purchase.step1': 'Escolhe a <strong>start date</strong> 📅',
       'modal.purchase.step2': 'Click no <strong>VALOR TOTAL</strong> 💰',
-      'modal.purchase.step3': 'Faz o registo dos teus dados na app BeWater 📱',
-      'modal.purchase.step4': 'Escolhe a forma de pagamento preferida para finalizar a inscrição! 💳',
+      'modal.purchase.step3': 'Register your details on the BeWater app 📱',
+      'modal.purchase.step4': 'Escolher a forma de pagamento preferida para finalizar a inscrição! 💳',
       
       // Privacy Policy Modal
       'modal.privacy.title': 'POLÍTICA DE PRIVACIDADE',
@@ -437,6 +455,14 @@ const translations = {
       'pricing.starter.feature2': 'No commitment',
       'pricing.starter.feature3': 'The first month\'s fee is charged only from the date you start training',
       'pricing.badge': 'EARLY BIRD',
+      
+      // Drop-in pricing
+      'pricing.dropin.period': '/class',
+      'pricing.dropin.feature1': 'Single drop-in class',
+      'pricing.dropin.feature2': 'Buy just 1 class without commitment',
+      'pricing.dropin.feature3': 'Access to all modalities and open gym',
+      'pricing.dropin.feature4': 'No monthly fee - pay only for the class',
+      'pricing.dropin.cta': 'BOOK CLASS',
       
       // Schedule Section
       'schedule.title': 'SCHEDULE & ACTIVITIES',
@@ -696,6 +722,16 @@ const translations = {
       'modal.starter.access': '2x per week access to all modalities and open gym',
       'modal.starter.commitment': 'No commitment',
       'modal.starter.billing': 'The first month\'s fee is charged only from the date you start training',
+      
+      // Drop-in Modal
+      'modal.dropin.title': 'DROP-IN CLASS',
+      'modal.dropin.access': 'Single drop-in class',
+      'modal.dropin.test': 'Buy just 1 class without commitment',
+      'modal.dropin.access_all': 'Access to all modalities and open gym',
+      'modal.dropin.ideal': 'No monthly fee - pay only for the class',
+      'modal.dropin.step1': 'Choose the number of people doing drop-in and fill in your details 👥',
+      'modal.dropin.step2': 'Choose the day and time and which class you want to take 📅',
+      'modal.dropin.step3': 'Confirm the booking and make the payment ✅',
       
       // Pre-registration Modal
       'modal.prereg.title': 'PRE-REGISTRATION',
