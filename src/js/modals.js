@@ -1,42 +1,72 @@
-// Pricing Modals Functionality - Simple Version with Dynamic Sizing
+// Pricing Modals Functionality - Enhanced Version with Improved Timing and Error Handling
 document.addEventListener('DOMContentLoaded', function() {
   
-  // Function to make iframes responsive and dynamic
+  // Ensure DOM is fully ready before executing
+  if (document.readyState === 'loading') {
+    console.log('DOM still loading, waiting...');
+    return;
+  }
+  
+  // Function to make iframes responsive and dynamic with enhanced error handling
   function makeIframesDynamic() {
     const allIframes = document.querySelectorAll('iframe[name^="frame_regy"]');
     
+    if (allIframes.length === 0) {
+      console.warn('No Regy iframes found');
+      return;
+    }
+    
     allIframes.forEach(function(iframe) {
-      // Set initial responsive styles
-      iframe.style.width = '100%';
-      iframe.style.minHeight = '800px';
-      iframe.style.border = 'none';
-      iframe.style.display = 'block';
+      // Check if iframe is valid before processing
+      if (!iframe || iframe.style === undefined) {
+        console.warn('Invalid iframe element found');
+        return;
+      }
       
-      // Enable scrolling for better UX
-      iframe.setAttribute('scrolling', 'auto');
-      
-      // Try to auto-resize based on content (when possible)
-      iframe.onload = function() {
-        try {
-          // This might work for same-origin content
-          const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-          if (iframeDoc) {
-            const iframeHeight = iframeDoc.body.scrollHeight;
-            if (iframeHeight > 400) {
-              iframe.style.height = Math.min(iframeHeight + 50, window.innerHeight * 0.8) + 'px';
+      try {
+        // Set initial responsive styles with safety checks
+        iframe.style.width = '100%';
+        iframe.style.minHeight = '800px';
+        iframe.style.border = 'none';
+        iframe.style.display = 'block';
+        
+        // Enable scrolling for better UX
+        iframe.setAttribute('scrolling', 'auto');
+        
+        // Try to auto-resize based on content (when possible)
+        iframe.onload = function() {
+          try {
+            // This might work for same-origin content
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            if (iframeDoc && iframeDoc.body) {
+              const iframeHeight = iframeDoc.body.scrollHeight;
+              if (iframeHeight > 400) {
+                iframe.style.height = Math.min(iframeHeight + 50, window.innerHeight * 0.8) + 'px';
+              }
             }
+          } catch (e) {
+            // Cross-origin restrictions - use fixed responsive height
+            console.log('Auto-resize not possible due to cross-origin restrictions');
           }
-        } catch (e) {
-          // Cross-origin restrictions - use fixed responsive height
-          console.log('Auto-resize not possible due to cross-origin restrictions');
-        }
-      };
+        };
+        
+        // Add error handler for iframe loading
+        iframe.onerror = function() {
+          console.warn('Iframe failed to load:', iframe.name);
+        };
+        
+      } catch (error) {
+        console.error('Error setting up iframe:', iframe.name, error);
+      }
     });
   }
   
-  // Apply dynamic sizing
-  makeIframesDynamic();
+  // Apply dynamic sizing with safety delay
+  setTimeout(function() {
+    makeIframesDynamic();
+  }, 100);
   
+  // Initialize modal functionality with enhanced timing
   setTimeout(function() {
     // Modal functions
     function openModal(modalId) {
@@ -51,6 +81,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const iframe = modal.querySelector('iframe[name^="frame_regy"]');
         if (iframe) {
           makeIframesDynamic();
+          
+          // Load Regy script when modal with iframe opens
+          if (typeof window.loadRegyScript === 'function') {
+            // Small delay to ensure modal is fully opened
+            setTimeout(() => {
+              window.loadRegyScript();
+            }, 300);
+          }
         }
       }
     }
@@ -116,5 +154,5 @@ document.addEventListener('DOMContentLoaded', function() {
       makeIframesDynamic();
     });
     
-  }, 500);
+  }, 750);
 }); 

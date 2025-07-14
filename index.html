@@ -983,16 +983,51 @@
 
   <!-- Regy website integrations script - Loaded on demand -->
   <script>
-    // Lazy load Regy script only when modal opens
+    // Enhanced Regy script loading with improved timing and error handling
     window.loadRegyScript = function() {
-      if (!window.regyScriptLoaded) {
-        const script = document.createElement('script');
-        script.src = 'https://www.regyfit.com/admin2/modulos/crm/site_integrations/regy.min.js';
-        script.async = true;
-        document.head.appendChild(script);
-        window.regyScriptLoaded = true;
+      // Only load if not already loaded and DOM is ready
+      if (!window.regyScriptLoaded && document.readyState === 'complete') {
+        
+        // Check if required iframe elements exist
+        const regyIframes = document.querySelectorAll('iframe[name^="frame_regy"]');
+        const regyInputs = document.querySelectorAll('input[class="class_regy"]');
+        
+        if (regyIframes.length > 0 && regyInputs.length > 0) {
+          const script = document.createElement('script');
+          script.src = 'https://www.regyfit.com/admin2/modulos/crm/site_integrations/regy.min.js';
+          script.async = true;
+          
+          // Add error handling
+          script.onerror = function() {
+            console.warn('Regy script failed to load');
+            window.regyScriptLoaded = false;
+          };
+          
+          script.onload = function() {
+            console.log('Regy script loaded successfully');
+            // Small delay to ensure iframe elements are ready
+            setTimeout(() => {
+              window.regyScriptLoaded = true;
+            }, 100);
+          };
+          
+          document.head.appendChild(script);
+        } else {
+          console.warn('Regy elements not found, deferring script load');
+          // Retry after a short delay if elements aren't ready
+          setTimeout(() => window.loadRegyScript(), 200);
+        }
       }
     };
+    
+    // Auto-load when DOM is ready and modal is opened
+    document.addEventListener('DOMContentLoaded', function() {
+      // Wait for all content to be loaded before attempting script load
+      window.addEventListener('load', function() {
+        // Don't auto-load, only load when modal is actually opened
+        console.log('DOM ready for Regy script loading');
+      });
+    });
   </script>
 
   <!-- Schedule Section -->
@@ -1842,8 +1877,5 @@
   <script src="src/js/gym-collage-slider.js"></script>
   <script src="src/js/countdown.js"></script>
   <script src="src/js/i18n.js"></script>
-  
-  <!-- Regy website integrations -->
-  <script async src="https://www.regyfit.com/admin2/modulos/crm/site_integrations/regy.min.js"></script>
 </body>
 </html> 
