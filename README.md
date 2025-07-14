@@ -189,7 +189,7 @@ git push origin main
 - ☕ **Café** - €0.85
 - 💧 **Águas** - €1.00 - €2.00  
 - 🥤 **Batidos/Barras Proteína** - €2.50
-- 🍪 **Cookies Proteicas** - €2.00
+- 🍪 **Cookies e Waffles Proteicas** - €2.50
 - 🍋 **Limonada** - €2.50
 - 🔒 **Cadeado** - €10.00
 - 🍺 **Cerveja Mini** - €2.00

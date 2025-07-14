@@ -602,12 +602,12 @@
                 
                 if (urlDownload) {
                     return `<div class="action-btn emitted" title="Fatura ${numeroFatura} já emitida">
-                        <span class="emitted-icon">❌</span>
+                        <span class="emitted-icon">✅</span>
                         <a href="${urlDownload}" target="_blank" class="download-link">📄</a>
                     </div>`;
                 } else {
                     return `<div class="action-btn emitted" title="Fatura ${numeroFatura} já emitida">
-                        <span class="emitted-icon">❌</span>
+                        <span class="emitted-icon">✅</span>
                         <span class="emitted-text">Emitida</span>
                     </div>`;
                 }
@@ -637,7 +637,7 @@
 
             // Verificar se já tem fatura emitida
             if (payment.fatura_emitida || payment.fatura) {
-                alert(`❌ Esta fatura já foi emitida!\n\nNúmero: ${payment.fatura?.numero || 'N/A'}`);
+                alert(`✅ Esta fatura já foi emitida!\n\nNúmero: ${payment.fatura?.numero || 'N/A'}`);
                 return;
             }
 
@@ -687,8 +687,8 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    // Sucesso - botão vira um X permanente
-                    btn.innerHTML = '❌ Emitida';
+                    // Sucesso - botão vira um visto permanente
+                    btn.innerHTML = '✅ Emitida';
                     btn.title = `Fatura ${result.fatura.numero} já emitida`;
                     btn.classList.remove('loading', 'emit-btn');
                     btn.classList.add('emitted');
@@ -711,7 +711,7 @@
 
                 } else if (result.already_emitted) {
                     // Fatura já foi emitida anteriormente
-                    btn.innerHTML = '❌ Já Emitida';
+                    btn.innerHTML = '✅ Já Emitida';
                     btn.title = 'Esta fatura já foi emitida anteriormente';
                     btn.classList.remove('loading', 'emit-btn');
                     btn.classList.add('emitted');
