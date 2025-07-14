@@ -2,3 +2,13 @@ node_modules
 
 src/images/coaches/coaches-optimized/desktop.ini
 .gitignore
+
+# Security - Never commit API keys, secrets, or setup files
+**/VENDUS-SETUP.md
+**/api-keys.md
+**/secrets.md
+**/*-setup.md
+**/.env
+**/.env.local
+**/.env.production
+**/config/secrets.js
