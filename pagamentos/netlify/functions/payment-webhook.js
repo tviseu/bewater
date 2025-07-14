@@ -1,12 +1,61 @@
 const crypto = require('crypto');
+const { createClient } = require('@supabase/supabase-js');
 
-// Base de dados simples em memória (em produção usar DB real)
+// Configuração Supabase
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
+
+if (!supabaseUrl || !supabaseServiceKey) {
+  console.error('❌ Supabase environment variables missing');
+}
+
+// Criar cliente Supabase (usando service key para bypass RLS)
+const supabase = supabaseUrl && supabaseServiceKey ? createClient(supabaseUrl, supabaseServiceKey, {
+  auth: {
+    autoRefreshToken: false,
+    persistSession: false
+  }
+}) : null;
+
+// Função auxiliar para inserir/atualizar pagamento
+async function upsertPayment(paymentData) {
+  if (!supabase) {
+    throw new Error('Supabase not configured');
+  }
+  
+  try {
+    console.log('💾 Guardando pagamento na Supabase:', paymentData);
+    
+    const { data, error } = await supabase
+      .from('payments')
+      .upsert(paymentData, { 
+        onConflict: 'transaction_id',
+        ignoreDuplicates: false 
+      })
+      .select()
+      .single();
+
+    if (error) {
+      console.error('❌ Erro Supabase:', error);
+      throw error;
+    }
+
+    console.log('✅ Pagamento guardado:', data.id);
+    return data;
+    
+  } catch (error) {
+    console.error('❌ Erro ao guardar pagamento:', error.message);
+    throw error;
+  }
+}
+
+// Fallback para Map em memória se Supabase falhar
 let paymentsDB = new Map();
 
 exports.handler = async (event, context) => {
   try {
     console.log('🔔 Webhook recebido:', event.httpMethod);
-    console.log('💾 Base de dados tem', paymentsDB.size, 'pagamentos');
+    console.log('💾 Base de dados:', supabase ? 'Supabase conectado' : `Map local (${paymentsDB.size} pagamentos)`);
   } catch (initError) {
     console.error('❌ Erro na inicialização:', initError);
     return {
@@ -37,22 +86,81 @@ exports.handler = async (event, context) => {
 
   // GET: Listar pagamentos (para interface staff)
   if (event.httpMethod === 'GET') {
+    try {
+      let payments = [];
 
-    const payments = Array.from(paymentsDB.values())
-      .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
-      .slice(0, 50); // Últimos 50 pagamentos
+      if (supabase) {
+        console.log('📋 Buscando pagamentos na Supabase...');
+        
+        const { data: supabasePayments, error } = await supabase
+          .from('payments')
+          .select('*')
+          .order('created_at', { ascending: false })
+          .limit(50);
 
-    console.log('📋 Retornando', payments.length, 'pagamentos reais para staff.html');
-    console.log('📊 Status dos pagamentos:', payments.map(p => `${p.produto} (${p.status})`));
+        if (error) {
+          console.error('❌ Erro ao buscar pagamentos Supabase:', error);
+          throw error;
+        }
 
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({
-        success: true,
-        payments: payments
-      })
-    };
+        // Mapear para formato esperado pelo frontend
+        payments = supabasePayments.map(p => ({
+          id: p.id,
+          transactionID: p.transaction_id,
+          reference: p.reference,
+          produto: p.produto_nome || p.produto,
+          valor: parseFloat(p.valor),
+          telefone: p.telefone,
+          nome: p.nome,
+          email: p.email,
+          nif: p.nif,
+          status: p.status,
+          timestamp: p.timestamp,
+          lastUpdate: p.last_update,
+          fatura: p.fatura,
+          fatura_emitida: p.fatura_emitida,
+          fatura_tentativas: p.fatura_tentativas
+        }));
+
+        console.log(`📊 ${payments.length} pagamentos encontrados na Supabase`);
+      } else {
+        // Fallback para Map em memória
+        console.log('📋 Usando fallback Map em memória...');
+        payments = Array.from(paymentsDB.values())
+          .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+          .slice(0, 50);
+      }
+
+      console.log('📋 Retornando', payments.length, 'pagamentos para staff.html');
+      console.log('📊 Status dos pagamentos:', payments.map(p => `${p.produto} (${p.status})`));
+
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({
+          success: true,
+          payments: payments
+        })
+      };
+
+    } catch (error) {
+      console.error('❌ Erro no GET:', error.message);
+      
+      // Fallback para Map em memória em caso de erro
+      const payments = Array.from(paymentsDB.values())
+        .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+        .slice(0, 50);
+
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({
+          success: true,
+          payments: payments,
+          warning: `Supabase error: ${error.message}`
+        })
+      };
+    }
   }
 
   // POST: Receber webhook do EuPago
@@ -284,33 +392,82 @@ exports.handler = async (event, context) => {
 
       // Criar/atualizar registro do pagamento  
       const paymentRecord = {
-        id: transactionID || reference || `payment_${Date.now()}`,
-        transactionID: transactionID,
+        transaction_id: transactionID,
         reference: reference,
-        produto: identifier || 'Produto BE WATER',
-        valor: amount || 0, // Já convertido para float acima
-        telefone: clientData?.telefone ? clientData.telefone.substring(0, 3) + '***' + clientData.telefone.substring(6) : 'N/A',
-        nome: clientData?.nome || null, // Dados correlacionados do formulário
-        email: clientData?.email || null, // Dados correlacionados do formulário
-        nif: clientData?.nif || null, // Dados correlacionados do formulário
+        produto: identifier?.split(' - ')[0] || 'PRODUTO_UNKNOWN',
+        produto_nome: identifier || 'Produto BE WATER',
+        valor: amount || 0,
+        telefone: clientData?.telefone ? clientData.telefone.substring(0, 3) + '***' + clientData.telefone.substring(6) : null,
+        nome: clientData?.nome || null,
+        email: clientData?.email || null,
+        nif: clientData?.nif || null,
         status: paymentStatus,
         timestamp: timestamp || new Date().toISOString(),
-        lastUpdate: new Date().toISOString(),
-        fatura: null, // Informação da fatura Vendus (se emitida)
-        fatura_emitida: false, // Flag para controlar se fatura já foi emitida pelo staff
-        fatura_tentativas: 0 // Contador de tentativas de emissão
+        last_update: new Date().toISOString(),
+        fatura: null,
+        fatura_emitida: false,
+        fatura_tentativas: 0,
+        raw_webhook_data: decryptedData
       };
 
-      // Guardar na "base de dados"
-      paymentsDB.set(paymentRecord.id, paymentRecord);
+      // Guardar na Supabase (com fallback para Map)
+      let savedPayment;
+      try {
+        if (supabase) {
+          savedPayment = await upsertPayment(paymentRecord);
+        } else {
+          // Fallback para Map em memória
+          const mapRecord = {
+            id: transactionID || reference || `payment_${Date.now()}`,
+            transactionID: transactionID,
+            reference: reference,
+            produto: identifier || 'Produto BE WATER',
+            valor: amount || 0,
+            telefone: clientData?.telefone ? clientData.telefone.substring(0, 3) + '***' + clientData.telefone.substring(6) : 'N/A',
+            nome: clientData?.nome || null,
+            email: clientData?.email || null,
+            nif: clientData?.nif || null,
+            status: paymentStatus,
+            timestamp: timestamp || new Date().toISOString(),
+            lastUpdate: new Date().toISOString(),
+            fatura: null,
+            fatura_emitida: false,
+            fatura_tentativas: 0
+          };
+          paymentsDB.set(mapRecord.id, mapRecord);
+          savedPayment = mapRecord;
+        }
+      } catch (supabaseError) {
+        console.error('❌ Erro Supabase, usando fallback Map:', supabaseError.message);
+        // Fallback para Map em caso de erro
+        const mapRecord = {
+          id: transactionID || reference || `payment_${Date.now()}`,
+          transactionID: transactionID,
+          reference: reference,
+          produto: identifier || 'Produto BE WATER',
+          valor: amount || 0,
+          telefone: clientData?.telefone ? clientData.telefone.substring(0, 3) + '***' + clientData.telefone.substring(6) : 'N/A',
+          nome: clientData?.nome || null,
+          email: clientData?.email || null,
+          nif: clientData?.nif || null,
+          status: paymentStatus,
+          timestamp: timestamp || new Date().toISOString(),
+          lastUpdate: new Date().toISOString(),
+          fatura: null,
+          fatura_emitida: false,
+          fatura_tentativas: 0
+        };
+        paymentsDB.set(mapRecord.id, mapRecord);
+        savedPayment = mapRecord;
+      }
 
-      console.log(`✅ Pagamento ${paymentStatus}:`, paymentRecord);
+      console.log(`✅ Pagamento ${paymentStatus}:`, savedPayment);
 
       // Log específico por tipo
       if (paymentStatus === 'confirmado') {
-        console.log(`🎉 PAGAMENTO CONFIRMADO! ${paymentRecord.produto} - €${paymentRecord.valor} - ${paymentRecord.telefone}`);
+        console.log(`🎉 PAGAMENTO CONFIRMADO! ${savedPayment.produto || savedPayment.produto_nome} - €${savedPayment.valor} - ${savedPayment.telefone}`);
       } else if (paymentStatus === 'falhado') {
-        console.log(`❌ PAGAMENTO FALHADO! ${paymentRecord.produto} - €${paymentRecord.valor} - ${paymentRecord.telefone}`);
+        console.log(`❌ PAGAMENTO FALHADO! ${savedPayment.produto || savedPayment.produto_nome} - €${savedPayment.valor} - ${savedPayment.telefone}`);
       }
 
       return {
@@ -319,7 +476,8 @@ exports.handler = async (event, context) => {
         body: JSON.stringify({
           success: true,
           message: 'Webhook processado com sucesso',
-          payment: paymentRecord
+          payment: savedPayment,
+          database: supabase ? 'Supabase' : 'Memory'
         })
       };
 
