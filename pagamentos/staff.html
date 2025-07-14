@@ -289,8 +289,55 @@
         }
 
         .action-btn.loading {
-            background: #007bff;
-            color: #ffffff;
+            background: #f8f9fa;
+            color: #6c757d;
+            cursor: not-allowed;
+            pointer-events: none;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .action-btn.emitted {
+            background: #d4edda !important;
+            color: #155724 !important;
+            border-color: #c3e6cb !important;
+            cursor: not-allowed !important;
+            pointer-events: none !important;
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .action-btn.emitted .emitted-icon {
+            font-size: 1.2em;
+            color: #dc3545;
+        }
+
+        .action-btn.emitted .download-link {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 1.1em;
+            padding: 2px 4px;
+            border-radius: 3px;
+            transition: background 0.2s;
+        }
+
+        .action-btn.emitted .download-link:hover {
+            background: rgba(0, 123, 255, 0.1);
+        }
+
+        .action-btn.emit-btn:hover:not(:disabled) {
+            background: #FFE55C;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0px #000000;
         }
 
         .auto-refresh {
@@ -548,32 +595,74 @@
                 return '';
             }
 
-            // Se já tem fatura emitida
+            // Se já tem fatura emitida - mostrar indicador com X
             if (payment.fatura_emitida || payment.fatura) {
-                return '<div class="action-btn success" disabled>✅ Emitida</div>';
+                const numeroFatura = payment.fatura?.numero || 'N/A';
+                const urlDownload = payment.fatura?.url_download;
+                
+                if (urlDownload) {
+                    return `<div class="action-btn emitted" title="Fatura ${numeroFatura} já emitida">
+                        <span class="emitted-icon">❌</span>
+                        <a href="${urlDownload}" target="_blank" class="download-link">📄</a>
+                    </div>`;
+                } else {
+                    return `<div class="action-btn emitted" title="Fatura ${numeroFatura} já emitida">
+                        <span class="emitted-icon">❌</span>
+                        <span class="emitted-text">Emitida</span>
+                    </div>`;
+                }
             }
 
             // Sempre permitir emissão de fatura (usará "Consumidor Final" se sem email)
             const buttonText = payment.email ? '🧾 Emitir' : '🧾 Cons.Final';
-            return `<button class="action-btn" onclick="emitirFatura('${payment.id}')" id="btn-${payment.id}">${buttonText}</button>`;
+            const tentativas = payment.fatura_tentativas || 0;
+            const titleText = tentativas > 0 ? `${buttonText} (${tentativas} tentativas)` : buttonText;
+            
+            return `<button class="action-btn emit-btn" 
+                        onclick="emitirFatura('${payment.id}')" 
+                        id="btn-${payment.id}"
+                        title="${titleText}"
+                        data-payment-id="${payment.id}">
+                        ${buttonText}
+                    </button>`;
         }
 
         // Emitir fatura
         async function emitirFatura(paymentId) {
             const payment = payments.find(p => p.id === paymentId);
             if (!payment) {
-                alert('Pagamento não encontrado!');
+                alert('❌ Pagamento não encontrado!');
+                return;
+            }
+
+            // Verificar se já tem fatura emitida
+            if (payment.fatura_emitida || payment.fatura) {
+                alert(`❌ Esta fatura já foi emitida!\n\nNúmero: ${payment.fatura?.numero || 'N/A'}`);
                 return;
             }
 
             const btn = document.getElementById(`btn-${paymentId}`);
+            if (!btn) {
+                console.error('Botão não encontrado:', paymentId);
+                return;
+            }
+
+            // Prevenir cliques múltiplos
+            if (btn.disabled || btn.classList.contains('loading')) {
+                console.log('Botão já está processando, ignorando clique');
+                return;
+            }
+
             const originalText = btn.innerHTML;
+            const originalTitle = btn.title;
 
             try {
-                // Mostrar loading
+                // Mostrar loading e desabilitar botão
                 btn.innerHTML = '⏳ Emitindo...';
+                btn.title = 'Emitindo fatura, aguarde...';
                 btn.disabled = true;
                 btn.classList.add('loading');
+                btn.style.pointerEvents = 'none'; // Prevenir qualquer interação
 
                 const faturaData = {
                     transactionID: payment.transactionID,
@@ -585,7 +674,7 @@
                     nif: payment.nif || null
                 };
 
-                console.log('Emitindo fatura:', faturaData);
+                console.log('📋 Emitindo fatura:', faturaData);
 
                 const response = await fetch('/.netlify/functions/emit-invoice', {
                     method: 'POST',
@@ -598,34 +687,66 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    // Sucesso
-                    btn.innerHTML = '✅ Fatura Emitida';
-                    btn.classList.remove('loading');
-                    btn.classList.add('success');
+                    // Sucesso - botão vira um X permanente
+                    btn.innerHTML = '❌ Emitida';
+                    btn.title = `Fatura ${result.fatura.numero} já emitida`;
+                    btn.classList.remove('loading', 'emit-btn');
+                    btn.classList.add('emitted');
+                    btn.style.backgroundColor = '#d4edda';
+                    btn.style.color = '#155724';
+                    btn.style.cursor = 'not-allowed';
+                    // Manter disabled e pointerEvents = none
                     
-                    // Atualizar localmente
+                    // Atualizar dados localmente
                     payment.fatura_emitida = true;
                     payment.fatura = result.fatura;
 
-                    // Recarregar dados
+                    // Recarregar dados após delay
                     setTimeout(() => {
                         loadPayments();
-                    }, 1000);
+                    }, 2000);
 
                     const emailDestino = payment.email || 'bewater.faturas@gmail.com (Consumidor Final)';
-                    alert(`✅ Fatura ${result.fatura.numero} emitida com sucesso!\n\nFatura enviada para: ${emailDestino}`);
+                    alert(`✅ Fatura ${result.fatura.numero} emitida com sucesso!\n\n📧 Fatura enviada para: ${emailDestino}`);
+
+                } else if (result.already_emitted) {
+                    // Fatura já foi emitida anteriormente
+                    btn.innerHTML = '❌ Já Emitida';
+                    btn.title = 'Esta fatura já foi emitida anteriormente';
+                    btn.classList.remove('loading', 'emit-btn');
+                    btn.classList.add('emitted');
+                    btn.style.backgroundColor = '#fff3cd';
+                    btn.style.color = '#856404';
+                    btn.style.cursor = 'not-allowed';
+                    
+                    alert(result.message);
+                    loadPayments(); // Recarregar para atualizar estado
+
                 } else {
                     throw new Error(result.message || 'Erro desconhecido');
                 }
 
             } catch (error) {
-                console.error('Erro ao emitir fatura:', error);
-                alert(`❌ Erro ao emitir fatura:\n${error.message}`);
+                console.error('❌ Erro ao emitir fatura:', error);
                 
-                // Restaurar botão
-                btn.innerHTML = originalText;
-                btn.disabled = false;
-                btn.classList.remove('loading');
+                let errorMessage = error.message;
+                if (errorMessage.includes('network') || errorMessage.includes('fetch')) {
+                    errorMessage = 'Erro de conexão. Verifique a internet e tente novamente.';
+                }
+                
+                alert(`❌ Erro ao emitir fatura:\n\n${errorMessage}`);
+                
+                // Restaurar botão apenas se não foi erro de duplicação
+                if (!error.message?.includes('já foi emitida')) {
+                    btn.innerHTML = originalText;
+                    btn.title = originalTitle;
+                    btn.disabled = false;
+                    btn.classList.remove('loading');
+                    btn.style.pointerEvents = 'auto';
+                    btn.style.backgroundColor = '';
+                    btn.style.color = '';
+                    btn.style.cursor = '';
+                }
             }
         }
 

@@ -110,7 +110,119 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
   }
 }
 
-// Base de dados em memória para controlar faturas emitidas
+const { createClient } = require('@supabase/supabase-js');
+
+// Configuração Supabase
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY;
+
+const supabase = supabaseUrl && supabaseServiceKey ? createClient(supabaseUrl, supabaseServiceKey, {
+  auth: {
+    autoRefreshToken: false,
+    persistSession: false
+  }
+}) : null;
+
+// Função para verificar se fatura já foi emitida
+async function verificarFaturaEmitida(transactionID) {
+  if (!supabase) {
+    console.log('⚠️ Supabase não configurado, pulando verificação');
+    return false;
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('payments')
+      .select('fatura_emitida, fatura, fatura_tentativas')
+      .eq('transaction_id', transactionID)
+      .single();
+
+    if (error) {
+      console.error('❌ Erro ao verificar fatura:', error);
+      return false; // Em caso de erro, permitir tentativa
+    }
+
+    if (data && data.fatura_emitida) {
+      console.log(`🚫 Fatura já emitida para transação ${transactionID}:`, data.fatura);
+      return {
+        emitida: true,
+        fatura: data.fatura,
+        tentativas: data.fatura_tentativas
+      };
+    }
+
+    return false;
+  } catch (error) {
+    console.error('❌ Erro na verificação:', error);
+    return false;
+  }
+}
+
+// Função para marcar fatura como emitida na BD
+async function marcarFaturaEmitida(transactionID, dadosFatura) {
+  if (!supabase) {
+    console.log('⚠️ Supabase não configurado, não atualizando BD');
+    return;
+  }
+
+  try {
+    const { error } = await supabase
+      .from('payments')
+      .update({
+        fatura_emitida: true,
+        fatura: dadosFatura,
+        last_update: new Date().toISOString()
+      })
+      .eq('transaction_id', transactionID);
+
+    if (error) {
+      console.error('❌ Erro ao marcar fatura como emitida:', error);
+    } else {
+      console.log(`✅ Fatura marcada como emitida na BD: ${transactionID}`);
+    }
+  } catch (error) {
+    console.error('❌ Erro ao atualizar BD:', error);
+  }
+}
+
+// Função para incrementar tentativas de fatura
+async function incrementarTentativas(transactionID) {
+  if (!supabase) return;
+
+  try {
+    // Primeiro buscar o valor atual
+    const { data: currentData, error: selectError } = await supabase
+      .from('payments')
+      .select('fatura_tentativas')
+      .eq('transaction_id', transactionID)
+      .single();
+
+    if (selectError) {
+      console.error('❌ Erro ao buscar tentativas atuais:', selectError);
+      return;
+    }
+
+    const novasTentativas = (currentData?.fatura_tentativas || 0) + 1;
+
+    const { error } = await supabase
+      .from('payments')
+      .update({
+        fatura_tentativas: novasTentativas,
+        last_update: new Date().toISOString()
+      })
+      .eq('transaction_id', transactionID);
+
+    if (error) {
+      console.error('❌ Erro ao incrementar tentativas:', error);
+    } else {
+      console.log(`📊 Tentativas de fatura incrementadas para ${novasTentativas}: ${transactionID}`);
+    }
+  } catch (error) {
+    console.error('❌ Erro ao incrementar tentativas:', error);
+  }
+}
+
+// Base de dados em memória para fallback (caso Supabase falhe)
 const faturas_emitidas = new Map();
 
 exports.handler = async (event, context) => {
@@ -199,38 +311,77 @@ exports.handler = async (event, context) => {
     };
 
     // 🔒 VERIFICAR SE FATURA JÁ FOI EMITIDA (Prevenir duplicação)
-    const faturaKey = `${input.transactionID}_${input.produto}_${input.valor}`;
+    console.log(`🔍 Verificando se fatura já foi emitida para: ${input.transactionID}`);
     
-    if (faturas_emitidas.has(faturaKey)) {
-      const faturaExistente = faturas_emitidas.get(faturaKey);
-      console.log(`⚠️ Tentativa de emissão duplicada bloqueada: ${faturaKey}`);
+    const faturaExistente = await verificarFaturaEmitida(input.transactionID);
+    
+    if (faturaExistente && faturaExistente.emitida) {
+      console.log(`⚠️ Tentativa de emissão duplicada bloqueada: ${input.transactionID}`);
       
       return {
         statusCode: 409, // Conflict
         headers,
         body: JSON.stringify({
           success: false,
-          message: `Fatura já foi emitida anteriormente!\n\nNúmero: ${faturaExistente.numero}\nData: ${new Date(faturaExistente.data_emissao).toLocaleString('pt-PT')}\n\n⚠️ Não é possível emitir faturas duplicadas.`,
-          fatura_existente: faturaExistente
+          message: `❌ Fatura já foi emitida!\n\n🧾 Número: ${faturaExistente.fatura?.numero || 'N/A'}\n📅 Data: ${faturaExistente.fatura?.data_emissao ? new Date(faturaExistente.fatura.data_emissao).toLocaleString('pt-PT') : 'N/A'}\n🔢 Tentativas: ${faturaExistente.tentativas || 0}\n\n⚠️ Para evitar duplicações, não é possível emitir novamente.`,
+          fatura_existente: faturaExistente.fatura,
+          already_emitted: true
         })
       };
     }
+
+    // Incrementar contador de tentativas
+    await incrementarTentativas(input.transactionID);
 
     // Emitir fatura
     const resultadoFatura = await emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento);
 
     if (resultadoFatura.success) {
-      // 🔒 REGISTRAR fatura emitida para prevenir duplicação
+      // 🔒 MARCAR fatura como emitida na BD Supabase
+      await marcarFaturaEmitida(input.transactionID, resultadoFatura.fatura);
+      
+      // 🔄 TAMBÉM atualizar via webhook endpoint (garante sincronização)
+      try {
+        const baseUrl = event.headers.host ? `https://${event.headers.host}` : 'https://cool-starship-a7a3e1.netlify.app';
+        const webhookUpdateUrl = `${baseUrl}/.netlify/functions/payment-webhook`;
+        
+        const updateResponse = await fetch(webhookUpdateUrl, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'User-Agent': 'BE WATER Invoice System'
+          },
+          body: JSON.stringify({
+            transactionID: input.transactionID,
+            fatura: resultadoFatura.fatura
+          })
+        });
+
+        const updateResult = await updateResponse.json();
+        if (updateResponse.ok) {
+          console.log('✅ Webhook também atualizado:', updateResult.message);
+        } else {
+          console.log('⚠️ Webhook update falhou:', updateResult.message);
+        }
+      } catch (webhookError) {
+        console.log('⚠️ Erro ao atualizar webhook:', webhookError.message);
+        // Não é crítico, continuar
+      }
+      
+      // Fallback: também guardar na Map em memória
+      const faturaKey = `${input.transactionID}_${input.produto}_${input.valor}`;
       faturas_emitidas.set(faturaKey, resultadoFatura.fatura);
-      console.log(`✅ Fatura registrada no controle de duplicação: ${faturaKey}`);
+      
+      console.log(`✅ Fatura ${resultadoFatura.fatura.numero} emitida e registrada com sucesso`);
       
       return {
         statusCode: 200,
         headers,
         body: JSON.stringify({
           success: true,
-          message: `Fatura ${resultadoFatura.fatura.numero} emitida com sucesso!`,
-          fatura: resultadoFatura.fatura
+          message: `✅ Fatura ${resultadoFatura.fatura.numero} emitida com sucesso!`,
+          fatura: resultadoFatura.fatura,
+          database_updated: !!supabase
         })
       };
     } else {

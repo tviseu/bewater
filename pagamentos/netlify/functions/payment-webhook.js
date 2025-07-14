@@ -75,13 +75,116 @@ exports.handler = async (event, context) => {
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type, X-Signature',
-    'Access-Control-Allow-Methods': 'POST, GET',
+    'Access-Control-Allow-Methods': 'POST, GET, PUT, OPTIONS',
     'Content-Type': 'application/json'
   };
 
   // Handle preflight requests
   if (event.httpMethod === 'OPTIONS') {
     return { statusCode: 200, headers, body: '' };
+  }
+
+  // PUT: Atualizar dados de fatura (chamado pelo emit-invoice.js)
+  if (event.httpMethod === 'PUT') {
+    try {
+      const updateData = JSON.parse(event.body);
+      
+      if (!updateData.transactionID || !updateData.fatura) {
+        return {
+          statusCode: 400,
+          headers,
+          body: JSON.stringify({
+            success: false,
+            message: 'transactionID e fatura são obrigatórios'
+          })
+        };
+      }
+
+      if (supabase) {
+        console.log(`📋 Atualizando fatura para transação: ${updateData.transactionID}`);
+        
+        const { data, error } = await supabase
+          .from('payments')
+          .update({
+            fatura_emitida: true,
+            fatura: updateData.fatura,
+            last_update: new Date().toISOString()
+          })
+          .eq('transaction_id', updateData.transactionID)
+          .select()
+          .single();
+
+        if (error) {
+          console.error('❌ Erro ao atualizar fatura:', error);
+          throw error;
+        }
+
+        if (!data) {
+          return {
+            statusCode: 404,
+            headers,
+            body: JSON.stringify({
+              success: false,
+              message: 'Pagamento não encontrado'
+            })
+          };
+        }
+
+        console.log(`✅ Fatura marcada como emitida na BD: ${updateData.transactionID}`);
+
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({
+            success: true,
+            message: 'Fatura atualizada com sucesso',
+            payment: data
+          })
+        };
+
+      } else {
+        // Fallback para Map em memória
+        const payment = Array.from(paymentsDB.values())
+          .find(p => p.transactionID === updateData.transactionID);
+        
+        if (payment) {
+          payment.fatura_emitida = true;
+          payment.fatura = updateData.fatura;
+          payment.lastUpdate = new Date().toISOString();
+          paymentsDB.set(payment.id, payment);
+          
+          return {
+            statusCode: 200,
+            headers,
+            body: JSON.stringify({
+              success: true,
+              message: 'Fatura atualizada com sucesso (memoria)',
+              payment: payment
+            })
+          };
+        } else {
+          return {
+            statusCode: 404,
+            headers,
+            body: JSON.stringify({
+              success: false,
+              message: 'Pagamento não encontrado'
+            })
+          };
+        }
+      }
+
+    } catch (error) {
+      console.error('❌ Erro ao atualizar fatura:', error);
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({
+          success: false,
+          message: error.message
+        })
+      };
+    }
   }
 
   // GET: Listar pagamentos (para interface staff)
