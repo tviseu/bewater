@@ -365,24 +365,48 @@
         @media (max-width: 768px) {
             .payment-card {
                 grid-template-columns: 1fr;
-                text-align: center;
-                gap: 15px;
+                text-align: left;
+                gap: 10px;
+                padding: 12px;
             }
             
             .payment-actions {
-                flex-direction: column;
+                flex-direction: row;
+                justify-content: space-between;
                 align-items: center;
                 gap: 10px;
+                min-width: 100%;
             }
             
             .filters {
                 flex-direction: column;
                 align-items: center;
+                gap: 8px;
+            }
+
+            .filter-btn {
+                font-size: 0.8rem;
+                padding: 6px 12px;
             }
 
             .action-btn {
+                font-size: 0.75rem;
+                padding: 6px 12px;
+                min-width: 80px;
+            }
+
+            .payment-details {
                 font-size: 0.8rem;
-                padding: 8px 16px;
+                line-height: 1.3;
+            }
+
+            .payment-produto {
+                font-size: 1rem;
+                margin-bottom: 8px;
+            }
+
+            .detail-line {
+                margin-bottom: 4px;
             }
         }
     </style>
@@ -503,14 +527,17 @@
                         <div class="payment-produto">${payment.produto}</div>
                         <div class="payment-details">
                             <div class="detail-line">
-                                💰 €${payment.valor.toFixed(2)} | ${payment.telefone} | 📅 ${formatDateTime(payment.timestamp)}
+                                💰 €${payment.valor.toFixed(2)} | ${payment.telefone.substring(0,3)}***${payment.telefone.slice(-3)}
                             </div>
-                            ${payment.reference ? `<div class="detail-line">🔗 Ref: <span class="payment-ref" title="${payment.reference}">${truncateRef(payment.reference)}</span></div>` : ''}
-                            ${payment.transactionID ? `<div class="detail-line">🆔 ID: <span class="payment-ref" title="${payment.transactionID}">${truncateRef(payment.transactionID)}</span></div>` : ''}
-                            ${payment.nome ? `<div class="detail-line">👤 ${payment.nome}</div>` : ''}
+                            <div class="detail-line">
+                                📅 ${formatDateTime(payment.timestamp)}
+                            </div>
+                            ${payment.reference ? `<div class="detail-line">🔗 Ref: ${truncateRef(payment.reference)}</div>` : ''}
+                            ${payment.transactionID ? `<div class="detail-line">🆔 ID: ${truncateRef(payment.transactionID)}</div>` : ''}
+                            ${payment.nome ? `<div class="detail-line">👤 ${truncateText(payment.nome, 30)}</div>` : ''}
                             ${payment.email ? `<div class="detail-line">📧 ${truncateEmail(payment.email)}</div>` : ''}
                             ${payment.nif ? `<div class="detail-line">🧾 NIF: ${payment.nif}</div>` : ''}
-                            ${payment.fatura ? `<div class="detail-line">🧾 Fatura: ${payment.fatura.numero} | <a href="${payment.fatura.url_download}" target="_blank">📄 Download</a></div>` : ''}
+                            ${payment.fatura ? `<div class="detail-line">🧾 Fatura: ${payment.fatura.numero}</div>` : ''}
                         </div>
                     </div>
                     <div class="payment-actions">
@@ -545,15 +572,17 @@
 
 
 
-        // Formatar data e tempo
+        // Formatar data e tempo (corrigir timezone)
         function formatDateTime(timestamp) {
             const date = new Date(timestamp);
-            const dateStr = date.toLocaleDateString('pt-PT', {
+            // Corrigir timezone - assumir que timestamp vem em UTC e converter para Lisboa
+            const lisboaDate = new Date(date.getTime() - (60 * 60 * 1000)); // Subtrair 1 hora
+            const dateStr = lisboaDate.toLocaleDateString('pt-PT', {
                 day: '2-digit',
                 month: '2-digit',
                 year: 'numeric'
             });
-            const timeStr = date.toLocaleTimeString('pt-PT', {
+            const timeStr = lisboaDate.toLocaleTimeString('pt-PT', {
                 hour: '2-digit',
                 minute: '2-digit'
             });
@@ -578,6 +607,13 @@
             return email;
         }
 
+        // Truncar texto geral
+        function truncateText(text, maxLength) {
+            if (!text) return '';
+            if (text.length <= maxLength) return text;
+            return text.substring(0, maxLength - 3) + '...';
+        }
+
         // Texto do status
         function getStatusText(status) {
             const statusTexts = {
@@ -595,22 +631,13 @@
                 return '';
             }
 
-            // Se já tem fatura emitida - mostrar indicador com X
+            // Se já tem fatura emitida - mostrar apenas indicador
             if (payment.fatura_emitida || payment.fatura) {
                 const numeroFatura = payment.fatura?.numero || 'N/A';
-                const urlDownload = payment.fatura?.url_download;
-                
-                if (urlDownload) {
-                    return `<div class="action-btn emitted" title="Fatura ${numeroFatura} já emitida">
-                        <span class="emitted-icon">✅</span>
-                        <a href="${urlDownload}" target="_blank" class="download-link">📄</a>
-                    </div>`;
-                } else {
-                    return `<div class="action-btn emitted" title="Fatura ${numeroFatura} já emitida">
-                        <span class="emitted-icon">✅</span>
-                        <span class="emitted-text">Emitida</span>
-                    </div>`;
-                }
+                return `<div class="action-btn emitted" title="Fatura ${numeroFatura} já emitida">
+                    <span class="emitted-icon">✅</span>
+                    <span class="emitted-text">Emitida</span>
+                </div>`;
             }
 
             // Sempre permitir emissão de fatura (usará "Consumidor Final" se sem email)
