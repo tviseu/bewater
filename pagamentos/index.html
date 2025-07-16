@@ -229,10 +229,10 @@
         }
 
         .produto-btn {
-            background: var(--color-primary);
-            color: var(--color-background);
+            background: #28a745;
+            color: #ffffff;
             border: var(--border-thick);
-            border-color: var(--color-primary);
+            border-color: #28a745;
             padding: 15px 25px;
             font-weight: 700;
             cursor: pointer;
@@ -242,13 +242,19 @@
             font-family: var(--font-heading);
             text-transform: uppercase;
             letter-spacing: 1px;
+            box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
         }
 
         .produto-btn:hover {
-            background: var(--color-background);
-            color: var(--color-primary);
+            background: #218838;
+            color: #ffffff;
             transform: translate(-2px, -2px);
-            box-shadow: 4px 4px 0 var(--color-primary);
+            box-shadow: 4px 8px 12px rgba(40, 167, 69, 0.4);
+        }
+
+        .produto-btn:active {
+            transform: translate(0, 2px);
+            box-shadow: 0 2px 4px rgba(40, 167, 69, 0.3);
         }
 
         /* FORMULÁRIO DE PAGAMENTO - Estilo BE WATER */
@@ -327,10 +333,10 @@
         }
 
         .btn-pagar {
-            background: var(--color-primary);
-            color: var(--color-background);
+            background: #28a745;
+            color: #ffffff;
             border: var(--border-thick);
-            border-color: var(--color-primary);
+            border-color: #28a745;
             padding: 20px 40px;
             font-size: 1.2rem;
             font-weight: 900;
@@ -341,13 +347,19 @@
             font-family: var(--font-heading);
             text-transform: uppercase;
             letter-spacing: 2px;
+            box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
         }
 
         .btn-pagar:hover {
-            background: var(--color-background);
-            color: var(--color-primary);
+            background: #218838;
+            color: #ffffff;
             transform: translate(-2px, -2px);
-            box-shadow: 4px 4px 0 var(--color-primary);
+            box-shadow: 4px 8px 16px rgba(40, 167, 69, 0.4);
+        }
+
+        .btn-pagar:active {
+            transform: translate(0, 2px);
+            box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
         }
 
         .btn-pagar:disabled {
@@ -667,7 +679,7 @@
                     <div class="produto-nome" data-payment-i18n="product.cafe">Café</div>
                     <div class="produto-preco">€0.85</div>
                     <div class="produto-descricao" data-payment-i18n="product.cafe.desc">Combustível para treinos épicos</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <button class="produto-btn" data-payment-i18n="product.btn">💰 COMPRAR</button>
                 </div>
 
                 <div class="produto-card" data-id="AGUA_PEQUENA_001" data-nome="Água Pequena" data-preco="1.00">
@@ -773,7 +785,7 @@
                         <input type="number" id="donativo-valor" min="1.00" max="100" step="0.50" placeholder="5.00" value="5.00">
                     </div>
                     <div class="produto-descricao" data-payment-i18n="product.donativo.desc">"A tua moedinha faz milagres no tatami."<br>Ajuda a apoiar eventos, formações e treinos para todos. Um euro pode ser o primeiro passo de alguém.</div>
-                    <button class="produto-btn donativo-btn" data-payment-i18n="product.donativo.btn">Salvar um Músculo</button>
+                    <button class="produto-btn donativo-btn" data-payment-i18n="product.donativo.btn">💝 DOAR</button>
                 </div>
             </div>
         </div>
@@ -793,7 +805,7 @@
                 </div>
 
                 <button type="submit" class="btn-pagar" id="payBtn" data-payment-i18n="form.pay.btn">
-                    🚀 Enviar Pagamento MBWay
+                    💳 PAGAR AGORA
                 </button>
 
                 <div style="margin: 30px 0 20px 0; padding: 20px; background: #f8f9fa; border: 2px solid #e9ecef; text-align: center;">

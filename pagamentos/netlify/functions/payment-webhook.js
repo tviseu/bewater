@@ -493,6 +493,24 @@ exports.handler = async (event, context) => {
         }
       }
 
+      // Verificar se já existe um registo pendente
+      let existingPayment = null;
+      if (supabase && transactionID) {
+        try {
+          const { data } = await supabase
+            .from('payments')
+            .select('*')
+            .eq('transaction_id', transactionID)
+            .single();
+          existingPayment = data;
+        } catch (error) {
+          // Não existe ou erro - continuará criando novo
+        }
+      }
+
+      // Usar timestamp original se já existe, senão usar timestamp do webhook ou atual
+      const finalTimestamp = existingPayment?.timestamp || timestamp || new Date().toISOString();
+
       // Criar/atualizar registro do pagamento  
       const paymentRecord = {
         transaction_id: transactionID,
@@ -505,13 +523,20 @@ exports.handler = async (event, context) => {
         email: clientData?.email || null,
         nif: clientData?.nif || null,
         status: paymentStatus,
-        timestamp: timestamp || new Date().toISOString(),
+        timestamp: finalTimestamp, // Preservar timestamp original
         last_update: new Date().toISOString(),
         fatura: null,
         fatura_emitida: false,
         fatura_tentativas: 0,
         raw_webhook_data: decryptedData
       };
+
+      console.log(`📝 Processando pagamento - Status: ${paymentStatus}, TransactionID: ${transactionID}`);
+      if (existingPayment) {
+        console.log(`🔄 Atualizando pagamento existente: ${existingPayment.status} → ${paymentStatus}`);
+      } else {
+        console.log(`🆕 Criando novo pagamento: ${paymentStatus}`);
+      }
 
       // Guardar na Supabase (com fallback para Map)
       let savedPayment;
@@ -580,7 +605,10 @@ exports.handler = async (event, context) => {
           success: true,
           message: 'Webhook processado com sucesso',
           payment: savedPayment,
-          database: supabase ? 'Supabase' : 'Memory'
+          database: supabase ? 'Supabase' : 'Memory',
+          operation: existingPayment ? 'updated' : 'created',
+          status_change: existingPayment ? `${existingPayment.status} → ${paymentStatus}` : `new → ${paymentStatus}`,
+          timestamp_preserved: existingPayment ? true : false
         })
       };
 

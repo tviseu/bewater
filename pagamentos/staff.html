@@ -572,21 +572,26 @@
 
 
 
-        // Formatar data e tempo (corrigir timezone)
+        // Formatar data e tempo (timezone Lisboa/Portugal)
         function formatDateTime(timestamp) {
             const date = new Date(timestamp);
-            // Corrigir timezone - assumir que timestamp vem em UTC e converter para Lisboa
-            const lisboaDate = new Date(date.getTime() - (60 * 60 * 1000)); // Subtrair 1 hora
-            const dateStr = lisboaDate.toLocaleDateString('pt-PT', {
+            
+            // Forçar timezone Lisboa/Portugal usando Intl.DateTimeFormat
+            const lisboaFormatter = new Intl.DateTimeFormat('pt-PT', {
+                timeZone: 'Europe/Lisbon',
                 day: '2-digit',
                 month: '2-digit',
-                year: 'numeric'
-            });
-            const timeStr = lisboaDate.toLocaleTimeString('pt-PT', {
+                year: 'numeric',
                 hour: '2-digit',
-                minute: '2-digit'
+                minute: '2-digit',
+                hour12: false
             });
-            return `${dateStr} ${timeStr}`;
+            
+            const formattedParts = lisboaFormatter.formatToParts(date);
+            const datePart = `${formattedParts[0].value}/${formattedParts[2].value}/${formattedParts[4].value}`;
+            const timePart = `${formattedParts[6].value}:${formattedParts[8].value}`;
+            
+            return `${datePart} ${timePart}`;
         }
 
         // Truncar referências longas

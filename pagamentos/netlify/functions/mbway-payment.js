@@ -400,16 +400,19 @@ exports.handler = async (event, context) => {
         });
       }
 
-      // 🆕 CRIAR registo "pendente" para aparecer no staff.html
-      try {
-        const pendingPaymentData = {
-          transactionID: eupagoResponse.transactionID,
-          reference: eupagoResponse.reference,
-          amount: { value: produtoId === 'DONATIVO_001' ? inputAmount : produto.preco }, // Formato EuPago
-          status: 'pending', // Status EuPago para pendente
-          identifier: produtoId === 'DONATIVO_001' ? `Donativo €${inputAmount.toFixed(2)} - BE WATER | ${clientDataBase64}` : `${produto.nome} - BE WATER | ${clientDataBase64}`,
-          date: new Date().toISOString()
-        };
+              // 🆕 CRIAR registo "pendente" para aparecer no staff.html
+        try {
+          // Usar timestamp consistente em UTC
+          const utcTimestamp = new Date().toISOString();
+          
+          const pendingPaymentData = {
+            transactionID: eupagoResponse.transactionID,
+            reference: eupagoResponse.reference,
+            amount: { value: produtoId === 'DONATIVO_001' ? inputAmount : produto.preco }, // Formato EuPago
+            status: 'pending', // Status EuPago para pendente
+            identifier: produtoId === 'DONATIVO_001' ? `Donativo €${inputAmount.toFixed(2)} - BE WATER | ${clientDataBase64}` : `${produto.nome} - BE WATER | ${clientDataBase64}`,
+            date: utcTimestamp // Timestamp UTC consistente
+          };
 
         console.log('🚀 Criando registo pendente:', pendingPaymentData);
 
