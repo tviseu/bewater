@@ -527,7 +527,7 @@
                         <div class="payment-produto">${payment.produto}</div>
                         <div class="payment-details">
                             <div class="detail-line">
-                                💰 €${payment.valor ? payment.valor.toFixed(2) : '0.00'} | ${maskPhone(payment.telefone)}
+                                💰 €${payment.valor ? payment.valor.toFixed(2) : '0.00'} | ${payment.telefone ? payment.telefone.substring(0,3) + '***' + payment.telefone.slice(-3) : 'N/A'}
                             </div>
                             <div class="detail-line">
                                 📅 ${formatDateTime(payment.timestamp)}
@@ -610,18 +610,6 @@
                 return local.substring(0, 8) + '...@' + domain;
             }
             return email;
-        }
-
-        // Mascarar telefone de forma segura
-        function maskPhone(phone) {
-            if (!phone || typeof phone !== 'string' || phone.length < 6) {
-                return 'N/A';
-            }
-            // Garantir que o telefone tem pelo menos 6 caracteres para fazer o mascaramento
-            if (phone.length === 6) {
-                return phone.substring(0, 3) + '***';
-            }
-            return phone.substring(0, 3) + '***' + phone.slice(-3);
         }
 
         // Truncar texto geral
