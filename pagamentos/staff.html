@@ -527,7 +527,7 @@
                         <div class="payment-produto">${payment.produto}</div>
                         <div class="payment-details">
                             <div class="detail-line">
-                                💰 €${payment.valor.toFixed(2)} | ${payment.telefone.substring(0,3)}***${payment.telefone.slice(-3)}
+                                💰 €${payment.valor ? payment.valor.toFixed(2) : '0.00'} | ${payment.telefone ? payment.telefone.substring(0,3) + '***' + payment.telefone.slice(-3) : 'N/A'}
                             </div>
                             <div class="detail-line">
                                 📅 ${formatDateTime(payment.timestamp)}
