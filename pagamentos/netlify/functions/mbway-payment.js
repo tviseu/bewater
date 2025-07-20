@@ -405,16 +405,19 @@ exports.handler = async (event, context) => {
           // Usar timestamp consistente em UTC
           const utcTimestamp = new Date().toISOString();
           
+          // CORRIGIR: Estrutura deve ter objeto 'transaction' conforme webhook espera
           const pendingPaymentData = {
-            transactionID: eupagoResponse.transactionID,
-            reference: eupagoResponse.reference,
-            amount: { value: produtoId === 'DONATIVO_001' ? inputAmount : produto.preco }, // Formato EuPago
-            status: 'pending', // Status EuPago para pendente
-            identifier: produtoId === 'DONATIVO_001' ? `Donativo €${inputAmount.toFixed(2)} - BE WATER | ${clientDataBase64}` : `${produto.nome} - BE WATER | ${clientDataBase64}`,
-            date: utcTimestamp // Timestamp UTC consistente
+            transaction: {
+              transactionID: eupagoResponse.transactionID,  // Usar transactionID (não trid)
+              reference: eupagoResponse.reference,
+              amount: { value: produtoId === 'DONATIVO_001' ? inputAmount : produto.preco },
+              status: 'pending', // Status EuPago para pendente
+              identifier: produtoId === 'DONATIVO_001' ? `Donativo €${inputAmount.toFixed(2)} - BE WATER | ${clientDataBase64}` : `${produto.nome} - BE WATER | ${clientDataBase64}`,
+              date: utcTimestamp // Timestamp UTC consistente
+            }
           };
 
-        console.log('🚀 Criando registo pendente:', pendingPaymentData);
+        console.log('🚀 Criando registo pendente com estrutura corrigida:', pendingPaymentData);
 
         // Simular webhook call para criar registo pendente
         const webhookUrl = 'https://cool-starship-a7a3e1.netlify.app/.netlify/functions/payment-webhook';

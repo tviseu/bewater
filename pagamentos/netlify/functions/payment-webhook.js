@@ -503,13 +503,28 @@ exports.handler = async (event, context) => {
             .eq('transaction_id', transactionID)
             .single();
           existingPayment = data;
+          console.log(`🔍 Pagamento existente encontrado:`, {
+            id: data.id,
+            status: data.status,
+            timestamp: data.timestamp,
+            transaction_id: data.transaction_id
+          });
         } catch (error) {
-          // Não existe ou erro - continuará criando novo
+          console.log(`🔍 Nenhum pagamento existente encontrado para transaction_id: ${transactionID}`);
         }
       }
 
-      // Usar timestamp original se já existe, senão usar timestamp do webhook ou atual
-      const finalTimestamp = existingPayment?.timestamp || timestamp || new Date().toISOString();
+      // CORRIGIR TIMEZONE: Sempre usar timestamp consistente em UTC
+      let finalTimestamp;
+      if (existingPayment) {
+        // Se já existe, preservar o timestamp original (mas garantir UTC)
+        finalTimestamp = existingPayment.timestamp;
+        console.log(`🕐 Preservando timestamp original: ${finalTimestamp}`);
+      } else {
+        // Se é novo, usar timestamp atual em UTC
+        finalTimestamp = new Date().toISOString();
+        console.log(`🕐 Novo timestamp UTC: ${finalTimestamp}`);
+      }
 
       // Criar/atualizar registro do pagamento  
       const paymentRecord = {
@@ -533,9 +548,15 @@ exports.handler = async (event, context) => {
 
       console.log(`📝 Processando pagamento - Status: ${paymentStatus}, TransactionID: ${transactionID}`);
       if (existingPayment) {
-        console.log(`🔄 Atualizando pagamento existente: ${existingPayment.status} → ${paymentStatus}`);
+        console.log(`🔄 ATUALIZANDO pagamento existente:`, {
+          old_status: existingPayment.status,
+          new_status: paymentStatus,
+          old_timestamp: existingPayment.timestamp,
+          new_timestamp: finalTimestamp,
+          transaction_id: transactionID
+        });
       } else {
-        console.log(`🆕 Criando novo pagamento: ${paymentStatus}`);
+        console.log(`🆕 CRIANDO novo pagamento: ${paymentStatus} para transaction_id: ${transactionID}`);
       }
 
       // Guardar na Supabase (com fallback para Map)
