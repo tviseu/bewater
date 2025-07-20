@@ -420,19 +420,11 @@
 
         <div class="stats">
             <div class="stat-card">
-                <h3>✅ Confirmados</h3>
+                <h3>📦 Items Vendidos</h3>
                 <div class="stat-value" id="statsConfirmados">0</div>
             </div>
             <div class="stat-card">
-                <h3>⏳ Pendentes</h3>
-                <div class="stat-value" id="statsPendentes">0</div>
-            </div>
-            <div class="stat-card">
-                <h3>❌ Falhados</h3>
-                <div class="stat-value" id="statsFalhados">0</div>
-            </div>
-            <div class="stat-card">
-                <h3>💰 Total Confirmado</h3>
+                <h3>💰 Valor Vendas</h3>
                 <div class="stat-value" id="statsTotal">€0</div>
             </div>
         </div>
@@ -443,10 +435,8 @@
             <div class="section-title">📋 Pagamentos Recentes</div>
             
             <div class="filters">
-                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn active" data-filter="all">📦 Todas as Vendas</button>
                 <button class="filter-btn" data-filter="confirmado">✅ Confirmados</button>
-                <button class="filter-btn" data-filter="pendente">⏳ Pendentes</button>
-                <button class="filter-btn" data-filter="falhado">❌ Falhados</button>
             </div>
 
             <div id="paymentsList" class="payments-list">
@@ -470,8 +460,6 @@
 
         // Stats elements
         const statsConfirmados = document.getElementById('statsConfirmados');
-        const statsPendentes = document.getElementById('statsPendentes');
-        const statsFalhados = document.getElementById('statsFalhados');
         const statsTotal = document.getElementById('statsTotal');
 
         // 🔧 Consolidar duplicados por transaction_id (priorizar confirmados)
@@ -489,14 +477,25 @@
                     // Já existe um pagamento com este transaction_id
                     const existing = consolidated.get(key);
                     
-                    // Priorizar status: confirmado > falhado > pendente
+                    // Priorizar: 1) Pagamentos com valor > 0, 2) Status confirmado > falhado > pendente
+                    const hasValue = (p) => p.valor && p.valor > 0;
                     const priorityOrder = { 'confirmado': 3, 'falhado': 2, 'pendente': 1 };
+                    
+                    const existingHasValue = hasValue(existing);
+                    const newHasValue = hasValue(payment);
                     const existingPriority = priorityOrder[existing.status] || 0;
                     const newPriority = priorityOrder[payment.status] || 0;
                     
-                    if (newPriority > existingPriority) {
-                        // Substituir pelo pagamento com status de maior prioridade
-                        console.log(`🔄 Consolidando: ${existing.status} → ${payment.status} para ${key}`);
+                    // Priorizar pagamentos com valor > 0
+                    if (newHasValue && !existingHasValue) {
+                        console.log(`💰 Consolidando (prioridade valor): vazio → €${payment.valor} para ${key}`);
+                        consolidated.set(key, payment);
+                    } else if (!newHasValue && existingHasValue) {
+                        // Manter o existente que tem valor
+                        // console.log(`💰 Mantendo pagamento com valor para ${key}`);
+                    } else if (newPriority > existingPriority) {
+                        // Ambos têm valor ou ambos estão vazios - priorizar por status
+                        console.log(`🔄 Consolidando por status: ${existing.status} → ${payment.status} para ${key}`);
                         consolidated.set(key, payment);
                     } else if (newPriority === existingPriority && new Date(payment.timestamp) > new Date(existing.timestamp)) {
                         // Mesmo status, priorizar o mais recente
@@ -576,9 +575,24 @@
 
         // Renderizar pagamentos
         function renderPayments() {
+            // FILTRAR: Esconder produtos com valor €0.00 ou sem valor
+            const invalidPayments = payments.filter(p => !p.valor || p.valor <= 0);
+            const validPayments = payments.filter(p => p.valor && p.valor > 0);
+            
+            if (invalidPayments.length > 0) {
+                console.log(`🚫 Escondendo ${invalidPayments.length} pagamentos vazios:`, 
+                    invalidPayments.map(p => ({
+                        produto: p.produto,
+                        valor: p.valor,
+                        status: p.status,
+                        transactionID: p.transactionID
+                    }))
+                );
+            }
+            
             const filteredPayments = currentFilter === 'all' 
-                ? payments 
-                : payments.filter(p => p.status === currentFilter);
+                ? validPayments 
+                : validPayments.filter(p => p.status === currentFilter);
 
             if (filteredPayments.length === 0) {
                 paymentsList.innerHTML = '<div class="no-payments">📭 Nenhum pagamento encontrado</div>';
@@ -614,23 +628,19 @@
             `).join('');
         }
 
-        // Atualizar estatísticas
+        // Atualizar estatísticas (apenas confirmados com valor > 0)
         function updateStats() {
-            const today = new Date().toDateString();
-            const todayPayments = payments.filter(p => 
-                new Date(p.timestamp).toDateString() === today
-            );
+            // Filtrar apenas pagamentos válidos (com valor > 0)
+            const validPayments = payments.filter(p => p.valor && p.valor > 0);
+            
+            // Calcular total de TODOS os confirmados (não apenas hoje)
+            const confirmadosVendidos = validPayments.filter(p => p.status === 'confirmado');
+            const totalItems = confirmadosVendidos.length;
+            const totalValue = confirmadosVendidos.reduce((sum, p) => sum + p.valor, 0);
 
-            const confirmados = todayPayments.filter(p => p.status === 'confirmado').length;
-            const pendentes = todayPayments.filter(p => p.status === 'pendente').length;
-            const falhados = todayPayments.filter(p => p.status === 'falhado').length;
-            const totalValue = todayPayments
-                .filter(p => p.status === 'confirmado')
-                .reduce((sum, p) => sum + p.valor, 0);
+            console.log(`📊 Estatísticas atualizadas: ${totalItems} items vendidos, €${totalValue.toFixed(2)} em vendas`);
 
-            statsConfirmados.textContent = confirmados;
-            statsPendentes.textContent = pendentes;
-            statsFalhados.textContent = falhados;
+            statsConfirmados.textContent = totalItems;
             statsTotal.textContent = `€${totalValue.toFixed(2)}`;
         }
 

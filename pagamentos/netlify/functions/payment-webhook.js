@@ -409,17 +409,7 @@ exports.handler = async (event, context) => {
       
       const transactionID = transaction.trid || transaction.transactionID;
       const reference = transaction.reference;
-      
-      // CORRIGIR: Extração mais robusta do amount
-      let amount = 0;
-      if (transaction.amount) {
-        if (typeof transaction.amount === 'number') {
-          amount = transaction.amount;
-        } else if (transaction.amount.value) {
-          amount = parseFloat(transaction.amount.value);
-        }
-      }
-      
+      const amount = transaction.amount ? parseFloat(transaction.amount.value) : 0;
       const status = transaction.status;
       const identifier = transaction.identifier;
       const customerPhone = transaction.customerPhone || null; // Webhook não tem telefone
@@ -433,15 +423,6 @@ exports.handler = async (event, context) => {
         identifier,
         timestamp
       });
-      
-      // 🔍 DEBUG: Info essencial apenas
-      if (amount === 0) {
-        console.log('⚠️ AMOUNT = 0 detectado. Transaction.amount:', JSON.stringify(transaction.amount, null, 2));
-      }
-      
-      if (!clientData || !clientData.telefone) {
-        console.log('⚠️ Dados cliente não encontrados ou telefone vazio');
-      }
 
       // Determinar status do pagamento (EuPago valores: "Paid", "Failed", "Pending", etc.)
       let paymentStatus;
@@ -474,12 +455,9 @@ exports.handler = async (event, context) => {
               telefone: clientData.telefone || 'N/A'
             });
           }
-        } else {
-          console.log(`🔍 Identifier não contém dados cliente: "${identifier}"`);
         }
       } catch (extractError) {
         console.log(`⚠️ Erro ao extrair dados do identifier: ${extractError.message}`);
-        console.log(`🔍 Identifier original: "${identifier}"`);
       }
 
       // Método 2: Fallback - Correlação tradicional se necessário
@@ -555,9 +533,7 @@ exports.handler = async (event, context) => {
         produto: identifier?.split(' - ')[0] || 'PRODUTO_UNKNOWN',
         produto_nome: identifier || 'Produto BE WATER',
         valor: amount || 0,
-        telefone: clientData?.telefone && clientData.telefone.length >= 9 ? 
-                   clientData.telefone.substring(0, 3) + '***' + clientData.telefone.slice(-3) : 
-                   clientData?.telefone || null,
+        telefone: clientData?.telefone ? clientData.telefone.substring(0, 3) + '***' + clientData.telefone.substring(6) : null,
         nome: clientData?.nome || null,
         email: clientData?.email || null,
         nif: clientData?.nif || null,
@@ -569,15 +545,6 @@ exports.handler = async (event, context) => {
         fatura_tentativas: 0,
         raw_webhook_data: decryptedData
       };
-      
-      // 🔍 DEBUG: Resumo do pagamento
-      console.log('💾 Salvando pagamento:', {
-        transaction_id: transactionID,
-        produto: paymentRecord.produto,
-        valor: paymentRecord.valor,
-        telefone: paymentRecord.telefone,
-        status: paymentRecord.status
-      });
 
       console.log(`📝 Processando pagamento - Status: ${paymentStatus}, TransactionID: ${transactionID}`);
       if (existingPayment) {
