@@ -23,12 +23,7 @@ const translations = {
       'hero.title': 'BE WATER,<br>MY FRIEND',
       'hero.subtitle': 'Desenvolve a tua força, agilidade e flexibilidade num espaço que reflecte a filosofia "be water" popularizada por Bruce Lee. Vem fazer parte desta corrente.',
       'hero.cta': 'INSCREVE-TE JÁ',
-      'hero.countdown.title': 'ABERTURA EM:',
-      'hero.countdown.days': 'DIAS',
-      'hero.countdown.hours': 'HRS',
-      'hero.countdown.minutes': 'MIN',
-      'hero.countdown.seconds': 'SEC',
-      'hero.countdown.date': '14 JULHO 2025',
+      
       
       // About Section
       'gym.hero.title': 'O CENTRO<br>DE TREINO',
@@ -391,12 +386,7 @@ const translations = {
       'hero.title': 'BE WATER,<br>MY FRIEND',
       'hero.subtitle': 'Develop your strength, agility and flexibility in a space that reflects the "be water" philosophy popularized by Bruce Lee. Come be part of this flow.',
       'hero.cta': 'JOIN NOW',
-      'hero.countdown.title': 'OPENING IN:',
-      'hero.countdown.days': 'DAYS',
-      'hero.countdown.hours': 'HRS',
-      'hero.countdown.minutes': 'MIN',
-      'hero.countdown.seconds': 'SEC',
-      'hero.countdown.date': 'JULY 14, 2025',
+      
       
       // About Section
       'gym.hero.title': 'THE TRAINING<br>CENTER',

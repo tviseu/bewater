@@ -151,48 +151,7 @@
       }
     }
     
-    /* Countdown critical styles */
-    .countdown-container {
-      margin-top: var(--spacing-xl);
-      opacity: 1;
-    }
-    
-    .countdown-frame {
-      background-color: var(--color-white);
-      border: var(--border-width) solid var(--color-black);
-      padding: var(--spacing-lg);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    
-    .countdown-title {
-      font-family: var(--font-heading);
-      font-weight: 900;
-      text-align: center;
-      margin-bottom: var(--spacing-md);
-      color: var(--color-black);
-    }
-    
-    .countdown-display {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: var(--spacing-sm);
-      flex-wrap: wrap;
-    }
-    
-    .countdown-number {
-      font-family: var(--font-heading);
-      font-weight: 900;
-      font-size: 2rem;
-      color: var(--color-black);
-    }
-    
-    .countdown-separator {
-      font-size: 2rem;
-      font-weight: 900;
-      color: var(--color-black);
-    }
+
     
     /* Iframe placeholder styles */
     .iframe-placeholder {
@@ -233,13 +192,7 @@
         margin-bottom: var(--spacing-md);
       }
       
-      .countdown-display {
-        gap: 0.25rem;
-      }
-      
-      .countdown-number {
-        font-size: 1.5rem;
-      }
+
     }
   </style>
   
@@ -325,35 +278,6 @@
       <p class="hero__subtitle" data-i18n="hero.subtitle">Desenvolve a tua força, agilidade e flexibilidade num espaço que reflecte a filosofia "be water" popularizada por Bruce Lee. Vem fazer parte desta corrente.</p>
       <div class="hero__cta">
         <a href="#pricing" class="btn btn--primary" data-i18n="hero.cta">INSCREVE-TE JÁ</a>
-      </div>
-      
-      <!-- Countdown Timer -->
-      <div class="countdown-container">
-        <div class="countdown-frame">
-          <div class="countdown-title" data-i18n="hero.countdown.title">ABERTURA EM:</div>
-          <div class="countdown-display">
-            <div class="countdown-segment">
-              <span class="countdown-number" id="countdown-days">000</span>
-              <span class="countdown-label" data-i18n="hero.countdown.days">DIAS</span>
-            </div>
-            <span class="countdown-separator">:</span>
-            <div class="countdown-segment">
-              <span class="countdown-number" id="countdown-hours">00</span>
-              <span class="countdown-label" data-i18n="hero.countdown.hours">HRS</span>
-            </div>
-            <span class="countdown-separator">:</span>
-            <div class="countdown-segment">
-              <span class="countdown-number" id="countdown-minutes">00</span>
-              <span class="countdown-label" data-i18n="hero.countdown.minutes">MIN</span>
-            </div>
-            <span class="countdown-separator">:</span>
-            <div class="countdown-segment">
-              <span class="countdown-number" id="countdown-seconds">00</span>
-              <span class="countdown-label" data-i18n="hero.countdown.seconds">SEC</span>
-            </div>
-          </div>
-          <div class="countdown-date" data-i18n="hero.countdown.date">14 JULHO 2025</div>
-        </div>
       </div>
     </div>
   </section>
@@ -1875,7 +1799,6 @@
   <script src="src/js/main.js"></script>
   <script src="src/js/modals.js"></script>
   <script src="src/js/gym-collage-slider.js"></script>
-  <script src="src/js/countdown.js"></script>
   <script src="src/js/i18n.js"></script>
 </body>
 </html> 
