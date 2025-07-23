@@ -94,19 +94,109 @@ git push origin main
 
 ## 🔧 CONFIGURAÇÃO DOS PRODUTOS
 
-### **Adicionar Novos Produtos**
-Em `pagamentos/netlify/functions/mbway-payment.js` ou `pagamentos/api/mbway-payment.js`:
+### **⚠️ IMPORTANTE: 3 Ficheiros a Alterar**
+
+Para **adicionar um novo produto**, tens que alterar **EXATAMENTE 3 ficheiros**:
+
+#### **1️⃣ Frontend - `pagamentos/index.html`**
+Adicionar o produto na seção correta:
+```html
+<div class="produto-card" data-id="NOVO_PRODUTO_001" data-nome="Novo Produto" data-preco="10.00">
+    <div class="produto-icon">🆕</div>
+    <div class="produto-nome" data-payment-i18n="product.novo-produto">Novo Produto</div>
+    <div class="produto-preco">€10.00</div>
+    <div class="produto-descricao" data-payment-i18n="product.novo-produto.desc">Descrição do produto</div>
+    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+</div>
+```
+
+#### **2️⃣ Traduções - `pagamentos/api/i18n.js`**
+Adicionar traduções PT + EN:
+```javascript
+// Português
+'product.novo-produto': 'Novo Produto',
+'product.novo-produto.desc': 'Descrição em português',
+
+// English (na seção en:)
+'product.novo-produto': 'New Product',
+'product.novo-produto.desc': 'English description',
+```
+
+#### **3️⃣ Backend - `pagamentos/netlify/functions/mbway-payment.js`**
+Adicionar aos **2 arrays obrigatórios**:
+```javascript
+// Array 1: PRODUTOS_VENDUS (para faturas)
+const PRODUTOS_VENDUS = {
+  'NOVO_PRODUTO_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+  // ... outros produtos
+};
+
+// Array 2: PRODUTOS_PERMITIDOS (validação segurança)
+const PRODUTOS_PERMITIDOS = {
+  'NOVO_PRODUTO_001': { nome: 'Novo Produto', preco: 10.00 },
+  // ... outros produtos
+};
+```
+
+### **🎯 Checklist Novo Produto:**
+- [ ] ✅ HTML: Produto adicionado na seção correta
+- [ ] ✅ Traduções: PT + EN adicionadas no `i18n.js`
+- [ ] ✅ Backend: Produto nos 2 arrays do `mbway-payment.js`
+- [ ] ✅ Preços: Valores iguais nos 3 ficheiros
+- [ ] ✅ IDs: Formato `NOME_PRODUTO_001` consistente
+
+### **⚠️ Erros Comuns:**
+- **Esquecer o `i18n.js`** → Traduções não funcionam
+- **Esquecer 1 dos arrays** → Pagamentos falham
+- **Preços diferentes** → Validação de segurança falha
+- **IDs inconsistentes** → Produto não é encontrado
+
+### **📂 Organização das Seções**
+
+O site está organizado em **4 seções temáticas**:
+
+#### **🥤 Hidratação & Energia** (`section.hydration-energy`)
+- Bebidas, cafés, energia
+- Exemplo: Café, Águas, Powerade, Coca Cola Zero, AminoX
+
+#### **💪 Nutrição Warrior** (`section.nutrition-warrior`)
+- Produtos proteicos sólidos
+- Exemplo: Batidos, Barras, Cookies proteicas
+
+#### **🎒 Essenciais do Dojo** (`section.dojo-essentials`)
+- Acessórios e equipamentos
+- Exemplo: Cadeados, Toalhas
+
+#### **❤️ Apoio à Tribo** (`section.tribe-support`)
+- Donativos e apoios
+- Exemplo: Donativo variável
+
+**Para mover produto entre seções:** cortar/colar o HTML do produto na seção correta do `index.html`
+
+### **🔄 Exemplo Prático (Powerade):**
+```html
+<!-- index.html -->
+<div class="produto-card" data-id="POWERADE_001" data-nome="Powerade" data-preco="2.90">
+    <div class="produto-icon">⚡</div>
+    <div class="produto-nome" data-payment-i18n="product.powerade">Powerade</div>
+    <div class="produto-preco">€2.90</div>
+    <div class="produto-descricao" data-payment-i18n="product.powerade.desc">Reposição de electrólitos para atletas</div>
+    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+</div>
+```
 
 ```javascript
-const PRODUTOS_PERMITIDOS = {
-  'CAFE_001': { nome: 'Café', preco: 1.50 },
-  'SUPLEMENTO_001': { nome: 'Suplemento Protein', preco: 25.00 },
-  'AGUA_001': { nome: 'Água', preco: 1.00 },
-  'BARRITA_001': { nome: 'Barra Proteína', preco: 3.50 },
-  'SHAKER_001': { nome: 'Shaker BE WATER', preco: 12.00 },
-  // ADICIONAR NOVOS PRODUTOS AQUI
-  'NOVO_PRODUTO_001': { nome: 'Novo Produto', preco: 10.00 }
-};
+// i18n.js (PT)
+'product.powerade': 'Powerade',
+'product.powerade.desc': 'Reposição de electrólitos para atletas',
+
+// i18n.js (EN)
+'product.powerade': 'Powerade',
+'product.powerade.desc': 'Electrolyte replacement for athletes',
+
+// mbway-payment.js
+'POWERADE_001': { nome: 'Consumivel BEWATER', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+'POWERADE_001': { nome: 'Powerade', preco: 2.90 },
 ```
 
 ### **URLs para QR Codes**
