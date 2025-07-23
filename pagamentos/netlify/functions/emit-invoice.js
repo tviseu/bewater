@@ -277,6 +277,10 @@ exports.handler = async (event, context) => {
       produtoId = 'AGUA_GAS_001';
     } else if (produtoNome.includes('água')) {
       produtoId = 'AGUA_PEQUENA_001'; // Default para água
+    } else if (produtoNome.includes('powerade')) {
+      produtoId = 'POWERADE_001';
+    } else if (produtoNome.includes('coca cola zero') || produtoNome.includes('coca-cola zero')) {
+      produtoId = 'COCA_COLA_ZERO_001';
     } else if (produtoNome.includes('batido proteína')) {
       produtoId = 'BATIDO_PROTEINA_001';
     } else if (produtoNome.includes('barra proteína') || produtoNome.includes('barra')) {
@@ -299,7 +303,7 @@ exports.handler = async (event, context) => {
     const dadosCliente = {
       nome: input.nome || null,
       nif: input.nif || null,
-      email: input.email || 'bewater.faturas@gmail.com' // Email genérico para consumidor final
+      email: input.email || 'bewaterlisboa@gmail.com' // Email genérico para consumidor final
     };
 
     const dadosProduto = {
