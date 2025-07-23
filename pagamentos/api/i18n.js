@@ -12,6 +12,10 @@ const paymentTranslations = {
     // Seções
     'section.food-drinks': '🍽️ Comidas & Bebidas',
     'section.accessories-misc': '🔧 Acessórios & Misc',
+    'section.hydration-energy': '🥤 Hidratação & Energia',
+    'section.nutrition-warrior': '💪 Nutrição Warrior',
+    'section.dojo-essentials': '🎒 Essenciais do Dojo',
+    'section.tribe-support': '❤️ Apoio à Tribo',
     
     // Produtos
     'product.cafe': 'Café',
@@ -38,9 +42,13 @@ const paymentTranslations = {
     'product.cerveja-mini.desc': 'Celebração pós-treino',
     'product.agua-gas': 'Água com Gás',
     'product.agua-gas.desc': 'Hidratação com estilo',
+    'product.coca-cola-zero': 'Coca Cola Zero',
+    'product.coca-cola-zero.desc': 'Zero açúcar, máximo sabor pós-treino',
+    'product.powerade': 'Powerade',
+    'product.powerade.desc': 'Reposição de electrólitos para atletas',
     'product.donativo': 'Donativo Solidário',
     'product.donativo.desc': '"A tua moedinha faz milagres no tatami."<br>Ajuda a apoiar eventos, formações e treinos para todos. Um euro pode ser o primeiro passo de alguém.',
-    'product.btn': '💰 COMPRAR',
+    'product.btn': 'Pagar com MBWay',
     'product.donativo.btn': '💝 DOAR',
     
     // Formulário
@@ -85,6 +93,10 @@ const paymentTranslations = {
     // Seções
     'section.food-drinks': '🍽️ Food & Drinks',
     'section.accessories-misc': '🔧 Accessories & Misc',
+    'section.hydration-energy': '🥤 Hydration & Energy',
+    'section.nutrition-warrior': '💪 Nutrition Warrior',
+    'section.dojo-essentials': '🎒 Dojo Essentials',
+    'section.tribe-support': '❤️ Tribe Support',
     
     // Produtos
     'product.cafe': 'Coffee',
@@ -111,9 +123,13 @@ const paymentTranslations = {
     'product.cerveja-mini.desc': 'Post-workout celebration',
     'product.agua-gas': 'Sparkling Water',
     'product.agua-gas.desc': 'Hydration with style',
+    'product.coca-cola-zero': 'Coca Cola Zero',
+    'product.coca-cola-zero.desc': 'Zero sugar, maximum post-workout flavor',
+    'product.powerade': 'Powerade',
+    'product.powerade.desc': 'Electrolyte replacement for athletes',
     'product.donativo': 'Solidarity Donation',
     'product.donativo.desc': '"Your coin works miracles on the tatami."<br>Help support events, training and workouts for everyone. One euro can be someone\'s first step.',
-    'product.btn': '💰 BUY NOW',
+    'product.btn': 'Pay with MBWay',
     'product.donativo.btn': '💝 DONATE',
     
     // Formulário
