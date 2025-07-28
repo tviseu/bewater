@@ -6260,6 +6260,7 @@ html, body {
   top: 0;
   left: 0;
   right: 0;
+  width: 100%;
   z-index: 1003;
   background-color: #FFD700;
   border-bottom: 4px solid #000000;
@@ -6811,11 +6812,11 @@ html, body {
 .gym-collage-slider__track {
   display: flex;
   transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  width: 1400%; /* 14 slides */
+  width: 2300%; /* 23 slides */
 }
 
 .gym-collage-slide {
-  width: 7.14%; /* 1/14 of the track */
+  width: 4.347826%; /* 1/23 of the track */
   flex-shrink: 0;
   position: relative;
   padding: var(--spacing-lg) 0;
@@ -7126,6 +7127,159 @@ html, body {
   box-shadow: -38px 32px 0 #E74C3C;
 }
 
+/* Photo 15 - Center Left Rotated */
+.gym-photo--single-15 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-60%, -40%) rotate(-8deg);
+  width: 715px;
+  height: 540px;
+  border: 10px solid var(--color-black);
+  box-shadow: 28px 30px 0 #2ECC71;
+  z-index: 2;
+}
+
+.gym-photo--single-15:hover {
+  transform: translate(-60%, -40%) rotate(-5deg) scale(1.08);
+  box-shadow: 36px 38px 0 #2ECC71;
+}
+
+/* Photo 16 - Top Right Angled */
+.gym-photo--single-16 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-40%, -60%) rotate(9deg);
+  width: 700px;
+  height: 525px;
+  border: 9px solid var(--color-black);
+  box-shadow: -25px 28px 0 #E91E63;
+  z-index: 2;
+}
+
+.gym-photo--single-16:hover {
+  transform: translate(-40%, -60%) rotate(6deg) scale(1.08);
+  box-shadow: -32px 36px 0 #E91E63;
+}
+
+/* Photo 17 - Bottom Center */
+.gym-photo--single-17 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -30%) rotate(-5deg);
+  width: 725px;
+  height: 545px;
+  border: 11px solid var(--color-black);
+  box-shadow: 30px -25px 0 #FF9800;
+  z-index: 2;
+}
+
+.gym-photo--single-17:hover {
+  transform: translate(-50%, -30%) rotate(-2deg) scale(1.08);
+  box-shadow: 38px -32px 0 #FF9800;
+}
+
+/* Photo 18 - Left Side Tilted */
+.gym-photo--single-18 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-70%, -45%) rotate(-10deg);
+  width: 710px;
+  height: 535px;
+  border: 8px solid var(--color-black);
+  box-shadow: 32px 22px 0 #673AB7;
+  z-index: 2;
+}
+
+.gym-photo--single-18:hover {
+  transform: translate(-70%, -45%) rotate(-7deg) scale(1.08);
+  box-shadow: 40px 30px 0 #673AB7;
+}
+
+/* Photo 19 - Right Side Angled */
+.gym-photo--single-19 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-30%, -45%) rotate(7deg);
+  width: 720px;
+  height: 540px;
+  border: 12px solid var(--color-black);
+  box-shadow: -28px 30px 0 #009688;
+  z-index: 2;
+}
+
+.gym-photo--single-19:hover {
+  transform: translate(-30%, -45%) rotate(4deg) scale(1.08);
+  box-shadow: -36px 38px 0 #009688;
+}
+
+/* Photo 20 - Top Left Corner */
+.gym-photo--single-20 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-65%, -55%) rotate(-6deg);
+  width: 715px;
+  height: 540px;
+  border: 10px solid var(--color-black);
+  box-shadow: 25px 28px 0 #FFC107;
+  z-index: 2;
+}
+
+.gym-photo--single-20:hover {
+  transform: translate(-65%, -55%) rotate(-3deg) scale(1.08);
+  box-shadow: 32px 36px 0 #FFC107;
+}
+
+/* Photo 21 - Center Diagonal */
+.gym-photo--single-21 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(8deg);
+  width: 730px;
+  height: 550px;
+  border: 9px solid var(--color-black);
+  box-shadow: -30px -25px 0 #795548;
+  z-index: 2;
+}
+
+.gym-photo--single-21:hover {
+  transform: translate(-50%, -50%) rotate(5deg) scale(1.08);
+  box-shadow: -38px -32px 0 #795548;
+}
+
+/* Photo 22 - Bottom Right */
+.gym-photo--single-22 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-35%, -25%) rotate(-7deg);
+  width: 705px;
+  height: 530px;
+  border: 11px solid var(--color-black);
+  box-shadow: 28px -30px 0 #607D8B;
+  z-index: 2;
+}
+
+.gym-photo--single-22:hover {
+  transform: translate(-35%, -25%) rotate(-4deg) scale(1.08);
+  box-shadow: 36px -38px 0 #607D8B;
+}
+
+/* Photo 23 - Center High */
+.gym-photo--single-23 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -65%) rotate(3deg);
+  width: 720px;
+  height: 545px;
+  border: 12px solid var(--color-black);
+  box-shadow: -25px 32px 0 #FF5722;
+  z-index: 2;
+}
+
+.gym-photo--single-23:hover {
+  transform: translate(-50%, -65%) rotate(0deg) scale(1.08);
+  box-shadow: -32px 40px 0 #FF5722;
+}
+
 /* Single Photo Text Graphics */
 .gym-graphic--single-text {
   position: absolute;
@@ -7173,13 +7327,16 @@ html, body {
   .gym-photo--single-4, .gym-photo--single-5, .gym-photo--single-6,
   .gym-photo--single-7, .gym-photo--single-8, .gym-photo--single-9,
   .gym-photo--single-10, .gym-photo--single-11, .gym-photo--single-12,
-  .gym-photo--single-13, .gym-photo--single-14 {
+  .gym-photo--single-13, .gym-photo--single-14, .gym-photo--single-15,
+  .gym-photo--single-16, .gym-photo--single-17, .gym-photo--single-18,
+  .gym-photo--single-19, .gym-photo--single-20, .gym-photo--single-21,
+  .gym-photo--single-22, .gym-photo--single-23 {
     width: 450px !important;
     height: 340px !important;
     border-width: 6px !important;
   }
 
-  /* Adjust shadows for mobile */
+  /* Adjust shadows for tablet */
   .gym-photo--single-1 { box-shadow: 12px 12px 0 #FFD700 !important; }
   .gym-photo--single-2 { box-shadow: -10px 10px 0 #FF6B35 !important; }
   .gym-photo--single-3 { box-shadow: 14px -8px 0 #4A90E2 !important; }
@@ -7194,6 +7351,15 @@ html, body {
   .gym-photo--single-12 { box-shadow: -12px 16px 0 #7B1FA2 !important; }
   .gym-photo--single-13 { box-shadow: 14px 14px 0 #FFD700 !important; }
   .gym-photo--single-14 { box-shadow: -12px 10px 0 #E74C3C !important; }
+  .gym-photo--single-15 { box-shadow: 12px 14px 0 #2ECC71 !important; }
+  .gym-photo--single-16 { box-shadow: -10px 12px 0 #E91E63 !important; }
+  .gym-photo--single-17 { box-shadow: 14px -10px 0 #FF9800 !important; }
+  .gym-photo--single-18 { box-shadow: 16px 8px 0 #673AB7 !important; }
+  .gym-photo--single-19 { box-shadow: -12px 14px 0 #009688 !important; }
+  .gym-photo--single-20 { box-shadow: 10px 12px 0 #FFC107 !important; }
+  .gym-photo--single-21 { box-shadow: -14px -10px 0 #795548 !important; }
+  .gym-photo--single-22 { box-shadow: 12px -14px 0 #607D8B !important; }
+  .gym-photo--single-23 { box-shadow: -10px 16px 0 #FF5722 !important; }
   
   .gym-graphic--single-text {
     font-size: 1.8rem;
@@ -7220,7 +7386,10 @@ html, body {
   .gym-photo--single-4, .gym-photo--single-5, .gym-photo--single-6,
   .gym-photo--single-7, .gym-photo--single-8, .gym-photo--single-9,
   .gym-photo--single-10, .gym-photo--single-11, .gym-photo--single-12,
-  .gym-photo--single-13, .gym-photo--single-14 {
+  .gym-photo--single-13, .gym-photo--single-14, .gym-photo--single-15,
+  .gym-photo--single-16, .gym-photo--single-17, .gym-photo--single-18,
+  .gym-photo--single-19, .gym-photo--single-20, .gym-photo--single-21,
+  .gym-photo--single-22, .gym-photo--single-23 {
     width: 350px !important;
     height: 265px !important;
     border-width: 5px !important;
@@ -7241,6 +7410,15 @@ html, body {
   .gym-photo--single-12 { box-shadow: -6px 10px 0 #7B1FA2 !important; }
   .gym-photo--single-13 { box-shadow: 8px 8px 0 #FFD700 !important; }
   .gym-photo--single-14 { box-shadow: -6px 8px 0 #E74C3C !important; }
+  .gym-photo--single-15 { box-shadow: 8px 8px 0 #2ECC71 !important; }
+  .gym-photo--single-16 { box-shadow: -6px 8px 0 #E91E63 !important; }
+  .gym-photo--single-17 { box-shadow: 8px -6px 0 #FF9800 !important; }
+  .gym-photo--single-18 { box-shadow: 10px 6px 0 #673AB7 !important; }
+  .gym-photo--single-19 { box-shadow: -8px 8px 0 #009688 !important; }
+  .gym-photo--single-20 { box-shadow: 6px 8px 0 #FFC107 !important; }
+  .gym-photo--single-21 { box-shadow: -8px -6px 0 #795548 !important; }
+  .gym-photo--single-22 { box-shadow: 8px -8px 0 #607D8B !important; }
+  .gym-photo--single-23 { box-shadow: -6px 10px 0 #FF5722 !important; }
   
   .gym-graphic--single-text {
     font-size: 1.4rem;
@@ -7429,6 +7607,41 @@ html, body {
   transform: rotate(90deg);
 }
 
+.popup-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 60px;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  border: 4px solid var(--color-black);
+  font-size: 2.5rem;
+  font-weight: 900;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 6px 6px 0 var(--color-yellow);
+  transition: all 0.3s ease;
+  z-index: 10001;
+  user-select: none;
+}
+
+.popup-nav--prev {
+  left: 20px;
+}
+
+.popup-nav--next {
+  right: 20px;
+}
+
+.popup-nav:hover {
+  background-color: var(--color-yellow);
+  color: var(--color-black);
+  transform: translateY(-50%) scale(1.1);
+}
+
 .popup-content {
   padding: var(--spacing-lg);
   text-align: center;
@@ -7523,6 +7736,21 @@ html, body {
     font-size: 1.5rem;
     top: 8px;
     right: 8px;
+  }
+
+  .popup-nav {
+    width: 45px;
+    height: 45px;
+    font-size: 2rem;
+    box-shadow: 4px 4px 0 var(--color-yellow);
+  }
+
+  .popup-nav--prev {
+    left: 10px;
+  }
+
+  .popup-nav--next {
+    right: 10px;
   }
 
   .popup-caption {

@@ -16,6 +16,10 @@ class GymCollageSlider {
     this.popupCaption = null;
     this.popupClose = null;
     this.popupOverlay = null;
+    this.popupPrev = null;
+    this.popupNext = null;
+    this.currentPopupSlide = 0;
+    this.allPhotos = [];
     
     this.init();
   }
@@ -34,6 +38,8 @@ class GymCollageSlider {
     this.popupCaption = document.getElementById('popupCaption');
     this.popupClose = document.getElementById('popupClose');
     this.popupOverlay = document.getElementById('popupOverlay');
+    this.popupPrev = document.getElementById('popupPrev');
+    this.popupNext = document.getElementById('popupNext');
 
     if (!this.track || !this.slides.length) {
       console.warn('Gym collage slider elements not found');
@@ -42,13 +48,16 @@ class GymCollageSlider {
 
     this.totalSlides = this.slides.length;
     
+    // Get all photos for popup navigation
+    this.allPhotos = Array.from(document.querySelectorAll('.gym-photo'));
+    
     // Setup event listeners
     this.setupEventListeners();
     
     // Initialize first slide
     this.updateSlider();
     
-    console.log('Gym Collage Slider initialized with', this.totalSlides, 'slides');
+
   }
 
   setupEventListeners() {
@@ -67,8 +76,8 @@ class GymCollageSlider {
     });
 
     // Photo click events for popup
-    document.querySelectorAll('.gym-photo').forEach(photo => {
-      photo.addEventListener('click', (e) => this.openPhotoPopup(e));
+    this.allPhotos.forEach((photo, index) => {
+      photo.addEventListener('click', (e) => this.openPhotoPopup(e, index));
     });
 
     // Popup close events
@@ -78,6 +87,15 @@ class GymCollageSlider {
     
     if (this.popupOverlay) {
       this.popupOverlay.addEventListener('click', () => this.closePhotoPopup());
+    }
+
+    // Popup navigation events
+    if (this.popupPrev) {
+      this.popupPrev.addEventListener('click', () => this.previousPopupPhoto());
+    }
+    
+    if (this.popupNext) {
+      this.popupNext.addEventListener('click', () => this.nextPopupPhoto());
     }
 
     // Keyboard navigation
@@ -108,8 +126,12 @@ class GymCollageSlider {
   updateSlider() {
     if (!this.track) return;
 
-    // Move track to show current slide
-    const translateX = -this.currentSlide * 7.69; // 7.69% per slide (100% / 13 slides)
+    // Calculate correct percentage for current number of slides
+    const slidePercentage = 100 / this.totalSlides;
+    const translateX = -this.currentSlide * slidePercentage;
+    
+
+    
     this.track.style.transform = `translateX(${translateX}%)`;
 
     // Update slide active states
@@ -121,12 +143,24 @@ class GymCollageSlider {
     this.indicators.forEach((indicator, index) => {
       indicator.classList.toggle('active', index === this.currentSlide);
     });
+    
+
   }
 
-  openPhotoPopup(event) {
-    const photoElement = event.currentTarget;
-    const img = photoElement.querySelector('img');
-    const photoData = photoElement.getAttribute('data-photo');
+  nextPopupPhoto() {
+    this.currentPopupSlide = (this.currentPopupSlide + 1) % this.allPhotos.length;
+    this.updatePopupPhoto();
+  }
+
+  previousPopupPhoto() {
+    this.currentPopupSlide = (this.currentPopupSlide - 1 + this.allPhotos.length) % this.allPhotos.length;
+    this.updatePopupPhoto();
+  }
+
+  updatePopupPhoto() {
+    const currentPhoto = this.allPhotos[this.currentPopupSlide];
+    const img = currentPhoto.querySelector('img');
+    const photoData = currentPhoto.getAttribute('data-photo');
     
     if (!img || !this.popup) return;
 
@@ -134,33 +168,49 @@ class GymCollageSlider {
     const imageSrc = img.src;
     const imageAlt = img.alt;
     
-    // Clean up the caption (remove _optimized and replace dashes/underscores)
-    const cleanCaption = photoData
-      .replace('_optimized', '')
-      .replace(/[-_]/g, ' ')
-      .replace(/IMG /g, '')
-      .replace(/WA/g, 'WA')
-      .toUpperCase();
+    // Fix caption - keep hyphens and clean format
+    const cleanCaption = photoData || imageAlt;
 
     // Set popup content
     this.popupImage.src = imageSrc;
     this.popupImage.alt = imageAlt;
     this.popupCaption.textContent = cleanCaption;
+  }
 
-    // Show popup
+  openPhotoPopup(event, photoIndex) {
+    const photoElement = event.currentTarget;
+    const img = photoElement.querySelector('img');
+    const photoData = photoElement.getAttribute('data-photo');
+    
+    if (!img || !this.popup) return;
+
+    this.currentPopupSlide = photoIndex;
+
+    const imageSrc = img.src;
+    const imageAlt = img.alt;
+    
+    // Fix caption - keep hyphens and clean format
+    const cleanCaption = photoData || imageAlt;
+
+    this.popupImage.src = imageSrc;
+    this.popupImage.alt = imageAlt;
+    this.popupCaption.textContent = cleanCaption;
+
     this.popup.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Prevent background scrolling
-
-    console.log('Photo popup opened:', cleanCaption);
+    document.body.style.overflow = 'hidden';
   }
 
   closePhotoPopup() {
     if (!this.popup) return;
 
-    this.popup.classList.remove('active');
-    document.body.style.overflow = ''; // Restore scrolling
+    // Synchronize main slider with popup position before closing
+    if (this.currentPopupSlide >= 0 && this.currentPopupSlide < this.totalSlides) {
+      this.currentSlide = this.currentPopupSlide;
+      this.updateSlider();
+    }
 
-    console.log('Photo popup closed');
+    this.popup.classList.remove('active');
+    document.body.style.overflow = '';
   }
 
   handleKeyPress(event) {
@@ -168,6 +218,10 @@ class GymCollageSlider {
     if (this.popup && this.popup.classList.contains('active')) {
       if (event.key === 'Escape') {
         this.closePhotoPopup();
+      } else if (event.key === 'ArrowLeft') {
+        this.previousPopupPhoto();
+      } else if (event.key === 'ArrowRight') {
+        this.nextPopupPhoto();
       }
       return;
     }
@@ -283,7 +337,64 @@ class GymCollageSlider {
       currentY = 0;
     });
 
-    console.log('Touch/Swipe support added to gym collage slider');
+    // Add popup swipe support
+    this.addPopupSwipeSupport();
+  }
+
+  // Add swipe support for popup navigation
+  addPopupSwipeSupport() {
+    if (!this.popup) return;
+
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+    let hasMoved = false;
+    const minSwipeDistance = 50;
+
+    this.popup.addEventListener('touchstart', (e) => {
+      if (!this.popup.classList.contains('active')) return;
+
+      startX = e.touches[0].clientX;
+      currentX = startX;
+      isDragging = true;
+      hasMoved = false;
+    });
+
+    this.popup.addEventListener('touchmove', (e) => {
+      if (!isDragging || !this.popup.classList.contains('active')) return;
+
+      currentX = e.touches[0].clientX;
+      const deltaX = currentX - startX;
+      
+      if (Math.abs(deltaX) > 10) {
+        hasMoved = true;
+        e.preventDefault();
+      }
+    });
+
+    this.popup.addEventListener('touchend', (e) => {
+      if (!isDragging || !this.popup.classList.contains('active')) return;
+
+      if (hasMoved) {
+        const deltaX = currentX - startX;
+
+        if (Math.abs(deltaX) > minSwipeDistance) {
+          if (deltaX > 0) {
+            // Swipe right - go to previous photo
+            this.previousPopupPhoto();
+          } else {
+            // Swipe left - go to next photo
+            this.nextPopupPhoto();
+          }
+        }
+      }
+
+      // Reset values
+      isDragging = false;
+      hasMoved = false;
+      startX = 0;
+      currentX = 0;
+    });
   }
 
   // Public method to stop auto-slide
