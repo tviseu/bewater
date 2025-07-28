@@ -226,6 +226,8 @@ const translations = {
       'salgueiro.gallery.caption.6': 'TRADIÇÃO E INOVAÇÃO EM HARMONIA',
       'salgueiro.gallery.caption.7': 'O DOJO: ESPAÇO SAGRADO DE CRESCIMENTO',
       'salgueiro.gallery.caption.8': 'TÉCNICA PERFEITA ATRAVÉS DA REPETIÇÃO',
+      'salgueiro.gallery.caption.9': 'O PODER DA CONCENTRAÇÃO ABSOLUTA',
+      'salgueiro.gallery.caption.10': 'PREPARAÇÃO TOTAL PARA TODOS OS DESAFIOS',
       
       // Trainers Section
       'trainers.title': 'TREINADORES',
@@ -589,6 +591,8 @@ const translations = {
       'salgueiro.gallery.caption.6': 'TRADITION AND INNOVATION IN HARMONY',
       'salgueiro.gallery.caption.7': 'THE DOJO: SACRED SPACE OF GROWTH',
       'salgueiro.gallery.caption.8': 'PERFECT TECHNIQUE THROUGH REPETITION',
+      'salgueiro.gallery.caption.9': 'THE POWER OF ABSOLUTE CONCENTRATION',
+      'salgueiro.gallery.caption.10': 'TOTAL PREPARATION FOR ALL CHALLENGES',
       
       // Trainers Section
       'trainers.title': 'TRAINERS',

@@ -3367,11 +3367,11 @@ button.btn:active {
 }
 
 .gallery__btn--prev {
-  left: -30px;
+  left: 10px;
 }
 
 .gallery__btn--next {
-  right: -30px;
+  right: 10px;
 }
 
 .gallery__caption-container {
@@ -3419,11 +3419,11 @@ button.btn:active {
   }
   
   .gallery__btn--prev {
-    left: -25px;
+    left: 8px;
   }
   
   .gallery__btn--next {
-    right: -25px;
+    right: 8px;
   }
   
   .gallery__caption-container {
@@ -3458,11 +3458,11 @@ button.btn:active {
   }
   
   .gallery__btn--prev {
-    left: -20px;
+    left: 5px;
   }
   
   .gallery__btn--next {
-    right: -20px;
+    right: 5px;
   }
   
   .gallery__caption-container {
@@ -6875,16 +6875,17 @@ html, body {
   letter-spacing: 0.5px;
   white-space: nowrap;
   opacity: 0;
+  visibility: hidden;
   transition: all 0.3s ease;
   border: 2px solid var(--color-yellow);
   font-family: var(--font-primary);
   text-transform: uppercase;
 }
 
+/* Captions are hidden in main gallery, only shown in popup */
 .gym-photo:hover .gym-photo__caption {
-  opacity: 1;
-  bottom: -25px;
-  transform: translateX(-50%) scale(1.05);
+  opacity: 0;
+  visibility: hidden;
 }
 
 /* Individual Single Photo Positions & Styles */
