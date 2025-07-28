@@ -22,6 +22,7 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
     'COOKIES_PROTEICA_001': { nome: 'Cookies e Waffles Proteicas', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'LIMONADA_001': { nome: 'Limonada', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'CADEADO_001': { nome: 'Cadeado', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'SABONETE_CARVAO_001': { nome: 'Sabonete Carvão Activado', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'AMINOX_001': { nome: 'AminoX', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'TOALHA_001': { nome: 'Toalha Treino/Banho', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'CERVEJA_MINI_001': { nome: 'Cerveja Mini', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
@@ -291,6 +292,8 @@ exports.handler = async (event, context) => {
         produtoId = 'LIMONADA_001';
       } else if (produtoNome.includes('cadeado')) {
         produtoId = 'CADEADO_001';
+    } else if (produtoNome.includes('sabonete') || produtoNome.includes('carvão') || produtoNome.includes('carvao')) {
+      produtoId = 'SABONETE_CARVAO_001';
     } else if (produtoNome.includes('aminox')) {
       produtoId = 'AMINOX_001';
     } else if (produtoNome.includes('toalha')) {
