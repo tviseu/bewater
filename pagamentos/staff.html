@@ -103,31 +103,7 @@
             text-align: center;
         }
 
-        .filters {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
 
-        .filter-btn {
-            padding: 10px 20px;
-            border: 3px solid #000000;
-            background: #ffffff;
-            color: #000000;
-            font-family: 'Space Mono', monospace;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: #FFD700;
-            transform: translate(-2px, -2px);
-            box-shadow: 4px 4px 0px #000000;
-        }
 
         .payments-list {
             display: grid;
@@ -378,16 +354,7 @@
                 min-width: 100%;
             }
             
-            .filters {
-                flex-direction: column;
-                align-items: center;
-                gap: 8px;
-            }
 
-            .filter-btn {
-                font-size: 0.8rem;
-                padding: 6px 12px;
-            }
 
             .action-btn {
                 font-size: 0.75rem;
@@ -434,10 +401,7 @@
         <div class="payments-section">
             <div class="section-title">📋 Pagamentos Recentes</div>
             
-            <div class="filters">
-                <button class="filter-btn active" data-filter="all">📦 Todas as Vendas</button>
-                <button class="filter-btn" data-filter="confirmado">✅ Confirmados</button>
-            </div>
+
 
             <div id="paymentsList" class="payments-list">
                 <div class="loading">🔄 Carregando pagamentos...</div>
@@ -450,13 +414,11 @@
     </div>
 
     <script>
-        let currentFilter = 'all';
         let payments = [];
 
         // Elementos DOM
         const paymentsList = document.getElementById('paymentsList');
         const lastUpdateSpan = document.getElementById('lastUpdate');
-        const filterButtons = document.querySelectorAll('.filter-btn');
 
         // Stats elements
         const statsConfirmados = document.getElementById('statsConfirmados');
@@ -590,16 +552,12 @@
                 );
             }
             
-            const filteredPayments = currentFilter === 'all' 
-                ? validPayments 
-                : validPayments.filter(p => p.status === currentFilter);
-
-            if (filteredPayments.length === 0) {
+            if (validPayments.length === 0) {
                 paymentsList.innerHTML = '<div class="no-payments">📭 Nenhum pagamento encontrado</div>';
                 return;
             }
 
-            paymentsList.innerHTML = filteredPayments.map(payment => `
+            paymentsList.innerHTML = validPayments.map(payment => `
                 <div class="payment-card ${payment.status}" data-id="${payment.id}">
                     <div class="payment-info">
                         <div class="payment-produto">${payment.produto}</div>
@@ -877,15 +835,7 @@
             lastUpdateSpan.textContent = new Date().toLocaleTimeString('pt-PT');
         }
 
-        // Event listeners para filtros
-        filterButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterButtons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentFilter = btn.dataset.filter;
-                renderPayments();
-            });
-        });
+
 
         // Auto-refresh a cada 10 segundos
         setInterval(loadPayments, 10000);
