@@ -6812,11 +6812,11 @@ html, body {
 .gym-collage-slider__track {
   display: flex;
   transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  width: 2300%; /* 23 slides */
+  width: 2700%; /* 27 slides */
 }
 
 .gym-collage-slide {
-  width: 4.347826%; /* 1/23 of the track */
+  width: 3.7037%; /* 1/27 of the track */
   flex-shrink: 0;
   position: relative;
   padding: var(--spacing-lg) 0;
@@ -7281,6 +7281,74 @@ html, body {
   box-shadow: -32px 40px 0 #FF5722;
 }
 
+/* Photo 24 - Bottom Left Corner */
+.gym-photo--single-24 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-70%, -30%) rotate(-9deg);
+  width: 710px;
+  height: 535px;
+  border: 10px solid var(--color-black);
+  box-shadow: 30px 25px 0 #00BCD4;
+  z-index: 2;
+}
+
+.gym-photo--single-24:hover {
+  transform: translate(-70%, -30%) rotate(-6deg) scale(1.08);
+  box-shadow: 38px 32px 0 #00BCD4;
+}
+
+/* Photo 25 - Top Center */
+.gym-photo--single-25 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -70%) rotate(6deg);
+  width: 725px;
+  height: 545px;
+  border: 11px solid var(--color-black);
+  box-shadow: -28px 30px 0 #CDDC39;
+  z-index: 2;
+}
+
+.gym-photo--single-25:hover {
+  transform: translate(-50%, -70%) rotate(3deg) scale(1.08);
+  box-shadow: -36px 38px 0 #CDDC39;
+}
+
+/* Photo 26 - Right Side */
+.gym-photo--single-26 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-25%, -50%) rotate(-4deg);
+  width: 715px;
+  height: 540px;
+  border: 9px solid var(--color-black);
+  box-shadow: 25px -28px 0 #FF4081;
+  z-index: 2;
+}
+
+.gym-photo--single-26:hover {
+  transform: translate(-25%, -50%) rotate(-1deg) scale(1.08);
+  box-shadow: 32px -36px 0 #FF4081;
+}
+
+/* Photo 27 - Bottom Right */
+.gym-photo--single-27 {
+  top: 50%;
+  left: 50%;
+  transform: translate(-40%, -25%) rotate(5deg);
+  width: 720px;
+  height: 540px;
+  border: 12px solid var(--color-black);
+  box-shadow: -30px -25px 0 #4CAF50;
+  z-index: 2;
+}
+
+.gym-photo--single-27:hover {
+  transform: translate(-40%, -25%) rotate(2deg) scale(1.08);
+  box-shadow: -38px -32px 0 #4CAF50;
+}
+
 /* Single Photo Text Graphics */
 .gym-graphic--single-text {
   position: absolute;
@@ -7361,6 +7429,10 @@ html, body {
   .gym-photo--single-21 { box-shadow: -14px -10px 0 #795548 !important; }
   .gym-photo--single-22 { box-shadow: 12px -14px 0 #607D8B !important; }
   .gym-photo--single-23 { box-shadow: -10px 16px 0 #FF5722 !important; }
+  .gym-photo--single-24 { box-shadow: 14px 10px 0 #00BCD4 !important; }
+  .gym-photo--single-25 { box-shadow: -12px 14px 0 #CDDC39 !important; }
+  .gym-photo--single-26 { box-shadow: 10px -12px 0 #FF4081 !important; }
+  .gym-photo--single-27 { box-shadow: -14px -10px 0 #4CAF50 !important; }
   
   .gym-graphic--single-text {
     font-size: 1.8rem;
@@ -7390,7 +7462,8 @@ html, body {
   .gym-photo--single-13, .gym-photo--single-14, .gym-photo--single-15,
   .gym-photo--single-16, .gym-photo--single-17, .gym-photo--single-18,
   .gym-photo--single-19, .gym-photo--single-20, .gym-photo--single-21,
-  .gym-photo--single-22, .gym-photo--single-23 {
+  .gym-photo--single-22, .gym-photo--single-23, .gym-photo--single-24,
+  .gym-photo--single-25, .gym-photo--single-26, .gym-photo--single-27 {
     width: 350px !important;
     height: 265px !important;
     border-width: 5px !important;
@@ -7420,6 +7493,10 @@ html, body {
   .gym-photo--single-21 { box-shadow: -8px -6px 0 #795548 !important; }
   .gym-photo--single-22 { box-shadow: 8px -8px 0 #607D8B !important; }
   .gym-photo--single-23 { box-shadow: -6px 10px 0 #FF5722 !important; }
+  .gym-photo--single-24 { box-shadow: 8px 6px 0 #00BCD4 !important; }
+  .gym-photo--single-25 { box-shadow: -6px 8px 0 #CDDC39 !important; }
+  .gym-photo--single-26 { box-shadow: 6px -8px 0 #FF4081 !important; }
+  .gym-photo--single-27 { box-shadow: -8px -6px 0 #4CAF50 !important; }
   
   .gym-graphic--single-text {
     font-size: 1.4rem;
