@@ -224,6 +224,16 @@
   <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
 </head>
 <body>
+  <!-- Carimbo de Urgência Animado -->
+  <div class="urgency-stamp-overlay" id="urgencyOverlay"></div>
+  <div class="urgency-stamp" id="urgencyStamp">
+    <div class="urgency-stamp__content">
+      <div class="urgency-stamp__text" data-i18n="urgency.stamp.title">ÚLTIMAS VAGAS</div>
+      <div class="urgency-stamp__subtext" data-i18n="urgency.stamp.subtitle">EARLY BIRD!</div>
+      <div class="urgency-stamp__cta" data-i18n="urgency.stamp.cta">APROVEITA ENQUANTO PODES!</div>
+    </div>
+  </div>
+
   <!-- Header -->
   <header class="header">
     <div class="header__container">
@@ -701,11 +711,11 @@
           <span class="early-bird-text">EARLY BIRD</span>
         </h2>
         <div class="section-line"></div>
-        <p class="pricing__promo-text" data-i18n="pricing.promo">Oferta de lançamento por tempo limitado!</p>
+        <p class="pricing__promo-text" data-i18n="pricing.promo">Early Bird em fase final - garante já o teu lugar!</p>
       </div>
       <div class="pricing__grid">
         <div class="price-card price-card--elite price-card--promo">
-          <div class="price-card__badge">EARLY BIRD</div>
+          <div class="price-card__badge pulse-animation" data-i18n="pricing.badge">EARLY BIRD</div>
           <div class="price-card__header">
             <h3 class="price-card__title">ELITE</h3>
             <div class="price-card__price">
@@ -726,7 +736,7 @@
           </div>
         </div>
         <div class="price-card price-card--featured price-card--promo">
-          <div class="price-card__badge">EARLY BIRD</div>
+          <div class="price-card__badge pulse-animation" data-i18n="pricing.badge">EARLY BIRD</div>
           <div class="price-card__header">
             <h3 class="price-card__title">RISE</h3>
             <div class="price-card__price">
@@ -747,7 +757,7 @@
           </div>
         </div>
         <div class="price-card price-card--student price-card--promo">
-          <div class="price-card__badge">EARLY BIRD</div>
+          <div class="price-card__badge pulse-animation" data-i18n="pricing.badge">EARLY BIRD</div>
           <div class="price-card__header">
             <h3 class="price-card__title">STARTER</h3>
             <div class="price-card__price">
@@ -820,7 +830,7 @@
           <div class="plan-price plan-price--promo">
             <span class="plan-price__original">€94.90</span>
             <span class="plan-price__current">€84.90/mês</span>
-            <span class="plan-price__badge">EARLY BIRD</span>
+            <span class="plan-price__badge" data-i18n="pricing.badge.urgency">EARLY BIRD - ÚLTIMAS VAGAS</span>
           </div>
           <div class="plan-features">
             <p><strong data-i18n="modal.elite.access">Acesso livre trânsito (ilimitado) a todas as modalidades e open gym</strong></p>
@@ -876,7 +886,7 @@
           <div class="plan-price plan-price--promo">
             <span class="plan-price__original">€79.90</span>
             <span class="plan-price__current">€69.90/mês</span>
-            <span class="plan-price__badge">EARLY BIRD</span>
+            <span class="plan-price__badge" data-i18n="pricing.badge.urgency">EARLY BIRD - ÚLTIMAS VAGAS</span>
           </div>
           <div class="plan-features">
             <p><strong data-i18n="modal.rise.access">Acesso 3x por semana a todas as modalidades e open gym</strong></p>
@@ -932,7 +942,7 @@
           <div class="plan-price plan-price--promo">
             <span class="plan-price__original">€64.90</span>
             <span class="plan-price__current">€54.90/mês</span>
-            <span class="plan-price__badge">EARLY BIRD</span>
+            <span class="plan-price__badge" data-i18n="pricing.badge.urgency">EARLY BIRD - ÚLTIMAS VAGAS</span>
           </div>
           <div class="plan-features">
             <p><strong data-i18n="modal.starter.access">Acesso 2x por semana a todas as modalidades e open gym</strong></p>

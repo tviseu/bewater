@@ -36,7 +36,7 @@ const translations = {
       
       // Pricing Section
       'pricing.title': 'PREÇOS<br><span class="early-bird-text">EARLY BIRD</span>',
-      'pricing.promo': 'Oferta de lançamento por tempo limitado!',
+      'pricing.promo': 'Early Bird em fase final - garante já o teu lugar!',
       'pricing.period': '/mês',
       'pricing.test.note': '<strong>TESTA PRIMEIRO, DECIDE DEPOIS!</strong><br><a href="#contact" class="test-note__link">Clicka aqui</a> para usar o formulário de contacto e agendar a tua visita.',
       'pricing.elite.title': 'ELITE',
@@ -61,6 +61,12 @@ const translations = {
     'pricing.starter.feature2': 'Sem fidelização',
     'pricing.starter.feature3': 'A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar',
       'pricing.badge': 'EARLY BIRD',
+      'pricing.badge.urgency': 'EARLY BIRD - ÚLTIMAS VAGAS',
+      
+      // Carimbo de Urgência
+      'urgency.stamp.title': 'ÚLTIMAS VAGAS',
+      'urgency.stamp.subtitle': 'EARLY BIRD!',
+      'urgency.stamp.cta': 'APROVEITA ENQUANTO PODES!',
       
       // Drop-in pricing
       'pricing.dropin.period': '/aula',
@@ -401,7 +407,7 @@ const translations = {
       
       // Pricing Section
       'pricing.title': 'PRICING<br><span class="early-bird-text">EARLY BIRD</span>',
-      'pricing.promo': 'Limited time launch offer!',
+      'pricing.promo': 'Early Bird ending soon - secure your spot now!',
       'pricing.period': '/month',
       'pricing.test.note': '<strong>TEST FIRST, DECIDE LATER!</strong><br><a href="#contact" class="test-note__link">Click here</a> to use the contact form and schedule your visit.',
       'pricing.elite.title': 'ELITE',
@@ -426,6 +432,12 @@ const translations = {
       'pricing.starter.feature2': 'No commitment',
       'pricing.starter.feature3': 'The first month\'s fee is charged only from the date you start training',
       'pricing.badge': 'EARLY BIRD',
+      'pricing.badge.urgency': 'EARLY BIRD - LAST SPOTS',
+      
+      // Urgency Stamp
+      'urgency.stamp.title': 'LAST SPOTS',
+      'urgency.stamp.subtitle': 'EARLY BIRD!',
+      'urgency.stamp.cta': 'GRAB IT WHILE YOU CAN!',
       
       // Drop-in pricing
       'pricing.dropin.period': '/class',

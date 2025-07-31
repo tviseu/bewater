@@ -8169,3 +8169,183 @@ html, body {
     font-size: 0.85rem;
   }
 }
+
+/* ============================================
+   CARIMBO DE URGÊNCIA ANIMADO
+   ============================================ */
+
+/* Overlay com blur de fundo */
+.urgency-stamp-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 9998;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer; /* Indica que é clicável */
+}
+
+.urgency-stamp-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.urgency-stamp {
+  position: fixed;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-5deg);
+  z-index: 9999;
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  pointer-events: none; /* Evita interferir com cliques quando fechado */
+}
+
+.urgency-stamp.show {
+  top: 40%;
+  opacity: 1;
+  animation: stamp-bounce 0.6s ease-out;
+  pointer-events: auto; /* Permite cliques quando visível */
+}
+
+.urgency-stamp.hide {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-50px) rotate(-5deg);
+  transition: all 0.5s ease-in;
+}
+
+.urgency-stamp__content {
+  background: #DC143C;
+  color: #FFFFFF;
+  padding: 2rem 2.5rem;
+  border: 4px solid #000000;
+  box-shadow: 8px 8px 0 #000000;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  text-transform: uppercase;
+  border-radius: 0; /* Manter estética brutal */
+}
+
+.urgency-stamp__text {
+  font-size: 2.5rem;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+  letter-spacing: 1px;
+}
+
+.urgency-stamp__subtext {
+  font-size: 1.6rem;
+  color: #FFD700;
+  font-weight: 900;
+  margin-bottom: 0.4rem;
+}
+
+.urgency-stamp__cta {
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+  opacity: 0.9;
+  letter-spacing: 0.5px;
+}
+
+@keyframes stamp-bounce {
+  0% { 
+    transform: translateX(-50%) rotate(-5deg) scale(0.8); 
+    opacity: 0.8;
+  }
+  50% { 
+    transform: translateX(-50%) rotate(-3deg) scale(1.1); 
+    opacity: 1;
+  }
+  100% { 
+    transform: translateX(-50%) rotate(-5deg) scale(1); 
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   PULSAÇÃO SUTIL NOS BADGES
+   ============================================ */
+
+.pulse-animation {
+  animation: subtle-pulse 2s infinite;
+}
+
+@keyframes subtle-pulse {
+  0%, 100% { 
+    transform: translateX(-50%) scale(1); 
+    box-shadow: 4px 4px 0 #000000;
+  }
+  50% { 
+    transform: translateX(-50%) scale(1.03); 
+    box-shadow: 6px 6px 0 #000000;
+  }
+}
+
+/* ============================================
+   RESPONSIVO MOBILE - CARIMBO E ANIMAÇÕES
+   ============================================ */
+
+@media (max-width: 768px) {
+  .urgency-stamp {
+    top: -150px;
+  }
+  
+  .urgency-stamp.show {
+    top: 35%;
+  }
+  
+  .urgency-stamp__content {
+    padding: 1.5rem 2rem;
+    margin: 0 1rem; /* Margem nas bordas para evitar corte */
+  }
+  
+  .urgency-stamp__text { 
+    font-size: 2rem; 
+  }
+  
+  .urgency-stamp__subtext { 
+    font-size: 1.3rem; 
+  }
+  
+  .urgency-stamp__cta {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .urgency-stamp.show {
+    top: 30%;
+  }
+  
+  .urgency-stamp__content {
+    padding: 1.3rem 1.5rem;
+    margin: 0 0.5rem;
+  }
+  
+  .urgency-stamp__text { 
+    font-size: 1.8rem; 
+    line-height: 1.1;
+  }
+  
+  .urgency-stamp__subtext { 
+    font-size: 1.1rem; 
+  }
+  
+  .urgency-stamp__cta {
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+  }
+  
+  /* Ajuste para badges em mobile */
+  .price-card__badge.pulse-animation {
+    font-size: 0.65rem; /* Ligeiramente maior que o original 0.6rem */
+    padding: 4px 6px; /* Mais padding para acomodar texto maior */
+  }
+}
