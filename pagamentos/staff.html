@@ -394,6 +394,14 @@
                 <h3>💰 Valor Vendas</h3>
                 <div class="stat-value" id="statsTotal">€0</div>
             </div>
+            <div class="stat-card">
+                <h3>📊 Total BD</h3>
+                <div class="stat-value" id="statsRawDB">-</div>
+            </div>
+            <div class="stat-card">
+                <h3>🔧 Processados</h3>
+                <div class="stat-value" id="statsProcessed">-</div>
+            </div>
         </div>
 
 
@@ -423,11 +431,15 @@
         // Stats elements
         const statsConfirmados = document.getElementById('statsConfirmados');
         const statsTotal = document.getElementById('statsTotal');
+        const statsRawDB = document.getElementById('statsRawDB');
+        const statsProcessed = document.getElementById('statsProcessed');
 
         // 🔧 Consolidar duplicados por transaction_id (priorizar confirmados)
         function consolidateDuplicates(paymentsList) {
             const consolidated = new Map();
             const originalCount = paymentsList.length;
+            
+            console.log('🔍 ANTES da consolidação:', originalCount, 'pagamentos');
             
             paymentsList.forEach(payment => {
                 const key = payment.transactionID || payment.id;
@@ -438,6 +450,11 @@
                 } else {
                     // Já existe um pagamento com este transaction_id
                     const existing = consolidated.get(key);
+                    
+                    console.log(`🔍 DUPLICADO DETECTADO para ${key}:`, {
+                        existing: { produto: existing.produto, valor: existing.valor, status: existing.status },
+                        new: { produto: payment.produto, valor: payment.valor, status: payment.status }
+                    });
                     
                     // Priorizar: 1) Pagamentos com valor > 0, 2) Status confirmado > falhado > pendente
                     const hasValue = (p) => p.valor && p.valor > 0;
@@ -453,8 +470,8 @@
                         console.log(`💰 Consolidando (prioridade valor): vazio → €${payment.valor} para ${key}`);
                         consolidated.set(key, payment);
                     } else if (!newHasValue && existingHasValue) {
+                        console.log(`💰 Mantendo pagamento com valor para ${key}`);
                         // Manter o existente que tem valor
-                        // console.log(`💰 Mantendo pagamento com valor para ${key}`);
                     } else if (newPriority > existingPriority) {
                         // Ambos têm valor ou ambos estão vazios - priorizar por status
                         console.log(`🔄 Consolidando por status: ${existing.status} → ${payment.status} para ${key}`);
@@ -463,13 +480,18 @@
                         // Mesmo status, priorizar o mais recente
                         console.log(`🕐 Consolidando por data: ${existing.timestamp} → ${payment.timestamp} para ${key}`);
                         consolidated.set(key, payment);
+                    } else {
+                        console.log(`🔄 Mantendo pagamento existente para ${key}`);
                     }
                 }
             });
             
             const consolidatedList = Array.from(consolidated.values());
+            console.log(`🔧 APÓS consolidação: ${originalCount} → ${consolidatedList.length} pagamentos`);
+            
             if (originalCount !== consolidatedList.length) {
-                console.log(`🔧 Duplicados consolidados: ${originalCount} → ${consolidatedList.length} pagamentos`);
+                const removedCount = originalCount - consolidatedList.length;
+                console.warn(`⚠️ ATENÇÃO: ${removedCount} pagamentos foram removidos durante a consolidação!`);
             }
             
             return consolidatedList;
@@ -492,11 +514,14 @@
                 console.log('📦 Data recebida:', data);
                 
                 if (data.success) {
-                    payments = data.payments || [];
-                    console.log('✅ Pagamentos carregados:', payments.length);
+                    const rawPayments = data.payments || [];
+                    console.log('✅ Pagamentos carregados da BD:', rawPayments.length);
+                    
+                    // Atualizar stats de debug
+                    statsRawDB.textContent = rawPayments.length;
                     
                     // 🔍 DEBUG: Verificar duplicados por transaction_id
-                    const transactionIds = payments.map(p => p.transactionID).filter(id => id);
+                    const transactionIds = rawPayments.map(p => p.transactionID).filter(id => id);
                     const uniqueTransactionIds = [...new Set(transactionIds)];
                     if (transactionIds.length !== uniqueTransactionIds.length) {
                         console.warn('⚠️ DUPLICADOS DETECTADOS:');
@@ -505,7 +530,7 @@
                         
                         // Mostrar detalhes dos duplicados
                         duplicates.forEach(dupId => {
-                            const duplicatedPayments = payments.filter(p => p.transactionID === dupId);
+                            const duplicatedPayments = rawPayments.filter(p => p.transactionID === dupId);
                             console.warn(`🔍 Pagamentos com ID ${dupId}:`, duplicatedPayments.map(p => ({
                                 id: p.id,
                                 status: p.status,
@@ -516,7 +541,10 @@
                     }
                     
                     // 🔧 CONSOLIDAR duplicados automaticamente (workaround temporário)
-                    payments = consolidateDuplicates(payments);
+                    payments = consolidateDuplicates(rawPayments);
+                    
+                    // Atualizar stats de debug
+                    statsProcessed.textContent = payments.length;
                     
                     renderPayments();
                     updateStats();
@@ -537,15 +565,26 @@
 
         // Renderizar pagamentos
         function renderPayments() {
-            // FILTRAR: Esconder produtos com valor €0.00 ou sem valor
-            const invalidPayments = payments.filter(p => !p.valor || p.valor <= 0);
-            const validPayments = payments.filter(p => p.valor && p.valor > 0);
+            console.log('🖼️ Renderizando pagamentos. Total recebido:', payments.length);
+            
+            // FILTRAR: Separar pagamentos por valor (mais debug)
+            const invalidPayments = payments.filter(p => {
+                const valor = parseFloat(p.valor);
+                return !p.valor || isNaN(valor) || valor <= 0;
+            });
+            const validPayments = payments.filter(p => {
+                const valor = parseFloat(p.valor);
+                return p.valor && !isNaN(valor) && valor > 0;
+            });
+            
+            console.log(`📊 Pagamentos válidos: ${validPayments.length}, Inválidos: ${invalidPayments.length}`);
             
             if (invalidPayments.length > 0) {
-                console.log(`🚫 Escondendo ${invalidPayments.length} pagamentos vazios:`, 
+                console.log(`🚫 Escondendo ${invalidPayments.length} pagamentos sem valor válido:`, 
                     invalidPayments.map(p => ({
                         produto: p.produto,
                         valor: p.valor,
+                        valorType: typeof p.valor,
                         status: p.status,
                         transactionID: p.transactionID
                     }))
@@ -553,9 +592,11 @@
             }
             
             if (validPayments.length === 0) {
-                paymentsList.innerHTML = '<div class="no-payments">📭 Nenhum pagamento encontrado</div>';
+                paymentsList.innerHTML = '<div class="no-payments">📭 Nenhum pagamento válido encontrado</div>';
                 return;
             }
+            
+            console.log(`✅ Renderizando ${validPayments.length} pagamentos válidos`);
 
             paymentsList.innerHTML = validPayments.map(payment => `
                 <div class="payment-card ${payment.status}" data-id="${payment.id}">
@@ -588,15 +629,40 @@
 
         // Atualizar estatísticas (apenas confirmados com valor > 0)
         function updateStats() {
-            // Filtrar apenas pagamentos válidos (com valor > 0)
-            const validPayments = payments.filter(p => p.valor && p.valor > 0);
+            // DEBUG: Mostrar todos os pagamentos recebidos
+            console.log('📊 DEBUG - Todos os pagamentos recebidos:', payments.length);
+            console.log('📊 DEBUG - Primeiros 5 pagamentos:', payments.slice(0, 5).map(p => ({
+                produto: p.produto,
+                valor: p.valor,
+                status: p.status,
+                timestamp: p.timestamp
+            })));
             
-            // Calcular total de TODOS os confirmados (não apenas hoje)
-            const confirmadosVendidos = validPayments.filter(p => p.status === 'confirmado');
+            // Filtrar apenas pagamentos confirmados (mais permissivo com valores)
+            const confirmadosVendidos = payments.filter(p => {
+                const hasValidStatus = p.status === 'confirmado';
+                const hasValidValue = p.valor && parseFloat(p.valor) > 0;
+                
+                if (hasValidStatus && !hasValidValue) {
+                    console.warn('⚠️ Pagamento confirmado mas sem valor válido:', {
+                        produto: p.produto,
+                        valor: p.valor,
+                        transactionID: p.transactionID
+                    });
+                }
+                
+                return hasValidStatus && hasValidValue;
+            });
+            
             const totalItems = confirmadosVendidos.length;
-            const totalValue = confirmadosVendidos.reduce((sum, p) => sum + p.valor, 0);
+            const totalValue = confirmadosVendidos.reduce((sum, p) => sum + parseFloat(p.valor), 0);
 
-            console.log(`📊 Estatísticas atualizadas: ${totalItems} items vendidos, €${totalValue.toFixed(2)} em vendas`);
+            console.log(`📊 Estatísticas finais: ${totalItems} items vendidos, €${totalValue.toFixed(2)} em vendas`);
+            console.log(`📊 Pagamentos confirmados:`, confirmadosVendidos.map(p => ({
+                produto: p.produto,
+                valor: p.valor,
+                timestamp: p.timestamp
+            })));
 
             statsConfirmados.textContent = totalItems;
             statsTotal.textContent = `€${totalValue.toFixed(2)}`;

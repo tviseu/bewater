@@ -198,8 +198,8 @@ exports.handler = async (event, context) => {
         const { data: supabasePayments, error } = await supabase
           .from('payments')
           .select('*')
-          .order('created_at', { ascending: false })
-          .limit(50);
+          .order('created_at', { ascending: false });
+          // REMOVIDO LIMITE: Buscar TODOS os pagamentos para estatísticas corretas
 
         if (error) {
           console.error('❌ Erro ao buscar pagamentos Supabase:', error);
