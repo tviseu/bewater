@@ -27,6 +27,7 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
     'TOALHA_001': { nome: 'Toalha Treino/Banho', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'CERVEJA_MINI_001': { nome: 'Cerveja Mini', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'AGUA_GAS_001': { nome: 'Água com Gás', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'RED_BULL_001': { nome: 'Red Bull', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'DROP_IN_001': { nome: 'Drop In (Aula avulso)', iva: 0, categoria: 'Serviços', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'DONATIVO_001': { nome: 'Donativo BE WATER', iva: 0, categoria: 'Donativos', tax_exempt_reason: 'Artigo 53º do CIVA' }
   };
@@ -271,6 +272,8 @@ exports.handler = async (event, context) => {
     
     if (produtoNome.includes('donativo')) {
       produtoId = 'DONATIVO_001';
+    } else if (produtoNome.includes('red bull') || produtoNome.includes('redbull')) {
+      produtoId = 'RED_BULL_001';
     } else if (produtoNome.includes('drop in') || produtoNome.includes('aula avulso') || produtoNome.includes('drop-in')) {
       produtoId = 'DROP_IN_001';
     } else if (produtoNome.includes('água pequena')) {
