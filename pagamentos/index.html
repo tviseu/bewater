@@ -295,6 +295,13 @@
             letter-spacing: 1px;
         }
 
+        /* Estilo específico para o label inline do toggle de fatura */
+        .form-group label[for="phone"] + div label,
+        .form-group label.inline-toggle {
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
         .form-group input {
             width: 100%;
             padding: 15px;
@@ -314,6 +321,33 @@
 
         .form-group input::placeholder {
             color: var(--color-secondary);
+        }
+
+        /* Toggle Fatura - alinhado com o estilo dos inputs */
+        .form-toggle {
+            border: var(--border-thick);
+            background: var(--color-background);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        .form-toggle__label {
+            margin: 0;
+            font-family: var(--font-heading);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1rem;
+            color: var(--color-primary);
+        }
+        .form-toggle__checkbox {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            accent-color: var(--color-primary);
         }
 
         .produto-selecionado {
@@ -855,33 +889,31 @@
                     <input type="tel" id="phone" name="phone" data-payment-i18n="form.phone.placeholder" placeholder="9XXXXXXXX" required maxlength="9">
                 </div>
 
+                <div class="form-toggle" role="group" aria-labelledby="precisa-fatura-label">
+                    <span id="precisa-fatura-label" class="form-toggle__label" data-payment-i18n="form.invoice.toggle">Precisas de fatura?</span>
+                    <input type="checkbox" id="precisa-fatura" class="form-toggle__checkbox" aria-labelledby="precisa-fatura-label">
+                </div>
+
+                <div id="fatura-fields" class="hidden">
+                    <div class="form-group">
+                        <label for="email" data-payment-i18n="form.email.label">📧 Email</label>
+                        <input type="email" id="email" name="email" data-payment-i18n="form.email.placeholder" placeholder="exemplo@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nome" data-payment-i18n="form.name.label">👤 Nome</label>
+                        <input type="text" id="nome" name="nome" data-payment-i18n="form.name.placeholder" placeholder="Seu nome completo">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nif" data-payment-i18n="form.nif.label">🆔 NIF</label>
+                        <input type="text" id="nif" name="nif" data-payment-i18n="form.nif.placeholder" placeholder="XXXXXXXXX" maxlength="9">
+                    </div>
+                </div>
+
                 <button type="submit" class="btn-pagar" id="payBtn" data-payment-i18n="form.pay.btn">
                     💳 PAGAR AGORA
                 </button>
-
-                <div style="margin: 30px 0 20px 0; padding: 20px; background: #f8f9fa; border: 2px solid #e9ecef; text-align: center;">
-                    <p style="margin: 0; color: #666; font-weight: 600;" data-payment-i18n="form.invoice.note">
-                        📧 Se quiseres factura preenche <strong>TODOS</strong> os campos abaixo
-                    </p>
-                    <p style="margin: 5px 0 0 0; color: #999; font-size: 0.85rem;" data-payment-i18n="form.invoice.warning">
-                        ⚠️ Se preencheres um campo, tens que preencher todos
-                    </p>
-                </div>
-
-                <div class="form-group">
-                    <label for="email" data-payment-i18n="form.email.label">📧 Email</label>
-                    <input type="email" id="email" name="email" data-payment-i18n="form.email.placeholder" placeholder="exemplo@email.com">
-                </div>
-
-                <div class="form-group">
-                    <label for="nome" data-payment-i18n="form.name.label">👤 Nome</label>
-                    <input type="text" id="nome" name="nome" data-payment-i18n="form.name.placeholder" placeholder="Seu nome completo">
-                </div>
-
-                <div class="form-group">
-                    <label for="nif" data-payment-i18n="form.nif.label">🆔 NIF</label>
-                    <input type="text" id="nif" name="nif" data-payment-i18n="form.nif.placeholder" placeholder="XXXXXXXXX" maxlength="9">
-                </div>
             </form>
 
             <div class="loading" id="loading">
@@ -1038,11 +1070,10 @@
                 return;
             }
 
-            // Validação de fatura: se qualquer campo for preenchido, todos são obrigatórios
-            const temDadosFatura = email || nome || nif;
-            
-            if (temDadosFatura) {
-                // Se tem dados de fatura, todos os campos são obrigatórios
+            // Validação de fatura: apenas se o toggle estiver ativo
+            const precisaFatura = document.getElementById('precisa-fatura')?.checked;
+            if (precisaFatura) {
+                // Se precisa de fatura, todos os campos são obrigatórios
                 if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                     showError('Para emitir fatura, email é obrigatório e deve ser válido');
                     document.getElementById('email').focus();
@@ -1058,22 +1089,6 @@
                 if (!nif || !/^\d{9}$/.test(nif)) {
                     showError('Para emitir fatura, NIF é obrigatório e deve ter 9 dígitos');
                     document.getElementById('nif').focus();
-                    return;
-                }
-            } else {
-                // Sem dados de fatura - validar só se preenchidos individualmente
-                if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                    showError('Email inválido');
-                    return;
-                }
-                
-                if (nome && nome.length < 2) {
-                    showError('Nome deve ter pelo menos 2 caracteres');
-                    return;
-                }
-                
-                if (nif && !/^\d{9}$/.test(nif)) {
-                    showError('NIF inválido (deve ter 9 dígitos)');
                     return;
                 }
             }
@@ -1224,6 +1239,29 @@
 
             paymentForm.classList.remove('hidden');
         }
+    </script>
+    <script>
+        // Toggle de fatura: mostrar/esconder campos
+        document.addEventListener('DOMContentLoaded', function () {
+            const precisaFaturaChk = document.getElementById('precisa-fatura');
+            const faturaFields = document.getElementById('fatura-fields');
+            if (precisaFaturaChk && faturaFields) {
+                precisaFaturaChk.addEventListener('change', function () {
+                    if (this.checked) {
+                        faturaFields.classList.remove('hidden');
+                    } else {
+                        faturaFields.classList.add('hidden');
+                        // Limpar campos quando desativado
+                        const email = document.getElementById('email');
+                        const nome = document.getElementById('nome');
+                        const nif = document.getElementById('nif');
+                        if (email) email.value = '';
+                        if (nome) nome.value = '';
+                        if (nif) nif.value = '';
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html> 
