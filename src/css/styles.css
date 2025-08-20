@@ -1016,7 +1016,7 @@ section {
     justify-items: center;
   }
   
-  .pricing__grid > .price-card:nth-child(4) {
+  .pricing__grid > .price-card:nth-child(4):nth-last-child(1) {
     grid-column: 2 / 3;
     margin-top: var(--spacing-sm);
   }
@@ -1067,7 +1067,7 @@ section {
     grid-template-columns: repeat(3, 1fr);
   }
   
-  .pricing__grid > .price-card:nth-child(4) {
+  .pricing__grid > .price-card:nth-child(4):nth-last-child(1) {
     grid-column: 2 / 3;
     margin-top: var(--spacing-sm);
   }
@@ -1114,6 +1114,18 @@ section {
 
 .price-card--dropin .price-card__header {
   background-color: #16A085;
+  color: #FFFFFF;
+  border-bottom: var(--border-thick);
+}
+
+.price-card--pack5 .price-card__header {
+  background-color: #FF69B4;
+  color: #000000;
+  border-bottom: var(--border-thick);
+}
+
+.price-card--pack10 .price-card__header {
+  background-color: #0088CC;
   color: #FFFFFF;
   border-bottom: var(--border-thick);
 }

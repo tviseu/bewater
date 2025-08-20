@@ -75,6 +75,22 @@ const translations = {
       'pricing.dropin.feature3': 'Acesso a todas as modalidades e open gym',
       'pricing.dropin.feature4': 'Sem mensalidade - pagas apenas pela aula',
       'pricing.dropin.cta': 'RESERVAR AULA',
+
+      // Pack 10 pricing
+      'pricing.pack10.title': 'PACK 10',
+      'pricing.pack10.period': '/pack',
+      'pricing.pack10.feature1': 'Pack de 10 aulas',
+      'pricing.pack10.feature2': 'Sem mensalidade',
+      'pricing.pack10.feature3': 'Acesso a todas as modalidades e open gym',
+      'pricing.pack10.cta': 'COMPRAR PACK',
+
+      // Pack 5 pricing
+      'pricing.pack5.title': 'PACK 5',
+      'pricing.pack5.period': '/pack',
+      'pricing.pack5.feature1': 'Pack de 5 aulas',
+      'pricing.pack5.feature2': 'Sem mensalidade',
+      'pricing.pack5.feature3': 'Acesso a todas as modalidades e open gym',
+      'pricing.pack5.cta': 'COMPRAR PACK',
       
       // Schedule Section
       'schedule.title': 'HORÁRIOS E MODALIDADES',
@@ -346,6 +362,18 @@ const translations = {
       'modal.dropin.step1': 'Escolhe o número de pessoas que vão fazer drop-in e preenche os teus dados 👥',
       'modal.dropin.step2': 'Escolhe o dia e hora e que aula queres fazer 📅',
       'modal.dropin.step3': 'Confirma a reserva e faz o pagamento ✅',
+
+      // Pack 10 Modal
+      'modal.pack10.title': 'PACK 10',
+      'modal.pack10.access': 'Pack de 10 aulas',
+      'modal.pack10.access_all': 'Acesso a todas as modalidades e open gym',
+      'modal.pack10.ideal': 'Sem mensalidade - pagas apenas o pack',
+
+      // Pack 5 Modal
+      'modal.pack5.title': 'PACK 5',
+      'modal.pack5.access': 'Pack de 5 aulas',
+      'modal.pack5.access_all': 'Acesso a todas as modalidades e open gym',
+      'modal.pack5.ideal': 'Sem mensalidade - pagas apenas o pack',
       
 
       
@@ -446,6 +474,22 @@ const translations = {
       'pricing.dropin.feature3': 'Access to all modalities and open gym',
       'pricing.dropin.feature4': 'No monthly fee - pay only for the class',
       'pricing.dropin.cta': 'BOOK CLASS',
+
+      // Pack 10 pricing
+      'pricing.pack10.title': 'PACK 10',
+      'pricing.pack10.period': '/pack',
+      'pricing.pack10.feature1': '10-class pack',
+      'pricing.pack10.feature2': 'No monthly fee',
+      'pricing.pack10.feature3': 'Access to all modalities and open gym',
+      'pricing.pack10.cta': 'BUY PACK',
+
+      // Pack 5 pricing
+      'pricing.pack5.title': 'PACK 5',
+      'pricing.pack5.period': '/pack',
+      'pricing.pack5.feature1': '5-class pack',
+      'pricing.pack5.feature2': 'No monthly fee',
+      'pricing.pack5.feature3': 'Access to all modalities and open gym',
+      'pricing.pack5.cta': 'BUY PACK',
       
       // Schedule Section
       'schedule.title': 'SCHEDULE & ACTIVITIES',
@@ -717,6 +761,18 @@ const translations = {
       'modal.dropin.step1': 'Choose the number of people doing drop-in and fill in your details 👥',
       'modal.dropin.step2': 'Choose the day and time and which class you want to take 📅',
       'modal.dropin.step3': 'Confirm the booking and make the payment ✅',
+
+      // Pack 10 Modal
+      'modal.pack10.title': 'PACK 10',
+      'modal.pack10.access': '10-class pack',
+      'modal.pack10.access_all': 'Access to all modalities and open gym',
+      'modal.pack10.ideal': 'No monthly fee - pay only for the pack',
+
+      // Pack 5 Modal
+      'modal.pack5.title': 'PACK 5',
+      'modal.pack5.access': '5-class pack',
+      'modal.pack5.access_all': 'Access to all modalities and open gym',
+      'modal.pack5.ideal': 'No monthly fee - pay only for the pack',
       
 
       

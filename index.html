@@ -810,6 +810,48 @@
             <button type="button" class="btn" data-modal="dropin" data-i18n="pricing.dropin.cta">RESERVAR AULA</button>
           </div>
         </div>
+        
+        <!-- Pack 5 Card -->
+        <div class="price-card price-card--pack5">
+          <div class="price-card__header">
+            <h3 class="price-card__title" data-i18n="pricing.pack5.title">PACK 5</h3>
+            <div class="price-card__price">
+              <span class="price-card__amount">€90</span>
+              <span class="price-card__period" data-i18n="pricing.pack5.period">/pack</span>
+            </div>
+          </div>
+          <div class="price-card__features">
+            <ul>
+              <li data-i18n="pricing.pack5.feature1">Pack de 5 aulas</li>
+              <li data-i18n="pricing.pack5.feature2">Sem mensalidade</li>
+              <li data-i18n="pricing.pack5.feature3">Acesso a todas as modalidades e open gym</li>
+            </ul>
+          </div>
+          <div class="price-card__cta">
+            <button type="button" class="btn" data-modal="pack5" data-i18n="pricing.pack5.cta">COMPRAR PACK</button>
+          </div>
+        </div>
+
+        <!-- Pack 10 Card -->
+        <div class="price-card price-card--pack10">
+          <div class="price-card__header">
+            <h3 class="price-card__title" data-i18n="pricing.pack10.title">PACK 10</h3>
+            <div class="price-card__price">
+              <span class="price-card__amount">€150</span>
+              <span class="price-card__period" data-i18n="pricing.pack10.period">/pack</span>
+            </div>
+          </div>
+          <div class="price-card__features">
+            <ul>
+              <li data-i18n="pricing.pack10.feature1">Pack de 10 aulas</li>
+              <li data-i18n="pricing.pack10.feature2">Sem mensalidade</li>
+              <li data-i18n="pricing.pack10.feature3">Acesso a todas as modalidades e open gym</li>
+            </ul>
+          </div>
+          <div class="price-card__cta">
+            <button type="button" class="btn" data-modal="pack10" data-i18n="pricing.pack10.cta">COMPRAR PACK</button>
+          </div>
+        </div>
       </div>
       
       <!-- Test Gym Note -->
@@ -1039,6 +1081,112 @@
           <!-- Regy Integration for DROP-IN -->
           <input type="hidden" class="class_regy" id="src_regy15" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/aula_avulso.php?id_box=2244&id_int=15&acs=ec0896d34cf06fc3c88ffa93d68ebc1b&site=s">
           <iframe name="frame_regy15" id="frame_regy15" width="100%" height="1000px" frameborder="0" scrolling="auto" title="Formulário de reserva de aula avulsa" style="display: block;"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal for PACK 5 -->
+  <div id="modal-pack5" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title" data-i18n="modal.pack5.title">PACK 5</h3>
+        <button class="modal-close" data-close="pack5">&times;</button>
+      </div>
+      <div class="modal-content">
+        <div class="modal-plan-summary">
+          <div class="plan-price">
+            <span class="plan-price__current">€90/pack</span>
+          </div>
+          <div class="plan-features">
+            <p><strong data-i18n="modal.pack5.access">Pack de 5 aulas</strong></p>
+            <p>• <span data-i18n="modal.pack5.access_all">Acesso a todas as modalidades e open gym</span></p>
+            <p>• <span data-i18n="modal.pack5.ideal">Sem mensalidade - pagas apenas o pack</span></p>
+          </div>
+        </div>
+        
+        <div class="modal-purchase-instructions">
+          <div class="purchase-instructions-header">
+            <h4 data-i18n="modal.purchase.title">Como comprar o teu pack:</h4>
+          </div>
+          <div class="purchase-steps">
+            <div class="purchase-step">
+              <div class="step-number">1</div>
+              <div class="step-text" data-i18n="modal.purchase.step1">Escolhe a data de início</div>
+            </div>
+            <div class="purchase-step">
+              <div class="step-number">2</div>
+              <div class="step-text" data-i18n="modal.purchase.step2">Carrega no valor "total a pagar"</div>
+            </div>
+            <div class="purchase-step">
+              <div class="step-number">3</div>
+              <div class="step-text" data-i18n="modal.purchase.step3">Faz o registo da conta na app Be Water</div>
+            </div>
+            <div class="purchase-step">
+              <div class="step-number">4</div>
+              <div class="step-text" data-i18n="modal.purchase.step4">"Ir para pagamento" e escolhe a forma de pagamento preferida</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-regy-container">
+          <!-- Regy Integration for PACK 5 -->
+          <input type="hidden" class="class_regy" id="src_regy19" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_pack.php?id_box=2244&id_int=19&acs=92c6751aa223d1a34d491341c97d8628&site=s">
+          <iframe name="frame_regy19" id="frame_regy19" width="100%" height="0px" frameborder="0" scrolling="no" title="Formulário de compra Pack 5" style="display: block;"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal for PACK 10 -->
+  <div id="modal-pack10" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 class="modal-title" data-i18n="modal.pack10.title">PACK 10</h3>
+        <button class="modal-close" data-close="pack10">&times;</button>
+      </div>
+      <div class="modal-content">
+        <div class="modal-plan-summary">
+          <div class="plan-price">
+            <span class="plan-price__current">€150/pack</span>
+          </div>
+          <div class="plan-features">
+            <p><strong data-i18n="modal.pack10.access">Pack de 10 aulas</strong></p>
+            <p>• <span data-i18n="modal.pack10.access_all">Acesso a todas as modalidades e open gym</span></p>
+            <p>• <span data-i18n="modal.pack10.ideal">Sem mensalidade - pagas apenas o pack</span></p>
+          </div>
+        </div>
+        
+        <div class="modal-purchase-instructions">
+          <div class="purchase-instructions-header">
+            <h4 data-i18n="modal.purchase.title">Como comprar o teu pack:</h4>
+          </div>
+          <div class="purchase-steps">
+            <div class="purchase-step">
+              <div class="step-number">1</div>
+              <div class="step-text" data-i18n="modal.purchase.step1">Escolhe a data de início</div>
+            </div>
+            <div class="purchase-step">
+              <div class="step-number">2</div>
+              <div class="step-text" data-i18n="modal.purchase.step2">Carrega no valor "total a pagar"</div>
+            </div>
+            <div class="purchase-step">
+              <div class="step-number">3</div>
+              <div class="step-text" data-i18n="modal.purchase.step3">Faz o registo da conta na app Be Water</div>
+            </div>
+            <div class="purchase-step">
+              <div class="step-number">4</div>
+              <div class="step-text" data-i18n="modal.purchase.step4">"Ir para pagamento" e escolhe a forma de pagamento preferida</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-regy-container">
+          <!-- Regy Integration for PACK 10 -->
+          <input type="hidden" class="class_regy" id="src_regy18" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_pack.php?id_box=2244&id_int=18&acs=84ef9a58d4979c4cbe9685754f8bb744&site=s">
+          <iframe name="frame_regy18" id="frame_regy18" width="100%" height="0px" frameborder="0" scrolling="no" title="Formulário de compra Pack 10" style="display: block;"></iframe>
         </div>
       </div>
     </div>
