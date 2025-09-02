@@ -208,7 +208,7 @@ exports.handler = async (event, context) => {
       'AGUA_PEQUENA_001': { nome: 'Água Pequena', preco: 1.00 },
       'AGUA_GRANDE_001': { nome: 'Água Grande', preco: 1.50 },
       'POWERADE_001': { nome: 'Powerade', preco: 2.90 },
-      'COCA_COLA_ZERO_001': { nome: 'Coca Cola Zero', preco: 1.90 },
+      'COCA_COLA_ZERO_001': { nome: 'Coca Cola Zero', preco: 1.50 },
       'BATIDO_PROTEINA_001': { nome: 'Batido Proteína', preco: 2.50 },
       'BARRA_PROTEINA_001': { nome: 'Barra Proteína', preco: 2.50 },
       'COOKIES_PROTEICA_001': { nome: 'Cookies e Waffles Proteicas', preco: 2.50 },
