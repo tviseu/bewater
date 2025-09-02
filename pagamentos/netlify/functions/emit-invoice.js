@@ -17,7 +17,7 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
     'AGUA_GRANDE_001': { nome: 'Água Grande', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'POWERADE_001': { nome: 'Powerade', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'COCA_COLA_ZERO_001': { nome: 'Coca Cola Zero', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
-    'BATIDO_PROTEINA_001': { nome: 'Batido Proteína', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'BATIDO_PROTEINA_001': { nome: 'Saqueta de Proteína', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'BARRA_PROTEINA_001': { nome: 'Barra Proteína', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'COOKIES_PROTEICA_001': { nome: 'Cookies e Waffles Proteicas', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'LIMONADA_001': { nome: 'Limonada', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
@@ -291,7 +291,7 @@ exports.handler = async (event, context) => {
       produtoId = 'POWERADE_001';
     } else if (produtoNome.includes('coca cola zero') || produtoNome.includes('coca-cola zero')) {
       produtoId = 'COCA_COLA_ZERO_001';
-    } else if (produtoNome.includes('batido proteína')) {
+    } else if (produtoNome.includes('saqueta de proteína') || produtoNome.includes('saqueta') || produtoNome.includes('batido proteína')) {
       produtoId = 'BATIDO_PROTEINA_001';
     } else if (produtoNome.includes('barra proteína') || produtoNome.includes('barra')) {
       produtoId = 'BARRA_PROTEINA_001';

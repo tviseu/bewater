@@ -12,9 +12,10 @@ const paymentTranslations = {
     // Seções
     'section.food-drinks': '🍽️ Comidas & Bebidas',
     'section.accessories-misc': '🔧 Acessórios & Misc',
-    'section.hydration-energy': '🥤 Hidratação & Energia',
-    'section.nutrition-warrior': '💪 Nutrição Warrior',
-    'section.dojo-essentials': '🎒 Essenciais do Dojo',
+    'section.cafe-hot': '☕ Café & Bebidas Quentes',
+    'section.fridge-cold': '🧊 Frigorífico & Bebidas Frias',
+    'section.snacks-prepost': '💪 Snacks Pré/Pós-Treino',
+    'section.utilities': '🧰 Utilitários',
     'section.tribe-support': '❤️ Apoio à Tribo',
     
     // Produtos
@@ -24,7 +25,7 @@ const paymentTranslations = {
     'product.agua-pequena.desc': 'Hidratação essencial',
     'product.agua-grande': 'Água Grande',
     'product.agua-grande.desc': 'Hidratação máxima',
-    'product.batido-proteina': 'Batido Proteína',
+    'product.batido-proteina': 'Saqueta de Proteína',
     'product.batido-proteina.desc': 'Recuperação e força',
     'product.barra-proteina': 'Barra Proteína',
     'product.barra-proteina.desc': 'Energia para atletas determinados',
@@ -102,9 +103,10 @@ const paymentTranslations = {
     // Seções
     'section.food-drinks': '🍽️ Food & Drinks',
     'section.accessories-misc': '🔧 Accessories & Misc',
-    'section.hydration-energy': '🥤 Hydration & Energy',
-    'section.nutrition-warrior': '💪 Nutrition Warrior',
-    'section.dojo-essentials': '🎒 Dojo Essentials',
+    'section.cafe-hot': '☕ Coffee & Hot Drinks',
+    'section.fridge-cold': '🧊 Fridge & Cold Drinks',
+    'section.snacks-prepost': '💪 Pre/Post-Workout Snacks',
+    'section.utilities': '🧰 Utilities',
     'section.tribe-support': '❤️ Tribe Support',
     
     // Produtos
@@ -114,7 +116,7 @@ const paymentTranslations = {
     'product.agua-pequena.desc': 'Essential hydration',
     'product.agua-grande': 'Large Water',
     'product.agua-grande.desc': 'Maximum hydration',
-    'product.batido-proteina': 'Protein Shake',
+    'product.batido-proteina': 'Protein Sachet',
     'product.batido-proteina.desc': 'Recovery and strength',
     'product.barra-proteina': 'Protein Bar',
     'product.barra-proteina.desc': 'Energy for determined athletes',
