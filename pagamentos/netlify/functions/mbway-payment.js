@@ -34,6 +34,7 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
     'CERVEJA_MINI_001': { nome: 'Cerveja Mini', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'AGUA_GAS_001': { nome: 'Água com Gás', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'RED_BULL_001': { nome: 'Red Bull', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'YOPRO_001': { nome: 'YoPro Iogurte Proteico', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'DROP_IN_001': { nome: 'Drop In (Aula avulso)', iva: 0, categoria: 'Serviços', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'DONATIVO_001': { nome: 'Donativo BE WATER', iva: 0, categoria: 'Donativos', tax_exempt_reason: 'Artigo 53º do CIVA' }
   };
@@ -205,7 +206,7 @@ exports.handler = async (event, context) => {
     const PRODUTOS_PERMITIDOS = {
       'CAFE_001': { nome: 'Café', preco: 0.85 },
       'AGUA_PEQUENA_001': { nome: 'Água Pequena', preco: 1.00 },
-      'AGUA_GRANDE_001': { nome: 'Água Grande', preco: 2.00 },
+      'AGUA_GRANDE_001': { nome: 'Água Grande', preco: 1.50 },
       'POWERADE_001': { nome: 'Powerade', preco: 2.90 },
       'COCA_COLA_ZERO_001': { nome: 'Coca Cola Zero', preco: 1.90 },
       'BATIDO_PROTEINA_001': { nome: 'Batido Proteína', preco: 2.50 },
@@ -219,6 +220,7 @@ exports.handler = async (event, context) => {
       'CERVEJA_MINI_001': { nome: 'Cerveja Mini', preco: 2.00 },
       'AGUA_GAS_001': { nome: 'Água com Gás', preco: 1.50 },
       'RED_BULL_001': { nome: 'Red Bull', preco: 2.50 },
+      'YOPRO_001': { nome: 'YoPro Iogurte Proteico', preco: 2.60 },
       'DROP_IN_001': { nome: 'Drop In (Aula avulso)', preco: 15.00 },
       'DONATIVO_001': { nome: 'Donativo - Salvem os Músculos Abandonados', preco: 5.00 }
     };
