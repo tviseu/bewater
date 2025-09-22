@@ -15,6 +15,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@800;900&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="src/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
   <style>
     html { scroll-behavior: smooth; }
     :root {
@@ -47,7 +49,7 @@
     .wrap { max-width: 1100px; margin: 0 auto; padding: 0 var(--spacing-xl); }
 
     .hero {
-      padding: 6rem 0 3rem 0;
+      padding: 3rem 0 3rem 0;
       border-bottom: 2px solid var(--color-black);
       background: var(--color-white);
       position: relative;
@@ -117,6 +119,9 @@
     }
 
     .hero__subtitle { color: var(--color-black); max-width: 720px; margin-left: auto; margin-right: auto; font-weight: 700; }
+    @media (max-width: 480px) {
+      .hero { padding-top: 2rem; }
+    }
 
     .hero__cta { margin-top: var(--spacing-lg); }
 
@@ -162,6 +167,17 @@
     .notice { font-size: 0.95rem; color: var(--color-gray); }
     .footer-note { padding: 2rem 0; border-top: 2px solid var(--color-black); text-align: center; color: var(--color-gray); }
 
+    /* Guests simple list with IG icon */
+    .guest-list { list-style: none; margin: 0; padding: 0; }
+    .guest-list li { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.5rem 0; border-bottom: 1px dashed var(--color-black); }
+    .guest-list li:last-child { border-bottom: none; }
+    .guest-badge { display: inline-flex; align-items: center; gap: .5rem; border: 3px solid var(--color-black); background: var(--color-primary); color: var(--color-black); text-decoration: none; box-shadow: 4px 4px 0 var(--color-black); padding: .35rem .6rem; font-weight: 900; }
+    .guest-badge i { font-size: 1.1rem; }
+    @media (max-width: 480px) {
+      .guest-list li { flex-direction: column; align-items: stretch; }
+      .guest-badge { width: 100%; justify-content: center; text-align: center; padding: .5rem .6rem; font-size: 1rem; }
+    }
+
     /* Inscrição: superfície branca para maior contraste */
     .form-surface { background: var(--color-white); border: var(--border-width) solid var(--color-black); padding: var(--spacing-lg); box-shadow: 6px 6px 0 var(--color-black); }
 
@@ -182,7 +198,7 @@
       <h1 class="hero__title">Nutrição + Treino BeWater</h1>
       <div class="event-date-banner"><span class="date-small">SABADO, 4 OUT</span></div>
       <p class="hero__subtitle">
-        O primeiro evento do género no nosso Clube. Participa numa palestra de nutrição com perguntas e respostas, segue-se treino BeWater e fechamos com convívio no Jardim do Campo Grande.
+        O primeiro evento do género no nosso Clube. Palestra com o nutricionista <strong>Alexandre Azevedo</strong> (Q&A), seguida de treino BeWater com <strong>Bruno Salgueiro</strong>, e convívio no Jardim do Campo Grande.
       </p>
       <div class="hero__cta">
         <a class="btn btn--hero" href="#inscricao">Fazer inscrição</a>
@@ -202,9 +218,9 @@
           </p>
           <div class="schedule-box">
           <ul class="schedule">
-            <li><time>15:00–16:30</time><span>Palestra de Nutrição + Q&amp;A com Nutricionista</span></li>
-            <li><time>17:00–18:30</time><span>Treino BeWater</span></li>
-            <li><time>18:30+</time><span>Convívio no Jardim do Campo Grande</span></li>
+            <li><time>15:00–16:30</time><span>Palestra de Nutrição + Q&amp;A com <strong>Alexandre Azevedo</strong></span></li>
+            <li><time>17:00–18:30</time><span>Treino BeWater com <strong>Bruno Salgueiro</strong></span></li>
+            <li><time>18:30+</time><span>Convívio no Jardim do Campo Grande (esplanada "Giro'Giro")</span></li>
           </ul>
           </div>
           <p class="notice" style="margin-top:1rem"><strong>Evento gratuito</strong>. Vagas limitadas. Garante a tua presença escolhendo as partes a que queres assistir.</p>
@@ -231,7 +247,7 @@
               <div class="checks">
                 <label><input type="checkbox" name="participacao[]" value="Palestra"> Palestra de Nutrição (15h–16h30)</label>
                 <label><input type="checkbox" name="participacao[]" value="Treino"> Treino BeWater (17h–18h30)</label>
-                <label><input type="checkbox" name="participacao[]" value="Convívio"> Convívio no Jardim do Campo Grande</label>
+                <label><input type="checkbox" name="participacao[]" value="Convívio"> Convívio no Jardim do Campo Grande (esplanada "Giro'Giro")</label>
               </div>
             <p class="notice" id="checkbox-error" style="display:none;color:#b00020">Seleciona pelo menos uma opção de participação.</p>
 
@@ -252,11 +268,27 @@
 
     <section class="section">
       <div class="wrap card">
+        <h3 style="margin-top:0">Convidados</h3>
+        <ul class="guest-list">
+          <li>
+            <div><strong>Nutricionista</strong>: Alexandre Azevedo</div>
+            <a class="guest-badge" href="https://www.instagram.com/dr.alexandreazevedo/" target="_blank" rel="noopener" aria-label="Instagram de Alexandre Azevedo"><i class="fab fa-instagram" aria-hidden="true"></i> @dr.alexandreazevedo</a>
+          </li>
+          <li>
+            <div><strong>Treinador</strong>: Bruno Salgueiro (Dicas do Salgueiro)</div>
+            <a class="guest-badge" href="https://www.instagram.com/dicasdosalgueiro/" target="_blank" rel="noopener" aria-label="Instagram de Bruno Salgueiro"><i class="fab fa-instagram" aria-hidden="true"></i> @dicasdosalgueiro</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap card">
         <h3 style="margin-top:0">Informações úteis</h3>
         <ul class="list">
-          <li><strong>O que levar</strong>: roupa confortável para treino, água, e boa energia.</li>
+          <li><strong>O que levar</strong>: roupa confortável para treino, água, e boa disposição!</li>
           <li><strong>A palestra</strong>: aberta a perguntas. Traz as tuas dúvidas de nutrição.</li>
-          <li><strong>O convívio</strong>: fazemos no Jardim do Campo Grande após o treino.</li>
+          <li><strong>O convívio</strong>: esplanada "Giro'Giro" no Jardim do Campo Grande.</li>
         </ul>
       </div>
     </section>
