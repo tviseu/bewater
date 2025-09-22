@@ -16,6 +16,7 @@
   <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@800;900&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="src/css/styles.css">
   <style>
+    html { scroll-behavior: smooth; }
     :root {
       --color-primary: #FFD700;
       --color-black: #000000;
@@ -115,7 +116,7 @@
       text-transform: uppercase;
     }
 
-    .hero__subtitle { color: var(--color-black); max-width: 720px; margin-left: auto; margin-right: auto; }
+    .hero__subtitle { color: var(--color-black); max-width: 720px; margin-left: auto; margin-right: auto; font-weight: 700; }
 
     .hero__cta { margin-top: var(--spacing-lg); }
 
@@ -149,9 +150,11 @@
     @media (min-width: 768px) { .grid--2 { grid-template-columns: 1fr 1fr; } }
     .list { margin: 0; padding-left: 1.25rem; }
     .badge { display: inline-block; border: 2px solid var(--color-black); padding: 0.25rem 0.5rem; background: var(--color-gray-light); font-weight: 700; }
+    .schedule-box { background: var(--color-white); border: var(--border-width) solid var(--color-black); box-shadow: 6px 6px 0 var(--color-black); padding: var(--spacing-lg); }
     .schedule { list-style: none; margin: 0; padding: 0; }
-    .schedule li { display: flex; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px dashed var(--color-black); }
-    .schedule time { min-width: 92px; font-weight: 700; }
+    .schedule li { display: flex; gap: 1rem; align-items: center; padding: var(--spacing-md) 0; border-bottom: 1px dashed var(--color-black); }
+    .schedule li:last-child { border-bottom: none; }
+    .schedule time { display: inline-block; min-width: 120px; text-align: center; font-weight: 900; font-family: var(--font-heading); background: var(--color-primary); color: var(--color-black); border: 2px solid var(--color-black); padding: 0.25rem 0.5rem; }
     .form label { display: block; font-weight: 700; margin: 0.75rem 0 0.25rem 0; text-transform: uppercase; }
     .form input[type="text"], .form input[type="email"], .form input[type="tel"], .form textarea, .form select { width: 100%; padding: 0.75rem; border: var(--border-width) solid var(--color-black); background: var(--color-white); }
     .form textarea { min-height: 120px; resize: vertical; }
@@ -195,15 +198,16 @@
         <div class="card card--accent">
           <h2 style="margin-top:0">Plano do Evento</h2>
           <p class="notice" style="margin:0 0 1rem 0">
-            <span class="badge">4 de outubro (sábado)</span>
-            <a class="badge" style="text-decoration:none; color:inherit" href="https://maps.google.com/?q=Av.+do+Brasil+7,+Lisboa" target="_blank" rel="noopener">BE WATER — Campo Grande</a>
+            4 de outubro (sábado) · <a style="text-decoration:underline; color:inherit" href="#mapa">BE WATER — Campo Grande (ver Google Maps)</a> · <strong>Gratuito</strong>
           </p>
+          <div class="schedule-box">
           <ul class="schedule">
             <li><time>15:00–16:30</time><span>Palestra de Nutrição + Q&amp;A com Nutricionista</span></li>
             <li><time>17:00–18:30</time><span>Treino BeWater</span></li>
             <li><time>18:30+</time><span>Convívio no Jardim do Campo Grande</span></li>
           </ul>
-          <p class="notice" style="margin-top:1rem">Vagas limitadas. Garante a tua presença escolhendo as partes a que queres assistir.</p>
+          </div>
+          <p class="notice" style="margin-top:1rem"><strong>Evento gratuito</strong>. Vagas limitadas. Garante a tua presença escolhendo as partes a que queres assistir.</p>
         </div>
 
         <div id="inscricao" class="card card--accent">
@@ -255,7 +259,7 @@
         </ul>
       </div>
     </section>
-    <section class="section">
+    <section id="mapa" class="section">
       <div class="wrap card" style="padding:0">
         <div class="contact__map">
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.8374567890123!2d-9.1567!3d38.7223!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1934a1c3c1c1c1%3A0x1c1c1c1c1c1c1c1c!2sAv.%20do%20Brasil%207%2C%20Lisboa!5e0!3m2!1spt-PT!2spt!4v1647123456789!5m2!1spt-PT!2spt" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" title="Mapa da localização do BE WATER - Av. do Brasil 7, Lisboa"></iframe>
@@ -322,6 +326,27 @@
       });
       // Abre modal se chegarmos com hash #inscrito (via _next)
       if(location.hash === '#inscrito'){ openModal(); }
+    })();
+  </script>
+
+  <!-- Carimbo de Urgência no estilo do index (copiado) -->
+  <div class="urgency-stamp-overlay" id="eventUrgencyOverlay"></div>
+  <div class="urgency-stamp" id="eventUrgencyStamp">
+    <div class="urgency-stamp__content">
+      <div class="urgency-stamp__text">EVENTO GRATUITO!</div>
+      <div class="urgency-stamp__subtext">Inscreve-te já!</div>
+    </div>
+  </div>
+  <script>
+    (function(){
+      const stamp = document.getElementById('eventUrgencyStamp');
+      const overlay = document.getElementById('eventUrgencyOverlay');
+      function showStamp(){ if(!stamp||!overlay) return; overlay.classList.add('show'); setTimeout(()=>stamp.classList.add('show'), 100); setTimeout(hideStamp, 6000); }
+      function hideStamp(){ if(!stamp||!overlay) return; stamp.classList.add('hide'); stamp.classList.remove('show'); overlay.classList.remove('show'); setTimeout(()=>{ stamp.classList.remove('hide'); }, 600); }
+      overlay.addEventListener('click', hideStamp);
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && stamp.classList.contains('show')) hideStamp(); });
+      // Mostrar em todos os reloads
+      setTimeout(showStamp, 1200);
     })();
   </script>
 </body>
