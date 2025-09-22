@@ -12,3 +12,6 @@ src/images/coaches/coaches-optimized/desktop.ini
 **/.env.local
 **/.env.production
 **/config/secrets.js
+**/desktop.ini
+src/images/coaches/desktop.ini
+src/images/coaches/coaches-optimized/desktop.ini

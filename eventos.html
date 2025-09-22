@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Evento de Nutrição | BE WATER</title>
+  <meta name="description" content="Inscrição no Evento de Nutrição no BE WATER: palestra com nutricionista, treino BeWater e convívio no Jardim do Campo Grande. Reserva o teu lugar.">
+  <link rel="icon" type="image/x-icon" href="src/images/favicon/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="src/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="src/images/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="src/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="src/images/favicon/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="src/images/favicon/android-chrome-512x512.png">
+  <link rel="manifest" href="src/images/favicon/site.webmanifest">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@800;900&display=swap" rel="stylesheet"></noscript>
+  <link rel="stylesheet" href="src/css/styles.css">
+  <style>
+    :root {
+      --color-primary: #FFD700;
+      --color-black: #000000;
+      --color-white: #FFFFFF;
+      --color-gray: #666666;
+      --color-gray-light: #f5f5f5;
+      --color-accent: #FFF6BF;
+      --spacing-sm: 0.5rem;
+      --spacing-md: 1rem;
+      --spacing-lg: 1.5rem;
+      --spacing-xl: 2rem;
+      --border-width: 4px;
+      --font-primary: 'Space Mono', system-ui, 'Segoe UI', monospace;
+      --font-heading: 'Work Sans', system-ui, 'Arial Black', sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-primary);
+      background: var(--color-white);
+      color: var(--color-black);
+      line-height: 1.6;
+    }
+
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 var(--spacing-xl); }
+
+    .hero {
+      padding: 6rem 0 3rem 0;
+      border-bottom: 2px solid var(--color-black);
+      background: var(--color-white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url('src/images/general/eventonutricao.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.5;
+      filter: grayscale(10%);
+      pointer-events: none;
+    }
+
+    .hero .wrap { position: relative; z-index: 1; text-align: center; }
+
+    .event-date-banner {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      background: var(--color-primary);
+      color: var(--color-black);
+      border: var(--border-width) solid var(--color-black);
+      box-shadow: 8px 8px 0 var(--color-black);
+      padding: 0.5rem 1rem;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      margin-top: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .event-date-banner .date-small,
+    .event-date-banner .date-big {
+      font-family: var(--font-heading);
+      font-size: clamp(1.25rem, 4vw, 2rem);
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .card.card--accent { background: linear-gradient(180deg, rgba(255, 215, 0, 0.18), rgba(255, 215, 0, 0.12)), var(--color-white); box-shadow: 8px 8px 0 var(--color-primary); }
+    .card.card--accent .badge { background: var(--color-primary); }
+
+    .hero__eyebrow {
+      display: inline-block;
+      font-weight: 700;
+      background: var(--color-black);
+      color: var(--color-white);
+      padding: 0.25rem 0.5rem;
+      border: 2px solid var(--color-black);
+      box-shadow: 4px 4px 0 var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .hero__title {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      line-height: 1;
+      margin: 0.75rem 0 1rem 0;
+      text-transform: uppercase;
+    }
+
+    .hero__subtitle { color: var(--color-black); max-width: 720px; margin-left: auto; margin-right: auto; }
+
+    .hero__cta { margin-top: var(--spacing-lg); }
+
+    .btn {
+      display: inline-block;
+      padding: var(--spacing-md) var(--spacing-xl);
+      background: var(--color-primary);
+      color: var(--color-black);
+      text-decoration: none;
+      font-weight: 700;
+      text-transform: uppercase;
+      border: var(--border-width) solid var(--color-black);
+      transition: all 0.2s ease;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: var(--color-black);
+      color: var(--color-primary);
+      transform: translate(-3px, -3px);
+      box-shadow: 6px 6px 0 var(--color-primary);
+    }
+
+    .btn--hero { font-size: 1.1rem; box-shadow: 10px 10px 0 var(--color-black); }
+    .form-surface .btn.btn--hero { background: var(--color-primary); color: var(--color-black); box-shadow: 10px 10px 0 var(--color-black); }
+
+    .section { padding: 3rem 0; }
+    .card { background: var(--color-white); border: var(--border-width) solid var(--color-black); box-shadow: 8px 8px 0 var(--color-black); padding: var(--spacing-xl); }
+    .grid { display: grid; gap: var(--spacing-xl); }
+    @media (min-width: 768px) { .grid--2 { grid-template-columns: 1fr 1fr; } }
+    .list { margin: 0; padding-left: 1.25rem; }
+    .badge { display: inline-block; border: 2px solid var(--color-black); padding: 0.25rem 0.5rem; background: var(--color-gray-light); font-weight: 700; }
+    .schedule { list-style: none; margin: 0; padding: 0; }
+    .schedule li { display: flex; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px dashed var(--color-black); }
+    .schedule time { min-width: 92px; font-weight: 700; }
+    .form label { display: block; font-weight: 700; margin: 0.75rem 0 0.25rem 0; text-transform: uppercase; }
+    .form input[type="text"], .form input[type="email"], .form input[type="tel"], .form textarea, .form select { width: 100%; padding: 0.75rem; border: var(--border-width) solid var(--color-black); background: var(--color-white); }
+    .form textarea { min-height: 120px; resize: vertical; }
+    .checks { display: grid; gap: 0.5rem; margin: 0.5rem 0 0 0; }
+    .notice { font-size: 0.95rem; color: var(--color-gray); }
+    .footer-note { padding: 2rem 0; border-top: 2px solid var(--color-black); text-align: center; color: var(--color-gray); }
+
+    /* Inscrição: superfície branca para maior contraste */
+    .form-surface { background: var(--color-white); border: var(--border-width) solid var(--color-black); padding: var(--spacing-lg); box-shadow: 6px 6px 0 var(--color-black); }
+
+    /* Modal de sucesso */
+    .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 2000; }
+    .modal.modal--open { display: flex; }
+    .modal__overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); }
+    .modal__card { position: relative; background: var(--color-white); border: var(--border-width) solid var(--color-black); box-shadow: 10px 10px 0 var(--color-primary); padding: var(--spacing-xl); max-width: 520px; width: calc(100% - 2rem); text-align: center; }
+    .modal__title { font-family: var(--font-heading); font-size: 2rem; font-weight: 900; margin: 0 0 0.5rem 0; }
+    .modal__text { margin: 0 0 1rem 0; color: var(--color-black); }
+    .modal__actions { margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="wrap">
+      <span class="hero__eyebrow">Evento Especial</span>
+      <h1 class="hero__title">Nutrição + Treino BeWater</h1>
+      <div class="event-date-banner"><span class="date-small">SABADO, 4 OUT</span></div>
+      <p class="hero__subtitle">
+        O primeiro evento do género no nosso Clube. Participa numa palestra de nutrição com perguntas e respostas, segue-se treino BeWater e fechamos com convívio no Jardim do Campo Grande.
+      </p>
+      <div class="hero__cta">
+        <a class="btn btn--hero" href="#inscricao">Fazer inscrição</a>
+      </div>
+      
+    </div>
+  </header>
+
+  <main>
+    
+    <section class="section">
+      <div class="wrap grid grid--2">
+        <div class="card card--accent">
+          <h2 style="margin-top:0">Plano do Evento</h2>
+          <p class="notice" style="margin:0 0 1rem 0">
+            <span class="badge">4 de outubro (sábado)</span>
+            <a class="badge" style="text-decoration:none; color:inherit" href="https://maps.google.com/?q=Av.+do+Brasil+7,+Lisboa" target="_blank" rel="noopener">BE WATER — Campo Grande</a>
+          </p>
+          <ul class="schedule">
+            <li><time>15:00–16:30</time><span>Palestra de Nutrição + Q&amp;A com Nutricionista</span></li>
+            <li><time>17:00–18:30</time><span>Treino BeWater</span></li>
+            <li><time>18:30+</time><span>Convívio no Jardim do Campo Grande</span></li>
+          </ul>
+          <p class="notice" style="margin-top:1rem">Vagas limitadas. Garante a tua presença escolhendo as partes a que queres assistir.</p>
+        </div>
+
+        <div id="inscricao" class="card card--accent">
+          <h2 style="margin-top:0">Inscrição</h2>
+          <div class="form-surface">
+            <form id="inscricao-form" class="form" action="https://formspree.io/f/mqayzgvw" method="POST">
+              <input type="hidden" name="_subject" value="Inscrição Evento de Nutrição - BE WATER">
+              <input type="hidden" name="_next" value="eventos.html#inscrito">
+              <input type="text" name="_gotcha" style="display:none">
+
+              <label for="nome">Nome</label>
+              <input id="nome" name="nome" type="text" placeholder="O teu nome" autocomplete="name" required>
+
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="O teu email" autocomplete="email" required>
+
+              <label for="tel">Telemóvel</label>
+              <input id="tel" name="telemovel" type="tel" placeholder="Ex.: 912 345 678" autocomplete="tel" inputmode="tel" required>
+
+              <label>Quero participar em</label>
+              <div class="checks">
+                <label><input type="checkbox" name="participacao[]" value="Palestra"> Palestra de Nutrição (15h–16h30)</label>
+                <label><input type="checkbox" name="participacao[]" value="Treino"> Treino BeWater (17h–18h30)</label>
+                <label><input type="checkbox" name="participacao[]" value="Convívio"> Convívio no Jardim do Campo Grande</label>
+              </div>
+
+              <label for="observacoes">Observações (opcional)</label>
+              <textarea id="observacoes" name="observacoes" placeholder="Restrição alimentar, nível de treino, ou outra informação relevante"></textarea>
+
+              <div style="margin: 0.75rem 0">
+                <label><input type="checkbox" name="consentimento" required> Li e aceito o tratamento dos meus dados para efeitos de inscrição e comunicação relacionada com este evento.</label>
+              </div>
+
+              <button class="btn btn--hero" type="submit">Fazer inscrição</button>
+              <p class="notice" id="inscricao-error" style="display:none;color:#b00020">Ocorreu um erro ao enviar. Tenta novamente.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap card">
+        <h3 style="margin-top:0">Informações úteis</h3>
+        <ul class="list">
+          <li><strong>O que levar</strong>: roupa confortável para treino, água, e boa energia.</li>
+          <li><strong>A palestra</strong>: aberta a perguntas. Traz as tuas dúvidas de nutrição.</li>
+          <li><strong>O convívio</strong>: fazemos no Jardim do Campo Grande após o treino.</li>
+        </ul>
+      </div>
+    </section>
+    <section class="section">
+      <div class="wrap card" style="padding:0">
+        <div class="contact__map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.8374567890123!2d-9.1567!3d38.7223!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1934a1c3c1c1c1%3A0x1c1c1c1c1c1c1c1c!2sAv.%20do%20Brasil%207%2C%20Lisboa!5e0!3m2!1spt-PT!2spt!4v1647123456789!5m2!1spt-PT!2spt" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" title="Mapa da localização do BE WATER - Av. do Brasil 7, Lisboa"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="footer-note">
+    BE WATER — Flow Like Water, Strike Like Lightning
+  </div>
+
+  <!-- Modal de sucesso -->
+  <div id="modal-sucesso" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+    <div class="modal__overlay" data-close></div>
+    <div class="modal__card">
+      <h3 id="modal-title" class="modal__title">Inscrição recebida!</h3>
+      <p class="modal__text">Obrigado pela inscrição. Lá te esperamos!</p>
+      <div class="modal__actions">
+        <a href="#" class="btn" data-close data-redirect>OK</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      var form = document.getElementById('inscricao-form');
+      if(form){
+        form.addEventListener('submit', function(e){
+          // Browser validation first
+          if(!form.checkValidity()){
+            return;
+          }
+          e.preventDefault();
+          var errorEl = document.getElementById('inscricao-error');
+          if(errorEl){ errorEl.style.display = 'none'; }
+          var formData = new FormData(form);
+          // Ensure checkbox array is properly included (FormData already includes all checked values)
+          fetch(form.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } })
+            .then(function(res){
+              if(!res.ok){ throw new Error('Bad response'); }
+              openModal();
+            })
+            .catch(function(){
+              if(errorEl){ errorEl.style.display = 'block'; }
+            });
+        });
+      }
+      function openModal(){
+        var m = document.getElementById('modal-sucesso');
+        if(m){ m.classList.add('modal--open'); m.setAttribute('aria-hidden','false'); }
+      }
+      function closeModal(){
+        var m = document.getElementById('modal-sucesso');
+        if(m){ m.classList.remove('modal--open'); m.setAttribute('aria-hidden','true'); }
+        if(location.hash === '#inscrito'){ history.replaceState(null, '', location.pathname); }
+      }
+      document.addEventListener('click', function(e){
+        if(e.target && e.target.hasAttribute('data-close')){ 
+          e.preventDefault(); 
+          closeModal(); 
+          if(e.target.hasAttribute('data-redirect')){ window.location.href = 'index.html'; }
+        }
+      });
+      // Abre modal se chegarmos com hash #inscrito (via _next)
+      if(location.hash === '#inscrito'){ openModal(); }
+    })();
+  </script>
+</body>
+</html>
+
+
