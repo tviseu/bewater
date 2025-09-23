@@ -3094,6 +3094,149 @@ button.btn:active {
   color: var(--color-text-dark);
 }
 
+/* Event promo block (below hero) */
+.event-promo { padding: var(--spacing-xl) var(--spacing-xl) var(--spacing-xxl, 4rem); }
+.event-promo__card {
+  display: grid;
+  gap: var(--spacing-xl);
+  grid-template-columns: 1.1fr 0.9fr;
+  background: var(--color-white);
+  border: var(--border-width) dashed #DC143C; /* temporary/red dashed border */
+  box-shadow: 8px 8px 0 var(--color-primary);
+  padding: var(--spacing-xl);
+  align-items: center;
+  position: relative;
+}
+.event-promo__media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: var(--border-width) solid var(--color-black);
+  box-shadow: 6px 6px 0 var(--color-black);
+}
+.event-promo__title {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  text-transform: uppercase;
+  margin: 0 0 var(--spacing-md);
+}
+.event-promo__eyebrow {
+  position: absolute;
+  top: -48px;
+  left: -16px;
+  background: #DC143C;
+  color: #FFFFFF;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: clamp(1.4rem, 3.2vw, 2.5rem);
+  padding: 8px 16px;
+  border: 4px solid #000000;
+  box-shadow: 8px 8px 0 var(--color-black);
+  letter-spacing: 1.5px;
+  transform: rotate(-2deg);
+  z-index: 5;
+}
+@media (max-width: 768px) {
+  .event-promo__eyebrow { top: -32px; left: -10px; font-size: 1.25rem; padding: 6px 12px; border-width: 3px; box-shadow: 6px 6px 0 var(--color-black); }
+}
+.event-promo__text {
+  margin: 0 0 var(--spacing-lg);
+  color: var(--color-gray);
+}
+/* Decorative edge text around the dashed border */
+.event-promo__edge {
+  position: absolute;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #DC143C;
+  pointer-events: none;
+  z-index: 2;
+}
+.event-promo__edge span { background: var(--color-white); padding: 0 6px; position: relative; z-index: 1; }
+.event-promo__edge--top,
+.event-promo__edge--bottom {
+  left: 8px;
+  right: 8px;
+  text-align: center;
+  font-size: 0.8rem;
+}
+.event-promo__edge--top { top: -18px; }
+.event-promo__edge--bottom { bottom: -18px; }
+.event-promo__edge--left,
+.event-promo__edge--right {
+  top: 8px;
+  bottom: 8px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 0.75rem;
+}
+.event-promo__edge--left { left: -18px; transform: rotate(180deg); }
+.event-promo__edge--right { right: -18px; }
+
+/* Fill remaining edge with dashed lines except where text appears */
+.event-promo__edge::before,
+.event-promo__edge::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+/* Horizontal edges */
+.event-promo__edge--top::before,
+.event-promo__edge--top::after,
+.event-promo__edge--bottom::before,
+.event-promo__edge--bottom::after {
+  height: 0;
+  border-top: 2px dashed #DC143C;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.event-promo__edge--top::before,
+.event-promo__edge--bottom::before { left: 8px; right: 50%; }
+.event-promo__edge--top::after,
+.event-promo__edge--bottom::after { left: 50%; right: 8px; }
+
+/* Vertical edges */
+.event-promo__edge--left::before,
+.event-promo__edge--right::before,
+.event-promo__edge--left::after,
+.event-promo__edge--right::after {
+  width: 0;
+  border-left: 2px dashed #DC143C;
+  left: 50%;
+}
+.event-promo__edge--left::before,
+.event-promo__edge--right::before { top: 8px; bottom: 50%; }
+.event-promo__edge--left::after,
+.event-promo__edge--right::after { top: 50%; bottom: 8px; }
+
+@media (max-width: 768px) {
+  .event-promo__edge { display: none; }
+}
+/* Pink CTA inside event promo */
+.event-promo .btn {
+  background-color: #FF69B4;
+  color: var(--color-white);
+}
+.event-promo .btn:hover {
+  background-color: var(--color-black);
+  color: #FF69B4;
+  box-shadow: 8px 8px 0 #FF69B4;
+}
+@media (max-width: 768px) {
+  .event-promo { padding: var(--spacing-lg) var(--spacing-md) var(--spacing-xl); }
+  .event-promo__card {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg);
+  }
+  .event-promo__title { font-size: 1.1rem; }
+  .event-promo__text { font-size: 0.95rem; }
+  .event-promo .btn { width: 100%; text-align: center; }
+}
+
 .btn--small {
   padding: var(--spacing-xs) var(--spacing-sm);
   font-size: 0.8rem;
