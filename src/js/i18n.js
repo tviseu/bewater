@@ -36,7 +36,7 @@ const translations = {
       
       // Pricing Section
       'pricing.title': 'PREÇOS<br><span class="early-bird-text">EARLY BIRD</span>',
-      'pricing.promo': 'Early Bird em fase final - garante já o teu lugar!',
+      'pricing.promo': 'Early Bird termina a 5 de Outubro - garante já o teu lugar!',
       'pricing.period': '/mês',
       'pricing.test.note': '<strong>TESTA PRIMEIRO, DECIDE DEPOIS!</strong><br><a href="#contact" class="test-note__link">Clicka aqui</a> para usar o formulário de contacto e agendar a tua visita.',
       'pricing.elite.title': 'ELITE',
@@ -65,7 +65,7 @@ const translations = {
       
       // Carimbo de Urgência
       'urgency.stamp.title': 'ÚLTIMAS VAGAS',
-      'urgency.stamp.subtitle': 'EARLY BIRD!',
+      'urgency.stamp.subtitle': 'EARLY BIRD - até 5 Out.',
       'urgency.stamp.cta': 'APROVEITA ENQUANTO PODES!',
       
       // Drop-in pricing
@@ -435,7 +435,7 @@ const translations = {
       
       // Pricing Section
       'pricing.title': 'PRICING<br><span class="early-bird-text">EARLY BIRD</span>',
-      'pricing.promo': 'Early Bird ending soon - secure your spot now!',
+      'pricing.promo': 'Early Bird ends on October 5 - secure your spot now!',
       'pricing.period': '/month',
       'pricing.test.note': '<strong>TEST FIRST, DECIDE LATER!</strong><br><a href="#contact" class="test-note__link">Click here</a> to use the contact form and schedule your visit.',
       'pricing.elite.title': 'ELITE',
@@ -464,7 +464,7 @@ const translations = {
       
       // Urgency Stamp
       'urgency.stamp.title': 'LAST SPOTS',
-      'urgency.stamp.subtitle': 'EARLY BIRD!',
+      'urgency.stamp.subtitle': 'EARLY BIRD - until Oct 5',
       'urgency.stamp.cta': 'GRAB IT WHILE YOU CAN!',
       
       // Drop-in pricing
