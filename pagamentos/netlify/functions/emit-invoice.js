@@ -18,7 +18,11 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
     'POWERADE_001': { nome: 'Powerade', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'COCA_COLA_ZERO_001': { nome: 'Coca Cola Zero', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'BATIDO_PROTEINA_001': { nome: 'Saqueta de Proteína', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
-    'BARRA_PROTEINA_001': { nome: 'Barra Proteína', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    // Novas barras específicas
+    'ENERGY_CRUNCH_BAR_001': { nome: 'Energy Crunch Bar', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'PROTEIN_SNACK_001': { nome: 'Protein Snack', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'BILLION_001': { nome: 'Billion', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'PROTEIN_BROWNIE_001': { nome: 'Protein Brownie', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'COOKIES_PROTEICA_001': { nome: 'Cookies e Waffles Proteicas', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'LIMONADA_001': { nome: 'Limonada', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'CADEADO_001': { nome: 'Cadeado', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
@@ -293,8 +297,14 @@ exports.handler = async (event, context) => {
       produtoId = 'COCA_COLA_ZERO_001';
     } else if (produtoNome.includes('saqueta de proteína') || produtoNome.includes('saqueta') || produtoNome.includes('batido proteína')) {
       produtoId = 'BATIDO_PROTEINA_001';
-    } else if (produtoNome.includes('barra proteína') || produtoNome.includes('barra')) {
-      produtoId = 'BARRA_PROTEINA_001';
+    } else if (produtoNome.includes('energy crunch')) {
+      produtoId = 'ENERGY_CRUNCH_BAR_001';
+    } else if (produtoNome.includes('protein snack')) {
+      produtoId = 'PROTEIN_SNACK_001';
+    } else if (produtoNome.includes('billion')) {
+      produtoId = 'BILLION_001';
+    } else if (produtoNome.includes('protein brownie') || produtoNome.includes('brownie')) {
+      produtoId = 'PROTEIN_BROWNIE_001';
                       } else if (produtoNome.includes('cookies') || produtoNome.includes('waffles')) {
       produtoId = 'COOKIES_PROTEICA_001';
       } else if (produtoNome.includes('limonada')) {
