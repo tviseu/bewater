@@ -5653,6 +5653,10 @@ body.modal-open {
 .legend__item--lone-warrior .legend__color {
   background-color: #FF6B35; /* Orange - Express training */
 }
+/* Muay Thai Legend Color - use site pink */
+.legend__item--muaythai .legend__color {
+  background-color: #FF69B4; /* Site pink */
+}
 
 .legend__item--jiujitsu .legend__color {
   background-color: #4A90E2; /* Blue - Martial arts */
@@ -5902,6 +5906,20 @@ body.modal-open {
 
 .activity--boxe .activity__name,
 .activity--boxe .activity__time {
+  color: var(--color-white);
+}
+/* Muay Thai activity styling - site pink */
+.activity--muaythai {
+  background-color: #FF69B4;
+  border-color: var(--color-black);
+}
+
+.activity--muaythai:hover {
+  background-color: #FF4DA6;
+}
+
+.activity--muaythai .activity__name,
+.activity--muaythai .activity__time {
   color: var(--color-white);
 }
 
