@@ -24,6 +24,13 @@ const translations = {
       'hero.subtitle': 'Desenvolve a tua força, agilidade e flexibilidade num espaço que reflecte a filosofia "be water" popularizada por Bruce Lee. Vem fazer parte desta corrente.',
       'hero.cta': 'INSCREVE-TE JÁ',
       
+      // Event Section
+      'event.eyebrow': 'EVENTO!',
+      'event.date.short': 'SÁB., 4 OUT',
+      'event.title': 'Evento de Nutrição — 4 OUT (Sábado)',
+      'event.text': 'Treino BeWater 15h · Palestra 17h · Convívio no Jardim do Campo Grande',
+      'event.cta': 'SABER MAIS E INSCREVER',
+      
       
       // About Section
       'gym.hero.title': 'O CENTRO<br>DE TREINO',
@@ -424,6 +431,13 @@ const translations = {
       'hero.title': 'BE WATER,<br>MY FRIEND',
       'hero.subtitle': 'Develop your strength, agility and flexibility in a space that reflects the "be water" philosophy popularized by Bruce Lee. Come be part of this flow.',
       'hero.cta': 'JOIN NOW',
+      
+      // Event Section
+      'event.eyebrow': 'EVENT!',
+      'event.date.short': 'SAT, OCT 4',
+      'event.title': 'Nutrition Event — OCT 4 (Saturday)',
+      'event.text': 'BeWater training 3 PM · Talk 5 PM · Social at Jardim do Campo Grande',
+      'event.cta': 'LEARN MORE & REGISTER',
       
       
       // About Section
