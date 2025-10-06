@@ -2188,6 +2188,7 @@ section {
   margin: 0;
   padding: 0;
   overflow: visible;
+  flex-wrap: nowrap;
 }
 
 .header__nav li {
@@ -2292,31 +2293,36 @@ section {
 @media (min-width: 1900px) {
   .header__container {
     overflow: visible !important;
-    gap: 1.5rem !important;
+    gap: 0.8rem !important;
+    padding: var(--spacing-xs) var(--spacing-md) !important;
   }
   
   .header__logo {
-    min-width: clamp(180px, 16vw, 280px);
-    max-width: clamp(250px, 20vw, 320px);
+    min-width: clamp(180px, 14vw, 260px);
+    max-width: clamp(230px, 18vw, 300px);
+    flex-shrink: 0;
   }
   
   .header__nav {
     flex: 1 1 auto !important;
-    max-width: calc(100% - 400px) !important;
+    max-width: none !important;
+    overflow: visible !important;
   }
   
   .header__nav a {
-    font-size: 1.4rem;
-    padding: 6px 10px;
+    font-size: 1.1rem;
+    padding: 5px 8px;
   }
   
   .header__nav ul {
-    gap: 10px;
+    gap: 8px;
+    flex-wrap: nowrap;
+    overflow: visible;
   }
   
   .header__nav a[href="#pricing"] {
-    padding: 6px 12px;
-    font-size: 1.0rem;
+    padding: 5px 10px;
+    font-size: 0.95rem;
   }
   
   /* Ensure language toggle remains visible */
@@ -2324,7 +2330,16 @@ section {
     display: flex !important;
     visibility: visible !important;
     flex-shrink: 0 !important;
-    margin-left: auto !important;
+    margin-left: 1rem !important;
+  }
+  
+  .language-toggle__btn {
+    font-size: 0.85rem !important;
+    padding: 0.4rem 0.8rem !important;
+  }
+  
+  .header__nav {
+    justify-content: center !important;
   }
 }
 
@@ -2332,31 +2347,36 @@ section {
 @media (min-width: 1600px) and (max-width: 1899px) {
   .header__container {
     overflow: visible !important;
-    gap: 1.2rem !important;
+    gap: 0.7rem !important;
+    padding: var(--spacing-xs) var(--spacing-md) !important;
   }
   
   .header__logo {
-    min-width: clamp(160px, 15vw, 280px);
-    max-width: clamp(200px, 18vw, 300px);
+    min-width: clamp(160px, 14vw, 250px);
+    max-width: clamp(200px, 17vw, 280px);
+    flex-shrink: 0;
   }
   
   .header__nav {
     flex: 1 1 auto !important;
-    max-width: calc(100% - 380px) !important;
+    max-width: none !important;
+    overflow: visible !important;
   }
   
   .header__nav a {
-    font-size: 1.3rem;
-    padding: 5px 9px;
+    font-size: 1.05rem;
+    padding: 4px 7px;
   }
   
   .header__nav ul {
-    gap: 9px;
+    gap: 7px;
+    flex-wrap: nowrap;
+    overflow: visible;
   }
   
   .header__nav a[href="#pricing"] {
-    padding: 5px 11px;
-    font-size: 1.1rem;
+    padding: 4px 9px;
+    font-size: 0.9rem;
   }
   
   /* Ensure language toggle remains visible */
@@ -2364,7 +2384,16 @@ section {
     display: flex !important;
     visibility: visible !important;
     flex-shrink: 0 !important;
-    margin-left: auto !important;
+    margin-left: 1rem !important;
+  }
+  
+  .language-toggle__btn {
+    font-size: 0.8rem !important;
+    padding: 0.35rem 0.7rem !important;
+  }
+  
+  .header__nav {
+    justify-content: center !important;
   }
 }
 
@@ -2814,7 +2843,7 @@ body.menu-open .header__menu-toggle {
 .header__nav {
   flex: 1 1 auto;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   height: 100%;
   min-width: 0;
@@ -2831,6 +2860,7 @@ body.menu-open .header__menu-toggle {
   opacity: 1 !important;
   white-space: nowrap !important;
   min-width: fit-content !important;
+  margin-left: auto !important;
 }
 
 .header__nav ul {
@@ -2839,6 +2869,8 @@ body.menu-open .header__menu-toggle {
   gap: var(--spacing-md);
   align-items: center;
   height: 100%;
+  flex-wrap: nowrap;
+  overflow: visible;
 }
 
 /* Ensure nav doesn't overflow and hide logo */
@@ -6419,20 +6451,31 @@ html, body {
 /* Extra Large Desktops (1800px+) */
 @media (min-width: 1800px) {
   .header__logo {
-    min-width: clamp(220px, 20vw, 400px);
-    max-width: clamp(300px, 25vw, 500px);
+    min-width: clamp(180px, 14vw, 260px);
+    max-width: clamp(230px, 18vw, 300px);
+    flex-shrink: 0;
+  }
+  .header__nav {
+    overflow: visible !important;
   }
   .header__nav a {
-    font-size: 1.2rem;
-    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 1.1rem;
+    padding: 5px 8px;
   }
   .header__nav ul {
-    gap: var(--spacing-md);
+    gap: 8px;
+    flex-wrap: nowrap;
   }
   
   /* Ensure language toggle remains visible */
   .language-toggle {
     display: flex !important;
+    flex-shrink: 0 !important;
+  }
+  
+  .language-toggle__btn {
+    font-size: 0.85rem !important;
+    padding: 0.4rem 0.8rem !important;
   }
 }
 
