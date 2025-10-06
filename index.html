@@ -235,15 +235,6 @@
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NCHMTDSC"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
-  <!-- Carimbo de Urgência Animado -->
-  <div class="urgency-stamp-overlay" id="urgencyOverlay"></div>
-  <div class="urgency-stamp" id="urgencyStamp">
-    <div class="urgency-stamp__content">
-      <div class="urgency-stamp__text" data-i18n="urgency.stamp.title">ÚLTIMAS VAGAS</div>
-      <div class="urgency-stamp__subtext" data-i18n="urgency.stamp.subtitle">EARLY BIRD!</div>
-      <div class="urgency-stamp__cta" data-i18n="urgency.stamp.cta">APROVEITA ENQUANTO PODES!</div>
-    </div>
-  </div>
 
   <!-- Header -->
   <header class="header">
@@ -261,6 +252,7 @@
           <li><a href="#gym" data-i18n="nav.gym">GYM</a></li>
           <li><a href="#pricing" data-i18n="nav.pricing">PREÇOS</a></li>
           <li><a href="#schedule" data-i18n="nav.schedule">HORÁRIOS</a></li>
+          <li><a href="#events" data-i18n="nav.events">EVENTS</a></li>
           <li><a href="#salgueiro" data-i18n="nav.salgueiro">SALGUEIRO</a></li>
           <li><a href="#trainers" data-i18n="nav.trainers">TREINADORES</a></li>
           <li><a href="#faq" data-i18n="nav.faq">FAQ</a></li>
@@ -304,29 +296,6 @@
   </section>
 
   <!-- About Section -->
-  <section class="event-promo" aria-label="Primeiro evento do clube">
-    <div class="event-promo__card">
-      <div class="event-promo__eyebrow" aria-hidden="true" data-i18n="event.eyebrow">EVENTO!</div>
-      <div class="event-promo__edge event-promo__edge--top"><span data-i18n="event.date.short">SÁB., 4 OUT</span></div>
-      <div class="event-promo__edge event-promo__edge--right"><span data-i18n="event.date.short">SÁB., 4 OUT</span></div>
-      <div class="event-promo__edge event-promo__edge--bottom"><span data-i18n="event.date.short">SÁB., 4 OUT</span></div>
-      <div class="event-promo__edge event-promo__edge--left"><span data-i18n="event.date.short">SÁB., 4 OUT</span></div>
-      <a class="event-promo__media" href="eventos.html">
-        <img
-          src="src/images/general/eventonutricao.jpg"
-          alt="Panfleto: Evento de Nutrição — Treino BeWater 15h, Palestra 17h"
-          loading="lazy"
-          width="900"
-          height="600"
-        />
-      </a>
-      <div class="event-promo__content">
-        <h3 class="event-promo__title" data-i18n="event.title">Evento de Nutrição — 4 OUT (Sábado)</h3>
-        <p class="event-promo__text" data-i18n="event.text">Treino BeWater 15h · Palestra 17h · Convívio no Jardim do Campo Grande</p>
-        <a href="eventos.html" class="btn btn--primary" data-i18n="event.cta">SABER MAIS E INSCREVER</a>
-      </div>
-    </div>
-  </section>
   <section id="gym" class="about">
     <!-- Gym Hero Section -->
     <div class="gym-hero">
@@ -736,25 +705,20 @@
 
 
 
-  <!-- EARLY BIRDS PROMOTIONAL PRICING SECTION - NOW ACTIVE -->
+  <!-- PRICING SECTION -->
   <section id="pricing" class="pricing">
     <div class="pricing__container">
       <div class="pricing__header">
-        <h2 class="section-title" data-i18n="pricing.title">
-          PREÇOS<br>
-          <span class="early-bird-text">EARLY BIRD</span>
-        </h2>
+        <h2 class="section-title" data-i18n="pricing.title">PREÇOS</h2>
         <div class="section-line"></div>
-        <p class="pricing__promo-text" data-i18n="pricing.promo">Early Bird em fase final - garante já o teu lugar!</p>
+        <p class="pricing__promo-text" data-i18n="pricing.promo">Escolhe o plano ideal para ti e começa a treinar!</p>
       </div>
       <div class="pricing__grid">
-        <div class="price-card price-card--elite price-card--promo">
-          <div class="price-card__badge pulse-animation" data-i18n="pricing.badge">EARLY BIRD</div>
+        <div class="price-card price-card--elite">
           <div class="price-card__header">
             <h3 class="price-card__title">ELITE</h3>
             <div class="price-card__price">
-              <div class="price-card__original">€94.90</div>
-              <span class="price-card__amount price-card__amount--promo">€84.90</span>
+              <span class="price-card__amount">€94.90</span>
               <span class="price-card__period" data-i18n="pricing.period">/mês</span>
             </div>
           </div>
@@ -769,13 +733,11 @@
             <button type="button" class="btn" data-modal="elite" data-i18n="pricing.elite.cta">INSCREVE-TE JÁ</button>
           </div>
         </div>
-        <div class="price-card price-card--featured price-card--promo">
-          <div class="price-card__badge pulse-animation" data-i18n="pricing.badge">EARLY BIRD</div>
+        <div class="price-card price-card--featured">
           <div class="price-card__header">
             <h3 class="price-card__title">RISE</h3>
             <div class="price-card__price">
-              <div class="price-card__original">€79.90</div>
-              <span class="price-card__amount price-card__amount--promo">€69.90</span>
+              <span class="price-card__amount">€79.90</span>
               <span class="price-card__period" data-i18n="pricing.period">/mês</span>
             </div>
           </div>
@@ -790,13 +752,11 @@
             <button type="button" class="btn" data-modal="rise" data-i18n="pricing.rise.cta">INSCREVE-TE JÁ</button>
           </div>
         </div>
-        <div class="price-card price-card--student price-card--promo">
-          <div class="price-card__badge pulse-animation" data-i18n="pricing.badge">EARLY BIRD</div>
+        <div class="price-card price-card--student">
           <div class="price-card__header">
             <h3 class="price-card__title">STARTER</h3>
             <div class="price-card__price">
-              <div class="price-card__original">€64.90</div>
-              <span class="price-card__amount price-card__amount--promo">€54.90</span>
+              <span class="price-card__amount">€64.90</span>
               <span class="price-card__period" data-i18n="pricing.period">/mês</span>
             </div>
           </div>
@@ -894,7 +854,7 @@
   <!-- Pricing Modals -->
 
 
-  <!-- Modal for ELITE Early Bird - NOW ACTIVE -->
+  <!-- Modal for ELITE -->
   <div id="modal-elite" class="modal-overlay">
     <div class="modal-container">
       <div class="modal-header">
@@ -903,10 +863,8 @@
       </div>
       <div class="modal-content">
         <div class="modal-plan-summary">
-          <div class="plan-price plan-price--promo">
-            <span class="plan-price__original">€94.90</span>
-            <span class="plan-price__current">€84.90/mês</span>
-            <span class="plan-price__badge" data-i18n="pricing.badge.urgency">EARLY BIRD - ÚLTIMAS VAGAS</span>
+          <div class="plan-price">
+            <span class="plan-price__current">€94.90/mês</span>
           </div>
           <div class="plan-features">
             <p><strong data-i18n="modal.elite.access">Acesso livre trânsito (ilimitado) a todas as modalidades e open gym</strong></p>
@@ -940,9 +898,9 @@
         </div>
 
         <div class="modal-regy-container">
-          <!-- Regy Integration for ELITE Early Bird - Lazy Loaded -->
+          <!-- Regy Integration for ELITE - Lazy Loaded -->
           <input type="hidden" class="class_regy" id="src_regy5" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=1&acs=38e6d410bd1118bc516ba1a7a0b91264&site=s">
-          <iframe name="frame_regy5" id="frame_regy5" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Elite Early Bird" style="display: block;"></iframe>
+          <iframe name="frame_regy5" id="frame_regy5" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Elite" style="display: block;"></iframe>
         </div>
       </div>
     </div>
@@ -950,7 +908,7 @@
 
 
 
-  <!-- Modal for RISE Early Bird - NOW ACTIVE -->
+  <!-- Modal for RISE -->
   <div id="modal-rise" class="modal-overlay">
     <div class="modal-container">
       <div class="modal-header">
@@ -959,10 +917,8 @@
       </div>
       <div class="modal-content">
         <div class="modal-plan-summary">
-          <div class="plan-price plan-price--promo">
-            <span class="plan-price__original">€79.90</span>
-            <span class="plan-price__current">€69.90/mês</span>
-            <span class="plan-price__badge" data-i18n="pricing.badge.urgency">EARLY BIRD - ÚLTIMAS VAGAS</span>
+          <div class="plan-price">
+            <span class="plan-price__current">€79.90/mês</span>
           </div>
           <div class="plan-features">
             <p><strong data-i18n="modal.rise.access">Acesso 3x por semana a todas as modalidades e open gym</strong></p>
@@ -996,9 +952,9 @@
         </div>
 
         <div class="modal-regy-container">
-          <!-- Regy Integration for RISE Early Bird - Lazy Loaded -->
+          <!-- Regy Integration for RISE - Lazy Loaded -->
           <input type="hidden" class="class_regy" id="src_regy6" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=3&acs=3ddf69e0b105421fc7423c06a6ffccbd&site=s">
-          <iframe name="frame_regy6" id="frame_regy6" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Rise Early Bird" style="display: block;"></iframe>
+          <iframe name="frame_regy6" id="frame_regy6" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Rise" style="display: block;"></iframe>
         </div>
       </div>
     </div>
@@ -1006,7 +962,7 @@
 
 
 
-  <!-- Modal for STARTER Early Bird - NOW ACTIVE -->
+  <!-- Modal for STARTER -->
   <div id="modal-starter" class="modal-overlay">
     <div class="modal-container">
       <div class="modal-header">
@@ -1015,10 +971,8 @@
       </div>
       <div class="modal-content">
         <div class="modal-plan-summary">
-          <div class="plan-price plan-price--promo">
-            <span class="plan-price__original">€64.90</span>
-            <span class="plan-price__current">€54.90/mês</span>
-            <span class="plan-price__badge" data-i18n="pricing.badge.urgency">EARLY BIRD - ÚLTIMAS VAGAS</span>
+          <div class="plan-price">
+            <span class="plan-price__current">€64.90/mês</span>
           </div>
           <div class="plan-features">
             <p><strong data-i18n="modal.starter.access">Acesso 2x por semana a todas as modalidades e open gym</strong></p>
@@ -1052,9 +1006,9 @@
         </div>
 
         <div class="modal-regy-container">
-          <!-- Regy Integration for STARTER Early Bird - Lazy Loaded -->
+          <!-- Regy Integration for STARTER - Lazy Loaded -->
           <input type="hidden" class="class_regy" id="src_regy7" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=2&acs=7efff90d4101aed0cec7330e5d7c8b6a&site=s">
-          <iframe name="frame_regy7" id="frame_regy7" width="100%" height="1000px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Starter Early Bird" style="display: block;"></iframe>
+          <iframe name="frame_regy7" id="frame_regy7" width="100%" height="1000px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Starter" style="display: block;"></iframe>
         </div>
       </div>
     </div>
@@ -1598,6 +1552,102 @@
           <br><br>
           <small data-i18n="schedule.note.events"><strong>Nota:</strong> Teremos ainda frequentemente modalidades surpresa e eventos de treino, cultura e convívio no clube.</small>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Events Section -->
+  <section id="events" class="bw-section bw-eventos" aria-label="Eventos Be Water">
+    <div class="bw-container">
+      <div class="about__header">
+        <h2 class="section-title" data-i18n="events.title">EVENTOS</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <h3 data-i18n="events.upcoming">Próximos</h3>
+      <div class="future-events-box">
+        <h4 data-i18n="events.ideas.title">Ideias em desenvolvimento</h4>
+        <ul class="future-list">
+          <li>
+            <span class="icon">🥊</span>
+            <div class="text">
+              <strong data-i18n="events.muaythai.title">Muay Thai Clinic</strong>
+              <span data-i18n="events.muaythai.desc">Workshop técnico com os nossos coaches.</span>
+            </div>
+          </li>
+          <li>
+            <span class="icon">🥋</span>
+            <div class="text">
+              <strong data-i18n="events.jiujitsu.title">Clínica de Jiu Jitsu</strong>
+              <span data-i18n="events.jiujitsu.desc">Sessão técnica focada em posições e finalizações.</span>
+            </div>
+          </li>
+          <li>
+            <span class="icon">🎬</span>
+            <div class="text">
+              <strong data-i18n="events.filme.title">Visionamento de Filme + Comentário</strong>
+              <span data-i18n="events.filme.desc">Filme de combate seguido de debate com os treinadores.</span>
+            </div>
+          </li>
+          <li>
+            <span class="icon">🎭</span>
+            <div class="text">
+              <strong data-i18n="events.cenicas.title">Workshop de Lutas Cênicas</strong>
+              <span data-i18n="events.cenicas.desc">Coreografia de combate para teatro, cinema e performance.</span>
+            </div>
+          </li>
+          <li>
+            <span class="icon">🎤</span>
+            <div class="text">
+              <strong data-i18n="events.publicspeaking.title">Workshop de Public Speaking</strong>
+              <span data-i18n="events.publicspeaking.desc">Desenvolve confiança e técnicas de comunicação em público.</span>
+            </div>
+          </li>
+          <li>
+            <span class="icon">💃</span>
+            <div class="text">
+              <strong data-i18n="events.danca.title">Workshop de Dança</strong>
+              <span data-i18n="events.danca.desc">Exploração de movimento, ritmo e expressão corporal.</span>
+            </div>
+          </li>
+          <li>
+            <span class="icon">🎭</span>
+            <div class="text">
+              <strong data-i18n="events.teatro.title">Workshop de Teatro</strong>
+              <span data-i18n="events.teatro.desc">Técnicas de interpretação, presença cénica e improvisação.</span>
+            </div>
+          </li>
+          <li>
+            <span class="icon">😂</span>
+            <div class="text">
+              <strong data-i18n="events.standup.title">Sessão de Stand-Up Comedy</strong>
+              <span data-i18n="events.standup.desc">Noite de comédia com atletas e comediantes convidados.</span>
+            </div>
+          </li>
+          <li>
+            <span class="icon">💬</span>
+            <div class="text">
+              <strong data-i18n="events.comunicacao.title">Workshop de Comunicação</strong>
+              <span data-i18n="events.comunicacao.desc">Comunicação eficaz e gestão de conflitos no desporto.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <h3 data-i18n="events.past">Passados</h3>
+      <div class="grid">
+        <article class="card">
+          <img src="src/images/general/eventonutricao.jpg" alt="Nutrição + Treino BeWater">
+          <div class="card-body">
+            <div class="meta">
+              <span class="date">4 Out 2025</span>
+              <span class="badge badge-done" data-i18n="events.badge.completed">Concluído</span>
+            </div>
+            <h4 data-i18n="events.nutricao.title">Nutrição + Treino BeWater</h4>
+            <p data-i18n="events.nutricao.desc">Treino com Bruno Salgueiro e palestra com Dr. Alexandre Azevedo.</p>
+            <a class="btn btn-ghost" href="eventos/nutricao-2025-10-04/index.html" data-i18n="events.btn.details">Ver detalhes</a>
+          </div>
+        </article>
       </div>
     </div>
   </section>

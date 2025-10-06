@@ -175,13 +175,11 @@ git push origin main
 
 | 🥉 **STARTER** | 🥈 **RISE** | 🥇 **ELITE** |
 |:--------------:|:-----------:|:------------:|
-| **€54.90**/mês | **€69.90**/mês | **€84.90**/mês |
+| **€64.90**/mês | **€79.90**/mês | **€94.90**/mês |
 | 2x por semana | 3x por semana | **Ilimitado** |
 | Open Gym + Aulas | Open Gym + Aulas | Open Gym + Aulas |
 | Modalidades incluídas | Modalidades incluídas | Modalidades incluídas |
 | **Sem fidelização** | **Sem fidelização** | **Sem fidelização** |
-
-*Preços Early Bird - Válidos durante 1 ano completo*
 
 </div>
 

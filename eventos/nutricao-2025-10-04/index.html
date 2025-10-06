@@ -2,21 +2,21 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Evento de Nutrição | BE WATER</title>
   <meta name="description" content="Inscrição no Evento de Nutrição no BE WATER: treino BeWater, palestra com nutricionista e convívio no Jardim do Campo Grande. Reserva o teu lugar.">
-  <link rel="icon" type="image/x-icon" href="src/images/favicon/favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="src/images/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="src/images/favicon/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="src/images/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="src/images/favicon/android-chrome-192x192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="src/images/favicon/android-chrome-512x512.png">
-  <link rel="manifest" href="src/images/favicon/site.webmanifest">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@800;900&display=swap" rel="stylesheet"></noscript>
-  <link rel="stylesheet" href="src/css/styles.css">
+  <link rel="icon" type="image/x-icon" href="../../src/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="../../src/css/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
+  <link rel="icon" type="image/png" sizes="32x32" href="../../src/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../src/images/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../src/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../../src/images/favicon/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="../../src/images/favicon/android-chrome-512x512.png">
+  <link rel="manifest" href="../../src/images/favicon/site.webmanifest">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@800;900&display=swap" rel="stylesheet"></noscript>
   <style>
     html { scroll-behavior: smooth; }
     :root {
@@ -60,7 +60,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background-image: url('src/images/general/eventonutricao.jpg');
+      background-image: url('../../src/images/general/eventonutricao.jpg');
       background-size: cover;
       background-position: center;
       opacity: 0.5;
@@ -180,6 +180,35 @@
 
     /* Inscrição: superfície branca para maior contraste */
     .form-surface { background: var(--color-white); border: var(--border-width) solid var(--color-black); padding: var(--spacing-lg); box-shadow: 6px 6px 0 var(--color-black); }
+    
+    /* Evento encerrado - formulário desativado */
+    .event-closed { opacity: 0.6; pointer-events: none; position: relative; }
+    .event-closed::after { 
+      content: "INSCRIÇÕES ENCERRADAS"; 
+      position: absolute; 
+      top: 50%; 
+      left: 50%; 
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.85);
+      color: var(--color-white);
+      padding: 1rem 2rem;
+      border: 3px solid var(--color-white);
+      font-weight: 900;
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      z-index: 10;
+    }
+    .event-closed input, 
+    .event-closed textarea, 
+    .event-closed button,
+    .event-closed select { 
+      background: #f0f0f0 !important; 
+      color: #999 !important;
+      cursor: not-allowed;
+    }
 
     /* Modal de sucesso */
     .modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 2000; }
@@ -189,19 +218,41 @@
     .modal__title { font-family: var(--font-heading); font-size: 2rem; font-weight: 900; margin: 0 0 0.5rem 0; }
     .modal__text { margin: 0 0 1rem 0; color: var(--color-black); }
     .modal__actions { margin-top: 1rem; }
+
+    /* Language Switcher */
+    .lang-switcher { position: fixed; top: 20px; right: 20px; z-index: 1000; display: flex; gap: 0.5rem; background: var(--color-white); border: 3px solid var(--color-black); box-shadow: 6px 6px 0 var(--color-black); padding: 0.5rem; }
+    .lang-switcher button { font-family: var(--font-heading); font-weight: 700; font-size: 0.875rem; padding: 0.5rem 0.75rem; border: 2px solid var(--color-black); background: var(--color-white); color: var(--color-black); cursor: pointer; text-transform: uppercase; transition: all 0.2s ease; }
+    .lang-switcher button:hover { background: var(--color-primary); transform: translateY(-2px); }
+    .lang-switcher button.active { background: var(--color-black); color: var(--color-white); }
+    
+    /* Back Button */
+    .back-button { position: fixed; top: 20px; left: 20px; z-index: 1000; }
+    .back-button a { font-family: var(--font-heading); font-weight: 700; font-size: 0.875rem; padding: 0.5rem 1rem; border: 3px solid var(--color-black); background: var(--color-primary); color: var(--color-black); text-decoration: none; display: inline-block; box-shadow: 6px 6px 0 var(--color-black); transition: all 0.2s ease; text-transform: uppercase; }
+    .back-button a:hover { background: var(--color-black); color: var(--color-primary); transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--color-primary); }
   </style>
 </head>
 <body>
+  <!-- Back Button -->
+  <div class="back-button">
+    <a href="../../index.html" data-i18n="evento.back.short">← Voltar</a>
+  </div>
+
+  <!-- Language Switcher -->
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="pt">PT</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+
   <header class="hero">
     <div class="wrap">
-      <span class="hero__eyebrow">Evento Especial</span>
-      <h1 class="hero__title">Nutrição + Treino BeWater</h1>
-      <div class="event-date-banner"><span class="date-small">SABADO, 4 OUT</span></div>
-      <p class="hero__subtitle">
+      <span class="hero__eyebrow" data-i18n="evento.eyebrow">Evento Especial</span>
+      <h1 class="hero__title" data-i18n="evento.title">Nutrição + Treino BeWater</h1>
+      <div class="event-date-banner"><span class="date-small" data-i18n="evento.date">SABADO, 4 OUT</span></div>
+      <p class="hero__subtitle" data-i18n="evento.subtitle">
         O primeiro evento do género no nosso Clube. Treino BeWater com <strong>Bruno Salgueiro</strong>, seguido de palestra com o nutricionista <strong>Alexandre Azevedo</strong> (Q&A), e convívio no Jardim do Campo Grande.
       </p>
       <div class="hero__cta">
-        <a class="btn btn--hero" href="#inscricao">Fazer inscrição</a>
+        <a class="btn btn--hero event-closed" style="opacity: 0.5; pointer-events: none; cursor: not-allowed;" href="#inscricao" data-i18n="evento.closed">Inscrições Encerradas</a>
       </div>
       
     </div>
@@ -212,26 +263,26 @@
     <section class="section">
       <div class="wrap grid grid--2">
         <div class="card card--accent">
-          <h2 style="margin-top:0">Plano do Evento</h2>
+          <h2 style="margin-top:0" data-i18n="evento.plan.title">Plano do Evento</h2>
           <p class="notice" style="margin:0 0 1rem 0">
-            4 de outubro (sábado) · <a style="text-decoration:underline; color:inherit" href="#mapa">BE WATER — Campo Grande (ver Google Maps)</a> · <strong>Gratuito</strong>
+            <span data-i18n="evento.plan.dateinfo">4 de outubro (sábado)</span> · <a style="text-decoration:underline; color:inherit" href="#mapa">BE WATER — Campo Grande (<span data-i18n="evento.plan.maps">ver Google Maps</span>)</a> · <strong data-i18n="evento.plan.free">Gratuito</strong>
           </p>
           <div class="schedule-box">
           <ul class="schedule">
-            <li><time>15:00–16:30</time><span>Treino BeWater com <strong>Bruno Salgueiro</strong></span></li>
-            <li><time>17:00–18:30</time><span>Palestra de Nutrição + Q&amp;A com <strong>Alexandre Azevedo</strong></span></li>
-            <li><time>18:30+</time><span>Convívio no Jardim do Campo Grande (esplanada "Giro'Giro")</span></li>
+            <li><time>15:00–16:30</time><span data-i18n="evento.plan.schedule1">Treino BeWater com <strong>Bruno Salgueiro</strong></span></li>
+            <li><time>17:00–18:30</time><span data-i18n="evento.plan.schedule2">Palestra de Nutrição + Q&amp;A com <strong>Alexandre Azevedo</strong></span></li>
+            <li><time>18:30+</time><span data-i18n="evento.plan.schedule3">Convívio no Jardim do Campo Grande (esplanada "Giro'Giro")</span></li>
           </ul>
           </div>
-          <p class="notice" style="margin-top:1rem"><strong>Evento gratuito</strong>. Vagas limitadas. Garante a tua presença escolhendo as partes a que queres assistir.</p>
+          <p class="notice" style="margin-top:1rem"><strong data-i18n="evento.plan.freeevent">Evento gratuito</strong>. <span data-i18n="evento.plan.limited">Vagas limitadas. Garante a tua presença escolhendo as partes a que queres assistir.</span></p>
         </div>
 
         <div id="inscricao" class="card card--accent">
-          <h2 style="margin-top:0">Inscrição</h2>
-          <div class="form-surface">
+          <h2 style="margin-top:0" data-i18n="evento.form.title">Inscrição</h2>
+          <div class="form-surface event-closed">
             <form id="inscricao-form" class="form" action="https://formspree.io/f/mqayzgvw" method="POST">
               <input type="hidden" name="_subject" value="Inscrição Evento de Nutrição - BE WATER">
-              <input type="hidden" name="_next" value="eventos.html#inscrito">
+              <input type="hidden" name="_next" value="../eventos.html#inscrito">
               <input type="text" name="_gotcha" style="display:none">
 
               <label for="nome">Nome</label>
@@ -281,7 +332,6 @@
         </ul>
       </div>
     </section>
-
     <section class="section">
       <div class="wrap card">
         <h3 style="margin-top:0">Informações úteis</h3>
@@ -299,88 +349,92 @@
         </div>
       </div>
     </section>
+
+    <section class="section">
+      <div class="wrap" style="text-align: center;">
+        <a href="../../index.html" class="btn btn--hero" style="font-size: 1.25rem; padding: 1.25rem 2.5rem; display: inline-block; text-decoration: none;" data-i18n="evento.back">← Voltar ao Site Principal</a>
+      </div>
+    </section>
   </main>
 
-  <div class="footer-note">
-    BE WATER — Flow Like Water, Strike Like Lightning
-  </div>
-
-  <!-- Modal de sucesso -->
-  <div id="modal-sucesso" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
-    <div class="modal__overlay" data-close></div>
-    <div class="modal__card">
-      <h3 id="modal-title" class="modal__title">Inscrição recebida!</h3>
-      <p class="modal__text">Obrigado pela inscrição. Lá te esperamos!</p>
-      <div class="modal__actions">
-        <a href="#" class="btn" data-close data-redirect>OK</a>
-      </div>
-    </div>
-  </div>
-
   <script>
-    (function(){
-      var form = document.getElementById('inscricao-form');
-      if(form){
-        form.addEventListener('submit', function(e){
-          e.preventDefault();
-          var errorEl = document.getElementById('inscricao-error');
-          if(errorEl){ errorEl.style.display = 'none'; }
-          // Browser validation first
-          if(!form.checkValidity()){
-            if(typeof form.reportValidity === 'function'){ form.reportValidity(); }
-            return;
-          }
-          // Require at least one participation checkbox
-          var checks = form.querySelectorAll('input[name="participacao[]"]');
-          var anyChecked = Array.prototype.some.call(checks, function(c){ return c.checked; });
-          var cbError = document.getElementById('checkbox-error');
-          if(!anyChecked){ if(cbError) cbError.style.display='block'; if(checks[0]) checks[0].focus(); return; } else { if(cbError) cbError.style.display='none'; }
-          var formData = new FormData(form);
-          fetch(form.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } })
-            .then(function(res){ if(!res.ok){ throw new Error('Bad response'); } openModal(); })
-            .catch(function(){ if(errorEl){ errorEl.style.display = 'block'; } });
-        });
+    // Translations for Nutrition Event
+    const translations = {
+      pt: {
+        'evento.eyebrow': 'Evento Especial',
+        'evento.title': 'Nutrição + Treino BeWater',
+        'evento.date': 'SABADO, 4 OUT',
+        'evento.subtitle': 'O primeiro evento do género no nosso Clube. Treino BeWater com <strong>Bruno Salgueiro</strong>, seguido de palestra com o nutricionista <strong>Alexandre Azevedo</strong> (Q&A), e convívio no Jardim do Campo Grande.',
+        'evento.closed': 'Inscrições Encerradas',
+        'evento.plan.title': 'Plano do Evento',
+        'evento.plan.dateinfo': '4 de outubro (sábado)',
+        'evento.plan.maps': 'ver Google Maps',
+        'evento.plan.free': 'Gratuito',
+        'evento.plan.schedule1': 'Treino BeWater com <strong>Bruno Salgueiro</strong>',
+        'evento.plan.schedule2': 'Palestra de Nutrição + Q&amp;A com <strong>Alexandre Azevedo</strong>',
+        'evento.plan.schedule3': 'Convívio no Jardim do Campo Grande (esplanada "Giro\'Giro")',
+        'evento.plan.freeevent': 'Evento gratuito',
+        'evento.plan.limited': 'Vagas limitadas. Garante a tua presença escolhendo as partes a que queres assistir.',
+        'evento.form.title': 'Inscrição',
+        'evento.back': '← Voltar ao Site Principal',
+        'evento.back.short': '← Voltar'
+      },
+      en: {
+        'evento.eyebrow': 'Special Event',
+        'evento.title': 'Nutrition + BeWater Training',
+        'evento.date': 'SATURDAY, OCT 4',
+        'evento.subtitle': 'The first event of its kind at our Club. BeWater training with <strong>Bruno Salgueiro</strong>, followed by a talk with nutritionist <strong>Alexandre Azevedo</strong> (Q&A), and socializing in Campo Grande Garden.',
+        'evento.closed': 'Registration Closed',
+        'evento.plan.title': 'Event Schedule',
+        'evento.plan.dateinfo': 'October 4 (Saturday)',
+        'evento.plan.maps': 'view Google Maps',
+        'evento.plan.free': 'Free',
+        'evento.plan.schedule1': 'BeWater Training with <strong>Bruno Salgueiro</strong>',
+        'evento.plan.schedule2': 'Nutrition Talk + Q&amp;A with <strong>Alexandre Azevedo</strong>',
+        'evento.plan.schedule3': 'Socializing at Campo Grande Garden ("Giro\'Giro" terrace)',
+        'evento.plan.freeevent': 'Free event',
+        'evento.plan.limited': 'Limited spots. Secure your presence by choosing which parts you want to attend.',
+        'evento.form.title': 'Registration',
+        'evento.back': '← Back to Main Website',
+        'evento.back.short': '← Back'
       }
-      function openModal(){
-        var m = document.getElementById('modal-sucesso');
-        if(m){ m.classList.add('modal--open'); m.setAttribute('aria-hidden','false'); }
-      }
-      function closeModal(){
-        var m = document.getElementById('modal-sucesso');
-        if(m){ m.classList.remove('modal--open'); m.setAttribute('aria-hidden','true'); }
-        if(location.hash === '#inscrito'){ history.replaceState(null, '', location.pathname); }
-      }
-      document.addEventListener('click', function(e){
-        if(e.target && e.target.hasAttribute('data-close')){ 
-          e.preventDefault(); 
-          closeModal(); 
-          if(e.target.hasAttribute('data-redirect')){ window.location.href = 'index.html'; }
+    };
+
+    let currentLang = 'pt';
+
+    function switchLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      
+      // Update all elements with data-i18n
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          element.innerHTML = translations[lang][key];
         }
       });
-      // Abre modal se chegarmos com hash #inscrito (via _next)
-      if(location.hash === '#inscrito'){ openModal(); }
-    })();
-  </script>
 
-  <!-- Carimbo de Urgência no estilo do index (copiado) -->
-  <div class="urgency-stamp-overlay" id="eventUrgencyOverlay"></div>
-  <div class="urgency-stamp" id="eventUrgencyStamp">
-    <div class="urgency-stamp__content">
-      <div class="urgency-stamp__text">EVENTO GRATUITO!</div>
-      <div class="urgency-stamp__subtext">Inscreve-te já!</div>
-    </div>
-  </div>
-  <script>
-    (function(){
-      const stamp = document.getElementById('eventUrgencyStamp');
-      const overlay = document.getElementById('eventUrgencyOverlay');
-      function showStamp(){ if(!stamp||!overlay) return; overlay.classList.add('show'); setTimeout(()=>stamp.classList.add('show'), 100); setTimeout(hideStamp, 6000); }
-      function hideStamp(){ if(!stamp||!overlay) return; stamp.classList.add('hide'); stamp.classList.remove('show'); overlay.classList.remove('show'); setTimeout(()=>{ stamp.classList.remove('hide'); }, 600); }
-      overlay.addEventListener('click', hideStamp);
-      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && stamp.classList.contains('show')) hideStamp(); });
-      // Mostrar em todos os reloads
-      setTimeout(showStamp, 1200);
-    })();
+      // Update active button
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+
+      // Save preference
+      localStorage.setItem('evento-lang', lang);
+    }
+
+    // Event listeners for language buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        switchLanguage(this.getAttribute('data-lang'));
+      });
+    });
+
+    // Load saved language preference or default to PT
+    const savedLang = localStorage.getItem('evento-lang') || 'pt';
+    if (savedLang !== 'pt') {
+      switchLanguage(savedLang);
+    }
   </script>
 </body>
 </html>

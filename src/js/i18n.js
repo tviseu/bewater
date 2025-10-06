@@ -14,6 +14,7 @@ const translations = {
       'nav.gym': 'GYM',
       'nav.pricing': 'PREÇOS',
       'nav.schedule': 'HORÁRIOS',
+      'nav.events': 'EVENTOS',
       'nav.salgueiro': 'SALGUEIRO',
       'nav.trainers': 'TREINADORES',
       'nav.faq': 'FAQ',
@@ -42,8 +43,8 @@ const translations = {
       'gym.collage.mobile.instruction': '👈 Arrasta para o lado para ver mais fotos 👉',
       
       // Pricing Section
-      'pricing.title': 'PREÇOS<br><span class="early-bird-text">EARLY BIRD</span>',
-      'pricing.promo': 'Early Bird termina a 5 de Outubro - garante já o teu lugar!',
+      'pricing.title': 'PREÇOS',
+      'pricing.promo': 'Escolhe o plano ideal para ti e começa a treinar!',
       'pricing.period': '/mês',
       'pricing.test.note': '<strong>TESTA PRIMEIRO, DECIDE DEPOIS!</strong><br><a href="#contact" class="test-note__link">Clicka aqui</a> para usar o formulário de contacto e agendar a tua visita.',
       'pricing.elite.title': 'ELITE',
@@ -67,13 +68,6 @@ const translations = {
           'pricing.starter.feature1': 'Acesso 2x por semana a todas as modalidades e open gym',
     'pricing.starter.feature2': 'Sem fidelização',
     'pricing.starter.feature3': 'A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar',
-      'pricing.badge': 'EARLY BIRD',
-      'pricing.badge.urgency': 'EARLY BIRD - ÚLTIMAS VAGAS',
-      
-      // Carimbo de Urgência
-      'urgency.stamp.title': 'ÚLTIMAS VAGAS',
-      'urgency.stamp.subtitle': 'EARLY BIRD - até 5 Out.',
-      'urgency.stamp.cta': 'APROVEITA ENQUANTO PODES!',
       
       // Drop-in pricing
       'pricing.dropin.period': '/aula',
@@ -98,6 +92,39 @@ const translations = {
       'pricing.pack5.feature2': 'Sem mensalidade',
       'pricing.pack5.feature3': 'Acesso a todas as modalidades e open gym',
       'pricing.pack5.cta': 'COMPRAR PACK',
+      
+      // Events Section
+      'events.title': 'EVENTOS',
+      'events.upcoming': 'Próximos',
+      'events.past': 'Passados',
+      'events.ideas.title': 'Ideias em desenvolvimento',
+      'events.badge.open': 'Inscrições Abertas',
+      'events.badge.soon': 'Em Breve',
+      'events.badge.completed': 'Concluído',
+      'events.stamp.upcoming': 'PRÓXIMAMENTE',
+      'events.date.tba': 'A anunciar',
+      'events.btn.register': 'Inscrever',
+      'events.btn.details': 'Ver detalhes',
+      'events.muaythai.title': 'Muay Thai Clinic',
+      'events.muaythai.desc': 'Workshop técnico com os nossos coaches.',
+      'events.jiujitsu.title': 'Clínica de Jiu Jitsu',
+      'events.jiujitsu.desc': 'Sessão técnica focada em posições e finalizações.',
+      'events.filme.title': 'Visionamento de Filme + Comentário',
+      'events.filme.desc': 'Filme de combate seguido de debate com os treinadores.',
+      'events.cenicas.title': 'Workshop de Lutas Cênicas',
+      'events.cenicas.desc': 'Coreografia de combate para teatro, cinema e performance.',
+      'events.publicspeaking.title': 'Workshop de Public Speaking',
+      'events.publicspeaking.desc': 'Desenvolve confiança e técnicas de comunicação em público.',
+      'events.danca.title': 'Workshop de Dança',
+      'events.danca.desc': 'Exploração de movimento, ritmo e expressão corporal.',
+      'events.teatro.title': 'Workshop de Teatro',
+      'events.teatro.desc': 'Técnicas de interpretação, presença cénica e improvisação.',
+      'events.standup.title': 'Sessão de Stand-Up Comedy',
+      'events.standup.desc': 'Noite de comédia com atletas e comediantes convidados.',
+      'events.comunicacao.title': 'Workshop de Comunicação',
+      'events.comunicacao.desc': 'Comunicação eficaz e gestão de conflitos no desporto.',
+      'events.nutricao.title': 'Nutrição + Treino BeWater',
+      'events.nutricao.desc': 'Treino com Bruno Salgueiro e palestra com Dr. Alexandre Azevedo.',
       
       // Schedule Section
       'schedule.title': 'HORÁRIOS E MODALIDADES',
@@ -422,6 +449,7 @@ const translations = {
       'nav.gym': 'GYM',
       'nav.pricing': 'PRICING',
       'nav.schedule': 'SCHEDULE',
+      'nav.events': 'EVENTS',
       'nav.salgueiro': 'SALGUEIRO',
       'nav.trainers': 'TRAINERS',
       'nav.faq': 'FAQ',
@@ -450,8 +478,8 @@ const translations = {
       'gym.collage.mobile.instruction': '👈 Swipe to see more photos 👉',
       
       // Pricing Section
-      'pricing.title': 'PRICING<br><span class="early-bird-text">EARLY BIRD</span>',
-      'pricing.promo': 'Early Bird ends on October 5 - secure your spot now!',
+      'pricing.title': 'PRICING',
+      'pricing.promo': 'Choose the ideal plan for you and start training!',
       'pricing.period': '/month',
       'pricing.test.note': '<strong>TEST FIRST, DECIDE LATER!</strong><br><a href="#contact" class="test-note__link">Click here</a> to use the contact form and schedule your visit.',
       'pricing.elite.title': 'ELITE',
@@ -475,13 +503,6 @@ const translations = {
       'pricing.starter.feature1': '2x per week access to all modalities and open gym',
       'pricing.starter.feature2': 'No commitment',
       'pricing.starter.feature3': 'The first month\'s fee is charged only from the date you start training',
-      'pricing.badge': 'EARLY BIRD',
-      'pricing.badge.urgency': 'EARLY BIRD - LAST SPOTS',
-      
-      // Urgency Stamp
-      'urgency.stamp.title': 'LAST SPOTS',
-      'urgency.stamp.subtitle': 'EARLY BIRD - until Oct 5',
-      'urgency.stamp.cta': 'GRAB IT WHILE YOU CAN!',
       
       // Drop-in pricing
       'pricing.dropin.period': '/class',
@@ -506,6 +527,39 @@ const translations = {
       'pricing.pack5.feature2': 'No monthly fee',
       'pricing.pack5.feature3': 'Access to all modalities and open gym',
       'pricing.pack5.cta': 'BUY PACK',
+      
+      // Events Section
+      'events.title': 'EVENTS',
+      'events.upcoming': 'Upcoming',
+      'events.past': 'Past',
+      'events.ideas.title': 'Ideas in development',
+      'events.badge.open': 'Open Registration',
+      'events.badge.soon': 'Coming Soon',
+      'events.badge.completed': 'Completed',
+      'events.stamp.upcoming': 'COMING SOON',
+      'events.date.tba': 'To be announced',
+      'events.btn.register': 'Register',
+      'events.btn.details': 'View details',
+      'events.muaythai.title': 'Muay Thai Clinic',
+      'events.muaythai.desc': 'Technical workshop with our coaches.',
+      'events.jiujitsu.title': 'Jiu Jitsu Clinic',
+      'events.jiujitsu.desc': 'Technical session focused on positions and submissions.',
+      'events.filme.title': 'Fight Film Screening + Commentary',
+      'events.filme.desc': 'Combat film followed by discussion with coaches.',
+      'events.cenicas.title': 'Stage Combat Workshop',
+      'events.cenicas.desc': 'Fight choreography for theater, film and performance.',
+      'events.publicspeaking.title': 'Public Speaking Workshop',
+      'events.publicspeaking.desc': 'Build confidence and master public communication techniques.',
+      'events.danca.title': 'Dance Workshop',
+      'events.danca.desc': 'Exploration of movement, rhythm and body expression.',
+      'events.teatro.title': 'Theater Workshop',
+      'events.teatro.desc': 'Acting techniques, stage presence and improvisation.',
+      'events.standup.title': 'Stand-Up Comedy Session',
+      'events.standup.desc': 'Comedy night with athletes and guest comedians.',
+      'events.comunicacao.title': 'Communication Workshop',
+      'events.comunicacao.desc': 'Effective communication and conflict management in sports.',
+      'events.nutricao.title': 'Nutrition + BeWater Training',
+      'events.nutricao.desc': 'Training with Bruno Salgueiro and talk with Dr. Alexandre Azevedo.',
       
       // Schedule Section
       'schedule.title': 'SCHEDULE & ACTIVITIES',
@@ -872,28 +926,35 @@ const translations = {
         </button>
       `;
   
-      // Adicionar estilos inline para não alterar CSS existente
+      // Adicionar estilos inline para não alterar CSS existente - SEMPRE VISÍVEL
       langToggle.style.cssText = `
-        display: flex;
-        align-items: center;
-        margin-left: 1rem;
+        display: flex !important;
+        align-items: center !important;
+        margin-left: 1rem !important;
+        visibility: visible !important;
+        opacity: 1 !important;
       `;
+      
+      // Debug log
+      console.log('Language toggle created successfully');
   
       const toggleBtn = langToggle.querySelector('.language-toggle__btn');
       toggleBtn.style.cssText = `
-        background: none;
-        border: 2px solid var(--color-black);
-        color: var(--color-black);
-        font-family: var(--font-heading);
-        font-weight: 700;
-        font-size: 0.9rem;
-        padding: 0.5rem 1rem;
-        cursor: pointer;
-        text-transform: uppercase;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 0.25rem;
+        background: none !important;
+        border: 2px solid var(--color-black) !important;
+        color: var(--color-black) !important;
+        font-family: var(--font-heading) !important;
+        font-weight: 700 !important;
+        font-size: 0.9rem !important;
+        padding: 0.5rem 1rem !important;
+        cursor: pointer !important;
+        text-transform: uppercase !important;
+        transition: all 0.3s ease !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.25rem !important;
+        visibility: visible !important;
+        opacity: 1 !important;
       `;
   
       // Efeito hover
@@ -911,10 +972,15 @@ const translations = {
         toggleBtn.style.boxShadow = 'none';
       });
   
-      // Inserir antes do menu toggle (mobile)
+      // Inserir no local correto dependendo do tamanho da tela
       const menuToggle = headerContainer.querySelector('.header__menu-toggle');
+      const headerNav = headerContainer.querySelector('.header__nav');
+      
+      // Inserir depois da navegação (antes do menu toggle se existir)
       if (menuToggle) {
         headerContainer.insertBefore(langToggle, menuToggle);
+      } else if (headerNav) {
+        headerNav.insertAdjacentElement('afterend', langToggle);
       } else {
         headerContainer.appendChild(langToggle);
       }
@@ -922,6 +988,41 @@ const translations = {
       // Adicionar estilos responsivos
       const style = document.createElement('style');
       style.textContent = `
+        /* GARANTIR VISIBILIDADE EM TODOS OS TAMANHOS */
+        .language-toggle {
+          display: flex !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+        }
+        
+        /* Desktop styles - show alongside navigation */
+        @media (min-width: 1200px) {
+          .language-toggle {
+            display: flex !important;
+            align-items: center !important;
+            margin-left: 1rem !important;
+            visibility: visible !important;
+          }
+          .language-toggle__btn {
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.25rem !important;
+            visibility: visible !important;
+          }
+        }
+        
+        /* Tablet/Hamburger menu breakpoint */
+        @media (min-width: 769px) and (max-width: 1199px) {
+          .language-toggle {
+            order: 3 !important;
+            display: flex !important;
+            margin-left: 0.5rem !important;
+            margin-right: 0.5rem !important;
+            visibility: visible !important;
+          }
+        }
+        
+        /* Mobile styles */
         @media (max-width: 768px) {
           .header__container {
             display: flex !important;

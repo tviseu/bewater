@@ -1,3 +1,4 @@
+# Removed redirect so /eventos.html serves the original page
 # Redirect para domínio personalizado de pagamentos
 # Quando acessar pagamentos.bewaterlisboa.pt → vai para /pagamentos/
 # Mantém todos os paths e parâmetros

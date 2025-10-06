@@ -1,3 +1,37 @@
+/* Events Section - Brutal Style */
+.bw-section{padding:3rem 0}
+.bw-container{max-width:1100px;margin:0 auto;padding:0 2rem}
+.bw-eventos h3{font-family:var(--font-heading);font-size:1.5rem;font-weight:900;text-transform:uppercase;margin:2rem 0 1.5rem;letter-spacing:1px}
+.bw-eventos .grid{display:grid;gap:2rem;grid-template-columns:1fr}
+@media(min-width:720px){.bw-eventos .grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.bw-eventos .grid{grid-template-columns:repeat(3,1fr)}}
+.bw-eventos .card{border:4px solid #000;background:#fff;overflow:hidden;box-shadow:8px 8px 0 #000;transition:transform 0.2s ease,box-shadow 0.2s ease;position:relative}
+.bw-eventos .card:hover{transform:translate(-4px,-4px);box-shadow:12px 12px 0 #000}
+.bw-eventos .card img{width:100%;height:200px;object-fit:cover;display:block;border-bottom:4px solid #000}
+.bw-eventos .card-body{padding:1.5rem}
+.bw-eventos .card-body h4{font-family:var(--font-heading);font-size:1.25rem;font-weight:900;text-transform:uppercase;margin:0.5rem 0 0.75rem;letter-spacing:0.5px}
+.bw-eventos .card-body p{margin:0 0 1rem;color:#666;line-height:1.5}
+.bw-eventos .meta{display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;margin-bottom:0.5rem}
+.bw-eventos .date{font-family:var(--font-heading);font-weight:700;font-size:0.875rem;text-transform:uppercase;letter-spacing:0.5px}
+.bw-eventos .badge{display:inline-block;font-size:0.75rem;font-weight:700;padding:0.25rem 0.75rem;border:2px solid #000;text-transform:uppercase;letter-spacing:0.5px;background:#fff}
+.bw-eventos .badge-live{background:#FFD700;color:#000;border-color:#000}
+.bw-eventos .badge-done{background:#f5f5f5;color:#666;border-color:#666}
+.bw-eventos .btn{display:inline-block;padding:0.75rem 1.5rem;border:3px solid #000;background:#FFD700;color:#000;font-family:var(--font-heading);font-weight:700;font-size:0.875rem;text-decoration:none;text-transform:uppercase;letter-spacing:0.5px;transition:all 0.2s ease;cursor:pointer}
+.bw-eventos .btn:hover{background:#000;color:#FFD700;transform:translate(-2px,-2px);box-shadow:4px 4px 0 #FFD700}
+.bw-eventos .btn-ghost{background:#fff;border-color:#666;color:#000}
+.bw-eventos .btn-ghost:hover{background:#000;color:#fff;border-color:#000;box-shadow:4px 4px 0 #666}
+.bw-eventos .event-stamp{position:absolute;top:16px;right:16px;background:#dc2626;color:#fff;font-family:var(--font-heading);font-weight:900;font-size:0.7rem;padding:6px 14px;border:3px solid #dc2626;border-radius:4px;text-transform:uppercase;letter-spacing:1.2px;transform:rotate(3deg);box-shadow:0 3px 10px rgba(220,38,38,.5);z-index:10}
+.bw-eventos .future-events-box{border:4px solid #000;background:#fff;padding:2rem;box-shadow:8px 8px 0 #000}
+.bw-eventos .future-events-box h4{font-family:var(--font-heading);font-size:1.25rem;font-weight:900;text-transform:uppercase;margin:0 0 1.5rem;letter-spacing:0.5px;border-bottom:3px solid #000;padding-bottom:0.75rem}
+.bw-eventos .future-list{list-style:none;margin:0;padding:0;display:grid;gap:1rem;grid-template-columns:1fr}
+@media(min-width:640px){.bw-eventos .future-list{grid-template-columns:repeat(2,1fr)}}
+.bw-eventos .future-list li{display:flex;align-items:flex-start;gap:0.75rem;padding:0.75rem;border:2px solid #000;background:#fff;transition:all 0.2s ease}
+.bw-eventos .future-list li:hover{background:#FFD700;transform:translateX(4px)}
+.bw-eventos .future-list .icon{font-size:1.5rem;flex-shrink:0;line-height:1}
+.bw-eventos .future-list .text{flex:1}
+.bw-eventos .future-list .text strong{font-family:var(--font-heading);font-size:0.9rem;font-weight:900;text-transform:uppercase;display:block;margin-bottom:0.25rem;letter-spacing:0.3px}
+.bw-eventos .future-list .text span{font-size:0.85rem;color:#666;line-height:1.3}
+@media(max-width:768px){.bw-container{padding:0 1rem}.bw-eventos h3{font-size:1.25rem;margin:1.5rem 0 1rem}.bw-eventos .card{box-shadow:6px 6px 0 #000}.bw-eventos .card:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 #000}.bw-eventos .card-body{padding:1rem}.bw-eventos .btn{padding:0.625rem 1.25rem;font-size:0.8125rem}.bw-eventos .event-stamp{font-size:0.65rem;padding:5px 10px;top:12px;right:12px}}
 /* CSS Reset and Base Styles */
 *,
 *::before,
@@ -1246,171 +1280,14 @@ section {
   box-shadow: 11px 11px 0 #0088CC;
 }
 
-/* Early Bird Promotional Pricing Styles */
+/* Promotional Text */
 .pricing__promo-text {
   text-align: center;
-  color: #DC143C;
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   margin-bottom: var(--spacing-md);
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  color: var(--color-black);
 }
-
-.price-card--promo {
-  position: relative;
-  overflow: visible;
-}
-
-.price-card__badge {
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #DC143C;
-  color: #FFFFFF;
-  padding: 8px 16px;
-  font-size: 0.8rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border: 2px solid #000000;
-  box-shadow: 4px 4px 0 #000000;
-  z-index: 10;
-}
-
-.price-card__original {
-  font-size: 1.8rem;
-  text-decoration: line-through;
-  text-decoration-color: #DC143C; /* Red strikethrough line */
-  opacity: 0.7;
-  margin-bottom: 8px;
-  display: block;
-  font-family: var(--font-heading);
-  font-weight: 700;
-}
-
-/* Specific colors for original prices based on card type */
-.price-card--elite .price-card__original {
-  color: #FFFFFF; /* White for elite (black header) */
-}
-
-.price-card--featured .price-card__original {
-  color: #000000; /* Black for featured/rise (yellow header) */
-}
-
-.price-card--student .price-card__original {
-  color: #000000; /* Black for student/starter (white header) */
-}
-
-.price-card__amount--promo {
-  color: #DC143C !important;
-  text-shadow: 2px 2px 0 rgba(0,0,0,0.1);
-}
-
-/* Modal promotional pricing styles */
-.plan-price--promo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  position: relative;
-}
-
-.plan-price__original {
-  font-size: 1.4rem;
-  color: #000000; /* Black for modal original prices */
-  text-decoration: line-through;
-  text-decoration-color: #DC143C; /* Red strikethrough line */
-  opacity: 0.7;
-  font-weight: 700;
-}
-
-.plan-price__current {
-  font-size: 2.2rem;
-  color: #DC143C;
-  font-weight: 900;
-  font-family: var(--font-heading);
-}
-
-.plan-price__badge {
-  background-color: #DC143C;
-  color: #FFFFFF;
-  padding: 4px 12px;
-  font-size: 0.7rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border: 2px solid #000000;
-  box-shadow: 2px 2px 0 #000000;
-  margin-top: 8px;
-}
-
-/* Responsive adjustments for promotional pricing */
-@media (max-width: 768px) {
-  .price-card__badge {
-    font-size: 0.7rem;
-    padding: 6px 12px;
-  }
-  
-  .price-card__original {
-    font-size: 1.6rem;
-  }
-  
-  .price-card__amount--promo {
-    font-size: 2.5rem;
-  }
-  
-  .plan-price__current {
-    font-size: 2rem;
-  }
-  
-  .early-bird-text {
-    font-size: 2.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .pricing {
-    padding: var(--spacing-md) 0;
-  }
-  
-  .pricing .section-title {
-    text-align: left;
-  }
-  
-  .price-card__features {
-    padding: var(--spacing-md) var(--spacing-md) var(--spacing-xs);
-  }
-  
-  .price-card__cta {
-    padding: 0 var(--spacing-md) var(--spacing-md);
-  }
-  
-  .price-card__badge {
-    font-size: 0.6rem;
-    padding: 4px 8px;
-    top: -12px;
-  }
-  
-  .price-card__original {
-    font-size: 1.4rem;
-  }
-  
-  .price-card__amount--promo {
-    font-size: 2.2rem;
-  }
-  
-  .plan-price__current {
-    font-size: 1.8rem;
-  }
-  
-  .early-bird-text {
-    font-size: 2rem;
-  }
-}
-
-
 
 /* Test Gym Note */
 .pricing__test-note {
@@ -2414,7 +2291,8 @@ section {
 /* === LARGE DESKTOP (1900px+) === */
 @media (min-width: 1900px) {
   .header__container {
-    overflow: hidden;
+    overflow: visible !important;
+    gap: 1.5rem !important;
   }
   
   .header__logo {
@@ -2422,34 +2300,13 @@ section {
     max-width: clamp(250px, 20vw, 320px);
   }
   
-  .header__nav a {
-    font-size: 1.6rem;
-    padding: 8px 12px;
-  }
-  
-  .header__nav ul {
-    gap: 12px;
-  }
-  
-  .header__nav a[href="#pricing"] {
-    padding: 8px 14px;
-    font-size: 1.05rem;
-  }
-}
-
-/* === DESKTOP XL (1600px-1899px) === */
-@media (min-width: 1600px) and (max-width: 1899px) {
-  .header__container {
-    overflow: hidden;
-  }
-  
-  .header__logo {
-    min-width: clamp(160px, 15vw, 280px);
-    max-width: clamp(200px, 18vw, 300px);
+  .header__nav {
+    flex: 1 1 auto !important;
+    max-width: calc(100% - 400px) !important;
   }
   
   .header__nav a {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     padding: 6px 10px;
   }
   
@@ -2459,7 +2316,55 @@ section {
   
   .header__nav a[href="#pricing"] {
     padding: 6px 12px;
-    font-size: 1.25rem;
+    font-size: 1.0rem;
+  }
+  
+  /* Ensure language toggle remains visible */
+  .language-toggle {
+    display: flex !important;
+    visibility: visible !important;
+    flex-shrink: 0 !important;
+    margin-left: auto !important;
+  }
+}
+
+/* === DESKTOP XL (1600px-1899px) === */
+@media (min-width: 1600px) and (max-width: 1899px) {
+  .header__container {
+    overflow: visible !important;
+    gap: 1.2rem !important;
+  }
+  
+  .header__logo {
+    min-width: clamp(160px, 15vw, 280px);
+    max-width: clamp(200px, 18vw, 300px);
+  }
+  
+  .header__nav {
+    flex: 1 1 auto !important;
+    max-width: calc(100% - 380px) !important;
+  }
+  
+  .header__nav a {
+    font-size: 1.3rem;
+    padding: 5px 9px;
+  }
+  
+  .header__nav ul {
+    gap: 9px;
+  }
+  
+  .header__nav a[href="#pricing"] {
+    padding: 5px 11px;
+    font-size: 1.1rem;
+  }
+  
+  /* Ensure language toggle remains visible */
+  .language-toggle {
+    display: flex !important;
+    visibility: visible !important;
+    flex-shrink: 0 !important;
+    margin-left: auto !important;
   }
 }
 
@@ -2487,6 +2392,12 @@ section {
     padding: 5px 10px;
     font-size: 1.15rem;
   }
+  
+  /* Ensure language toggle remains visible */
+  .language-toggle {
+    display: flex !important;
+    visibility: visible !important;
+  }
 }
 
 /* === DESKTOP MEDIUM (1200px-1399px) === */
@@ -2512,6 +2423,12 @@ section {
   .header__nav a[href="#pricing"] {
     padding: 4px 8px;
     font-size: 1.05rem;
+  }
+  
+  /* Ensure language toggle remains visible */
+  .language-toggle {
+    display: flex !important;
+    visibility: visible !important;
   }
 }
 
@@ -2567,6 +2484,7 @@ section {
     order: 3 !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
+    display: flex !important;
   }
   
   .header__nav {
@@ -2880,6 +2798,9 @@ body.menu-open .header__menu-toggle {
   padding: var(--spacing-xs) 0;
   min-height: clamp(120px, 20vw, 160px);
   transition: all 0.3s ease;
+  gap: 1rem;
+  flex-wrap: nowrap;
+  overflow: visible;
 }
 
 .header__logo {
@@ -2891,11 +2812,25 @@ body.menu-open .header__menu-toggle {
 }
 
 .header__nav {
-  flex: 1;
+  flex: 1 1 auto;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   height: 100%;
+  min-width: 0;
+  max-width: none;
+}
+
+/* Language toggle positioning for desktop - ALWAYS VISIBLE */
+.language-toggle {
+  display: flex !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  white-space: nowrap !important;
+  min-width: fit-content !important;
 }
 
 .header__nav ul {
@@ -3020,14 +2955,6 @@ body.menu-open .header__menu-toggle {
   margin-bottom: var(--spacing-md);
   position: relative;
   display: inline-block;
-}
-
-/* Early Bird text styling for pricing section */
-.early-bird-text {
-  color: #DC143C;
-  font-weight: 900;
-  display: block;
-  margin-top: 0.2rem;
 }
 
 .section-line {
@@ -4816,7 +4743,7 @@ body.modal-open {
   overflow: hidden;
 }
 
-/* Early Bird Payment Information Styles */
+/* Modal Payment Information Styles */
 .modal-payment-info {
   background-color: #FFF3CD;
   border: 3px solid #DC143C;
@@ -6459,6 +6386,34 @@ html, body {
   display: none;
 }
 
+/* Ensure language toggle is visible on desktop */
+@media (min-width: 1200px) {
+  .header__container {
+    gap: 1rem !important;
+  }
+  
+  .language-toggle {
+    display: flex !important;
+    align-items: center !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+    flex-shrink: 0 !important;
+    order: 10 !important;
+  }
+  
+  .header__nav {
+    order: 5 !important;
+  }
+  
+  .header__logo {
+    order: 1 !important;
+  }
+  
+  .header__menu-toggle {
+    display: none !important;
+  }
+}
+
 /* === DESKTOP BREAKPOINTS === */
 
 /* Extra Large Desktops (1800px+) */
@@ -6473,6 +6428,11 @@ html, body {
   }
   .header__nav ul {
     gap: var(--spacing-md);
+  }
+  
+  /* Ensure language toggle remains visible */
+  .language-toggle {
+    display: flex !important;
   }
 }
 
@@ -6493,6 +6453,11 @@ html, body {
     padding: 6px 12px;
     font-size: 0.95rem;
   }
+  
+  /* Ensure language toggle remains visible */
+  .language-toggle {
+    display: flex !important;
+  }
 }
 
 /* Medium Desktops (1100px-1399px) */
@@ -6512,6 +6477,11 @@ html, body {
     padding: 5px 10px;
     font-size: 0.85rem;
   }
+  
+  /* Ensure language toggle remains visible */
+  .language-toggle {
+    display: flex !important;
+  }
 }
 
 /* Small Desktops (1150px-1399px) - Reduce further before hamburger */
@@ -6526,6 +6496,11 @@ html, body {
   .header__nav a[href="#pricing"] {
     padding: 4px 9px;
     font-size: 0.8rem;
+  }
+  
+  /* Ensure language toggle remains visible */
+  .language-toggle {
+    display: flex !important;
   }
 }
 
@@ -8340,185 +8315,5 @@ html, body {
 
   .faq-answer p {
     font-size: 0.85rem;
-  }
-}
-
-/* ============================================
-   CARIMBO DE URGÊNCIA ANIMADO
-   ============================================ */
-
-/* Overlay com blur de fundo */
-.urgency-stamp-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  z-index: 9998;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  cursor: pointer; /* Indica que é clicável */
-}
-
-.urgency-stamp-overlay.show {
-  opacity: 1;
-  visibility: visible;
-}
-
-.urgency-stamp {
-  position: fixed;
-  top: -200px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-5deg);
-  z-index: 9999;
-  opacity: 0;
-  transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  pointer-events: none; /* Evita interferir com cliques quando fechado */
-}
-
-.urgency-stamp.show {
-  top: 40%;
-  opacity: 1;
-  animation: stamp-bounce 0.6s ease-out;
-  pointer-events: auto; /* Permite cliques quando visível */
-}
-
-.urgency-stamp.hide {
-  opacity: 0;
-  transform: translateX(-50%) translateY(-50px) rotate(-5deg);
-  transition: all 0.5s ease-in;
-}
-
-.urgency-stamp__content {
-  background: #DC143C;
-  color: #FFFFFF;
-  padding: 2rem 2.5rem;
-  border: 4px solid #000000;
-  box-shadow: 8px 8px 0 #000000;
-  text-align: center;
-  font-family: var(--font-heading);
-  font-weight: 900;
-  text-transform: uppercase;
-  border-radius: 0; /* Manter estética brutal */
-}
-
-.urgency-stamp__text {
-  font-size: 2.5rem;
-  line-height: 1;
-  margin-bottom: 0.4rem;
-  letter-spacing: 1px;
-}
-
-.urgency-stamp__subtext {
-  font-size: 1.6rem;
-  color: #FFD700;
-  font-weight: 900;
-  margin-bottom: 0.4rem;
-}
-
-.urgency-stamp__cta {
-  font-size: 1.2rem;
-  margin-top: 0.5rem;
-  opacity: 0.9;
-  letter-spacing: 0.5px;
-}
-
-@keyframes stamp-bounce {
-  0% { 
-    transform: translateX(-50%) rotate(-5deg) scale(0.8); 
-    opacity: 0.8;
-  }
-  50% { 
-    transform: translateX(-50%) rotate(-3deg) scale(1.1); 
-    opacity: 1;
-  }
-  100% { 
-    transform: translateX(-50%) rotate(-5deg) scale(1); 
-    opacity: 1;
-  }
-}
-
-/* ============================================
-   PULSAÇÃO SUTIL NOS BADGES
-   ============================================ */
-
-.pulse-animation {
-  animation: subtle-pulse 2s infinite;
-}
-
-@keyframes subtle-pulse {
-  0%, 100% { 
-    transform: translateX(-50%) scale(1); 
-    box-shadow: 4px 4px 0 #000000;
-  }
-  50% { 
-    transform: translateX(-50%) scale(1.03); 
-    box-shadow: 6px 6px 0 #000000;
-  }
-}
-
-/* ============================================
-   RESPONSIVO MOBILE - CARIMBO E ANIMAÇÕES
-   ============================================ */
-
-@media (max-width: 768px) {
-  .urgency-stamp {
-    top: -150px;
-  }
-  
-  .urgency-stamp.show {
-    top: 35%;
-  }
-  
-  .urgency-stamp__content {
-    padding: 1.5rem 2rem;
-    margin: 0 1rem; /* Margem nas bordas para evitar corte */
-  }
-  
-  .urgency-stamp__text { 
-    font-size: 2rem; 
-  }
-  
-  .urgency-stamp__subtext { 
-    font-size: 1.3rem; 
-  }
-  
-  .urgency-stamp__cta {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .urgency-stamp.show {
-    top: 30%;
-  }
-  
-  .urgency-stamp__content {
-    padding: 1.3rem 1.5rem;
-    margin: 0 0.5rem;
-  }
-  
-  .urgency-stamp__text { 
-    font-size: 1.8rem; 
-    line-height: 1.1;
-  }
-  
-  .urgency-stamp__subtext { 
-    font-size: 1.1rem; 
-  }
-  
-  .urgency-stamp__cta {
-    font-size: 0.9rem;
-    margin-top: 0.3rem;
-  }
-  
-  /* Ajuste para badges em mobile */
-  .price-card__badge.pulse-animation {
-    font-size: 0.65rem; /* Ligeiramente maior que o original 0.6rem */
-    padding: 4px 6px; /* Mais padding para acomodar texto maior */
   }
 }
