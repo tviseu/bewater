@@ -123,6 +123,8 @@ const translations = {
       'events.standup.desc': 'Noite de comédia com atletas e comediantes convidados.',
       'events.comunicacao.title': 'Workshop de Comunicação',
       'events.comunicacao.desc': 'Comunicação eficaz e gestão de conflitos no desporto.',
+      'events.presunto.title': 'Workshop de Cortar Presunto',
+      'events.presunto.desc': 'A arte tradicional do corte à faca. Perfeição em cada fatia.',
       'events.nutricao.title': 'Nutrição + Treino BeWater',
       'events.nutricao.desc': 'Treino com Bruno Salgueiro e palestra com Dr. Alexandre Azevedo.',
       
@@ -564,6 +566,8 @@ const translations = {
       'events.standup.desc': 'Comedy night with athletes and guest comedians.',
       'events.comunicacao.title': 'Communication Workshop',
       'events.comunicacao.desc': 'Effective communication and conflict management in sports.',
+      'events.presunto.title': 'Ham Carving Workshop',
+      'events.presunto.desc': 'The traditional art of knife carving. Perfection in every slice.',
       'events.nutricao.title': 'Nutrition + BeWater Training',
       'events.nutricao.desc': 'Training with Bruno Salgueiro and talk with Dr. Alexandre Azevedo.',
       
