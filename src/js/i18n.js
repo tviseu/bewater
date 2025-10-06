@@ -316,6 +316,12 @@ const translations = {
       'trainers.carlos.name': 'CARLOS FERNANDES',
       'trainers.carlos.specialty': 'Treinador de Boxe & Fundador Spartacus CF',
       'trainers.carlos.bio': 'Treinador de boxe certificado pelo IPDJ com mais de nove anos de experiência. Conta com 200 combates como treinador e é fundador da equipa Spartacus CF Boxing.',
+      'trainers.diogo.name': 'DIOGO CALADO',
+      'trainers.diogo.specialty': 'Treinador de Muay Thai',
+      'trainers.diogo.bio': 'Lutador profissional e um dos nomes mais respeitados do Muay Thai português. Campeão mundial e europeu em várias organizações, traz para o Be Water a experiência de quem já competiu entre os melhores do mundo. Nas suas aulas, combina técnica, intensidade e foco mental — ensinando os princípios do Muay Thai com a mesma paixão com que sempre subiu ao ringue.',
+      'trainers.diogo.cert1': 'Campeão do Mundo',
+      'trainers.diogo.cert2': 'Campeão Europeu',
+      'trainers.diogo.cert3': 'Lutador Profissional',
       
       // Trainer Certifications
       'trainers.bruno.cert1': 'PT certificado',
@@ -751,6 +757,12 @@ const translations = {
       'trainers.carlos.name': 'CARLOS FERNANDES',
       'trainers.carlos.specialty': 'Boxing Trainer & Spartacus CF Founder',
       'trainers.carlos.bio': 'Boxing trainer certified by IPDJ with over nine years of experience. Has 200 fights as a trainer and is founder of the Spartacus CF Boxing team.',
+      'trainers.diogo.name': 'DIOGO CALADO',
+      'trainers.diogo.specialty': 'Muay Thai Coach',
+      'trainers.diogo.bio': 'Professional fighter and one of the most respected names in Portuguese Muay Thai. World and European champion across multiple organizations, he brings to Be Water the experience of someone who has competed among the best in the world. In his classes, he combines technique, intensity and mental focus — teaching the principles of Muay Thai with the same passion he always brought to the ring.',
+      'trainers.diogo.cert1': 'World Champion',
+      'trainers.diogo.cert2': 'European Champion',
+      'trainers.diogo.cert3': 'Professional Fighter',
       
       // Trainer Certifications
       'trainers.bruno.cert1': 'Certified PT',
