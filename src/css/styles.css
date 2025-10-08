@@ -6990,12 +6990,11 @@ html, body {
 
 .gym-collage-slider__track {
   display: flex;
-  width: 2600%; /* 26 slides × 100% = 2600% */
   transition: transform 0.5s ease;
 }
 
 .gym-collage-slide {
-  width: 3.846%; /* 100% ÷ 26 slides = 3.846% */
+  width: 100%;
   flex-shrink: 0;
   position: relative;
 }
@@ -7025,12 +7024,11 @@ html, body {
 
 .gym-collage-slider__track {
   display: flex;
-  width: 2600%; /* 26 slides × 100% = 2600% */
   transition: transform 0.5s ease;
 }
 
 .gym-collage-slide {
-  width: 3.846%; /* 100% ÷ 26 slides = 3.846% */
+  width: 100%;
   flex-shrink: 0;
   position: relative;
 }
@@ -7067,11 +7065,10 @@ html, body {
 .gym-collage-slider__track {
   display: flex;
   transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  width: 2700%; /* 27 slides */
 }
 
 .gym-collage-slide {
-  width: 3.7037%; /* 1/27 of the track */
+  width: 100%;
   flex-shrink: 0;
   position: relative;
   padding: var(--spacing-lg) 0;
@@ -8101,7 +8098,7 @@ html, body {
 
   .popup-container {
     max-width: 95vw;
-    max-height: 95vh;
+    max-height: 90vh;
     border-width: 6px;
     box-shadow: 15px 15px 0 var(--color-yellow);
   }
@@ -8116,12 +8113,17 @@ html, body {
   }
 
   .popup-content {
-    padding: var(--spacing-md);
+    padding: var(--spacing-sm);
+  }
+
+  .popup-content img {
+    max-height: 50vh;
   }
 
   .popup-caption {
-    font-size: 0.9rem;
-    margin-top: var(--spacing-sm);
+    font-size: 0.85rem;
+    margin-top: var(--spacing-xs);
+    padding: 6px 10px;
   }
 }
 

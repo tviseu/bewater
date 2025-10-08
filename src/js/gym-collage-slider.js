@@ -20,6 +20,18 @@ class GymCollageSlider {
     this.popupNext = null;
     this.currentPopupSlide = 0;
     this.allPhotos = [];
+    this.genericCaptions = [
+      'Treino de força',
+      'Zona de treino',
+      'Equipamento de qualidade',
+      'Mobilidade e flexibilidade',
+      'Condição física',
+      'Força e técnica',
+      'Energia e foco',
+      'Resistência e disciplina',
+      'Bem-estar',
+      'Desempenho e progresso'
+    ];
     
     this.init();
   }
@@ -27,7 +39,7 @@ class GymCollageSlider {
   init() {
     // Initialize slider elements
     this.track = document.getElementById('gymCollageTrack');
-    this.slides = document.querySelectorAll('.gym-collage-slide');
+    this.slides = Array.from(document.querySelectorAll('.gym-collage-slide'));
     this.indicators = document.querySelectorAll('.collage-indicator');
     this.prevBtn = document.getElementById('gymCollagePrev');
     this.nextBtn = document.getElementById('gymCollageNext');
@@ -46,11 +58,56 @@ class GymCollageSlider {
       return;
     }
 
+    // Remove slides without a valid image
+    this.slides = this.slides.filter((slide) => {
+      const img = slide.querySelector('.gym-photo img');
+      const src = img ? img.getAttribute('src') : '';
+      if (!img || !src) {
+        slide.remove();
+        return false;
+      }
+      return true;
+    });
+
+    // Apply generic captions to avoid mismatched captions
+    this.slides.forEach((slide, index) => {
+      const photo = slide.querySelector('.gym-photo');
+      const img = slide.querySelector('.gym-photo img');
+      if (!photo || !img) return;
+      const generic = this.genericCaptions[index % this.genericCaptions.length];
+      photo.setAttribute('data-photo', generic);
+      const captionEl = slide.querySelector('.gym-photo__caption');
+      if (captionEl) captionEl.textContent = generic;
+      img.alt = generic;
+    });
+
+    // Recalculate after potential removals
     this.totalSlides = this.slides.length;
+
+    // Guard: nothing to show
+    if (this.totalSlides === 0) {
+      console.warn('No valid slides found for Gym collage');
+      return;
+    }
+
+    // Set dynamic widths so that 1 slide = 100% / totalSlides of the track
+    this.track.style.width = `${this.totalSlides * 100}%`;
+    this.slides.forEach((slide) => {
+      slide.style.width = `${100 / this.totalSlides}%`;
+    });
     
     // Get all photos for popup navigation
     this.allPhotos = Array.from(document.querySelectorAll('.gym-photo'));
     
+    // Hide extra indicators if any
+    if (this.indicators.length > this.totalSlides) {
+      for (let i = this.totalSlides; i < this.indicators.length; i++) {
+        const el = this.indicators[i];
+        if (el && el.parentElement) el.parentElement.removeChild(el);
+      }
+      this.indicators = document.querySelectorAll('.collage-indicator');
+    }
+
     // Setup event listeners
     this.setupEventListeners();
     
@@ -126,12 +183,9 @@ class GymCollageSlider {
   updateSlider() {
     if (!this.track) return;
 
-    // Calculate correct percentage for current number of slides
+    // Translate proportionally based on total slides
     const slidePercentage = 100 / this.totalSlides;
     const translateX = -this.currentSlide * slidePercentage;
-    
-
-    
     this.track.style.transform = `translateX(${translateX}%)`;
 
     // Update slide active states
