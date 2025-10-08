@@ -7114,6 +7114,7 @@ html, body {
 }
 
 .gym-photo__caption {
+  display: none !important;
   position: absolute;
   bottom: -30px;
   left: 50%;
@@ -7977,6 +7978,7 @@ html, body {
 }
 
 .popup-caption {
+  display: none !important;
   margin-top: var(--spacing-md);
   font-family: var(--font-primary);
   font-size: 1.1rem;
@@ -7987,7 +7989,6 @@ html, body {
   background-color: var(--color-yellow);
   padding: var(--spacing-sm) var(--spacing-md);
   border: 3px solid var(--color-black);
-  display: inline-block;
   transform: rotate(1deg);
   flex-shrink: 0;
   margin-bottom: var(--spacing-sm);

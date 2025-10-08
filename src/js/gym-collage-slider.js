@@ -69,16 +69,15 @@ class GymCollageSlider {
       return true;
     });
 
-    // Apply generic captions to avoid mismatched captions
+    // Remove captions from slides
     this.slides.forEach((slide, index) => {
       const photo = slide.querySelector('.gym-photo');
       const img = slide.querySelector('.gym-photo img');
       if (!photo || !img) return;
-      const generic = this.genericCaptions[index % this.genericCaptions.length];
-      photo.setAttribute('data-photo', generic);
+      photo.setAttribute('data-photo', '');
       const captionEl = slide.querySelector('.gym-photo__caption');
-      if (captionEl) captionEl.textContent = generic;
-      img.alt = generic;
+      if (captionEl) captionEl.style.display = 'none';
+      img.alt = 'Ginásio Be Water';
     });
 
     // Recalculate after potential removals
@@ -218,17 +217,14 @@ class GymCollageSlider {
     
     if (!img || !this.popup) return;
 
-    // Get image source and caption
+    // Get image source
     const imageSrc = img.src;
     const imageAlt = img.alt;
-    
-    // Fix caption - keep hyphens and clean format
-    const cleanCaption = photoData || imageAlt;
 
-    // Set popup content
+    // Set popup content without caption
     this.popupImage.src = imageSrc;
     this.popupImage.alt = imageAlt;
-    this.popupCaption.textContent = cleanCaption;
+    this.popupCaption.textContent = '';
   }
 
   openPhotoPopup(event, photoIndex) {
@@ -242,13 +238,10 @@ class GymCollageSlider {
 
     const imageSrc = img.src;
     const imageAlt = img.alt;
-    
-    // Fix caption - keep hyphens and clean format
-    const cleanCaption = photoData || imageAlt;
 
     this.popupImage.src = imageSrc;
     this.popupImage.alt = imageAlt;
-    this.popupCaption.textContent = cleanCaption;
+    this.popupCaption.textContent = '';
 
     this.popup.classList.add('active');
     document.body.style.overflow = 'hidden';
