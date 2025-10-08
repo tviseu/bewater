@@ -37,6 +37,11 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
     'DONATIVO_001': { nome: 'Donativo BE WATER', iva: 0, categoria: 'Donativos', tax_exempt_reason: 'Artigo 53º do CIVA' }
   };
 
+  // Novos produtos físicos
+  PRODUTOS_VENDUS['LIGADURAS_001'] = { nome: 'Ligaduras BeWater', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' };
+  PRODUTOS_VENDUS['LUVAS_BOXE_001'] = { nome: 'Luvas de Boxe BeWater', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' };
+  PRODUTOS_VENDUS['GARRAFA_HYDRA_001'] = { nome: 'Garrafa de Água Hydra', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' };
+
   // Fallback para produtos não mapeados - usar nome específico exceto para donativos
   const produtoVendus = PRODUTOS_VENDUS[dadosProduto.id] || {
     nome: dadosProduto.id?.includes('DONATIVO') ? 'Donativo BE WATER' : dadosProduto.nome || 'Produto BE WATER',
@@ -319,6 +324,12 @@ exports.handler = async (event, context) => {
       produtoId = 'TOALHA_001';
     } else if (produtoNome.includes('cerveja mini') || produtoNome.includes('cerveja')) {
       produtoId = 'CERVEJA_MINI_001';
+  } else if (produtoNome.includes('ligaduras')) {
+    produtoId = 'LIGADURAS_001';
+  } else if (produtoNome.includes('luvas') || produtoNome.includes('boxe')) {
+    produtoId = 'LUVAS_BOXE_001';
+  } else if (produtoNome.includes('garrafa') || produtoNome.includes('hydra')) {
+    produtoId = 'GARRAFA_HYDRA_001';
     }
 
     // Preparar dados para emissão (usar "Consumidor Final" se sem dados)

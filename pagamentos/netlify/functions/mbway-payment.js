@@ -43,6 +43,11 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
     'DONATIVO_001': { nome: 'Donativo BE WATER', iva: 0, categoria: 'Donativos', tax_exempt_reason: 'Artigo 53º do CIVA' }
   };
 
+  // Novos produtos físicos
+  PRODUTOS_VENDUS['LIGADURAS_001'] = { nome: 'Ligaduras BeWater', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' };
+  PRODUTOS_VENDUS['LUVAS_BOXE_001'] = { nome: 'Luvas de Boxe BeWater', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' };
+  PRODUTOS_VENDUS['GARRAFA_HYDRA_001'] = { nome: 'Garrafa de Água Hydra', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' };
+
   // Fallback para produtos não mapeados - usar nome específico exceto para donativos
   const produtoVendus = PRODUTOS_VENDUS[dadosProduto.id] || {
     nome: dadosProduto.id?.includes('DONATIVO') ? 'Donativo BE WATER' : dadosProduto.nome || 'Produto BE WATER',
@@ -230,7 +235,11 @@ exports.handler = async (event, context) => {
       'RED_BULL_001': { nome: 'Red Bull', preco: 2.50 },
       'YOPRO_001': { nome: 'YoPro Iogurte Proteico', preco: 2.60 },
       'DROP_IN_001': { nome: 'Drop In (Aula avulso)', preco: 15.00 },
-      'DONATIVO_001': { nome: 'Donativo - Salvem os Músculos Abandonados', preco: 5.00 }
+      'DONATIVO_001': { nome: 'Donativo - Salvem os Músculos Abandonados', preco: 5.00 },
+      // Novos produtos físicos
+      'LIGADURAS_001': { nome: 'Ligaduras BeWater', preco: 10.00 },
+      'LUVAS_BOXE_001': { nome: 'Luvas de Boxe BeWater', preco: 59.00 },
+      'GARRAFA_HYDRA_001': { nome: 'Garrafa de Água Hydra', preco: 19.00 }
     };
 
     // Parse do body
