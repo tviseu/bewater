@@ -408,6 +408,28 @@
         const result = await response.json();
         
         if (result.success) {
+          // Enviar dados para Formspree (notificação email)
+          try {
+            await fetch('https://formspree.io/f/mrbyvbkq', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                _subject: 'Inscrição São Martinho - BE WATER',
+                nome: nome,
+                email: email,
+                telemovel: phone,
+                nif: nif || 'Não fornecido',
+                observacoes: observacoes || 'Nenhuma',
+                valor: '€1.00 (TESTE)',
+                data_inscricao: new Date().toLocaleString('pt-PT')
+              })
+            });
+          } catch (formspreeError) {
+            console.log('Erro Formspree (não crítico):', formspreeError);
+          }
+          
           showSuccess('✅ Pedido de pagamento enviado! Abre a app MBWay no teu telemóvel para confirmar o pagamento de €1.00 (TESTE). Após confirmação, receberás email com os detalhes da inscrição.');
           // Clear form
           document.getElementById('inscricao-form').reset();
