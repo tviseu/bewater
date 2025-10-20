@@ -211,6 +211,92 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+    
+    /* Success Popup */
+    .success-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    
+    .success-popup.show {
+      display: flex;
+    }
+    
+    .success-popup-content {
+      background: var(--color-white);
+      border: var(--border-width) solid var(--color-black);
+      padding: 40px;
+      max-width: 520px;
+      width: calc(100% - 2rem);
+      text-align: center;
+      box-shadow: 16px 16px 0 var(--color-primary);
+      position: relative;
+      animation: popupSlideIn 0.3s ease-out;
+    }
+    
+    @keyframes popupSlideIn {
+      from {
+        transform: translate(-50px, -50px);
+        opacity: 0;
+      }
+      to {
+        transform: translate(0, 0);
+        opacity: 1;
+      }
+    }
+    
+    .success-popup-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+    
+    .success-popup-title {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--color-black);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+    
+    .success-popup-message {
+      font-size: 1.05rem;
+      color: var(--color-black);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .success-popup-btn {
+      background: var(--color-primary);
+      color: var(--color-black);
+      border: var(--border-width) solid var(--color-black);
+      padding: 15px 30px;
+      font-size: 1rem;
+      font-weight: 900;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 6px 6px 0 var(--color-black);
+    }
+    
+    .success-popup-btn:hover {
+      background: var(--color-black);
+      color: var(--color-primary);
+      transform: translate(-2px, -2px);
+      box-shadow: 8px 8px 0 var(--color-primary);
+    }
   </style>
 </head>
 <body>
@@ -467,10 +553,25 @@
     }
 
     function showSuccess(message) {
-      const successDiv = document.getElementById('success-msg');
-      successDiv.textContent = message;
-      successDiv.style.display = 'block';
+      // Mostrar popup em vez de mensagem
+      document.getElementById('successPopup').classList.add('show');
+      
+      // Esconder formulário
+      document.getElementById('inscricao-form').style.display = 'none';
+      
+      // Esconder mensagens antigas
       document.getElementById('error-msg').style.display = 'none';
+      document.getElementById('success-msg').style.display = 'none';
+    }
+
+    function closeSuccessPopup() {
+      document.getElementById('successPopup').classList.remove('show');
+      
+      // Mostrar formulário novamente e resetar
+      const form = document.getElementById('inscricao-form');
+      form.style.display = 'block';
+      form.reset();
+      
       // Scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -518,6 +619,14 @@
         'evento.form.submit': '💳 Pagar €15.00 com MBWay',
         'evento.form.processing': 'A processar pagamento...',
         'evento.form.confirm-phone': 'Confirma o pagamento na app MBWay',
+        'evento.popup.title': 'Vá ao seu Telemóvel!',
+        'evento.popup.attention': 'ATENÇÃO:',
+        'evento.popup.not-paid': 'O pagamento ainda <strong>NÃO</strong> foi realizado!',
+        'evento.popup.open-app': '📱 <strong>Abra a aplicação MBWay no seu telemóvel AGORA</strong>',
+        'evento.popup.confirm-payment': '💳 <strong>Confirme o pagamento de €1.00 (TESTE)</strong>',
+        'evento.popup.only-after': '<em>Só após confirmar no telemóvel é que o pagamento será processado.</em>',
+        'evento.popup.email-confirmation': '📧 <strong>Receberá a confirmação da inscrição por email dentro das próximas 24h.</strong>',
+        'evento.popup.btn': 'Vou Confirmar no Telemóvel',
         'evento.cartaz.title': 'Cartaz do Evento',
         'evento.guest.title': 'Convidado Especial',
         'evento.guest.role': 'Treinador de Ginástica',
@@ -555,6 +664,14 @@
         'evento.form.submit': '💳 Pay €15.00 with MBWay',
         'evento.form.processing': 'Processing payment...',
         'evento.form.confirm-phone': 'Confirm payment in MBWay app',
+        'evento.popup.title': 'Go to your Phone!',
+        'evento.popup.attention': 'ATTENTION:',
+        'evento.popup.not-paid': 'The payment has <strong>NOT</strong> been completed yet!',
+        'evento.popup.open-app': '📱 <strong>Open the MBWay app on your phone NOW</strong>',
+        'evento.popup.confirm-payment': '💳 <strong>Confirm the payment of €1.00 (TEST)</strong>',
+        'evento.popup.only-after': '<em>Only after confirming on your phone will the payment be processed.</em>',
+        'evento.popup.email-confirmation': '📧 <strong>You will receive registration confirmation by email within the next 24 hours.</strong>',
+        'evento.popup.btn': 'I Will Confirm on My Phone',
         'evento.cartaz.title': 'Event Poster',
         'evento.guest.title': 'Special Guest',
         'evento.guest.role': 'Gymnastics Coach',
@@ -599,12 +716,36 @@
       });
     });
 
+    // Event listener para fechar popup ao clicar no fundo
+    document.getElementById('successPopup').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeSuccessPopup();
+      }
+    });
+
     // Load saved language preference or default to PT
     const savedLang = localStorage.getItem('evento-lang') || 'pt';
     if (savedLang !== 'pt') {
       switchLanguage(savedLang);
     }
   </script>
+
+  <!-- Success Popup -->
+  <div class="success-popup" id="successPopup">
+    <div class="success-popup-content">
+      <div class="success-popup-icon">📱</div>
+      <div class="success-popup-title" data-i18n="evento.popup.title">Vá ao seu Telemóvel!</div>
+      <div class="success-popup-message">
+        <span data-i18n="evento.popup.attention">ATENÇÃO:</span> <span data-i18n="evento.popup.not-paid">O pagamento ainda <strong>NÃO</strong> foi realizado!</span><br><br>
+        <span data-i18n="evento.popup.open-app">📱 <strong>Abra a aplicação MBWay no seu telemóvel AGORA</strong></span><br>
+        <span data-i18n="evento.popup.confirm-payment">💳 <strong>Confirme o pagamento de €1.00 (TESTE)</strong></span><br><br>
+        <span data-i18n="evento.popup.only-after"><em>Só após confirmar no telemóvel é que o pagamento será processado.</em></span><br><br>
+        <span data-i18n="evento.popup.email-confirmation">📧 <strong>Receberá a confirmação da inscrição por email dentro das próximas 24h.</strong></span>
+      </div>
+      <button class="success-popup-btn" onclick="closeSuccessPopup()" data-i18n="evento.popup.btn">Vou Confirmar no Telemóvel</button>
+    </div>
+  </div>
+
 </body>
 </html>
 
