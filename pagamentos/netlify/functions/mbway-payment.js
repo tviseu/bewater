@@ -242,7 +242,7 @@ exports.handler = async (event, context) => {
       'LUVAS_BOXE_001': { nome: 'Luvas de Boxe BeWater', preco: 59.00 },
       'GARRAFA_HYDRA_001': { nome: 'Garrafa de Água Hydra', preco: 19.00 },
       // Eventos
-      'EVENTO_SAOMARTINHO_001': { nome: 'São Martinho no BE WATER - Inscrição Externa', preco: 15.00 }
+      'EVENTO_SAOMARTINHO_001': { nome: 'São Martinho no BE WATER - Inscrição Externa', preco: 1.00 } // TESTE: €1.00 (produção: €15.00)
     };
 
     // Parse do body
@@ -284,56 +284,57 @@ exports.handler = async (event, context) => {
       throw new Error('Número de telemóvel inválido');
     }
 
-    // Validar dados de fatura: se qualquer campo for fornecido, todos são obrigatórios
+    // Validar dados (para eventos, NIF é opcional)
     let email = null;
     let nome = null;
     let nif = null;
     
-    // Verificar se algum campo de fatura foi preenchido
-    const temEmail = input.email && input.email.trim();
-    const temNome = input.nome && input.nome.trim();
-    const temNif = input.nif && input.nif.trim();
-    const temDadosFatura = temEmail || temNome || temNif;
+    const isEvento = produtoId.includes('EVENTO');
     
-    if (temDadosFatura) {
-      // Se tem dados de fatura, todos os campos são obrigatórios
-      if (!temEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email.trim())) {
-        throw new Error('Para emitir fatura, email é obrigatório e deve ser válido');
-      }
-      
-      if (!temNome || input.nome.trim().length < 2) {
-        throw new Error('Para emitir fatura, nome é obrigatório (mínimo 2 caracteres)');
-      }
-      
-      const nifLimpo = input.nif ? input.nif.replace(/\D/g, '') : '';
-      if (!temNif || !/^\d{9}$/.test(nifLimpo)) {
-        throw new Error('Para emitir fatura, NIF é obrigatório e deve ter 9 dígitos');
-      }
-      
-      // Se chegou até aqui, todos os campos são válidos
+    // Email sempre validado se fornecido
+    if (input.email && input.email.trim()) {
       email = input.email.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        throw new Error('Email inválido');
+      }
+    }
+    
+    // Nome sempre validado se fornecido
+    if (input.nome && input.nome.trim()) {
       nome = input.nome.trim();
-      nif = nifLimpo;
-    } else {
-      // Sem dados de fatura - validar só se preenchidos individualmente
-      if (temEmail) {
-        email = input.email.trim();
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          throw new Error('Email inválido');
-        }
+      if (nome.length < 2) {
+        throw new Error('Nome deve ter pelo menos 2 caracteres');
       }
-      
-      if (temNome) {
-        nome = input.nome.trim();
-        if (nome.length < 2) {
-          throw new Error('Nome deve ter pelo menos 2 caracteres');
-        }
+    }
+    
+    // NIF é opcional - só valida se fornecido
+    if (input.nif && input.nif.trim()) {
+      nif = input.nif.replace(/\D/g, '');
+      if (!/^\d{9}$/.test(nif)) {
+        throw new Error('NIF deve ter 9 dígitos');
       }
+    }
+    
+    // Para produtos do bar (não eventos), validação antiga
+    if (!isEvento) {
+      const temEmail = input.email && input.email.trim();
+      const temNome = input.nome && input.nome.trim();
+      const temNif = input.nif && input.nif.trim();
+      const temDadosFatura = temEmail || temNome || temNif;
       
-      if (temNif) {
-        nif = input.nif.replace(/\D/g, '');
-        if (!/^\d{9}$/.test(nif)) {
-          throw new Error('NIF inválido');
+      if (temDadosFatura) {
+        // Se tem dados de fatura, todos os campos são obrigatórios
+        if (!temEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email.trim())) {
+          throw new Error('Para emitir fatura, email é obrigatório e deve ser válido');
+        }
+        
+        if (!temNome || input.nome.trim().length < 2) {
+          throw new Error('Para emitir fatura, nome é obrigatório (mínimo 2 caracteres)');
+        }
+        
+        const nifLimpo = input.nif ? input.nif.replace(/\D/g, '') : '';
+        if (!temNif || !/^\d{9}$/.test(nifLimpo)) {
+          throw new Error('Para emitir fatura, NIF é obrigatório e deve ter 9 dígitos');
         }
       }
     }

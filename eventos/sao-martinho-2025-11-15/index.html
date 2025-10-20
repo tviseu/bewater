@@ -396,7 +396,7 @@
           },
           body: JSON.stringify({
             produto_id: 'EVENTO_SAOMARTINHO_001',
-            amount: 15.00,
+            amount: 1.00, // TESTE: €1.00 (produção: €15.00)
             phone: phone,
             email: email,
             nome: nome,
@@ -408,7 +408,7 @@
         const result = await response.json();
         
         if (result.success) {
-          showSuccess('✅ Pedido de pagamento enviado! Abre a app MBWay no teu telemóvel para confirmar o pagamento de €15.00. Após confirmação, receberás email com os detalhes da inscrição.');
+          showSuccess('✅ Pedido de pagamento enviado! Abre a app MBWay no teu telemóvel para confirmar o pagamento de €1.00 (TESTE). Após confirmação, receberás email com os detalhes da inscrição.');
           // Clear form
           document.getElementById('inscricao-form').reset();
         } else {
