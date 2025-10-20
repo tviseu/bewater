@@ -242,7 +242,7 @@ exports.handler = async (event, context) => {
       'LUVAS_BOXE_001': { nome: 'Luvas de Boxe BeWater', preco: 59.00 },
       'GARRAFA_HYDRA_001': { nome: 'Garrafa de Água Hydra', preco: 19.00 },
       // Eventos
-      'EVENTO_SAOMARTINHO_001': { nome: 'São Martinho no BE WATER - Inscrição Externa', preco: 1.00 } // TESTE: €1.00 (produção: €15.00)
+      'EVENTO_SAOMARTINHO_001': { nome: 'São Martinho no BE WATER - Inscrição Externa', preco: 15.00 }
     };
 
     // Parse do body

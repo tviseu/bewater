@@ -482,7 +482,7 @@
           },
           body: JSON.stringify({
             produto_id: 'EVENTO_SAOMARTINHO_001',
-            amount: 1.00, // TESTE: €1.00 (produção: €15.00)
+            amount: 15.00,
             phone: phone,
             email: email,
             nome: nome,
@@ -508,7 +508,7 @@
                 telemovel: phone,
                 nif: nif || 'Não fornecido',
                 observacoes: observacoes || 'Nenhuma',
-                valor: '€1.00 (TESTE)',
+                valor: '€15.00',
                 data_inscricao: new Date().toLocaleString('pt-PT')
               })
             });
@@ -516,7 +516,7 @@
             console.log('Erro Formspree (não crítico):', formspreeError);
           }
           
-          showSuccess('✅ Pedido de pagamento enviado! Abre a app MBWay no teu telemóvel para confirmar o pagamento de €1.00 (TESTE). Após confirmação, receberás email com os detalhes da inscrição.');
+          showSuccess('✅ Pedido de pagamento enviado! Abre a app MBWay no teu telemóvel para confirmar o pagamento de €15.00. Após confirmação, receberás email com os detalhes da inscrição.');
           // Clear form
           document.getElementById('inscricao-form').reset();
         } else {
@@ -623,7 +623,7 @@
         'evento.popup.attention': 'ATENÇÃO:',
         'evento.popup.not-paid': 'O pagamento ainda <strong>NÃO</strong> foi realizado!',
         'evento.popup.open-app': '📱 <strong>Abra a aplicação MBWay no seu telemóvel AGORA</strong>',
-        'evento.popup.confirm-payment': '💳 <strong>Confirme o pagamento de €1.00 (TESTE)</strong>',
+        'evento.popup.confirm-payment': '💳 <strong>Confirme o pagamento de €15.00</strong>',
         'evento.popup.only-after': '<em>Só após confirmar no telemóvel é que o pagamento será processado.</em>',
         'evento.popup.email-confirmation': '📧 <strong>Receberá a confirmação da inscrição por email dentro das próximas 24h.</strong>',
         'evento.popup.btn': 'Vou Confirmar no Telemóvel',
@@ -668,7 +668,7 @@
         'evento.popup.attention': 'ATTENTION:',
         'evento.popup.not-paid': 'The payment has <strong>NOT</strong> been completed yet!',
         'evento.popup.open-app': '📱 <strong>Open the MBWay app on your phone NOW</strong>',
-        'evento.popup.confirm-payment': '💳 <strong>Confirm the payment of €1.00 (TEST)</strong>',
+        'evento.popup.confirm-payment': '💳 <strong>Confirm the payment of €15.00</strong>',
         'evento.popup.only-after': '<em>Only after confirming on your phone will the payment be processed.</em>',
         'evento.popup.email-confirmation': '📧 <strong>You will receive registration confirmation by email within the next 24 hours.</strong>',
         'evento.popup.btn': 'I Will Confirm on My Phone',
@@ -738,7 +738,7 @@
       <div class="success-popup-message">
         <span data-i18n="evento.popup.attention">ATENÇÃO:</span> <span data-i18n="evento.popup.not-paid">O pagamento ainda <strong>NÃO</strong> foi realizado!</span><br><br>
         <span data-i18n="evento.popup.open-app">📱 <strong>Abra a aplicação MBWay no seu telemóvel AGORA</strong></span><br>
-        <span data-i18n="evento.popup.confirm-payment">💳 <strong>Confirme o pagamento de €1.00 (TESTE)</strong></span><br><br>
+        <span data-i18n="evento.popup.confirm-payment">💳 <strong>Confirme o pagamento de €15.00</strong></span><br><br>
         <span data-i18n="evento.popup.only-after"><em>Só após confirmar no telemóvel é que o pagamento será processado.</em></span><br><br>
         <span data-i18n="evento.popup.email-confirmation">📧 <strong>Receberá a confirmação da inscrição por email dentro das próximas 24h.</strong></span>
       </div>
