@@ -40,7 +40,8 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
     'RED_BULL_001': { nome: 'Red Bull', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'YOPRO_001': { nome: 'YoPro Iogurte Proteico', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'DROP_IN_001': { nome: 'Drop In (Aula avulso)', iva: 0, categoria: 'Serviços', tax_exempt_reason: 'Artigo 53º do CIVA' },
-    'DONATIVO_001': { nome: 'Donativo BE WATER', iva: 0, categoria: 'Donativos', tax_exempt_reason: 'Artigo 53º do CIVA' }
+    'DONATIVO_001': { nome: 'Donativo BE WATER', iva: 0, categoria: 'Donativos', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'EVENTO_SAOMARTINHO_001': { nome: 'Inscrição Evento São Martinho', iva: 0, categoria: 'Eventos', tax_exempt_reason: 'Artigo 53º do CIVA' }
   };
 
   // Novos produtos físicos
@@ -239,7 +240,9 @@ exports.handler = async (event, context) => {
       // Novos produtos físicos
       'LIGADURAS_001': { nome: 'Ligaduras BeWater', preco: 10.00 },
       'LUVAS_BOXE_001': { nome: 'Luvas de Boxe BeWater', preco: 59.00 },
-      'GARRAFA_HYDRA_001': { nome: 'Garrafa de Água Hydra', preco: 19.00 }
+      'GARRAFA_HYDRA_001': { nome: 'Garrafa de Água Hydra', preco: 19.00 },
+      // Eventos
+      'EVENTO_SAOMARTINHO_001': { nome: 'São Martinho no BE WATER - Inscrição Externa', preco: 15.00 }
     };
 
     // Parse do body

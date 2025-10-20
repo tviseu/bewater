@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>São Martinho no BE WATER | 15 Novembro</title>
+  <meta name="description" content="Inscrição no Evento de São Martinho no BE WATER: treino de ginástica com Bernardo Simões e convívio com castanhas e minis. 15 de Novembro.">
+  <link rel="icon" type="image/x-icon" href="../../src/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="../../src/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
+  <link rel="icon" type="image/png" sizes="32x32" href="../../src/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../src/images/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../src/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../../src/images/favicon/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="../../src/images/favicon/android-chrome-512x512.png">
+  <link rel="manifest" href="../../src/images/favicon/site.webmanifest">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@800;900&display=swap" rel="stylesheet"></noscript>
+  <style>
+    html { scroll-behavior: smooth; }
+    :root {
+      --color-primary: #FFD700;
+      --color-black: #000000;
+      --color-white: #FFFFFF;
+      --color-gray: #666666;
+      --color-gray-light: #f5f5f5;
+      --color-accent: #FFF6BF;
+      --color-autumn: #CD7F32;
+      --spacing-sm: 0.5rem;
+      --spacing-md: 1rem;
+      --spacing-lg: 1.5rem;
+      --spacing-xl: 2rem;
+      --border-width: 4px;
+      --font-primary: 'Space Mono', system-ui, 'Segoe UI', monospace;
+      --font-heading: 'Work Sans', system-ui, 'Arial Black', sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-primary);
+      background: var(--color-white);
+      color: var(--color-black);
+      line-height: 1.6;
+    }
+
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 var(--spacing-xl); }
+
+    .hero {
+      padding: 3rem 0 3rem 0;
+      border-bottom: 2px solid var(--color-black);
+      background: var(--color-white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url('../../src/images/general/sao-martinho-evento.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.5;
+      filter: grayscale(10%);
+      pointer-events: none;
+    }
+
+    .hero .wrap { position: relative; z-index: 1; text-align: center; }
+
+    .event-date-banner {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      background: var(--color-primary);
+      color: var(--color-black);
+      border: var(--border-width) solid var(--color-black);
+      box-shadow: 8px 8px 0 var(--color-black);
+      padding: 0.5rem 1rem;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      margin-top: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .event-date-banner .date-small,
+    .event-date-banner .date-big {
+      font-family: var(--font-heading);
+      font-size: clamp(1.25rem, 4vw, 2rem);
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .card.card--accent { background: linear-gradient(180deg, rgba(255, 215, 0, 0.18), rgba(255, 215, 0, 0.12)), var(--color-white); box-shadow: 8px 8px 0 var(--color-primary); }
+    .card.card--accent .badge { background: var(--color-primary); }
+
+    .hero__eyebrow {
+      display: inline-block;
+      font-weight: 700;
+      background: var(--color-black);
+      color: var(--color-white);
+      padding: 0.25rem 0.5rem;
+      border: 2px solid var(--color-black);
+      box-shadow: 4px 4px 0 var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .hero__title {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      line-height: 1;
+      margin: 0.75rem 0 1rem 0;
+      text-transform: uppercase;
+    }
+
+    .hero__subtitle { color: var(--color-black); max-width: 720px; margin-left: auto; margin-right: auto; font-weight: 700; }
+    @media (max-width: 480px) {
+      .hero { padding-top: 2rem; }
+    }
+
+    .hero__cta { margin-top: var(--spacing-lg); }
+
+    .btn {
+      display: inline-block;
+      padding: var(--spacing-md) var(--spacing-xl);
+      background: var(--color-primary);
+      color: var(--color-black);
+      text-decoration: none;
+      font-weight: 700;
+      text-transform: uppercase;
+      border: var(--border-width) solid var(--color-black);
+      transition: all 0.2s ease;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: var(--color-black);
+      color: var(--color-primary);
+      transform: translate(-3px, -3px);
+      box-shadow: 6px 6px 0 var(--color-primary);
+    }
+
+    .btn--hero { font-size: 1.1rem; box-shadow: 10px 10px 0 var(--color-black); }
+    .form-surface .btn.btn--hero { background: var(--color-primary); color: var(--color-black); box-shadow: 10px 10px 0 var(--color-black); }
+
+    .section { padding: 3rem 0; }
+    .card { background: var(--color-white); border: var(--border-width) solid var(--color-black); box-shadow: 8px 8px 0 var(--color-black); padding: var(--spacing-xl); }
+    .grid { display: grid; gap: var(--spacing-xl); }
+    @media (min-width: 768px) { .grid--2 { grid-template-columns: 1fr 1fr; } }
+    .list { margin: 0; padding-left: 1.25rem; }
+    .badge { display: inline-block; border: 2px solid var(--color-black); padding: 0.25rem 0.5rem; background: var(--color-gray-light); font-weight: 700; }
+    .schedule-box { background: var(--color-white); border: var(--border-width) solid var(--color-black); box-shadow: 6px 6px 0 var(--color-black); padding: var(--spacing-lg); }
+    .schedule { list-style: none; margin: 0; padding: 0; }
+    .schedule li { display: flex; gap: 1rem; align-items: center; padding: var(--spacing-md) 0; border-bottom: 1px dashed var(--color-black); }
+    .schedule li:last-child { border-bottom: none; }
+    .schedule time { display: inline-block; min-width: 120px; text-align: center; font-weight: 900; font-family: var(--font-heading); background: var(--color-primary); color: var(--color-black); border: 2px solid var(--color-black); padding: 0.25rem 0.5rem; }
+    .form label { display: block; font-weight: 700; margin: 0.75rem 0 0.25rem 0; text-transform: uppercase; }
+    .form input[type="text"], .form input[type="email"], .form input[type="tel"], .form textarea, .form select { width: 100%; padding: 0.75rem; border: var(--border-width) solid var(--color-black); background: var(--color-white); }
+    .form textarea { min-height: 120px; resize: vertical; }
+    .checks { display: grid; gap: 0.5rem; margin: 0.5rem 0 0 0; }
+    .notice { font-size: 0.95rem; color: var(--color-gray); }
+    .footer-note { padding: 2rem 0; border-top: 2px solid var(--color-black); text-align: center; color: var(--color-gray); }
+
+    /* Guests simple list with IG icon */
+    .guest-list { list-style: none; margin: 0; padding: 0; }
+    .guest-list li { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.5rem 0; border-bottom: 1px dashed var(--color-black); }
+    .guest-list li:last-child { border-bottom: none; }
+    .guest-badge { display: inline-flex; align-items: center; gap: .5rem; border: 3px solid var(--color-black); background: var(--color-primary); color: var(--color-black); text-decoration: none; box-shadow: 4px 4px 0 var(--color-black); padding: .35rem .6rem; font-weight: 900; }
+    .guest-badge i { font-size: 1.1rem; }
+    @media (max-width: 480px) {
+      .guest-list li { flex-direction: column; align-items: stretch; }
+      .guest-badge { width: 100%; justify-content: center; text-align: center; padding: .5rem .6rem; font-size: 1rem; }
+    }
+
+    /* Inscrição: superfície branca para maior contraste */
+    .form-surface { background: var(--color-white); border: var(--border-width) solid var(--color-black); padding: var(--spacing-lg); box-shadow: 6px 6px 0 var(--color-black); }
+    
+    /* Price highlight */
+    .price-info {
+      background: var(--color-primary);
+      border: 3px solid var(--color-black);
+      padding: 1rem;
+      margin: 1rem 0;
+      box-shadow: 4px 4px 0 var(--color-black);
+    }
+    .price-info strong {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+    }
+
+    /* Language Switcher */
+    .lang-switcher { position: fixed; top: 20px; right: 20px; z-index: 1000; display: flex; gap: 0.5rem; background: var(--color-white); border: 3px solid var(--color-black); box-shadow: 6px 6px 0 var(--color-black); padding: 0.5rem; }
+    .lang-switcher button { font-family: var(--font-heading); font-weight: 700; font-size: 0.875rem; padding: 0.5rem 0.75rem; border: 2px solid var(--color-black); background: var(--color-white); color: var(--color-black); cursor: pointer; text-transform: uppercase; transition: all 0.2s ease; }
+    .lang-switcher button:hover { background: var(--color-primary); transform: translateY(-2px); }
+    .lang-switcher button.active { background: var(--color-black); color: var(--color-white); }
+    
+    /* Back Button */
+    .back-button { position: fixed; top: 20px; left: 20px; z-index: 1000; }
+    .back-button a { font-family: var(--font-heading); font-weight: 700; font-size: 0.875rem; padding: 0.5rem 1rem; border: 3px solid var(--color-black); background: var(--color-primary); color: var(--color-black); text-decoration: none; display: inline-block; box-shadow: 6px 6px 0 var(--color-black); transition: all 0.2s ease; text-transform: uppercase; }
+    .back-button a:hover { background: var(--color-black); color: var(--color-primary); transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--color-primary); }
+    
+    /* Loading spinner animation */
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Back Button -->
+  <div class="back-button">
+    <a href="../../index.html#events" data-i18n="evento.back.short">← Voltar</a>
+  </div>
+
+  <!-- Language Switcher -->
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="pt">PT</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <span class="hero__eyebrow" data-i18n="evento.eyebrow">Evento Especial</span>
+      <h1 class="hero__title" data-i18n="evento.title">São Martinho no BE WATER</h1>
+      <div class="event-date-banner"><span class="date-small" data-i18n="evento.date">SÁBADO, 15 NOV</span></div>
+      <p class="hero__subtitle" data-i18n="evento.subtitle">
+        Celebra o São Martinho connosco! Treino de Ginástica com <strong>Bernardo Simões</strong>, seguido de convívio com castanhas assadas e 2 minis incluídos.
+      </p>
+      <div class="hero__cta">
+        <a class="btn btn--hero" href="#inscricao" data-i18n="evento.cta">Inscrever Agora</a>
+      </div>
+      
+    </div>
+  </header>
+
+  <main>
+    
+    <section class="section">
+      <div class="wrap grid grid--2">
+        <div class="card card--accent">
+          <h2 style="margin-top:0" data-i18n="evento.plan.title">Plano do Evento</h2>
+          <p class="notice" style="margin:0 0 1rem 0">
+            <span data-i18n="evento.plan.dateinfo">15 de novembro (sábado)</span> · <a style="text-decoration:underline; color:inherit" href="#mapa">BE WATER — Campo Grande (<span data-i18n="evento.plan.maps">ver Google Maps</span>)</a>
+          </p>
+          <div class="schedule-box">
+          <ul class="schedule">
+            <li><time>14:30–16:00</time><span data-i18n="evento.plan.schedule1">Treino de Ginástica com <strong>Bernardo Simões</strong></span></li>
+            <li><time>16:00+</time><span data-i18n="evento.plan.schedule2">Convívio com castanhas assadas e 2 minis</span></li>
+          </ul>
+          </div>
+          
+          <div class="price-info">
+            <p style="margin: 0;" data-i18n="evento.plan.price"><strong>Preços:</strong> 7€ (sócios) | 15€ (externos)</p>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;" data-i18n="evento.plan.includes">Inclui treino + castanhas + 2 minis</p>
+          </div>
+          
+          <p class="notice" style="margin-top:1rem"><span data-i18n="evento.plan.limited">Vagas limitadas. Garante a tua presença!</span></p>
+        </div>
+
+        <div id="inscricao" class="card card--accent">
+          <h2 style="margin-top:0" data-i18n="evento.form.title">Inscrição</h2>
+          <div class="form-surface">
+            <form id="inscricao-form" class="form">
+              <label for="nome"><span data-i18n="evento.form.name">Nome</span></label>
+              <input id="nome" name="nome" type="text" placeholder="O teu nome" autocomplete="name" required>
+
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="O teu email" autocomplete="email" required>
+
+              <label for="tel"><span data-i18n="evento.form.phone">Telemóvel (MBWay)</span></label>
+              <input id="tel" name="telemovel" type="tel" placeholder="Ex.: 912 345 678" autocomplete="tel" inputmode="tel" maxlength="9" required>
+
+              <label for="nif"><span data-i18n="evento.form.nif">NIF - opcional (para fatura)</span></label>
+              <input id="nif" name="nif" type="text" placeholder="XXXXXXXXX (opcional)" maxlength="9">
+
+              <label for="observacoes"><span data-i18n="evento.form.notes">Observações (opcional)</span></label>
+              <textarea id="observacoes" name="observacoes" placeholder="Alergias alimentares, nível de treino, ou outra informação relevante"></textarea>
+
+              <div class="price-info" style="text-align: center; margin: 1.5rem 0;">
+                <p style="margin: 0; font-size: 1.5rem; font-weight: 900;">
+                  <span data-i18n="evento.form.price">Inscrição: €15.00</span>
+                </p>
+                <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;" data-i18n="evento.form.price-note">
+                  (Sócios inscrevem-se via app do clube)
+                </p>
+              </div>
+
+              <div style="margin: 0.75rem 0">
+                <label><input type="checkbox" name="consentimento" required> <span data-i18n="evento.form.consent">Li e aceito o tratamento dos meus dados para efeitos de inscrição e comunicação relacionada com este evento.</span></label>
+              </div>
+
+              <button class="btn btn--hero" type="submit" id="payBtn" data-i18n="evento.form.submit">
+                💳 Pagar €15.00 com MBWay
+              </button>
+
+              <div id="loading" style="display: none; text-align: center; margin-top: 1.5rem; padding: 1.5rem; border: 4px solid var(--color-black); background: var(--color-white);">
+                <p style="font-weight: 700; font-size: 1.2rem; margin-bottom: 1rem;">⏳ <span data-i18n="evento.form.processing">A processar pagamento...</span></p>
+                <div style="border: 4px solid var(--color-gray); border-radius: 50%; border-top: 4px solid var(--color-black); width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+                <p style="margin-top: 1rem; font-size: 0.95rem;" data-i18n="evento.form.confirm-phone">Confirma o pagamento na app MBWay</p>
+              </div>
+
+              <p class="notice" id="error-msg" style="display:none; color:#b00020; margin-top: 1rem; padding: 1rem; border: 3px solid #b00020; background: #ffebee; font-weight: 700;"></p>
+              <p class="notice" id="success-msg" style="display:none; color:#2e7d32; margin-top: 1rem; padding: 1rem; border: 3px solid #2e7d32; background: #e8f5e9; font-weight: 700;"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap card">
+        <h3 style="margin-top:0" data-i18n="evento.cartaz.title">Cartaz do Evento</h3>
+        <div style="text-align: center; margin-top: 1.5rem;">
+          <img src="../../src/images/general/sao-martinho-evento-cartaz.jpg" alt="Cartaz Evento São Martinho no BE WATER" style="max-width: 100%; height: auto; border: 4px solid var(--color-black); box-shadow: 8px 8px 0 var(--color-black);">
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap card">
+        <h3 style="margin-top:0" data-i18n="evento.guest.title">Convidado Especial</h3>
+        <ul class="guest-list">
+          <li>
+            <div><strong data-i18n="evento.guest.role">Treinador de Ginástica</strong>: Bernardo Simões</div>
+          </li>
+        </ul>
+        <p style="margin-top: 1rem; color: var(--color-gray);" data-i18n="evento.guest.bio">Treinador de ginástica e ex-atleta do Lisboa Ginásio Clube, o Bernardo é o responsável pelo programa Gymnastics Foundation — um método de treino de força com o peso corporal inspirado nos movimentos e na preparação dos ginastas olímpicos.</p>
+      </div>
+    </section>
+    
+    <section class="section">
+      <div class="wrap card">
+        <h3 style="margin-top:0" data-i18n="evento.info.title">Informações úteis</h3>
+        <ul class="list">
+          <li data-i18n="evento.info.bring"><strong>O que levar</strong>: roupa confortável para treino, água, e boa disposição para o convívio!</li>
+          <li data-i18n="evento.info.food"><strong>Comidas e bebidas</strong>: castanhas assadas quentinhas e 2 minis por pessoa incluídos no preço.</li>
+          <li data-i18n="evento.info.payment"><strong>Pagamento</strong>: a efetuar no dia do evento (dinheiro ou MBWay).</li>
+          <li data-i18n="evento.info.tradition"><strong>Tradição</strong>: vamos celebrar o São Martinho à moda portuguesa!</li>
+        </ul>
+      </div>
+    </section>
+    
+    <section id="mapa" class="section">
+      <div class="wrap card" style="padding:0">
+        <div class="contact__map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.8374567890123!2d-9.1567!3d38.7223!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1934a1c3c1c1c1%3A0x1c1c1c1c1c1c1c1c!2sAv.%20do%20Brasil%207%2C%20Lisboa!5e0!3m2!1spt-PT!2spt!4v1647123456789!5m2!1spt-PT!2spt" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" title="Mapa da localização do BE WATER - Av. do Brasil 7, Lisboa"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap" style="text-align: center;">
+        <a href="../../index.html#events" class="btn btn--hero" style="font-size: 1.25rem; padding: 1.25rem 2.5rem; display: inline-block; text-decoration: none;" data-i18n="evento.back">← Voltar aos Eventos</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Payment Form Handler
+    document.getElementById('inscricao-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const nome = document.getElementById('nome').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('tel').value.trim();
+      const nif = document.getElementById('nif').value.trim();
+      const observacoes = document.getElementById('observacoes').value.trim();
+      
+      // Validations
+      if (!/^9[1236]\d{7}$/.test(phone)) {
+        showError('Número de telemóvel inválido (formato: 9XXXXXXXX)');
+        return;
+      }
+      
+      if (nif && !/^\d{9}$/.test(nif)) {
+        showError('NIF deve ter 9 dígitos');
+        return;
+      }
+      
+      // Show loading
+      showLoading();
+      
+      try {
+        const response = await fetch('https://cool-starship-a7a3e1.netlify.app/.netlify/functions/mbway-payment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            produto_id: 'EVENTO_SAOMARTINHO_001',
+            amount: 15.00,
+            phone: phone,
+            email: email,
+            nome: nome,
+            nif: nif || null,
+            observacoes: observacoes || null
+          })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          showSuccess('✅ Pedido de pagamento enviado! Abre a app MBWay no teu telemóvel para confirmar o pagamento de €15.00. Após confirmação, receberás email com os detalhes da inscrição.');
+          // Clear form
+          document.getElementById('inscricao-form').reset();
+        } else {
+          showError(result.message || 'Erro no pagamento. Tenta novamente.');
+        }
+        
+      } catch (error) {
+        console.error('Erro:', error);
+        showError('Erro de conexão. Verifica a tua ligação à internet e tenta novamente.');
+      } finally {
+        hideLoading();
+      }
+    });
+
+    function showLoading() {
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('payBtn').disabled = true;
+      document.getElementById('error-msg').style.display = 'none';
+      document.getElementById('success-msg').style.display = 'none';
+    }
+
+    function hideLoading() {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('payBtn').disabled = false;
+    }
+
+    function showError(message) {
+      const errorDiv = document.getElementById('error-msg');
+      errorDiv.textContent = '❌ ' + message;
+      errorDiv.style.display = 'block';
+      document.getElementById('success-msg').style.display = 'none';
+      // Scroll to error
+      errorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function showSuccess(message) {
+      const successDiv = document.getElementById('success-msg');
+      successDiv.textContent = message;
+      successDiv.style.display = 'block';
+      document.getElementById('error-msg').style.display = 'none';
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Auto-format phone number
+    document.getElementById('tel').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length > 9) value = value.slice(0, 9);
+      e.target.value = value;
+    });
+
+    // Auto-format NIF
+    document.getElementById('nif').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length > 9) value = value.slice(0, 9);
+      e.target.value = value;
+    });
+  </script>
+
+  <script>
+    // Translations for São Martinho Event
+    const translations = {
+      pt: {
+        'evento.eyebrow': 'Evento Especial',
+        'evento.title': 'São Martinho no BE WATER',
+        'evento.date': 'SÁBADO, 15 NOV',
+        'evento.subtitle': 'Celebra o São Martinho connosco! Treino de Ginástica com <strong>Bernardo Simões</strong>, seguido de convívio com castanhas assadas e 2 minis incluídos.',
+        'evento.cta': 'Inscrever Agora',
+        'evento.plan.title': 'Plano do Evento',
+        'evento.plan.dateinfo': '15 de novembro (sábado)',
+        'evento.plan.maps': 'ver Google Maps',
+        'evento.plan.schedule1': 'Treino de Ginástica com <strong>Bernardo Simões</strong>',
+        'evento.plan.schedule2': 'Convívio com castanhas assadas e 2 minis',
+        'evento.plan.price': '<strong>Preços:</strong> 7€ (sócios) | 15€ (externos)',
+        'evento.plan.includes': 'Inclui treino + castanhas + 2 minis',
+        'evento.plan.limited': 'Vagas limitadas. Garante a tua presença!',
+        'evento.form.title': 'Inscrição',
+        'evento.form.name': 'Nome',
+        'evento.form.phone': 'Telemóvel (MBWay)',
+        'evento.form.nif': 'NIF - opcional (para fatura)',
+        'evento.form.notes': 'Observações (opcional)',
+        'evento.form.price': 'Inscrição: €15.00',
+        'evento.form.price-note': '(Sócios inscrevem-se via app do clube)',
+        'evento.form.consent': 'Li e aceito o tratamento dos meus dados para efeitos de inscrição e comunicação relacionada com este evento.',
+        'evento.form.submit': '💳 Pagar €15.00 com MBWay',
+        'evento.form.processing': 'A processar pagamento...',
+        'evento.form.confirm-phone': 'Confirma o pagamento na app MBWay',
+        'evento.cartaz.title': 'Cartaz do Evento',
+        'evento.guest.title': 'Convidado Especial',
+        'evento.guest.role': 'Treinador de Ginástica',
+        'evento.guest.bio': 'Treinador de ginástica e ex-atleta do Lisboa Ginásio Clube, o Bernardo é o responsável pelo programa Gymnastics Foundation — um método de treino de força com o peso corporal inspirado nos movimentos e na preparação dos ginastas olímpicos.',
+        'evento.info.title': 'Informações úteis',
+        'evento.info.bring': '<strong>O que levar</strong>: roupa confortável para treino, água, e boa disposição para o convívio!',
+        'evento.info.food': '<strong>Comidas e bebidas</strong>: castanhas assadas quentinhas e 2 minis por pessoa incluídos no preço.',
+        'evento.info.payment': '<strong>Pagamento</strong>: a efetuar no dia do evento (dinheiro ou MBWay).',
+        'evento.info.tradition': '<strong>Tradição</strong>: vamos celebrar o São Martinho à moda portuguesa!',
+        'evento.back': '← Voltar aos Eventos',
+        'evento.back.short': '← Voltar'
+      },
+      en: {
+        'evento.eyebrow': 'Special Event',
+        'evento.title': 'São Martinho at BE WATER',
+        'evento.date': 'SATURDAY, NOV 15',
+        'evento.subtitle': 'Celebrate São Martinho with us! Gymnastics training with <strong>Bernardo Simões</strong>, followed by gathering with roasted chestnuts and 2 drinks included.',
+        'evento.cta': 'Register Now',
+        'evento.plan.title': 'Event Schedule',
+        'evento.plan.dateinfo': 'November 15 (Saturday)',
+        'evento.plan.maps': 'view Google Maps',
+        'evento.plan.schedule1': 'Gymnastics Training with <strong>Bernardo Simões</strong>',
+        'evento.plan.schedule2': 'Gathering with roasted chestnuts and 2 drinks',
+        'evento.plan.price': '<strong>Prices:</strong> 7€ (members) | 15€ (non-members)',
+        'evento.plan.includes': 'Includes training + chestnuts + 2 drinks',
+        'evento.plan.limited': 'Limited spots. Secure your place!',
+        'evento.form.title': 'Registration',
+        'evento.form.name': 'Name',
+        'evento.form.phone': 'Phone (MBWay)',
+        'evento.form.nif': 'Tax ID - optional (for invoice)',
+        'evento.form.notes': 'Notes (optional)',
+        'evento.form.price': 'Registration: €15.00',
+        'evento.form.price-note': '(Members register via club app)',
+        'evento.form.consent': 'I have read and accept the processing of my data for registration and communication related to this event.',
+        'evento.form.submit': '💳 Pay €15.00 with MBWay',
+        'evento.form.processing': 'Processing payment...',
+        'evento.form.confirm-phone': 'Confirm payment in MBWay app',
+        'evento.cartaz.title': 'Event Poster',
+        'evento.guest.title': 'Special Guest',
+        'evento.guest.role': 'Gymnastics Coach',
+        'evento.guest.bio': 'Gymnastics coach and former athlete at Lisboa Ginásio Clube, Bernardo is the creator of the Gymnastics Foundation program — a bodyweight strength training method inspired by the movements and preparation of Olympic gymnasts.',
+        'evento.info.title': 'Useful Information',
+        'evento.info.bring': '<strong>What to bring</strong>: comfortable training clothes, water, and good vibes for the gathering!',
+        'evento.info.food': '<strong>Food and drinks</strong>: warm roasted chestnuts and 2 drinks per person included in the price.',
+        'evento.info.payment': '<strong>Payment</strong>: to be made on the event day (cash or MBWay).',
+        'evento.info.tradition': '<strong>Tradition</strong>: let\'s celebrate São Martinho the Portuguese way!',
+        'evento.back': '← Back to Events',
+        'evento.back.short': '← Back'
+      }
+    };
+
+    let currentLang = 'pt';
+
+    function switchLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      
+      // Update all elements with data-i18n
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          element.innerHTML = translations[lang][key];
+        }
+      });
+
+      // Update active button
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+
+      // Save preference
+      localStorage.setItem('evento-lang', lang);
+    }
+
+    // Event listeners for language buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        switchLanguage(this.getAttribute('data-lang'));
+      });
+    });
+
+    // Load saved language preference or default to PT
+    const savedLang = localStorage.getItem('evento-lang') || 'pt';
+    if (savedLang !== 'pt') {
+      switchLanguage(savedLang);
+    }
+  </script>
+</body>
+</html>
+

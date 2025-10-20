@@ -127,6 +127,8 @@ const translations = {
       'events.presunto.desc': 'A arte tradicional do corte à faca. Perfeição em cada fatia.',
       'events.nutricao.title': 'Nutrição + Treino BeWater',
       'events.nutricao.desc': 'Treino com Bruno Salgueiro e palestra com Dr. Alexandre Azevedo.',
+      'events.saomartinho.title': 'São Martinho no BE WATER',
+      'events.saomartinho.desc': 'Treino com Bernardo Simões e convívio com castanhas e minis.',
       
       // Schedule Section
       'schedule.title': 'HORÁRIOS E MODALIDADES',
@@ -570,6 +572,8 @@ const translations = {
       'events.presunto.desc': 'The traditional art of knife carving. Perfection in every slice.',
       'events.nutricao.title': 'Nutrition + BeWater Training',
       'events.nutricao.desc': 'Training with Bruno Salgueiro and talk with Dr. Alexandre Azevedo.',
+      'events.saomartinho.title': 'São Martinho at BE WATER',
+      'events.saomartinho.desc': 'Training with Bernardo Simões and gathering with chestnuts and drinks.',
       
       // Schedule Section
       'schedule.title': 'SCHEDULE & ACTIVITIES',
