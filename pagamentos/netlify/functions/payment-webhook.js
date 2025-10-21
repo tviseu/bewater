@@ -566,13 +566,44 @@ exports.handler = async (event, context) => {
         console.log(`🕐 Novo timestamp UTC: ${finalTimestamp}`);
       }
 
-      // Criar/atualizar registro do pagamento  
+      // Criar/atualizar registro do pagamento
+      // FUNÇÃO AUXILIAR: Truncar string para limite do banco (VARCHAR(100))
+      const truncateToLimit = (str, limit = 100) => {
+        if (!str) return null;
+        return str.length > limit ? str.substring(0, limit) : str;
+      };
+      
+      // Extrair produto de forma segura do identifier
+      let produtoNome = transaction.produto_nome;
+      let produtoId = transaction.produto_id;
+      
+      if (!produtoNome && identifier) {
+        // Tentar extrair produto do identifier
+        // Formato pode ser: "Café - BE WATER | base64..." ou "2 items €1.85 | base64..."
+        const identifierPart = identifier.split(' | ')[0]; // Pegar parte antes do base64
+        
+        if (identifierPart.includes(' - BE WATER')) {
+          // Formato single produto: "Café - BE WATER"
+          produtoNome = identifierPart.split(' - BE WATER')[0];
+        } else if (identifierPart.includes(' items €')) {
+          // Formato multi-produto: "2 items €1.85"
+          produtoNome = 'Compra Múltipla';
+        } else {
+          // Fallback genérico
+          produtoNome = identifierPart;
+        }
+      }
+      
+      if (!produtoId && produtoNome) {
+        produtoId = produtoNome; // Usar nome como ID se não tiver ID
+      }
+      
       const paymentRecord = {
         transaction_id: transactionID,
         reference: reference,
-        // CORRIGIDO: usar produto_nome se disponível, senão extrair do identifier
-        produto: transaction.produto_nome || transaction.produto_id || identifier?.split(' - ')[0] || 'PRODUTO_UNKNOWN',
-        produto_nome: transaction.produto_nome || identifier?.split(' - ')[0] || 'Produto BE WATER',
+        // CORRIGIDO: Truncar valores para evitar erro VARCHAR(100)
+        produto: truncateToLimit(produtoId || produtoNome || 'PRODUTO_UNKNOWN'),
+        produto_nome: truncateToLimit(produtoNome || 'Produto BE WATER'),
         valor: amount || 0,
         telefone: clientData?.telefone || null,
         nome: clientData?.nome || null,
@@ -586,7 +617,7 @@ exports.handler = async (event, context) => {
         fatura_tentativas: 0,
         raw_webhook_data: decryptedData,
         // Campos adicionais para multi-produto
-        produto_id: transaction.produto_id || null,
+        produto_id: truncateToLimit(transaction.produto_id),
         quantidade: transaction.quantidade || 1,
         preco_unitario: transaction.preco_unitario || amount,
         is_multi_product: transaction.is_multi_product || false,
