@@ -303,6 +303,9 @@ exports.handler = async (event, context) => {
 
   // POST: Receber webhook do EuPago
   if (event.httpMethod === 'POST') {
+    console.log('🔔 Webhook recebido: POST');
+    console.log('📦 Raw body:', event.body?.substring(0, 200));
+    
     try {
       // Chave criptográfica do EuPago (variável de ambiente)
       const WEBHOOK_SECRET = process.env.EUPAGO_WEBHOOK_SECRET;
