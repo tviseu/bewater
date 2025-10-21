@@ -304,6 +304,22 @@ exports.handler = async (event, context) => {
         } else if (payments && payments.length > 0) {
           console.log(`📦 Encontrados ${payments.length} produto(s) na transação ${input.transactionID}`);
           
+          // DEBUG: Ver campos detalhados de cada pagamento
+          payments.forEach((p, idx) => {
+            console.log(`📋 Produto ${idx + 1}:`, {
+              id: p.id,
+              transaction_id: p.transaction_id,
+              produto: p.produto,
+              produto_nome: p.produto_nome,
+              produto_id: p.produto_id,
+              quantidade: p.quantidade,
+              preco_unitario: p.preco_unitario,
+              valor: p.valor,
+              is_multi_product: p.is_multi_product,
+              status: p.status
+            });
+          });
+          
           // Agregar produtos numa estrutura comum
           produtosArray = payments.map(payment => ({
             id: payment.produto_id || 'UNKNOWN_001',
@@ -312,6 +328,10 @@ exports.handler = async (event, context) => {
             preco_unitario: parseFloat(payment.preco_unitario || payment.valor),
             quantidade: payment.quantidade || 1
           }));
+          
+          console.log(`📊 Array produtos mapeado:`, produtosArray);
+        } else {
+          console.log('⚠️ Nenhum pagamento encontrado na BD para esta transação');
         }
       } catch (dbError) {
         console.error('❌ Erro ao consultar Supabase:', dbError);
