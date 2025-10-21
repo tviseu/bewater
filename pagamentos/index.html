@@ -2299,12 +2299,8 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Fechar popup clicando no fundo escuro
-        document.getElementById('successPopup').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeSuccessPopup();
-            }
-        });
+        // NÃO permitir fechar popup clicando fora - apenas pelo botão
+        // (Garantir que utilizador lê a mensagem completa)
 
         // Verificar parâmetros URL (manter compatibilidade)
         const urlParams = new URLSearchParams(window.location.search);
