@@ -533,26 +533,35 @@ exports.handler = async (event, context) => {
         }
       }
 
-      // Verificar se já existe um registo pendente
-      let existingPayment = null;
+      // Verificar se já existem registos pendentes (pode ser multi-produto!)
+      let existingPayments = [];
       if (supabase && transactionID) {
         try {
-          const { data } = await supabase
+          const { data, error } = await supabase
             .from('payments')
             .select('*')
-            .eq('transaction_id', transactionID)
-            .single();
-          existingPayment = data;
-          console.log(`🔍 Pagamento existente encontrado:`, {
-            id: data.id,
-            status: data.status,
-            timestamp: data.timestamp,
-            transaction_id: data.transaction_id
-          });
+            .eq('transaction_id', transactionID);
+          
+          if (error) {
+            console.log(`🔍 Erro ao buscar pagamentos existentes: ${error.message}`);
+          } else if (data && data.length > 0) {
+            existingPayments = data;
+            console.log(`🔍 ${data.length} pagamento(s) existente(s) encontrado(s):`, data.map(p => ({
+              id: p.id,
+              produto: p.produto_nome || p.produto,
+              produto_id: p.produto_id,
+              status: p.status,
+              timestamp: p.timestamp
+            })));
+          } else {
+            console.log(`🔍 Nenhum pagamento existente encontrado para transaction_id: ${transactionID}`);
+          }
         } catch (error) {
-          console.log(`🔍 Nenhum pagamento existente encontrado para transaction_id: ${transactionID}`);
+          console.log(`🔍 Erro ao verificar pagamentos existentes: ${error.message}`);
         }
       }
+      
+      const existingPayment = existingPayments.length > 0 ? existingPayments[0] : null;
 
       // CORRIGIR TIMEZONE: Sempre usar timestamp consistente em UTC
       let finalTimestamp;
@@ -636,18 +645,7 @@ exports.handler = async (event, context) => {
       console.log(`💾 PaymentRecord completo a guardar:`, JSON.stringify(paymentRecord, null, 2));
 
       console.log(`📝 Processando pagamento - Status: ${paymentStatus}, TransactionID: ${transactionID}`);
-      if (existingPayment) {
-        console.log(`🔄 ATUALIZANDO pagamento existente:`, {
-          old_status: existingPayment.status,
-          new_status: paymentStatus,
-          old_timestamp: existingPayment.timestamp,
-          new_timestamp: finalTimestamp,
-          transaction_id: transactionID
-        });
-      } else {
-        console.log(`🆕 CRIANDO novo pagamento: ${paymentStatus} para transaction_id: ${transactionID}`);
-      }
-
+      
       // Guardar na Supabase (com fallback para Map)
       let savedPayment;
       try {
@@ -655,9 +653,46 @@ exports.handler = async (event, context) => {
         console.log(`🔌 Supabase configurado:`, !!supabase);
         
         if (supabase) {
-          console.log(`✅ Chamando upsertPayment com paymentRecord...`);
-          savedPayment = await upsertPayment(paymentRecord);
-          console.log(`✅ upsertPayment completado:`, savedPayment ? 'Sucesso' : 'Null retornado');
+          // 🆕 LÓGICA ESPECIAL: Se já existem registos, atualizar apenas o status (preservar campos originais)
+          if (existingPayments.length > 0) {
+            console.log(`🔄 ATUALIZANDO ${existingPayments.length} pagamento(s) existente(s) - apenas status e cliente`);
+            
+            // Para multi-produto: atualizar TODOS os registos com este transaction_id
+            const updateFields = {
+              status: paymentStatus,
+              last_update: new Date().toISOString()
+            };
+            
+            // Se webhook trouxe dados de cliente, atualizar também
+            if (clientData) {
+              if (clientData.nome) updateFields.nome = clientData.nome;
+              if (clientData.email) updateFields.email = clientData.email;
+              if (clientData.nif) updateFields.nif = clientData.nif;
+              if (clientData.telefone) updateFields.telefone = clientData.telefone;
+            }
+            
+            console.log(`📋 Campos a atualizar:`, updateFields);
+            
+            const { data, error } = await supabase
+              .from('payments')
+              .update(updateFields)
+              .eq('transaction_id', transactionID)
+              .select();
+            
+            if (error) {
+              console.error('❌ Erro ao atualizar pagamentos existentes:', error);
+              throw error;
+            }
+            
+            console.log(`✅ ${data?.length || 0} pagamento(s) atualizado(s) para status: ${paymentStatus}`);
+            savedPayment = data && data.length > 0 ? data[0] : existingPayments[0];
+          } else {
+            // Não existe, criar novo registo
+            console.log(`🆕 CRIANDO novo pagamento: ${paymentStatus} para transaction_id: ${transactionID}`);
+            console.log(`✅ Chamando upsertPayment com paymentRecord...`);
+            savedPayment = await upsertPayment(paymentRecord);
+            console.log(`✅ upsertPayment completado:`, savedPayment ? 'Sucesso' : 'Null retornado');
+          }
         } else {
           console.error('❌ SUPABASE NÃO CONFIGURADO - usando fallback Map');
           // Fallback para Map em memória
