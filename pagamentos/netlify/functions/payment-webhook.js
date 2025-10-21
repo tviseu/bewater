@@ -653,9 +653,17 @@ exports.handler = async (event, context) => {
         console.log(`🔌 Supabase configurado:`, !!supabase);
         
         if (supabase) {
-          // 🆕 LÓGICA ESPECIAL: Se já existem registos, atualizar apenas o status (preservar campos originais)
-          if (existingPayments.length > 0) {
-            console.log(`🔄 ATUALIZANDO ${existingPayments.length} pagamento(s) existente(s) - apenas status e cliente`);
+          // 🆕 LÓGICA ESPECIAL: Diferenciar chamadas internas (pending) de chamadas EuPago (confirmação)
+          
+          // CASO 1: Chamada interna (criação de pending) → SEMPRE INSERT (mesmo que já exista outro produto)
+          if (isInternalCall && paymentStatus === 'pending') {
+            console.log(`🏠 CHAMADA INTERNA - criando novo registo pendente (produto_id: ${paymentRecord.produto_id})`);
+            savedPayment = await upsertPayment(paymentRecord);
+            console.log(`✅ Registo pendente criado com sucesso`);
+          }
+          // CASO 2: Webhook EuPago (confirmação) → UPDATE apenas status de TODOS os registos
+          else if (!isInternalCall && existingPayments.length > 0) {
+            console.log(`📡 WEBHOOK EUPAGO - atualizando ${existingPayments.length} pagamento(s) existente(s) - apenas status e cliente`);
             
             // Para multi-produto: atualizar TODOS os registos com este transaction_id
             const updateFields = {
@@ -686,10 +694,10 @@ exports.handler = async (event, context) => {
             
             console.log(`✅ ${data?.length || 0} pagamento(s) atualizado(s) para status: ${paymentStatus}`);
             savedPayment = data && data.length > 0 ? data[0] : existingPayments[0];
-          } else {
-            // Não existe, criar novo registo
+          }
+          // CASO 3: Não existe ou é outro caso → INSERT normal
+          else {
             console.log(`🆕 CRIANDO novo pagamento: ${paymentStatus} para transaction_id: ${transactionID}`);
-            console.log(`✅ Chamando upsertPayment com paymentRecord...`);
             savedPayment = await upsertPayment(paymentRecord);
             console.log(`✅ upsertPayment completado:`, savedPayment ? 'Sucesso' : 'Null retornado');
           }
