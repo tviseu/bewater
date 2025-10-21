@@ -558,17 +558,21 @@
         async function loadPayments() {
             try {
                 console.log('🔄 Iniciando carregamento dos pagamentos...');
+                console.log('🔗 URL:', '/.netlify/functions/payment-webhook');
                 
                 const response = await fetch('/.netlify/functions/payment-webhook');
                 console.log('📡 Response status:', response.status);
-                console.log('📡 Response headers:', response.headers);
+                console.log('📡 Response ok:', response.ok);
                 
                 if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('❌ Response error:', errorText);
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
                 
                 const data = await response.json();
                 console.log('📦 Data recebida:', data);
+                console.log('📦 Payments array:', data.payments);
                 
                 if (data.success) {
                     const rawPayments = data.payments || [];
@@ -632,8 +636,9 @@
                 return p.valor && !isNaN(valor) && valor > 0;
             });
             const confirmedPayments = validPayments.filter(p => p.status === 'confirmado');
+            const pendingPayments = validPayments.filter(p => p.status === 'pending');
             
-            console.log(`📊 Pagamentos válidos: ${validPayments.length}, Confirmados: ${confirmedPayments.length}, Inválidos: ${invalidPayments.length}`);
+            console.log(`📊 Pagamentos válidos: ${validPayments.length}, Confirmados: ${confirmedPayments.length}, Pending: ${pendingPayments.length}, Inválidos: ${invalidPayments.length}`);
             
             if (invalidPayments.length > 0) {
                 console.log(`🚫 Escondendo ${invalidPayments.length} pagamentos sem valor válido:`, 
@@ -647,8 +652,14 @@
                 );
             }
             
-            if (confirmedPayments.length === 0) {
-                paymentsList.innerHTML = '<div class="no-payments">📭 Nenhum pagamento confirmado encontrado</div>';
+            if (confirmedPayments.length === 0 && pendingPayments.length === 0) {
+                paymentsList.innerHTML = `
+                    <div class="no-payments">
+                        📭 Nenhum pagamento encontrado<br><br>
+                        Total recebidos: ${payments.length}<br>
+                        Válidos: ${validPayments.length}<br>
+                        Inválidos: ${invalidPayments.length}
+                    </div>`;
                 return;
             }
             
@@ -751,7 +762,30 @@
                 }
             }).join('');
             
-            paymentsList.innerHTML = groupsHTML;
+            // Adicionar seção de pending payments se houver
+            let pendingHTML = '';
+            if (pendingPayments.length > 0) {
+                pendingHTML = `
+                    <div style="margin-top: 40px; padding-top: 20px; border-top: 4px solid #FFD700;">
+                        <div class="section-title">⏳ Pagamentos Pendentes (aguardando confirmação)</div>
+                        ${pendingPayments.map(p => `
+                            <div class="payment-card" style="opacity: 0.7; border-color: #FFD700;">
+                                <div class="payment-header" style="background: #FFF9E6;">
+                                    <strong>${p.produto}</strong> ${p.quantidade > 1 ? ` x${p.quantidade}` : ''}
+                                </div>
+                                <div class="payment-details">
+                                    <div>💰 Valor: <strong>€${p.valor.toFixed(2)}</strong></div>
+                                    <div>📅 ${formatDateTime(p.timestamp)}</div>
+                                    <div>📱 ${p.telefone || 'N/A'}</div>
+                                    <div>⏳ Status: <span style="color: #FFD700; font-weight: bold;">AGUARDANDO CONFIRMAÇÃO</span></div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            paymentsList.innerHTML = groupsHTML + pendingHTML;
         }
 
         // Toggle grupo expandível
