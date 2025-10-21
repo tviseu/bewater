@@ -965,9 +965,21 @@
                 const result = await response.json();
 
                 if (result.success) {
+                    // Adaptar para formato novo (múltiplas faturas) e antigo (single fatura)
+                    const faturas = result.faturas || (result.fatura ? [{ fatura: result.fatura }] : []);
+                    const primeiraFatura = faturas[0]?.fatura || result.fatura;
+                    
+                    if (!primeiraFatura) {
+                        throw new Error('Resposta inválida da API - sem dados de fatura');
+                    }
+                    
                     // Sucesso - botão vira um visto permanente
                     btn.innerHTML = '✅ Emitida';
-                    btn.title = `Fatura ${result.fatura.numero} já emitida`;
+                    const numeroFaturas = faturas.length;
+                    const tituloBtn = numeroFaturas > 1 
+                        ? `${numeroFaturas} faturas emitidas`
+                        : `Fatura ${primeiraFatura.numero} já emitida`;
+                    btn.title = tituloBtn;
                     btn.classList.remove('loading', 'emit-btn');
                     btn.classList.add('emitted');
                     btn.style.backgroundColor = '#d4edda';
@@ -977,7 +989,7 @@
                     
                     // Atualizar dados localmente
                     payment.fatura_emitida = true;
-                    payment.fatura = result.fatura;
+                    payment.fatura = primeiraFatura;
 
                     // Recarregar dados após delay
                     setTimeout(() => {
@@ -985,7 +997,17 @@
                     }, 2000);
 
                     const emailDestino = payment.email || 'bewater.faturas@gmail.com (Consumidor Final)';
-                    alert(`✅ Fatura ${result.fatura.numero} emitida com sucesso!\n\n📧 Fatura enviada para: ${emailDestino}`);
+                    
+                    // Mensagem customizada baseada no número de faturas
+                    let mensagemSucesso;
+                    if (numeroFaturas > 1) {
+                        const detalhes = faturas.map(f => `• ${f.produto}: Fatura ${f.fatura.numero}`).join('\n');
+                        mensagemSucesso = `✅ ${numeroFaturas} faturas emitidas com sucesso!\n\n${detalhes}\n\n📧 Faturas enviadas para: ${emailDestino}`;
+                    } else {
+                        mensagemSucesso = `✅ Fatura ${primeiraFatura.numero} emitida com sucesso!\n\n📧 Fatura enviada para: ${emailDestino}`;
+                    }
+                    
+                    alert(mensagemSucesso);
 
                 } else if (result.already_emitted) {
                     // Fatura já foi emitida anteriormente
