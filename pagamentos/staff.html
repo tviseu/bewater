@@ -639,6 +639,12 @@
             const pendingPayments = validPayments.filter(p => p.status === 'pending');
             
             console.log(`📊 Pagamentos válidos: ${validPayments.length}, Confirmados: ${confirmedPayments.length}, Pending: ${pendingPayments.length}, Inválidos: ${invalidPayments.length}`);
+            console.log('🔍 DEBUG PENDING:', pendingPayments.map(p => ({ 
+                produto: p.produto, 
+                valor: p.valor, 
+                status: p.status,
+                timestamp: p.timestamp 
+            })));
             
             if (invalidPayments.length > 0) {
                 console.log(`🚫 Escondendo ${invalidPayments.length} pagamentos sem valor válido:`, 
