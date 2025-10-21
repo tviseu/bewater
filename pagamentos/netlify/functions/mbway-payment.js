@@ -415,28 +415,45 @@ exports.handler = async (event, context) => {
     }
 
     // Criar identifier com dados para correlação (encodifica nome, email, NIF)
+    // NOTA: NÃO incluir produtos aqui (tornaria identifier muito longo para EuPago)
+    // Produtos são armazenados em tempClientData para correlação posterior
     const clientDataBase64 = Buffer.from(JSON.stringify({
       nome: nome || '',
       email: email || '',
       nif: nif || '',
-      telefone: phone,
-      produtos: produtos // Incluir produtos no base64 para correlação
+      telefone: phone
     })).toString('base64');
     
-    // Criar descrição do pagamento
+    // Criar descrição do pagamento (CURTA para não ultrapassar limite do identifier)
     let paymentDescription;
     if (produtos.length === 1) {
       // Produto único
       const p = produtos[0];
       if (p.produto_id === 'DONATIVO_001') {
-        paymentDescription = `Donativo €${p.preco.toFixed(2)} - BE WATER`;
+        paymentDescription = `Donativo €${p.preco.toFixed(2)}`;
       } else {
-        paymentDescription = `${p.nome}${p.quantidade > 1 ? ` x${p.quantidade}` : ''} - BE WATER`;
+        // Limitar nome a 30 chars para garantir que identifier não excede limite
+        const nomeCorto = p.nome.length > 30 ? p.nome.substring(0, 27) + '...' : p.nome;
+        paymentDescription = `${nomeCorto}${p.quantidade > 1 ? ` x${p.quantidade}` : ''}`;
       }
     } else {
-      // Múltiplos produtos
-      paymentDescription = `Compra Multi (${produtos.length} items) - BE WATER`;
+      // Múltiplos produtos - descrição curta
+      paymentDescription = `${produtos.length} items €${totalCalculado.toFixed(2)}`;
     }
+    
+    // Preparar identifier (deve ter < 255 chars)
+    let identifier = `${paymentDescription} | ${clientDataBase64}`;
+    
+    // Validar tamanho do identifier
+    if (identifier.length > 255) {
+      console.warn(`⚠️ ATENÇÃO: Identifier muito longo (${identifier.length} chars), truncando...`);
+      // Truncar se necessário (priorizar clientDataBase64)
+      const maxDescLength = 255 - clientDataBase64.length - 3; // 3 = " | "
+      const descTruncada = paymentDescription.substring(0, maxDescLength);
+      identifier = `${descTruncada} | ${clientDataBase64}`;
+    }
+    
+    console.log(`📏 Tamanho identifier: ${identifier.length} chars (limite: 255)`);
     
     // Preparar payload para EuPago (ESTRUTURA CORRETA conforme documentação oficial!)
     const eupagoPayload = {
@@ -445,7 +462,7 @@ exports.handler = async (event, context) => {
           currency: "EUR",
           value: totalCalculado
         },
-        identifier: `${paymentDescription} | ${clientDataBase64}`,
+        identifier: identifier,
         customerPhone: phone,    // SÓ O NÚMERO sem +351
         countryCode: "+351"      // CÓDIGO SEPARADO conforme documentação
       }
