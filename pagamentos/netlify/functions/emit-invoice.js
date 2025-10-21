@@ -473,16 +473,48 @@ exports.handler = async (event, context) => {
     // Incrementar contador de tentativas
     await incrementarTentativas(input.transactionID);
 
-    // Emitir fatura (passando array de produtos)
-    const resultadoFatura = await emitirFaturaVendus(dadosCliente, produtosArray, dadosPagamento);
-
-    if (resultadoFatura.success) {
-      // 🔒 MARCAR fatura como emitida na BD Supabase
-      await marcarFaturaEmitida(input.transactionID, resultadoFatura.fatura);
+    // 🆕 EMITIR UMA FATURA POR PRODUTO (solução mais simples e robusta!)
+    const faturasEmitidas = [];
+    const faturasErros = [];
+    
+    console.log(`🔄 Emitindo ${produtosArray.length} fatura(s) individual(is)...`);
+    
+    for (let i = 0; i < produtosArray.length; i++) {
+      const produto = produtosArray[i];
+      console.log(`📄 Emitindo fatura ${i + 1}/${produtosArray.length}: ${produto.nome} (${produto.id})`);
+      
+      // Emitir fatura individual para este produto
+      const resultadoFatura = await emitirFaturaVendus(dadosCliente, [produto], dadosPagamento);
+      
+      if (resultadoFatura.success) {
+        faturasEmitidas.push({
+          produto: produto.nome,
+          fatura: resultadoFatura.fatura
+        });
+        console.log(`✅ Fatura ${resultadoFatura.fatura.numero} emitida: ${produto.nome}`);
+      } else {
+        faturasErros.push({
+          produto: produto.nome,
+          erro: resultadoFatura.error
+        });
+        console.error(`❌ Erro ao emitir fatura para ${produto.nome}:`, resultadoFatura.error);
+      }
+    }
+    
+    // Verificar se pelo menos uma fatura foi emitida com sucesso
+    if (faturasEmitidas.length > 0) {
+      // 🔒 MARCAR todas as faturas como emitidas na BD Supabase
+      const dadosFaturas = {
+        quantidade: faturasEmitidas.length,
+        faturas: faturasEmitidas.map(f => f.fatura),
+        primeira_fatura: faturasEmitidas[0].fatura
+      };
+      
+      await marcarFaturaEmitida(input.transactionID, dadosFaturas);
       
       // 🔄 TAMBÉM atualizar via webhook endpoint (garante sincronização)
       try {
-        const baseUrl = event.headers.host ? `https://${event.headers.host}` : 'https://cool-starship-a7a3e1.netlify.app';
+        const baseUrl = event.headers.host ? `https://${event.headers.host}` : 'https://pagamentos.bewaterlisboa.pt';
         const webhookUpdateUrl = `${baseUrl}/.netlify/functions/payment-webhook`;
         
         const updateResponse = await fetch(webhookUpdateUrl, {
@@ -493,7 +525,7 @@ exports.handler = async (event, context) => {
           },
           body: JSON.stringify({
             transactionID: input.transactionID,
-            fatura: resultadoFatura.fatura
+            fatura: dadosFaturas
           })
         });
 
@@ -508,24 +540,32 @@ exports.handler = async (event, context) => {
         // Não é crítico, continuar
       }
       
-      // Fallback: também guardar na Map em memória
-      const faturaKey = `${input.transactionID}_${input.produto}_${input.valor}`;
-      faturas_emitidas.set(faturaKey, resultadoFatura.fatura);
+      // Mensagem de sucesso
+      const mensagemSucesso = faturasEmitidas.length === 1
+        ? `✅ Fatura ${faturasEmitidas[0].fatura.numero} emitida com sucesso!`
+        : `✅ ${faturasEmitidas.length} faturas emitidas com sucesso!\n${faturasEmitidas.map(f => `• ${f.produto}: Fatura ${f.fatura.numero}`).join('\n')}`;
       
-      console.log(`✅ Fatura ${resultadoFatura.fatura.numero} emitida e registrada com sucesso`);
+      const mensagemCompleta = faturasErros.length > 0
+        ? `${mensagemSucesso}\n\n⚠️ ${faturasErros.length} erro(s):\n${faturasErros.map(e => `• ${e.produto}: ${e.erro}`).join('\n')}`
+        : mensagemSucesso;
+      
+      console.log(`✅ Processo concluído: ${faturasEmitidas.length} fatura(s) emitida(s), ${faturasErros.length} erro(s)`);
       
       return {
         statusCode: 200,
         headers,
         body: JSON.stringify({
           success: true,
-          message: `✅ Fatura ${resultadoFatura.fatura.numero} emitida com sucesso!`,
-          fatura: resultadoFatura.fatura,
+          message: mensagemCompleta,
+          faturas: faturasEmitidas,
+          erros: faturasErros.length > 0 ? faturasErros : undefined,
           database_updated: !!supabase
         })
       };
     } else {
-      throw new Error(resultadoFatura.error);
+      // Todas falharam
+      const errosMsg = faturasErros.map(e => `${e.produto}: ${e.erro}`).join('\n');
+      throw new Error(`Falha ao emitir todas as faturas:\n${errosMsg}`);
     }
 
   } catch (error) {
