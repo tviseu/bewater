@@ -26,18 +26,37 @@ async function upsertPayment(paymentData) {
   try {
     console.log('💾 Guardando pagamento na Supabase:', paymentData);
     
+    // Para multi-produto: usar INSERT em vez de UPSERT
+    // Cada produto é um registo separado mesmo com o mesmo transaction_id
     const { data, error } = await supabase
       .from('payments')
-      .upsert(paymentData, { 
-        onConflict: 'transaction_id',
-        ignoreDuplicates: false 
-      })
+      .insert(paymentData)
       .select()
       .single();
 
     if (error) {
-      console.error('❌ Erro Supabase:', error);
-      throw error;
+      // Se já existe (duplicate), tentar atualizar
+      if (error.code === '23505') { // Unique violation
+        console.log('⚠️ Registo duplicado, a atualizar...');
+        const { data: updateData, error: updateError } = await supabase
+          .from('payments')
+          .update(paymentData)
+          .eq('transaction_id', paymentData.transaction_id)
+          .eq('produto_id', paymentData.produto_id || paymentData.produto)
+          .select()
+          .single();
+        
+        if (updateError) {
+          console.error('❌ Erro ao atualizar Supabase:', updateError);
+          throw updateError;
+        }
+        
+        console.log('✅ Pagamento atualizado:', updateData.id);
+        return updateData;
+      } else {
+        console.error('❌ Erro Supabase:', error);
+        throw error;
+      }
     }
 
     console.log('✅ Pagamento guardado:', data.id);
@@ -198,7 +217,7 @@ exports.handler = async (event, context) => {
         const { data: supabasePayments, error } = await supabase
           .from('payments')
           .select('*')
-          .order('created_at', { ascending: false });
+          .order('timestamp', { ascending: false }); // Ordenar por timestamp (mais recentes primeiro)
           // REMOVIDO LIMITE: Buscar TODOS os pagamentos para estatísticas corretas
 
         if (error) {
@@ -242,6 +261,9 @@ exports.handler = async (event, context) => {
 
       console.log('📋 Retornando', payments.length, 'pagamentos para staff.html');
       console.log('📊 Status dos pagamentos:', payments.map(p => `${p.produto} (${p.status})`));
+      if (payments.length > 0) {
+        console.log('🕐 Primeiros 3 timestamps:', payments.slice(0, 3).map(p => ({ produto: p.produto, timestamp: p.timestamp })));
+      }
 
       return {
         statusCode: 200,

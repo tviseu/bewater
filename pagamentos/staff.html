@@ -666,8 +666,14 @@
             
             console.log(`🔗 Agrupados em ${Object.keys(grouped).length} transações`);
             
-            // Renderizar grupos
-            const groupsHTML = Object.entries(grouped).map(([txId, items]) => {
+            // Renderizar grupos (ordenar por timestamp - mais recentes primeiro)
+            const sortedGroups = Object.entries(grouped).sort((a, b) => {
+                const timestampA = new Date(a[1][0].timestamp || 0);
+                const timestampB = new Date(b[1][0].timestamp || 0);
+                return timestampB - timestampA; // DESC (mais recentes primeiro)
+            });
+            
+            const groupsHTML = sortedGroups.map(([txId, items]) => {
                 const isMultiProduct = items.length > 1;
                 const totalValue = items.reduce((sum, item) => sum + parseFloat(item.valor), 0);
                 const firstItem = items[0];
