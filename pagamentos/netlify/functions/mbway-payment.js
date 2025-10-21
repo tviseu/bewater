@@ -582,9 +582,7 @@ exports.handler = async (event, context) => {
                 'x-initialization-vector': 'internal-call'
               },
               body: JSON.stringify({
-                data: Buffer.from(JSON.stringify({
-                  transaction: pendingPaymentData
-                })).toString('base64')
+                data: Buffer.from(JSON.stringify(pendingPaymentData)).toString('base64')
               })
             });
 

@@ -26,44 +26,42 @@ async function upsertPayment(paymentData) {
   try {
     console.log('💾 Guardando pagamento na Supabase:', paymentData);
     
-    // Para multi-produto: usar INSERT em vez de UPSERT
-    // Cada produto é um registo separado mesmo com o mesmo transaction_id
+    // IMPORTANTE: A tabela tem CONSTRAINT UNIQUE em transaction_id
+    // Para multi-produto, vamos usar INSERT direto e deixar falhar se duplicado
+    // (o primeiro produto cria, os seguintes podem falhar - isso é esperado)
+    
     const { data, error } = await supabase
       .from('payments')
       .insert(paymentData)
-      .select()
-      .single();
+      .select();
 
     if (error) {
-      // Se já existe (duplicate), tentar atualizar
-      if (error.code === '23505') { // Unique violation
-        console.log('⚠️ Registo duplicado, a atualizar...');
+      console.error('❌ Erro ao inserir na Supabase:', error);
+      // Se erro de duplicate key, tentar UPDATE em vez disso
+      if (error.code === '23505') {
+        console.log('⚠️ Transaction ID já existe, fazendo UPDATE...');
         const { data: updateData, error: updateError } = await supabase
           .from('payments')
           .update(paymentData)
           .eq('transaction_id', paymentData.transaction_id)
-          .eq('produto_id', paymentData.produto_id || paymentData.produto)
-          .select()
-          .single();
+          .select();
         
         if (updateError) {
-          console.error('❌ Erro ao atualizar Supabase:', updateError);
+          console.error('❌ Erro ao UPDATE:', updateError);
           throw updateError;
         }
         
-        console.log('✅ Pagamento atualizado:', updateData.id);
-        return updateData;
-      } else {
-        console.error('❌ Erro Supabase:', error);
-        throw error;
+        console.log('✅ Pagamento atualizado (foi UPDATE):', updateData);
+        return updateData[0];
       }
+      throw error;
     }
 
-    console.log('✅ Pagamento guardado:', data.id);
-    return data;
+    console.log('✅ Pagamento inserido (foi INSERT):', data);
+    return data[0];
     
   } catch (error) {
-    console.error('❌ Erro ao guardar pagamento:', error.message);
+    console.error('❌ Erro fatal ao guardar pagamento:', error.message);
     throw error;
   }
 }
