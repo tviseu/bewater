@@ -2341,12 +2341,36 @@
             const successPopup = document.getElementById('successPopup');
             successPopup.classList.remove('show');
             
-            // Limpar seleção e resetar formulário
+            // RESET COMPLETO da página
+            
+            // 1. Limpar carrinho completamente
+            cart = [];
+            updateCartBadge();
+            renderCart();
+            
+            // 2. Limpar seleção legacy
             produtoSelecionado = null;
             produtoSelecionadoDiv.innerHTML = '';
+            
+            // 3. Resetar formulário
             document.getElementById('mbwayForm').reset();
             
-            // Scroll para o topo
+            // 4. Esconder formulário e order summary
+            paymentForm.classList.add('hidden');
+            orderSummary.classList.add('hidden');
+            
+            // 5. Fechar carrinho se estiver aberto
+            closeCartPanel();
+            
+            // 6. Resetar steppers nos cards de produtos (voltar a 1)
+            document.querySelectorAll('.produto-card').forEach(card => {
+                const qtyDisplay = card.querySelector('.qty-display');
+                if (qtyDisplay) {
+                    qtyDisplay.textContent = '1';
+                }
+            });
+            
+            // 7. Scroll para o topo
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
