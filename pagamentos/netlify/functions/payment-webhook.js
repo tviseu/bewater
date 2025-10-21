@@ -24,11 +24,11 @@ async function upsertPayment(paymentData) {
   }
   
   try {
-    console.log('💾 Guardando pagamento na Supabase:', paymentData);
+    console.log('💾 Guardando pagamento na Supabase...');
+    console.log('📦 Dados a inserir:', JSON.stringify(paymentData, null, 2));
     
-    // IMPORTANTE: A tabela tem CONSTRAINT UNIQUE em transaction_id
-    // Para multi-produto, vamos usar INSERT direto e deixar falhar se duplicado
-    // (o primeiro produto cria, os seguintes podem falhar - isso é esperado)
+    // CORRIGIDO: Remover constraint UNIQUE permite múltiplos registos
+    // Cada produto é um registo separado com mesmo transaction_id
     
     const { data, error } = await supabase
       .from('payments')
@@ -36,10 +36,16 @@ async function upsertPayment(paymentData) {
       .select();
 
     if (error) {
-      console.error('❌ Erro ao inserir na Supabase:', error);
-      // Se erro de duplicate key, tentar UPDATE em vez disso
+      console.error('❌ Erro ao inserir na Supabase:', {
+        code: error.code,
+        message: error.message,
+        details: error.details,
+        hint: error.hint
+      });
+      
+      // Se erro de duplicate key (não deveria acontecer após remover constraint)
       if (error.code === '23505') {
-        console.log('⚠️ Transaction ID já existe, fazendo UPDATE...');
+        console.log('⚠️ Transaction ID duplicado detectado - fazendo UPDATE...');
         const { data: updateData, error: updateError } = await supabase
           .from('payments')
           .update(paymentData)
@@ -52,16 +58,19 @@ async function upsertPayment(paymentData) {
         }
         
         console.log('✅ Pagamento atualizado (foi UPDATE):', updateData);
-        return updateData[0];
+        return updateData && updateData.length > 0 ? updateData[0] : null;
       }
       throw error;
     }
 
-    console.log('✅ Pagamento inserido (foi INSERT):', data);
-    return data[0];
+    console.log('✅ Pagamento inserido com sucesso (foi INSERT):');
+    console.log('📋 ID criado:', data && data.length > 0 ? data[0].id : 'N/A');
+    console.log('📋 Transaction ID:', data && data.length > 0 ? data[0].transaction_id : 'N/A');
+    return data && data.length > 0 ? data[0] : null;
     
   } catch (error) {
     console.error('❌ Erro fatal ao guardar pagamento:', error.message);
+    console.error('❌ Stack trace:', error.stack);
     throw error;
   }
 }
@@ -456,8 +465,10 @@ exports.handler = async (event, context) => {
         paymentStatus = 'confirmado';
       } else if (status === 'Failed' || status === 'failed' || status === 'error' || status === 'Error') {
         paymentStatus = 'falhado';
+      } else if (status === 'pending' || status === 'Pending') {
+        paymentStatus = 'pending';  // Manter "pending" para consistência
       } else {
-        paymentStatus = 'pendente';
+        paymentStatus = 'pending';  // Default para pending
       }
       
       console.log(`📊 Status mapeado: "${status}" → "${paymentStatus}"`);
@@ -556,8 +567,9 @@ exports.handler = async (event, context) => {
       const paymentRecord = {
         transaction_id: transactionID,
         reference: reference,
-        produto: identifier?.split(' - ')[0] || 'PRODUTO_UNKNOWN',
-        produto_nome: identifier || 'Produto BE WATER',
+        // CORRIGIDO: usar produto_nome se disponível, senão extrair do identifier
+        produto: transaction.produto_nome || transaction.produto_id || identifier?.split(' - ')[0] || 'PRODUTO_UNKNOWN',
+        produto_nome: transaction.produto_nome || identifier?.split(' - ')[0] || 'Produto BE WATER',
         valor: amount || 0,
         telefone: clientData?.telefone || null,
         nome: clientData?.nome || null,
@@ -580,11 +592,14 @@ exports.handler = async (event, context) => {
       
       console.log(`📦 Campos multi-produto:`, {
         produto_id: paymentRecord.produto_id,
+        produto_nome: paymentRecord.produto_nome,
         quantidade: paymentRecord.quantidade,
         preco_unitario: paymentRecord.preco_unitario,
         is_multi_product: paymentRecord.is_multi_product,
         multi_product_count: paymentRecord.multi_product_count
       });
+      
+      console.log(`💾 PaymentRecord completo a guardar:`, JSON.stringify(paymentRecord, null, 2));
 
       console.log(`📝 Processando pagamento - Status: ${paymentStatus}, TransactionID: ${transactionID}`);
       if (existingPayment) {
@@ -602,9 +617,15 @@ exports.handler = async (event, context) => {
       // Guardar na Supabase (com fallback para Map)
       let savedPayment;
       try {
+        console.log(`💾 Tentando guardar pagamento...`);
+        console.log(`🔌 Supabase configurado:`, !!supabase);
+        
         if (supabase) {
+          console.log(`✅ Chamando upsertPayment com paymentRecord...`);
           savedPayment = await upsertPayment(paymentRecord);
+          console.log(`✅ upsertPayment completado:`, savedPayment ? 'Sucesso' : 'Null retornado');
         } else {
+          console.error('❌ SUPABASE NÃO CONFIGURADO - usando fallback Map');
           // Fallback para Map em memória
           const mapRecord = {
             id: transactionID || reference || `payment_${Date.now()}`,
