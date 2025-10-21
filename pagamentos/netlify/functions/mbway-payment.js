@@ -571,7 +571,7 @@ exports.handler = async (event, context) => {
             console.log(`🚀 Criando registo pendente para: ${produto.nome} x${produto.quantidade}`);
 
             // Simular webhook call para criar registo pendente
-            const webhookUrl = 'https://cool-starship-a7a3e1.netlify.app/.netlify/functions/payment-webhook';
+            const webhookUrl = 'https://pagamentos.bewaterlisboa.pt/.netlify/functions/payment-webhook';
             const webhookResponse = await fetch(webhookUrl, {
               method: 'POST',
               headers: {
