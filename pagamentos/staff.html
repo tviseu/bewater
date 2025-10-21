@@ -86,6 +86,71 @@
             color: #000000;
         }
 
+        /* GRUPOS MULTI-PRODUTO */
+        .payment-group {
+            margin-bottom: 20px;
+            border: 4px solid #28a745;
+            background: #e8f5e9;
+        }
+
+        .payment-group-header {
+            padding: 20px;
+            cursor: pointer;
+            background: #28a745;
+            color: #ffffff;
+            border-bottom: 4px solid #000000;
+            font-weight: 900;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .payment-group-header:hover {
+            background: #218838;
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 #000000;
+        }
+
+        .payment-group-title {
+            font-size: 1.2rem;
+            font-family: 'Work Sans', sans-serif;
+        }
+
+        .payment-group-total {
+            font-size: 1.5rem;
+            font-weight: 900;
+        }
+
+        .payment-group-items {
+            display: none;
+            padding: 15px;
+            background: #f1f8f4;
+        }
+
+        .payment-group.expanded .payment-group-items {
+            display: block;
+        }
+
+        .payment-group-item {
+            background: #ffffff;
+            border: 3px solid #000000;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .group-expand-icon {
+            transition: transform 0.3s;
+        }
+
+        .payment-group.expanded .group-expand-icon {
+            transform: rotate(180deg);
+        }
+
         .payments-section {
             background: #ffffff;
             color: #000000;
@@ -589,33 +654,106 @@
             
             console.log(`✅ Renderizando ${confirmedPayments.length} pagamentos confirmados`);
 
-            paymentsList.innerHTML = confirmedPayments.map(payment => `
-                <div class="payment-card ${payment.status}" data-id="${payment.id}">
-                    <div class="payment-info">
-                        <div class="payment-produto">${payment.produto}</div>
-                        <div class="payment-details">
-                            <div class="detail-line">
-                                💰 €${payment.valor ? payment.valor.toFixed(2) : '0.00'} | 📱 ${payment.telefone || 'N/A'}
+            // AGRUPAR por transaction_id
+            const grouped = {};
+            confirmedPayments.forEach(payment => {
+                const txId = payment.transactionID || payment.id;
+                if (!grouped[txId]) {
+                    grouped[txId] = [];
+                }
+                grouped[txId].push(payment);
+            });
+            
+            console.log(`🔗 Agrupados em ${Object.keys(grouped).length} transações`);
+            
+            // Renderizar grupos
+            const groupsHTML = Object.entries(grouped).map(([txId, items]) => {
+                const isMultiProduct = items.length > 1;
+                const totalValue = items.reduce((sum, item) => sum + parseFloat(item.valor), 0);
+                const firstItem = items[0];
+                
+                if (isMultiProduct) {
+                    // Renderizar como grupo expandível
+                    return `
+                        <div class="payment-group" data-transaction-id="${txId}">
+                            <div class="payment-group-header" onclick="toggleGroup('${txId}')">
+                                <div class="payment-group-title">
+                                    🛒 Compra Múltipla (${items.length} items) | 📅 ${formatDateTime(firstItem.timestamp)}
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 20px;">
+                                    <div class="payment-group-total">€${totalValue.toFixed(2)}</div>
+                                    <span class="group-expand-icon">▼</span>
+                                </div>
                             </div>
-                            <div class="detail-line">
-                                📅 ${formatDateTime(payment.timestamp)}
+                            <div class="payment-group-items">
+                                ${items.map(payment => `
+                                    <div class="payment-group-item">
+                                        <div>
+                                            <strong>${payment.produto}</strong>
+                                            ${payment.quantidade && payment.quantidade > 1 ? ` x${payment.quantidade}` : ''}
+                                        </div>
+                                        <div>€${payment.preco_unitario ? payment.preco_unitario.toFixed(2) : payment.valor.toFixed(2)} cada</div>
+                                        <div><strong>€${payment.valor.toFixed(2)}</strong></div>
+                                    </div>
+                                `).join('')}
+                                <div style="padding: 15px; background: #ffffff; border: 3px solid #000000; margin-top: 10px;">
+                                    ${firstItem.nome ? `<div class="detail-line">👤 ${truncateText(firstItem.nome, 30)}</div>` : ''}
+                                    ${firstItem.email ? `<div class="detail-line">📧 ${truncateEmail(firstItem.email)}</div>` : ''}
+                                    ${firstItem.nif ? `<div class="detail-line">🧾 NIF: ${firstItem.nif}</div>` : ''}
+                                    ${firstItem.telefone ? `<div class="detail-line">📱 ${firstItem.telefone}</div>` : ''}
+                                    ${firstItem.reference ? `<div class="detail-line">🔗 Ref: ${truncateRef(firstItem.reference)}</div>` : ''}
+                                    ${firstItem.transactionID ? `<div class="detail-line">🆔 ID: ${truncateRef(firstItem.transactionID)}</div>` : ''}
+                                    ${firstItem.fatura ? `<div class="detail-line">🧾 Fatura: ${firstItem.fatura.numero}</div>` : ''}
+                                    <div style="margin-top: 15px;">${getActionButton(firstItem)}</div>
+                                </div>
                             </div>
-                            ${payment.reference ? `<div class="detail-line">🔗 Ref: ${truncateRef(payment.reference)}</div>` : ''}
-                            ${payment.transactionID ? `<div class="detail-line">🆔 ID: ${truncateRef(payment.transactionID)}</div>` : ''}
-                            ${payment.nome ? `<div class="detail-line">👤 ${truncateText(payment.nome, 30)}</div>` : ''}
-                            ${payment.email ? `<div class="detail-line">📧 ${truncateEmail(payment.email)}</div>` : ''}
-                            ${payment.nif ? `<div class="detail-line">🧾 NIF: ${payment.nif}</div>` : ''}
-                            ${payment.fatura ? `<div class="detail-line">🧾 Fatura: ${payment.fatura.numero}</div>` : ''}
                         </div>
-                    </div>
-                    <div class="payment-actions">
-                        <div class="payment-status ${payment.status}">
-                            ${getStatusText(payment.status)}
+                    `;
+                } else {
+                    // Renderizar produto único (formato original)
+                    const payment = items[0];
+                    return `
+                        <div class="payment-card ${payment.status}" data-id="${payment.id}">
+                            <div class="payment-info">
+                                <div class="payment-produto">
+                                    ${payment.produto}
+                                    ${payment.quantidade && payment.quantidade > 1 ? ` x${payment.quantidade}` : ''}
+                                </div>
+                                <div class="payment-details">
+                                    <div class="detail-line">
+                                        💰 €${payment.valor ? payment.valor.toFixed(2) : '0.00'} | 📱 ${payment.telefone || 'N/A'}
+                                    </div>
+                                    <div class="detail-line">
+                                        📅 ${formatDateTime(payment.timestamp)}
+                                    </div>
+                                    ${payment.reference ? `<div class="detail-line">🔗 Ref: ${truncateRef(payment.reference)}</div>` : ''}
+                                    ${payment.transactionID ? `<div class="detail-line">🆔 ID: ${truncateRef(payment.transactionID)}</div>` : ''}
+                                    ${payment.nome ? `<div class="detail-line">👤 ${truncateText(payment.nome, 30)}</div>` : ''}
+                                    ${payment.email ? `<div class="detail-line">📧 ${truncateEmail(payment.email)}</div>` : ''}
+                                    ${payment.nif ? `<div class="detail-line">🧾 NIF: ${payment.nif}</div>` : ''}
+                                    ${payment.fatura ? `<div class="detail-line">🧾 Fatura: ${payment.fatura.numero}</div>` : ''}
+                                </div>
+                            </div>
+                            <div class="payment-actions">
+                                <div class="payment-status ${payment.status}">
+                                    ${getStatusText(payment.status)}
+                                </div>
+                                ${getActionButton(payment)}
+                            </div>
                         </div>
-                        ${getActionButton(payment)}
-                    </div>
-                </div>
-            `).join('');
+                    `;
+                }
+            }).join('');
+            
+            paymentsList.innerHTML = groupsHTML;
+        }
+
+        // Toggle grupo expandível
+        function toggleGroup(txId) {
+            const group = document.querySelector(`.payment-group[data-transaction-id="${txId}"]`);
+            if (group) {
+                group.classList.toggle('expanded');
+            }
         }
 
         // Atualizar estatísticas (apenas confirmados com valor > 0)

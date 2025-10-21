@@ -699,6 +699,538 @@
 
             /* CSS antigo removido - agora usamos apenas popup */
         }
+
+        /* ============================================ */
+        /* CARRINHO FLUTUANTE - Estilo BE WATER */
+        /* ============================================ */
+        
+        /* Overlay para censurar o fundo quando carrinho aberto */
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .cart-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .cart-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            font-family: var(--font-primary);
+        }
+
+        .cart-toggle {
+            background: var(--color-accent);
+            border: var(--border-thick);
+            padding: 15px 20px;
+            cursor: pointer;
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .cart-toggle:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 10px 10px 0 var(--color-primary);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #dc3545;
+            color: #ffffff;
+            border: 3px solid var(--color-primary);
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 900;
+            font-family: var(--font-heading);
+            animation: cartBadgeBounce 0.5s ease;
+        }
+
+        @keyframes cartBadgeBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .cart-badge.hidden {
+            display: none;
+        }
+
+        .cart-panel {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 400px;
+            max-height: 600px;
+            background: var(--color-background);
+            border: var(--border-thick);
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-primary);
+            display: none;
+            flex-direction: column;
+        }
+
+        .cart-panel.show {
+            display: flex;
+        }
+
+        .cart-header {
+            background: var(--color-accent);
+            border-bottom: var(--border-thick);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h3 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cart-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+            transition: transform 0.2s;
+        }
+
+        .cart-close:hover {
+            transform: scale(1.2);
+        }
+
+        .cart-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            max-height: 400px;
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--color-secondary);
+            font-style: italic;
+        }
+
+        .cart-items {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .cart-item {
+            border: 3px solid var(--color-primary);
+            padding: 12px;
+            background: var(--color-background);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+            align-items: start;
+        }
+
+        .cart-item-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .cart-item-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--color-primary);
+        }
+
+        .cart-item-price {
+            font-size: 0.85rem;
+            color: var(--color-secondary);
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        .cart-qty-btn {
+            background: var(--color-primary);
+            color: var(--color-background);
+            border: 2px solid var(--color-primary);
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .cart-qty-btn:hover {
+            background: var(--color-background);
+            color: var(--color-primary);
+        }
+
+        .cart-qty-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .cart-qty-value {
+            font-weight: 700;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: flex-end;
+        }
+
+        .cart-item-subtotal {
+            font-weight: 900;
+            font-size: 1rem;
+            color: var(--color-primary);
+        }
+
+        .cart-remove-btn {
+            background: #dc3545;
+            color: #ffffff;
+            border: 2px solid #dc3545;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+
+        .cart-remove-btn:hover {
+            background: #ffffff;
+            color: #dc3545;
+        }
+
+        .cart-footer {
+            border-top: var(--border-thick);
+            padding: 15px 20px;
+            background: var(--color-background);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-weight: 900;
+            font-family: var(--font-heading);
+        }
+
+        .cart-total-value {
+            color: #28a745;
+        }
+
+        .cart-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .cart-checkout-btn {
+            background: #28a745;
+            color: #ffffff;
+            border: var(--border-thick);
+            border-color: #28a745;
+            padding: 12px 20px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+        }
+
+        .cart-checkout-btn:hover {
+            background: #218838;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 8px rgba(40, 167, 69, 0.4);
+        }
+
+        .cart-clear-btn {
+            background: var(--color-background);
+            color: var(--color-primary);
+            border: var(--border-thick);
+            padding: 10px 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            font-family: var(--font-primary);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .cart-clear-btn:hover {
+            background: var(--color-primary);
+            color: var(--color-background);
+        }
+
+        /* Quantity Stepper nos Cards */
+        .produto-quantity-stepper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .qty-btn {
+            background: var(--color-primary);
+            color: var(--color-background);
+            border: 2px solid var(--color-primary);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.2s;
+        }
+
+        .qty-btn:hover {
+            background: var(--color-background);
+            color: var(--color-primary);
+            transform: scale(1.1);
+        }
+
+        .qty-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .qty-display {
+            font-weight: 900;
+            font-size: 1.2rem;
+            min-width: 30px;
+            text-align: center;
+            font-family: var(--font-heading);
+        }
+
+        /* Order Summary no formulário */
+        .order-summary {
+            background: var(--color-accent);
+            border: var(--border-thick);
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-primary);
+        }
+
+        .order-summary-title {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .order-summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        .order-summary-table th {
+            background: var(--color-primary);
+            color: var(--color-background);
+            padding: 10px;
+            text-align: left;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            border: 2px solid var(--color-primary);
+        }
+
+        .order-summary-table td {
+            padding: 10px;
+            border: 2px solid var(--color-primary);
+            background: var(--color-background);
+            font-size: 0.9rem;
+        }
+
+        .order-summary-table .product-name {
+            font-weight: 700;
+        }
+
+        .order-summary-table .price {
+            text-align: right;
+            font-weight: 700;
+        }
+
+        .order-summary-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: var(--color-primary);
+            color: var(--color-background);
+            border: var(--border-thick);
+            border-color: var(--color-primary);
+            font-size: 1.5rem;
+            font-weight: 900;
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+        }
+
+        .order-summary-total-value {
+            color: #28a745;
+            background: var(--color-background);
+            padding: 5px 15px;
+            border: 3px solid #28a745;
+        }
+
+        /* RESPONSIVE - Mobile */
+        @media (max-width: 768px) {
+            .cart-widget {
+                bottom: 0;
+                right: 0;
+                left: 0;
+                width: 100%;
+            }
+
+            .cart-toggle {
+                width: 100%;
+                justify-content: center;
+                border-radius: 0;
+                padding: 18px;
+                font-size: 1rem;
+                box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+            }
+
+            .cart-toggle:hover {
+                transform: none;
+                box-shadow: 0 -6px 12px rgba(0, 0, 0, 0.3);
+            }
+
+            .cart-badge {
+                top: 8px;
+                right: 20px;
+            }
+
+            .cart-panel {
+                bottom: 60px;
+                left: 0;
+                right: 0;
+                width: 100%;
+                max-height: 80vh;
+                border-radius: 0;
+            }
+
+            .cart-body {
+                max-height: calc(80vh - 200px);
+            }
+
+            .order-summary-table {
+                font-size: 0.85rem;
+            }
+
+            .order-summary-table th,
+            .order-summary-table td {
+                padding: 8px 5px;
+                font-size: 0.8rem;
+            }
+
+            .order-summary-total {
+                flex-direction: column;
+                gap: 10px;
+                font-size: 1.2rem;
+            }
+
+            .produto-quantity-stepper {
+                margin-bottom: 12px;
+            }
+
+            .qty-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cart-toggle {
+                padding: 15px;
+                font-size: 0.9rem;
+            }
+
+            .cart-item {
+                padding: 10px;
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .cart-item-actions {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+            }
+
+            .order-summary-table th,
+            .order-summary-table td {
+                padding: 6px 4px;
+                font-size: 0.75rem;
+            }
+
+            .qty-btn {
+                width: 40px;
+                height: 40px;
+            }
+
+            .qty-display {
+                min-width: 35px;
+                font-size: 1.3rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -717,7 +1249,12 @@
                     <div class="produto-nome" data-payment-i18n="product.cafe">Café</div>
                     <div class="produto-preco">€0.85</div>
                     <div class="produto-descricao" data-payment-i18n="product.cafe.desc">Combustível para treinos épicos</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
             </div>
         </div>
@@ -731,7 +1268,12 @@
                     <div class="produto-nome" data-payment-i18n="product.agua-pequena">Água Pequena</div>
                     <div class="produto-preco">€1.00</div>
                     <div class="produto-descricao" data-payment-i18n="product.agua-pequena.desc">Hidratação essencial</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
 
                 <div class="produto-card" data-id="AGUA_GRANDE_001" data-nome="Água Grande" data-preco="1.50">
@@ -739,7 +1281,12 @@
                     <div class="produto-nome" data-payment-i18n="product.agua-grande">Água Grande</div>
                     <div class="produto-preco">€1.50</div>
                     <div class="produto-descricao" data-payment-i18n="product.agua-grande.desc">Hidratação máxima</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
 
                 <div class="produto-card" data-id="YOPRO_001" data-nome="YoPro (Iogurte Proteico)" data-preco="2.60">
@@ -747,7 +1294,12 @@
                     <div class="produto-nome" data-payment-i18n="product.yopro">YoPro Iogurte Proteico</div>
                     <div class="produto-preco">€2.60</div>
                     <div class="produto-descricao" data-payment-i18n="product.yopro.desc">Iogurte proteico pronto a beber/comer</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
 
                 <div class="produto-card" data-id="POWERADE_001" data-nome="Powerade" data-preco="2.90">
@@ -755,7 +1307,12 @@
                     <div class="produto-nome" data-payment-i18n="product.powerade">Powerade</div>
                     <div class="produto-preco">€2.90</div>
                     <div class="produto-descricao" data-payment-i18n="product.powerade.desc">Reposição de electrólitos para atletas</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
 
                 <div class="produto-card" data-id="RED_BULL_001" data-nome="Red Bull" data-preco="2.50">
@@ -763,7 +1320,12 @@
                     <div class="produto-nome" data-payment-i18n="product.red-bull">Red Bull</div>
                     <div class="produto-preco">€2.50</div>
                     <div class="produto-descricao" data-payment-i18n="product.red-bull.desc">Energia para levantar voo</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
 
                 <div class="produto-card" data-id="COCA_COLA_ZERO_001" data-nome="Coca Cola Zero" data-preco="1.50">
@@ -771,7 +1333,12 @@
                     <div class="produto-nome" data-payment-i18n="product.coca-cola-zero">Coca Cola Zero</div>
                     <div class="produto-preco">€1.50</div>
                     <div class="produto-descricao" data-payment-i18n="product.coca-cola-zero.desc">Zero açúcar, máximo sabor pós-treino</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
 
                 <div class="produto-card" data-id="AMINOX_001" data-nome="AminoX" data-preco="2.50">
@@ -779,7 +1346,12 @@
                     <div class="produto-nome" data-payment-i18n="product.aminox">AminoX</div>
                     <div class="produto-preco">€2.50</div>
                     <div class="produto-descricao" data-payment-i18n="product.aminox.desc">Energia e resistência</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
 
                 <div class="produto-card" data-id="LIMONADA_001" data-nome="Limonada" data-preco="2.50">
@@ -787,7 +1359,12 @@
                     <div class="produto-nome" data-payment-i18n="product.limonada">Limonada</div>
                     <div class="produto-preco">€2.50</div>
                     <div class="produto-descricao" data-payment-i18n="product.limonada.desc">Refrescante e deliciosa</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
 
                 <div class="produto-card" data-id="CERVEJA_MINI_001" data-nome="Cerveja Mini" data-preco="2.00">
@@ -795,7 +1372,12 @@
                     <div class="produto-nome" data-payment-i18n="product.cerveja-mini">Cerveja Mini</div>
                     <div class="produto-preco">€2.00</div>
                     <div class="produto-descricao" data-payment-i18n="product.cerveja-mini.desc">Celebração pós-treino</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
 
                 <div class="produto-card" data-id="AGUA_GAS_001" data-nome="Água com Gás" data-preco="1.50">
@@ -803,7 +1385,12 @@
                     <div class="produto-nome" data-payment-i18n="product.agua-gas">Água com Gás</div>
                     <div class="produto-preco">€1.50</div>
                     <div class="produto-descricao" data-payment-i18n="product.agua-gas.desc">Hidratação com estilo</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
             </div>
         </div>
@@ -817,7 +1404,12 @@
                     <div class="produto-nome" data-payment-i18n="product.batido-proteina">Saqueta de Proteína</div>
                     <div class="produto-preco">€2.50</div>
                     <div class="produto-descricao" data-payment-i18n="product.batido-proteina.desc">Recuperação e força</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
 
                 <!-- Barras específicas -->
@@ -826,7 +1418,12 @@
                     <div class="produto-nome" data-payment-i18n="product.energy-crunch-bar">Energy Crunch Bar</div>
                     <div class="produto-preco">€2.00</div>
                     <div class="produto-descricao" data-payment-i18n="product.energy-crunch-bar.desc">Snack crocante de energia</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
 
                 <div class="produto-card" data-id="PROTEIN_SNACK_001" data-nome="Protein Snack" data-preco="1.60">
@@ -834,7 +1431,12 @@
                     <div class="produto-nome" data-payment-i18n="product.protein-snack">Protein Snack</div>
                     <div class="produto-preco">€1.60</div>
                     <div class="produto-descricao" data-payment-i18n="product.protein-snack.desc">Snack proteico prático</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
 
                 <div class="produto-card" data-id="BILLION_001" data-nome="Billion" data-preco="2.50">
@@ -842,7 +1444,12 @@
                     <div class="produto-nome" data-payment-i18n="product.billion">Billion</div>
                     <div class="produto-preco">€2.50</div>
                     <div class="produto-descricao" data-payment-i18n="product.billion.desc">Barra energética Billion</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
 
                 <div class="produto-card" data-id="PROTEIN_BROWNIE_001" data-nome="Protein Brownie" data-preco="2.50">
@@ -850,7 +1457,12 @@
                     <div class="produto-nome" data-payment-i18n="product.protein-brownie">Protein Brownie</div>
                     <div class="produto-preco">€2.50</div>
                     <div class="produto-descricao" data-payment-i18n="product.protein-brownie.desc">Brownie proteico</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
 
                 <div class="produto-card" data-id="COOKIES_PROTEICA_001" data-nome="Cookies e Waffles Proteicas" data-preco="2.50">
@@ -858,7 +1470,12 @@
                     <div class="produto-nome" data-payment-i18n="product.cookies-proteica">Cookies e Waffles Proteicas</div>
                     <div class="produto-preco">€2.50</div>
                     <div class="produto-descricao" data-payment-i18n="product.cookies-proteica.desc">Doce tentação proteica</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
 
             </div>
@@ -873,14 +1490,24 @@
                     <div class="produto-nome" data-payment-i18n="product.drop-in">Drop In (Aula avulso)</div>
                     <div class="produto-preco">€15.00</div>
                     <div class="produto-descricao" data-payment-i18n="product.drop-in.desc">Treina connosco sem compromisso</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
                 <div class="produto-card" data-id="CADEADO_001" data-nome="Cadeado" data-preco="10.00">
                     <div class="produto-icon">🔒</div>
                     <div class="produto-nome" data-payment-i18n="product.cadeado">Cadeado</div>
                     <div class="produto-preco">€10.00</div>
                     <div class="produto-descricao" data-payment-i18n="product.cadeado.desc">Segurança para os teus pertences</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
 
                 <div class="produto-card" data-id="LUVAS_BOXE_001" data-nome="Luvas de Boxe BeWater" data-preco="59.00">
@@ -888,7 +1515,12 @@
                     <div class="produto-nome" data-payment-i18n="product.luvas-boxe">Luvas de Boxe BeWater</div>
                     <div class="produto-preco">€59.00</div>
                     <div class="produto-descricao" data-payment-i18n="product.luvas-boxe.desc">Proteção e performance com o espírito BeWater</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
 
                 <div class="produto-card" data-id="LIGADURAS_001" data-nome="Ligaduras BeWater" data-preco="10.00">
@@ -896,7 +1528,12 @@
                     <div class="produto-nome" data-payment-i18n="product.ligaduras">Ligaduras BeWater</div>
                     <div class="produto-preco">€10.00</div>
                     <div class="produto-descricao" data-payment-i18n="product.ligaduras.desc">Suporte e proteção para punhos e mãos</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
 
                 <div class="produto-card" data-id="SABONETE_CARVAO_001" data-nome="Sabonete Carvão Activado" data-preco="2.50">
@@ -904,7 +1541,12 @@
                     <div class="produto-nome" data-payment-i18n="product.sabonete-carvao">Sabonete Carvão Activado</div>
                     <div class="produto-preco">€2.50</div>
                     <div class="produto-descricao" data-payment-i18n="product.sabonete-carvao.desc">Purificação profunda para warriors</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
 
                 <div class="produto-card" data-id="TOALHA_001" data-nome="Toalha Treino/Banho" data-preco="15.00">
@@ -912,7 +1554,12 @@
                     <div class="produto-nome" data-payment-i18n="product.toalha">Toalha Treino/Banho</div>
                     <div class="produto-preco">€15.00</div>
                     <div class="produto-descricao" data-payment-i18n="product.toalha.desc">Essencial BE WATER</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
 
                 <div class="produto-card" data-id="GARRAFA_HYDRA_001" data-nome="Garrafa de Água Hydra" data-preco="19.00">
@@ -920,7 +1567,12 @@
                     <div class="produto-nome" data-payment-i18n="product.garrafa-hydra">Garrafa de Água Hydra</div>
                     <div class="produto-preco">€19.00</div>
                     <div class="produto-descricao" data-payment-i18n="product.garrafa-hydra.desc">Garrafa especial, resistente e à prova de fugas</div>
-                    <button class="produto-btn" data-payment-i18n="product.btn">Pagar com MBWay</button>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
             </div>
         </div>
@@ -930,7 +1582,7 @@
             <h2 class="secao-titulo comidas-bebidas" data-payment-i18n="section.tribe-support">❤️ Apoio à Tribo</h2>
             <div class="produtos-grid">
                 <!-- DONATIVO ENGRAÇADO -->
-                <div class="produto-card produto-card--donativo" data-id="DONATIVO_001" data-nome="Donativo - Salvem os Músculos Abandonados">
+                <div class="produto-card produto-card--donativo" data-id="DONATIVO_001" data-nome="Donativo - Salvem os Músculos Abandonados" data-preco="5.00" data-is-donation="true">
                     <div class="produto-icon">🥹🫶</div>
                     <div class="produto-nome" data-payment-i18n="product.donativo">Donativo Solidário</div>
                     <div class="produto-preco-variavel">
@@ -938,7 +1590,7 @@
                         <input type="number" id="donativo-valor" min="1.00" max="100" step="0.50" placeholder="5.00" value="5.00">
                     </div>
                     <div class="produto-descricao" data-payment-i18n="product.donativo.desc">"A tua moedinha faz milagres no tatami."<br>Ajuda a apoiar eventos, formações e treinos para todos. Um euro pode ser o primeiro passo de alguém.</div>
-                    <button class="produto-btn donativo-btn" data-payment-i18n="product.donativo.btn">💝 DOAR</button>
+                    <button class="produto-btn donativo-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
             </div>
         </div>
@@ -947,7 +1599,30 @@
         <div class="payment-form hidden" id="paymentForm">
             <div class="form-title" data-payment-i18n="form.title">💳 Pagamento MBWay</div>
             
-            <div class="produto-selecionado" id="produtoSelecionado">
+            <!-- RESUMO DO PEDIDO (para carrinho multi-produto) -->
+            <div class="order-summary hidden" id="orderSummary">
+                <div class="order-summary-title" data-payment-i18n="form.order.summary">📋 Resumo do Pedido</div>
+                <table class="order-summary-table">
+                    <thead>
+                        <tr>
+                            <th data-payment-i18n="form.order.product">Produto</th>
+                            <th data-payment-i18n="form.order.quantity">Qtd</th>
+                            <th data-payment-i18n="form.order.unit-price">Preço Unit.</th>
+                            <th data-payment-i18n="form.order.subtotal">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderSummaryBody">
+                        <!-- Itens do carrinho aparecerão aqui -->
+                    </tbody>
+                </table>
+                <div class="order-summary-total">
+                    <span data-payment-i18n="form.order.total">TOTAL</span>
+                    <span class="order-summary-total-value" id="orderSummaryTotal">€0.00</span>
+                </div>
+            </div>
+            
+            <!-- Produto selecionado (fallback para sistema antigo - escondido quando usar carrinho) -->
+            <div class="produto-selecionado hidden" id="produtoSelecionado">
                 <!-- Produto selecionado aparece aqui -->
             </div>
 
@@ -1009,16 +1684,349 @@
         </div>
     </div>
 
-    <script>
-        // Dados do produto selecionado
-        let produtoSelecionado = null;
+    <!-- OVERLAY (censurar fundo quando carrinho aberto) -->
+    <div class="cart-overlay" id="cartOverlay"></div>
 
-        // Elementos do DOM
+    <!-- CARRINHO FLUTUANTE -->
+    <div class="cart-widget" id="cartWidget">
+        <div class="cart-toggle" id="cartToggle">
+            <span data-payment-i18n="cart.title">🛒 Carrinho</span>
+            <div class="cart-badge hidden" id="cartBadge">0</div>
+        </div>
+        
+        <div class="cart-panel" id="cartPanel">
+            <div class="cart-header">
+                <h3 data-payment-i18n="cart.title">🛒 Carrinho</h3>
+                <button class="cart-close" id="cartClose" aria-label="Fechar carrinho">✕</button>
+            </div>
+            
+            <div class="cart-body" id="cartBody">
+                <div class="cart-empty" data-payment-i18n="cart.empty">Carrinho vazio</div>
+            </div>
+            
+            <div class="cart-footer" id="cartFooter" style="display: none;">
+                <div class="cart-total">
+                    <span data-payment-i18n="cart.total">Total</span>
+                    <span class="cart-total-value" id="cartTotal">€0.00</span>
+                </div>
+                <div class="cart-buttons">
+                    <button class="cart-checkout-btn" id="cartCheckout" data-payment-i18n="cart.checkout">💳 Finalizar Compra</button>
+                    <button class="cart-clear-btn" id="cartClear" data-payment-i18n="cart.clear">Limpar Tudo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // SHOPPING CART SYSTEM
+        // ============================================
+        
+        // Estado global do carrinho
+        let cart = [];
+
+        // Elementos do DOM - Carrinho
+        const cartOverlay = document.getElementById('cartOverlay');
+        const cartWidget = document.getElementById('cartWidget');
+        const cartToggle = document.getElementById('cartToggle');
+        const cartPanel = document.getElementById('cartPanel');
+        const cartClose = document.getElementById('cartClose');
+        const cartBadge = document.getElementById('cartBadge');
+        const cartBody = document.getElementById('cartBody');
+        const cartFooter = document.getElementById('cartFooter');
+        const cartTotal = document.getElementById('cartTotal');
+        const cartCheckout = document.getElementById('cartCheckout');
+        const cartClear = document.getElementById('cartClear');
+        
+        // Elementos do DOM - Formulário
         const paymentForm = document.getElementById('paymentForm');
         const produtoSelecionadoDiv = document.getElementById('produtoSelecionado');
+        const orderSummary = document.getElementById('orderSummary');
+        const orderSummaryBody = document.getElementById('orderSummaryBody');
+        const orderSummaryTotal = document.getElementById('orderSummaryTotal');
         const mbwayForm = document.getElementById('mbwayForm');
         const loadingDiv = document.getElementById('loading');
         const payBtn = document.getElementById('payBtn');
+
+        // Funções do Carrinho
+        function getCartItemCount() {
+            return cart.reduce((total, item) => total + item.quantidade, 0);
+        }
+
+        function getCartTotal() {
+            return cart.reduce((total, item) => total + (item.preco * item.quantidade), 0);
+        }
+
+        function updateCartBadge() {
+            const count = getCartItemCount();
+            cartBadge.textContent = count;
+            if (count > 0) {
+                cartBadge.classList.remove('hidden');
+            } else {
+                cartBadge.classList.add('hidden');
+            }
+        }
+
+        function renderCart() {
+            if (cart.length === 0) {
+                cartBody.innerHTML = '<div class="cart-empty" data-payment-i18n="cart.empty">Carrinho vazio</div>';
+                cartFooter.style.display = 'none';
+                
+                // Aplicar tradução
+                if (window.paymentLanguageManager) {
+                    window.paymentLanguageManager.applyLanguage(window.paymentLanguageManager.currentLang);
+                }
+                return;
+            }
+
+            cartFooter.style.display = 'block';
+            
+            const itemsHTML = cart.map(item => {
+                const subtotal = item.preco * item.quantidade;
+                return `
+                    <div class="cart-item" data-id="${item.id}">
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.nome}</div>
+                            <div class="cart-item-price">€${item.preco.toFixed(2)} cada</div>
+                            <div class="cart-item-quantity">
+                                <button class="cart-qty-btn" onclick="updateCartQuantity('${item.id}', ${item.quantidade - 1})">−</button>
+                                <span class="cart-qty-value">${item.quantidade}</span>
+                                <button class="cart-qty-btn" onclick="updateCartQuantity('${item.id}', ${item.quantidade + 1})">+</button>
+                            </div>
+                        </div>
+                        <div class="cart-item-actions">
+                            <div class="cart-item-subtotal">€${subtotal.toFixed(2)}</div>
+                            <button class="cart-remove-btn" onclick="removeFromCart('${item.id}')">✕</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            cartBody.innerHTML = `<div class="cart-items">${itemsHTML}</div>`;
+            cartTotal.textContent = `€${getCartTotal().toFixed(2)}`;
+        }
+
+        function addToCart(produtoId, nome, preco, quantidade) {
+            const existingItem = cart.find(item => item.id === produtoId);
+            
+            if (existingItem) {
+                existingItem.quantidade += quantidade;
+            } else {
+                cart.push({
+                    id: produtoId,
+                    nome: nome,
+                    preco: preco,
+                    quantidade: quantidade
+                });
+            }
+            
+            updateCartBadge();
+            renderCart();
+            
+            // Mostrar feedback visual
+            cartBadge.style.animation = 'none';
+            setTimeout(() => {
+                cartBadge.style.animation = 'cartBadgeBounce 0.5s ease';
+            }, 10);
+        }
+
+        function removeFromCart(produtoId) {
+            cart = cart.filter(item => item.id !== produtoId);
+            updateCartBadge();
+            renderCart();
+        }
+
+        function updateCartQuantity(produtoId, newQuantity) {
+            if (newQuantity < 1) {
+                removeFromCart(produtoId);
+                return;
+            }
+            
+            const item = cart.find(item => item.id === produtoId);
+            if (item) {
+                item.quantidade = newQuantity;
+                updateCartBadge();
+                renderCart();
+            }
+        }
+
+        function clearCart() {
+            if (cart.length === 0) return;
+            
+            if (confirm('Tem a certeza que deseja limpar todo o carrinho?')) {
+                cart = [];
+                updateCartBadge();
+                renderCart();
+                closeCartPanel();
+            }
+        }
+
+        function toggleCartPanel() {
+            const isOpen = cartPanel.classList.toggle('show');
+            
+            // Ativar/desativar overlay
+            if (isOpen) {
+                cartOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevenir scroll do body
+            } else {
+                cartOverlay.classList.remove('active');
+                document.body.style.overflow = ''; // Restaurar scroll
+            }
+        }
+
+        function closeCartPanel() {
+            cartPanel.classList.remove('show');
+            cartOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function renderOrderSummary() {
+            if (cart.length === 0) {
+                orderSummary.classList.add('hidden');
+                produtoSelecionadoDiv.classList.add('hidden');
+                return;
+            }
+
+            orderSummary.classList.remove('hidden');
+            produtoSelecionadoDiv.classList.add('hidden');
+
+            const rowsHTML = cart.map(item => {
+                const subtotal = item.preco * item.quantidade;
+                return `
+                    <tr>
+                        <td class="product-name">${item.nome}</td>
+                        <td class="price">${item.quantidade}</td>
+                        <td class="price">€${item.preco.toFixed(2)}</td>
+                        <td class="price">€${subtotal.toFixed(2)}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            orderSummaryBody.innerHTML = rowsHTML;
+            orderSummaryTotal.textContent = `€${getCartTotal().toFixed(2)}`;
+            
+            // Aplicar tradução
+            if (window.paymentLanguageManager) {
+                window.paymentLanguageManager.applyLanguage(window.paymentLanguageManager.currentLang);
+            }
+        }
+
+        // Event listeners - Carrinho
+        cartToggle.addEventListener('click', toggleCartPanel);
+        cartClose.addEventListener('click', closeCartPanel);
+        cartClear.addEventListener('click', clearCart);
+        
+        // Clicar no overlay fecha o carrinho
+        cartOverlay.addEventListener('click', closeCartPanel);
+        
+        cartCheckout.addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('Carrinho vazio! Adicione produtos antes de finalizar a compra.');
+                return;
+            }
+            
+            renderOrderSummary();
+            paymentForm.classList.remove('hidden');
+            closeCartPanel(); // Usar função para fechar corretamente
+            
+            // Scroll suave para o formulário
+            paymentForm.scrollIntoView({ behavior: 'smooth' });
+            
+            // Focar no campo do telemóvel
+            setTimeout(() => {
+                document.getElementById('phone').focus();
+            }, 500);
+        });
+
+        // Fechar painel ao clicar fora (desktop)
+        document.addEventListener('click', (e) => {
+            if (!cartWidget.contains(e.target) && !cartOverlay.contains(e.target) && cartPanel.classList.contains('show')) {
+                closeCartPanel();
+            }
+        });
+
+        // Event listeners - Quantity Steppers nos Cards
+        document.querySelectorAll('.produto-card').forEach(card => {
+            const minusBtn = card.querySelector('.qty-minus');
+            const plusBtn = card.querySelector('.qty-plus');
+            const qtyDisplay = card.querySelector('.qty-display');
+            
+            if (minusBtn && plusBtn && qtyDisplay) {
+                minusBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    let qty = parseInt(qtyDisplay.textContent);
+                    if (qty > 1) {
+                        qtyDisplay.textContent = qty - 1;
+                    }
+                });
+                
+                plusBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    let qty = parseInt(qtyDisplay.textContent);
+                    if (qty < 99) {
+                        qtyDisplay.textContent = qty + 1;
+                    }
+                });
+            }
+        });
+
+        // Event listeners - Adicionar ao Carrinho
+        document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                
+                const card = btn.closest('.produto-card');
+                const id = card.dataset.id;
+                const nome = card.dataset.nome;
+                let preco;
+                let quantidade = 1;
+                
+                // Check if it's a donation with variable price
+                if (card.dataset.isDonation) {
+                    const donativoInput = document.getElementById('donativo-valor');
+                    preco = parseFloat(donativoInput.value);
+                    
+                    // Validar valor do donativo
+                    if (!preco || preco < 1.00 || preco > 100) {
+                        alert('Por favor, insira um valor entre €1.00 e €100.00 para o donativo');
+                        donativoInput.focus();
+                        return;
+                    }
+                } else {
+                    preco = parseFloat(card.dataset.preco);
+                    const qtyDisplay = card.querySelector('.qty-display');
+                    if (qtyDisplay) {
+                        quantidade = parseInt(qtyDisplay.textContent);
+                    }
+                }
+                
+                addToCart(id, nome, preco, quantidade);
+                
+                // Reset quantity to 1 after adding
+                const qtyDisplay = card.querySelector('.qty-display');
+                if (qtyDisplay) {
+                    qtyDisplay.textContent = '1';
+                }
+                
+                // Show cart panel briefly as feedback
+                cartPanel.classList.add('show');
+                cartOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                
+                setTimeout(() => {
+                    // Auto-close after 2 seconds if user doesn't interact
+                    if (cartPanel.classList.contains('show')) {
+                        closeCartPanel();
+                    }
+                }, 2000);
+            });
+        });
+
+        // Dados do produto selecionado (legacy - mantido para compatibilidade)
+        let produtoSelecionado = null;
+
+        // Elementos do DOM (já declarados acima)
+        // const paymentForm, produtoSelecionadoDiv, mbwayForm, loadingDiv, payBtn já existem
 
         // Event listeners para cards de produtos
         document.querySelectorAll('.produto-card').forEach(card => {
@@ -1122,8 +2130,9 @@
         mbwayForm.addEventListener('submit', async function(e) {
             e.preventDefault();
 
-            if (!produtoSelecionado) {
-                showError('Nenhum produto selecionado');
+            // Verificar se há produtos no carrinho
+            if (cart.length === 0) {
+                showError('Carrinho vazio! Adicione produtos antes de finalizar a compra.');
                 return;
             }
 
@@ -1165,14 +2174,24 @@
             showLoading();
 
             try {
+                // Preparar dados dos produtos do carrinho
+                const produtos = cart.map(item => ({
+                    produto_id: item.id,
+                    nome: item.nome,
+                    preco: item.preco,
+                    quantidade: item.quantidade
+                }));
+
+                const totalAmount = getCartTotal();
+
                 const response = await fetch('/.netlify/functions/mbway-payment', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        produto_id: produtoSelecionado.id,
-                        amount: produtoSelecionado.preco,
+                        produtos: produtos,  // Array de produtos
+                        amount: totalAmount,  // Total do carrinho
                         phone: phone,
                         email: email,
                         nome: nome || null,
@@ -1183,6 +2202,11 @@
                 const result = await response.json();
 
                 if (result.success) {
+                    // Limpar carrinho após sucesso
+                    cart = [];
+                    updateCartBadge();
+                    renderCart();
+                    
                     showSuccess(result.message, result.data);
                 } else {
                     showError(result.message || 'Erro no pagamento');

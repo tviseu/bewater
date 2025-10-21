@@ -222,7 +222,13 @@ exports.handler = async (event, context) => {
           lastUpdate: p.last_update,
           fatura: p.fatura,
           fatura_emitida: p.fatura_emitida,
-          fatura_tentativas: p.fatura_tentativas
+          fatura_tentativas: p.fatura_tentativas,
+          // Campos multi-produto
+          produto_id: p.produto_id,
+          quantidade: p.quantidade || 1,
+          preco_unitario: p.preco_unitario || parseFloat(p.valor),
+          is_multi_product: p.is_multi_product || false,
+          multi_product_count: p.multi_product_count || 1
         }));
 
         console.log(`📊 ${payments.length} pagamentos encontrados na Supabase`);
@@ -543,8 +549,22 @@ exports.handler = async (event, context) => {
         fatura: null,
         fatura_emitida: false,
         fatura_tentativas: 0,
-        raw_webhook_data: decryptedData
+        raw_webhook_data: decryptedData,
+        // Campos adicionais para multi-produto
+        produto_id: transaction.produto_id || null,
+        quantidade: transaction.quantidade || 1,
+        preco_unitario: transaction.preco_unitario || amount,
+        is_multi_product: transaction.is_multi_product || false,
+        multi_product_count: transaction.multi_product_count || 1
       };
+      
+      console.log(`📦 Campos multi-produto:`, {
+        produto_id: paymentRecord.produto_id,
+        quantidade: paymentRecord.quantidade,
+        preco_unitario: paymentRecord.preco_unitario,
+        is_multi_product: paymentRecord.is_multi_product,
+        multi_product_count: paymentRecord.multi_product_count
+      });
 
       console.log(`📝 Processando pagamento - Status: ${paymentStatus}, TransactionID: ${transactionID}`);
       if (existingPayment) {

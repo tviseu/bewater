@@ -71,7 +71,22 @@ const paymentTranslations = {
     'product.donativo': 'Donativo Solidário',
     'product.donativo.desc': '"A tua moedinha faz milagres no tatami."<br>Ajuda a apoiar eventos, formações e treinos para todos. Um euro pode ser o primeiro passo de alguém.',
     'product.btn': 'Pagar com MBWay',
+    'product.add-to-cart': '🛒 Adicionar ao Carrinho',
     'product.donativo.btn': '💝 DOAR',
+    
+    // Carrinho
+    'cart.title': '🛒 Carrinho',
+    'cart.empty': 'Carrinho vazio',
+    'cart.items': 'items',
+    'cart.item': 'item',
+    'cart.total': 'Total',
+    'cart.checkout': '💳 Finalizar Compra',
+    'cart.clear': 'Limpar Tudo',
+    'cart.remove': 'Remover',
+    'cart.quantity': 'Qtd',
+    'cart.unit-price': 'Preço Unit.',
+    'cart.subtotal': 'Subtotal',
+    'cart.add-more': 'Adicionar mais produtos',
     
     // Formulário
     'form.title': '💳 Pagamento MBWay',
@@ -89,6 +104,12 @@ const paymentTranslations = {
     'form.nif.placeholder': 'XXXXXXXXX',
     'form.selected.product': '📦 Produto:',
     'form.selected.price': '💰 Preço:',
+    'form.order.summary': '📋 Resumo do Pedido',
+    'form.order.product': 'Produto',
+    'form.order.quantity': 'Qtd',
+    'form.order.unit-price': 'Preço Unit.',
+    'form.order.subtotal': 'Subtotal',
+    'form.order.total': 'TOTAL',
     
     // Loading e mensagens
     'loading.title': '⏳ A processar pagamento...',
@@ -175,7 +196,22 @@ const paymentTranslations = {
     'product.donativo': 'Solidarity Donation',
     'product.donativo.desc': '"Your coin works miracles on the tatami."<br>Help support events, training and workouts for everyone. One euro can be someone\'s first step.',
     'product.btn': 'Pay with MBWay',
+    'product.add-to-cart': '🛒 Add to Cart',
     'product.donativo.btn': '💝 DONATE',
+    
+    // Cart
+    'cart.title': '🛒 Cart',
+    'cart.empty': 'Cart is empty',
+    'cart.items': 'items',
+    'cart.item': 'item',
+    'cart.total': 'Total',
+    'cart.checkout': '💳 Checkout',
+    'cart.clear': 'Clear All',
+    'cart.remove': 'Remove',
+    'cart.quantity': 'Qty',
+    'cart.unit-price': 'Unit Price',
+    'cart.subtotal': 'Subtotal',
+    'cart.add-more': 'Add more products',
     
     // Formulário
     'form.title': '💳 MBWay Payment',
@@ -193,6 +229,12 @@ const paymentTranslations = {
     'form.nif.placeholder': 'XXXXXXXXX',
     'form.selected.product': '📦 Product:',
     'form.selected.price': '💰 Price:',
+    'form.order.summary': '📋 Order Summary',
+    'form.order.product': 'Product',
+    'form.order.quantity': 'Qty',
+    'form.order.unit-price': 'Unit Price',
+    'form.order.subtotal': 'Subtotal',
+    'form.order.total': 'TOTAL',
     
     // Loading e mensagens
     'loading.title': '⏳ Processing payment...',

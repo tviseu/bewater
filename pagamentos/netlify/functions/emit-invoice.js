@@ -42,35 +42,45 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
   PRODUTOS_VENDUS['LUVAS_BOXE_001'] = { nome: 'Luvas de Boxe BeWater', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' };
   PRODUTOS_VENDUS['GARRAFA_HYDRA_001'] = { nome: 'Garrafa de Água Hydra', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' };
 
-  // Fallback para produtos não mapeados - usar nome específico exceto para donativos
-  const produtoVendus = PRODUTOS_VENDUS[dadosProduto.id] || {
-    nome: dadosProduto.id?.includes('DONATIVO') ? 'Donativo BE WATER' : dadosProduto.nome || 'Produto BE WATER',
-    iva: 0,
-    categoria: dadosProduto.id?.includes('DONATIVO') ? 'Donativos' : 'Consumíveis',
-    tax_exempt_reason: 'Artigo 53º do CIVA' // Forçar isenção artigo 53º
-  };
+  // Suporte para array de produtos (multi-produto) ou produto único (legacy)
+  const isMultiProduct = Array.isArray(dadosProduto);
+  const produtos = isMultiProduct ? dadosProduto : [dadosProduto];
+  
+  console.log(`🧾 Modo fatura: ${isMultiProduct ? 'multi-produto' : 'produto único'} (${produtos.length} items)`);
+
+  // Criar items array para Vendus
+  const items = produtos.map(produto => {
+    const produtoVendus = PRODUTOS_VENDUS[produto.id] || {
+      nome: produto.id?.includes('DONATIVO') ? 'Donativo BE WATER' : produto.nome || 'Produto BE WATER',
+      iva: 0,
+      categoria: produto.id?.includes('DONATIVO') ? 'Donativos' : 'Consumíveis',
+      tax_exempt_reason: 'Artigo 53º do CIVA'
+    };
+
+    return {
+      reference: produto.id,
+      title: produtoVendus.nome,
+      gross_price: produto.preco_unitario || produto.preco,
+      qty: produto.quantidade || 1,
+      tax_exemption: true,
+      tax_exemption_law: 'Artigo 53º do CIVA'
+    };
+  });
 
   // Determinar nome do cliente (usar "Consumidor Final" se não fornecido)
   const nomeCliente = dadosCliente.nome || "Consumidor Final";
 
   // Payload para Vendus API (estrutura FINAL conforme documentação oficial)
   const faturaPayload = {
-    type: 'FT', // Fatura (códigos aceites: FT, FS, FR, NC, DC, PF, OT, EC, GA, GT, GR, GD, RG)
+    type: 'FT',
     client: {
       name: nomeCliente,
-      fiscal_id: dadosCliente.nif || null, // era 'vat' → agora 'fiscal_id'
+      fiscal_id: dadosCliente.nif || null,
       email: dadosCliente.email,
-      address: "Lisboa" // Morada obrigatória para empresas
+      address: "Lisboa"
     },
-    items: [{
-      reference: dadosProduto.id, // OBRIGATÓRIO: id ou reference conforme documentação
-      title: produtoVendus.nome, // era 'name' → agora 'title'
-      gross_price: dadosProduto.preco, // era 'unit_price' → agora 'gross_price'
-      qty: 1, // era 'quantity' → agora 'qty'
-      tax_exemption: true, // Produto isento de IVA
-      tax_exemption_law: 'Artigo 53º do CIVA' // Lei de isenção específica
-    }],
-    notes: `Pagamento MBWay - Ref: ${dadosPagamento.reference || dadosPagamento.transactionID}`,
+    items: items,
+    notes: `Pagamento MBWay - Ref: ${dadosPagamento.reference || dadosPagamento.transactionID}${isMultiProduct ? ` (${items.length} produtos)` : ''}`,
     external_reference: dadosPagamento.reference || dadosPagamento.transactionID,
     date: new Date().toISOString().split('T')[0]
   };
@@ -174,7 +184,7 @@ async function verificarFaturaEmitida(transactionID) {
   }
 }
 
-// Função para marcar fatura como emitida na BD
+// Função para marcar fatura como emitida na BD (atualiza TODOS os produtos da transação)
 async function marcarFaturaEmitida(transactionID, dadosFatura) {
   if (!supabase) {
     console.log('⚠️ Supabase não configurado, não atualizando BD');
@@ -182,7 +192,8 @@ async function marcarFaturaEmitida(transactionID, dadosFatura) {
   }
 
   try {
-    const { error } = await supabase
+    // Atualizar TODOS os produtos desta transação
+    const { error, count } = await supabase
       .from('payments')
       .update({
         fatura_emitida: true,
@@ -194,7 +205,7 @@ async function marcarFaturaEmitida(transactionID, dadosFatura) {
     if (error) {
       console.error('❌ Erro ao marcar fatura como emitida:', error);
     } else {
-      console.log(`✅ Fatura marcada como emitida na BD: ${transactionID}`);
+      console.log(`✅ Fatura marcada como emitida para ${count || 'todos'} produto(s) da transação: ${transactionID}`);
     }
   } catch (error) {
     console.error('❌ Erro ao atualizar BD:', error);
@@ -268,17 +279,56 @@ exports.handler = async (event, context) => {
     // Parse do body
     const input = JSON.parse(event.body);
 
-    // Validar campos obrigatórios (email não é obrigatório para "Consumidor Final")
-    const requiredFields = ['transactionID', 'produto', 'valor'];
+    // Validar campos obrigatórios
+    const requiredFields = ['transactionID'];
     for (const field of requiredFields) {
       if (!input[field]) {
         throw new Error(`Campo obrigatório ausente: ${field}`);
       }
     }
 
-    // Determinar produto ID baseado no nome do produto
-    let produtoId = 'CAFE_001'; // Default
-    const produtoNome = input.produto.toLowerCase();
+    console.log(`🔍 Buscando produtos para transação: ${input.transactionID}`);
+
+    // Buscar TODOS os produtos desta transação (suporte multi-produto)
+    let produtosArray = [];
+    
+    if (supabase) {
+      try {
+        const { data: payments, error } = await supabase
+          .from('payments')
+          .select('*')
+          .eq('transaction_id', input.transactionID);
+
+        if (error) {
+          console.error('❌ Erro ao buscar pagamentos:', error);
+        } else if (payments && payments.length > 0) {
+          console.log(`📦 Encontrados ${payments.length} produto(s) na transação ${input.transactionID}`);
+          
+          // Agregar produtos numa estrutura comum
+          produtosArray = payments.map(payment => ({
+            id: payment.produto_id || 'UNKNOWN_001',
+            nome: payment.produto_nome || payment.produto,
+            preco: parseFloat(payment.preco_unitario || payment.valor),
+            preco_unitario: parseFloat(payment.preco_unitario || payment.valor),
+            quantidade: payment.quantidade || 1
+          }));
+        }
+      } catch (dbError) {
+        console.error('❌ Erro ao consultar Supabase:', dbError);
+      }
+    }
+
+    // Fallback: usar dados do input se não encontrou na BD
+    if (produtosArray.length === 0) {
+      console.log('⚠️ Usando dados do input (fallback)');
+      
+      if (!input.produto || !input.valor) {
+        throw new Error('Campos obrigatórios ausentes: produto e valor');
+      }
+
+      // Determinar produto ID baseado no nome do produto
+      let produtoId = 'CAFE_001'; // Default
+      const produtoNome = input.produto.toLowerCase();
     
     if (produtoNome.includes('donativo')) {
       produtoId = 'DONATIVO_001';
@@ -330,25 +380,55 @@ exports.handler = async (event, context) => {
     produtoId = 'LUVAS_BOXE_001';
   } else if (produtoNome.includes('garrafa') || produtoNome.includes('hydra')) {
     produtoId = 'GARRAFA_HYDRA_001';
+      }
+
+      // Criar produto fallback
+      produtosArray = [{
+        id: produtoId,
+        nome: input.produto,
+        preco: parseFloat(input.valor),
+        preco_unitario: parseFloat(input.valor),
+        quantidade: 1
+      }];
     }
 
-    // Preparar dados para emissão (usar "Consumidor Final" se sem dados)
-    const dadosCliente = {
+    // Buscar dados do cliente do primeiro produto (todos têm os mesmos dados de cliente)
+    let dadosCliente = {
       nome: input.nome || null,
       nif: input.nif || null,
-      email: input.email || 'bewaterlisboa@gmail.com' // Email genérico para consumidor final
+      email: input.email || 'bewaterlisboa@gmail.com'
     };
 
-    const dadosProduto = {
-      id: produtoId,
-      nome: input.produto,
-      preco: parseFloat(input.valor)
-    };
+    // Se buscou da BD, usar os dados do primeiro pagamento
+    if (supabase && produtosArray.length > 0) {
+      try {
+        const { data: firstPayment } = await supabase
+          .from('payments')
+          .select('nome, nif, email')
+          .eq('transaction_id', input.transactionID)
+          .limit(1)
+          .single();
+
+        if (firstPayment) {
+          dadosCliente = {
+            nome: firstPayment.nome || null,
+            nif: firstPayment.nif || null,
+            email: firstPayment.email || 'bewaterlisboa@gmail.com'
+          };
+        }
+      } catch (clientError) {
+        console.log('⚠️ Erro ao buscar dados do cliente, usando fallback');
+      }
+    }
 
     const dadosPagamento = {
       transactionID: input.transactionID,
       reference: input.reference || null
     };
+
+    console.log(`🧾 Preparando fatura com ${produtosArray.length} produto(s)`);
+    console.log(`👤 Cliente: ${dadosCliente.nome || 'Consumidor Final'}`);
+    console.log(`📦 Produtos:`, produtosArray.map(p => `${p.nome} x${p.quantidade}`).join(', '));
 
     // 🔒 VERIFICAR SE FATURA JÁ FOI EMITIDA (Prevenir duplicação)
     console.log(`🔍 Verificando se fatura já foi emitida para: ${input.transactionID}`);
@@ -373,8 +453,8 @@ exports.handler = async (event, context) => {
     // Incrementar contador de tentativas
     await incrementarTentativas(input.transactionID);
 
-    // Emitir fatura
-    const resultadoFatura = await emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento);
+    // Emitir fatura (passando array de produtos)
+    const resultadoFatura = await emitirFaturaVendus(dadosCliente, produtosArray, dadosPagamento);
 
     if (resultadoFatura.success) {
       // 🔒 MARCAR fatura como emitida na BD Supabase

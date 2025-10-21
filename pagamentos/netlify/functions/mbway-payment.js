@@ -248,34 +248,108 @@ exports.handler = async (event, context) => {
     // Parse do body
     const input = JSON.parse(event.body);
 
-    // Validar campos obrigatórios
-    const requiredFields = ['amount', 'phone', 'produto_id'];
-    for (const field of requiredFields) {
-      if (!input[field]) {
-        throw new Error(`Campo obrigatório ausente: ${field}`);
-      }
-    }
+    // Suporte para múltiplos produtos (carrinho) ou produto único (legacy)
+    const isMultiProduct = input.produtos && Array.isArray(input.produtos);
+    let produtos = [];
+    let totalCalculado = 0;
 
-    // Validar produto
-    const produtoId = input.produto_id;
-    if (!PRODUTOS_PERMITIDOS[produtoId]) {
-      throw new Error('Produto não encontrado ou não permitido');
-    }
-
-    // Validar preço (segurança extra)
-    const produto = PRODUTOS_PERMITIDOS[produtoId];
-    const inputAmount = parseFloat(input.amount);
-    
-    // Para donativos, permitir valores variáveis entre €1.00 e €100.00
-    if (produtoId === 'DONATIVO_001') {
-      if (inputAmount < 1.00 || inputAmount > 100.00) {
-        throw new Error('Valor do donativo deve estar entre €1.00 e €100.00');
+    if (isMultiProduct) {
+      // Modo carrinho - múltiplos produtos
+      if (input.produtos.length === 0) {
+        throw new Error('Carrinho vazio');
       }
+
+      // Validar cada produto
+      for (const item of input.produtos) {
+        if (!item.produto_id || !item.nome || item.preco === undefined || !item.quantidade) {
+          throw new Error('Dados do produto incompletos no carrinho');
+        }
+
+        const produtoId = item.produto_id;
+        
+        // Validar se produto existe
+        if (!PRODUTOS_PERMITIDOS[produtoId]) {
+          throw new Error(`Produto não permitido: ${produtoId}`);
+        }
+
+        const produtoConfig = PRODUTOS_PERMITIDOS[produtoId];
+        const precoUnitario = parseFloat(item.preco);
+        const quantidade = parseInt(item.quantidade);
+
+        // Validar preço (exceto donativos que têm preço variável)
+        if (produtoId !== 'DONATIVO_001') {
+          if (precoUnitario !== produtoConfig.preco) {
+            throw new Error(`Preço inválido para ${item.nome}`);
+          }
+        } else {
+          // Validar donativo
+          if (precoUnitario < 1.00 || precoUnitario > 100.00) {
+            throw new Error('Valor do donativo deve estar entre €1.00 e €100.00');
+          }
+        }
+
+        // Validar quantidade
+        if (quantidade < 1 || quantidade > 99) {
+          throw new Error(`Quantidade inválida para ${item.nome}`);
+        }
+
+        const subtotal = precoUnitario * quantidade;
+        totalCalculado += subtotal;
+
+        produtos.push({
+          produto_id: produtoId,
+          nome: item.nome,
+          preco: precoUnitario,
+          quantidade: quantidade,
+          subtotal: subtotal
+        });
+      }
+
+      // Validar total
+      const inputAmount = parseFloat(input.amount);
+      if (Math.abs(inputAmount - totalCalculado) > 0.01) {
+        throw new Error('Total do carrinho não corresponde à soma dos produtos');
+      }
+
     } else {
-      // Para outros produtos, preço deve ser exato
-      if (inputAmount !== produto.preco) {
-        throw new Error('Preço não corresponde ao produto');
+      // Modo legacy - produto único
+      const requiredFields = ['amount', 'phone', 'produto_id'];
+      for (const field of requiredFields) {
+        if (!input[field]) {
+          throw new Error(`Campo obrigatório ausente: ${field}`);
+        }
       }
+
+      const produtoId = input.produto_id;
+      if (!PRODUTOS_PERMITIDOS[produtoId]) {
+        throw new Error('Produto não encontrado ou não permitido');
+      }
+
+      const produto = PRODUTOS_PERMITIDOS[produtoId];
+      const inputAmount = parseFloat(input.amount);
+      
+      // Para donativos, permitir valores variáveis entre €1.00 e €100.00
+      if (produtoId === 'DONATIVO_001') {
+        if (inputAmount < 1.00 || inputAmount > 100.00) {
+          throw new Error('Valor do donativo deve estar entre €1.00 e €100.00');
+        }
+      } else {
+        // Para outros produtos, preço deve ser exato
+        if (inputAmount !== produto.preco) {
+          throw new Error('Preço não corresponde ao produto');
+        }
+      }
+
+      // Converter para formato de array para processamento uniforme
+      produtos.push({
+        produto_id: produtoId,
+        nome: produto.nome,
+        preco: inputAmount,
+        quantidade: 1,
+        subtotal: inputAmount
+      });
+      
+      totalCalculado = inputAmount;
     }
 
     // Validar telemóvel português
@@ -284,12 +358,13 @@ exports.handler = async (event, context) => {
       throw new Error('Número de telemóvel inválido');
     }
 
-    // Validar dados (para eventos, NIF é opcional)
+    // Validar dados de fatura
     let email = null;
     let nome = null;
     let nif = null;
     
-    const isEvento = produtoId.includes('EVENTO');
+    // Verificar se algum produto é evento (para validação especial)
+    const hasEvento = produtos.some(p => p.produto_id.includes('EVENTO'));
     
     // Email sempre validado se fornecido
     if (input.email && input.email.trim()) {
@@ -315,8 +390,8 @@ exports.handler = async (event, context) => {
       }
     }
     
-    // Para produtos do bar (não eventos), validação antiga
-    if (!isEvento) {
+    // Para produtos do bar (não eventos), validação de fatura completa
+    if (!hasEvento) {
       const temEmail = input.email && input.email.trim();
       const temNome = input.nome && input.nome.trim();
       const temNif = input.nif && input.nif.trim();
@@ -344,17 +419,33 @@ exports.handler = async (event, context) => {
       nome: nome || '',
       email: email || '',
       nif: nif || '',
-      telefone: phone
+      telefone: phone,
+      produtos: produtos // Incluir produtos no base64 para correlação
     })).toString('base64');
+    
+    // Criar descrição do pagamento
+    let paymentDescription;
+    if (produtos.length === 1) {
+      // Produto único
+      const p = produtos[0];
+      if (p.produto_id === 'DONATIVO_001') {
+        paymentDescription = `Donativo €${p.preco.toFixed(2)} - BE WATER`;
+      } else {
+        paymentDescription = `${p.nome}${p.quantidade > 1 ? ` x${p.quantidade}` : ''} - BE WATER`;
+      }
+    } else {
+      // Múltiplos produtos
+      paymentDescription = `Compra Multi (${produtos.length} items) - BE WATER`;
+    }
     
     // Preparar payload para EuPago (ESTRUTURA CORRETA conforme documentação oficial!)
     const eupagoPayload = {
       payment: {
         amount: {
           currency: "EUR",
-          value: produtoId === 'DONATIVO_001' ? inputAmount : produto.preco
+          value: totalCalculado
         },
-        identifier: produtoId === 'DONATIVO_001' ? `Donativo €${inputAmount.toFixed(2)} - BE WATER | ${clientDataBase64}` : `${produto.nome} - BE WATER | ${clientDataBase64}`,
+        identifier: `${paymentDescription} | ${clientDataBase64}`,
         customerPhone: phone,    // SÓ O NÚMERO sem +351
         countryCode: "+351"      // CÓDIGO SEPARADO conforme documentação
       }
@@ -409,10 +500,11 @@ exports.handler = async (event, context) => {
       const dadosResposta = {
         reference: eupagoResponse.reference || null,
         transactionID: eupagoResponse.transactionID || null,
-        amount: produtoId === 'DONATIVO_001' ? inputAmount : produto.preco,
-        produto: produtoId === 'DONATIVO_001' ? `Donativo €${inputAmount.toFixed(2)}` : produto.nome,
+        amount: totalCalculado,
+        produto: paymentDescription,
         phone_masked: phone.substring(0, 3) + '***' + phone.substring(6),
-        instructions: 'Após confirmar o pagamento no telemóvel, apresente o comprovativo ao funcionário BE WATER para receber o seu produto.'
+        instructions: 'Após confirmar o pagamento no telemóvel, apresente o comprovativo ao funcionário BE WATER para receber o seu produto.',
+        items_count: produtos.length
       };
 
       // ARMAZENAR dados do cliente para correlação com webhook posterior
@@ -424,62 +516,72 @@ exports.handler = async (event, context) => {
           nif: nif,
           telefone: phone,
           timestamp: new Date().toISOString(),
-          produtoId: produtoId
+          produtos: produtos // Armazenar todos os produtos
         });
         console.log(`💾 Dados cliente armazenados para correlação: ${clientKey}`, {
           nome: nome || 'N/A',
           email: email || 'N/A', 
-          nif: nif || 'N/A'
+          nif: nif || 'N/A',
+          produtos_count: produtos.length
         });
       }
 
-              // 🆕 CRIAR registo "pendente" para aparecer no staff.html
+              // 🆕 CRIAR registos "pendentes" para aparecer no staff.html (um por produto)
         try {
           // Usar timestamp consistente em UTC
           const utcTimestamp = new Date().toISOString();
           
-          // CORRIGIR: Estrutura deve ter objeto 'transaction' conforme webhook espera
-          const pendingPaymentData = {
-            transaction: {
-              transactionID: eupagoResponse.transactionID,  // Usar transactionID (não trid)
-              reference: eupagoResponse.reference,
-              amount: { value: produtoId === 'DONATIVO_001' ? inputAmount : produto.preco },
-              status: 'pending', // Status EuPago para pendente
-              identifier: produtoId === 'DONATIVO_001' ? `Donativo €${inputAmount.toFixed(2)} - BE WATER | ${clientDataBase64}` : `${produto.nome} - BE WATER | ${clientDataBase64}`,
-              date: utcTimestamp // Timestamp UTC consistente
+          // Criar um registo pendente para cada produto
+          for (const produto of produtos) {
+            const pendingPaymentData = {
+              transaction: {
+                transactionID: eupagoResponse.transactionID,
+                reference: eupagoResponse.reference,
+                amount: { value: produto.subtotal }, // Subtotal do produto
+                status: 'pending',
+                identifier: `${produto.nome}${produto.quantidade > 1 ? ` x${produto.quantidade}` : ''} - BE WATER | ${clientDataBase64}`,
+                date: utcTimestamp,
+                // Campos adicionais para multi-produto
+                produto_id: produto.produto_id,
+                produto_nome: produto.nome,
+                quantidade: produto.quantidade,
+                preco_unitario: produto.preco,
+                is_multi_product: produtos.length > 1,
+                multi_product_count: produtos.length
+              }
+            };
+
+            console.log(`🚀 Criando registo pendente para: ${produto.nome} x${produto.quantidade}`);
+
+            // Simular webhook call para criar registo pendente
+            const webhookUrl = 'https://cool-starship-a7a3e1.netlify.app/.netlify/functions/payment-webhook';
+            const webhookResponse = await fetch(webhookUrl, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'x-nf-client-connection-ip': '127.0.0.1',
+                'user-agent': 'BE WATER Payment System - Internal Call',
+                'x-signature': 'internal-call',
+                'x-initialization-vector': 'internal-call'
+              },
+              body: JSON.stringify({
+                data: Buffer.from(JSON.stringify({
+                  transaction: pendingPaymentData
+                })).toString('base64')
+              })
+            });
+
+            const webhookResult = await webhookResponse.text();
+            console.log(`📋 Resposta webhook para ${produto.nome}:`, webhookResponse.status);
+
+            if (!webhookResponse.ok) {
+              console.log('⚠️ Não foi possível criar registo pendente:', webhookResult);
             }
-          };
-
-        console.log('🚀 Criando registo pendente com estrutura corrigida:', pendingPaymentData);
-
-        // Simular webhook call para criar registo pendente
-        const webhookUrl = 'https://cool-starship-a7a3e1.netlify.app/.netlify/functions/payment-webhook';
-        const webhookResponse = await fetch(webhookUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-nf-client-connection-ip': '127.0.0.1', // IP local para bypass validação
-            'user-agent': 'BE WATER Payment System - Internal Call',
-            'x-signature': 'internal-call',
-            'x-initialization-vector': 'internal-call'
-          },
-          body: JSON.stringify({
-            data: Buffer.from(JSON.stringify({
-              transaction: pendingPaymentData
-            })).toString('base64')
-          })
-        });
-
-        const webhookResult = await webhookResponse.text();
-        console.log('📋 Resposta webhook interno:', webhookResponse.status, webhookResult);
-
-        if (webhookResponse.ok) {
-          console.log('✅ Registo pendente criado no staff.html');
-        } else {
-          console.log('⚠️ Não foi possível criar registo pendente:', webhookResult);
-        }
+          }
+          
+          console.log(`✅ ${produtos.length} registo(s) pendente(s) criado(s) no staff.html`);
       } catch (webhookError) {
-        console.log('⚠️ Erro ao criar registo pendente:', webhookError.message);
+        console.log('⚠️ Erro ao criar registos pendentes:', webhookError.message);
         // Não é crítico, continuar
       }
 
