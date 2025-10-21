@@ -499,13 +499,22 @@
             console.log('🔍 ANTES da consolidação:', originalCount, 'pagamentos');
             
             paymentsList.forEach(payment => {
-                const key = payment.transactionID || payment.id;
+                // 🆕 MULTI-PRODUTO: Usar chave única por produto (não consolidar!)
+                let key;
+                if (payment.is_multi_product) {
+                    // Para multi-produto, usar transactionID + produto_id para manter separados
+                    key = `${payment.transactionID}_${payment.produto_id || payment.produto}`;
+                    console.log(`🛒 Multi-produto detectado: ${key}`);
+                } else {
+                    // Para produto único, usar apenas transactionID
+                    key = payment.transactionID || payment.id;
+                }
                 
                 if (!consolidated.has(key)) {
-                    // Primeiro pagamento com este transaction_id
+                    // Primeiro pagamento com este transaction_id (ou combinação transaction+produto)
                     consolidated.set(key, payment);
                 } else {
-                    // Já existe um pagamento com este transaction_id
+                    // Já existe um pagamento com esta chave
                     const existing = consolidated.get(key);
                     
                     console.log(`🔍 DUPLICADO DETECTADO para ${key}:`, {
