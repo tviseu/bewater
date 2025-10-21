@@ -35,10 +35,10 @@ INSERT INTO payments (
     1.00,                                                -- valor total
     1,                                                   -- quantidade
     1.00,                                                -- preco_unitario
-    '999000001',                                         -- telefone teste
+    '912345678',                                         -- telefone teste
     'Cliente Teste - Água e Café',                       -- nome
     'teste@bewaterlisboa.pt',                            -- email
-    '999999990',                                         -- nif teste
+    '238494900',                                         -- nif PT válido
     'confirmado',                                        -- status
     NOW(),                                               -- timestamp
     NOW(),                                               -- last_update
@@ -78,10 +78,10 @@ INSERT INTO payments (
     0.85,                                                -- valor total
     1,                                                   -- quantidade
     0.85,                                                -- preco_unitario
-    '999000001',                                         -- telefone teste (mesmo)
+    '912345678',                                         -- telefone teste (mesmo)
     'Cliente Teste - Água e Café',                       -- nome (mesmo)
     'teste@bewaterlisboa.pt',                            -- email (mesmo)
-    '999999990',                                         -- nif teste (mesmo)
+    '238494900',                                         -- nif PT válido (mesmo)
     'confirmado',                                        -- status
     NOW(),                                               -- timestamp
     NOW(),                                               -- last_update

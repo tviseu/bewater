@@ -157,11 +157,13 @@ async function verificarFaturaEmitida(transactionID) {
   }
 
   try {
+    // BUSCAR PRIMEIRO PRODUTO (pode haver múltiplos com mesmo transaction_id)
     const { data, error } = await supabase
       .from('payments')
       .select('fatura_emitida, fatura, fatura_tentativas')
       .eq('transaction_id', transactionID)
-      .single();
+      .limit(1)
+      .maybeSingle(); // Usa maybeSingle em vez de single para evitar erro
 
     if (error) {
       console.error('❌ Erro ao verificar fatura:', error);

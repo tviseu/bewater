@@ -36,7 +36,7 @@ INSERT INTO payments (
     '912345678',                                               -- telefone teste
     'João Silva Teste',                                        -- nome
     'teste.cafe@bewaterlisboa.pt',                             -- email
-    '123456789',                                               -- NIF PT válido para testes
+    '238494900',                                               -- NIF PT válido para testes
     'confirmado',                                              -- status
     NOW(),                                                     -- timestamp
     NOW(),                                                     -- last_update
