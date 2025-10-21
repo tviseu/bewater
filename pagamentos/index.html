@@ -1789,14 +1789,14 @@
                             <div class="cart-item-name">${item.nome}</div>
                             <div class="cart-item-price">€${item.preco.toFixed(2)} cada</div>
                             <div class="cart-item-quantity">
-                                <button class="cart-qty-btn" onclick="updateCartQuantity('${item.id}', ${item.quantidade - 1})">−</button>
+                                <button class="cart-qty-btn cart-qty-minus" data-product-id="${item.id}" data-new-qty="${item.quantidade - 1}">−</button>
                                 <span class="cart-qty-value">${item.quantidade}</span>
-                                <button class="cart-qty-btn" onclick="updateCartQuantity('${item.id}', ${item.quantidade + 1})">+</button>
+                                <button class="cart-qty-btn cart-qty-plus" data-product-id="${item.id}" data-new-qty="${item.quantidade + 1}">+</button>
                             </div>
                         </div>
                         <div class="cart-item-actions">
                             <div class="cart-item-subtotal">€${subtotal.toFixed(2)}</div>
-                            <button class="cart-remove-btn" onclick="removeFromCart('${item.id}')">✕</button>
+                            <button class="cart-remove-btn" data-product-id="${item.id}">✕</button>
                         </div>
                     </div>
                 `;
@@ -1804,6 +1804,11 @@
 
             cartBody.innerHTML = `<div class="cart-items">${itemsHTML}</div>`;
             cartTotal.textContent = `€${getCartTotal().toFixed(2)}`;
+            
+            // Aplicar tradução
+            if (window.paymentLanguageManager) {
+                window.paymentLanguageManager.applyLanguage(window.paymentLanguageManager.currentLang);
+            }
         }
 
         function addToCart(produtoId, nome, preco, quantidade) {
@@ -1912,14 +1917,54 @@
         }
 
         // Event listeners - Carrinho
-        cartToggle.addEventListener('click', toggleCartPanel);
-        cartClose.addEventListener('click', closeCartPanel);
-        cartClear.addEventListener('click', clearCart);
+        cartToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleCartPanel();
+        });
+        
+        cartClose.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeCartPanel();
+        });
+        
+        cartClear.addEventListener('click', (e) => {
+            e.stopPropagation();
+            clearCart();
+        });
         
         // Clicar no overlay fecha o carrinho
         cartOverlay.addEventListener('click', closeCartPanel);
         
-        cartCheckout.addEventListener('click', () => {
+        // Event delegation para botões do carrinho (evita fechar ao mudar quantidade)
+        cartBody.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevenir propagação que fecha o carrinho
+            
+            const target = e.target;
+            
+            // Botão de aumentar quantidade
+            if (target.classList.contains('cart-qty-plus')) {
+                const productId = target.dataset.productId;
+                const newQty = parseInt(target.dataset.newQty);
+                updateCartQuantity(productId, newQty);
+            }
+            
+            // Botão de diminuir quantidade
+            if (target.classList.contains('cart-qty-minus')) {
+                const productId = target.dataset.productId;
+                const newQty = parseInt(target.dataset.newQty);
+                updateCartQuantity(productId, newQty);
+            }
+            
+            // Botão de remover item
+            if (target.classList.contains('cart-remove-btn')) {
+                const productId = target.dataset.productId;
+                removeFromCart(productId);
+            }
+        });
+        
+        cartCheckout.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevenir propagação
+            
             if (cart.length === 0) {
                 alert('Carrinho vazio! Adicione produtos antes de finalizar a compra.');
                 return;
@@ -1940,7 +1985,13 @@
 
         // Fechar painel ao clicar fora (desktop)
         document.addEventListener('click', (e) => {
-            if (!cartWidget.contains(e.target) && !cartOverlay.contains(e.target) && cartPanel.classList.contains('show')) {
+            // Verificar se clicou fora do widget do carrinho e do overlay
+            const clickedInsideCart = cartWidget.contains(e.target);
+            const clickedOnOverlay = e.target === cartOverlay;
+            const isCartOpen = cartPanel.classList.contains('show');
+            
+            // Só fechar se clicou fora do carrinho E o carrinho está aberto
+            if (!clickedInsideCart && !clickedOnOverlay && isCartOpen) {
                 closeCartPanel();
             }
         });
