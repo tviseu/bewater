@@ -581,6 +581,23 @@
 
                 <!-- TAB CONTENT: PENDENTES -->
                 <div id="pendingContent" class="tab-content">
+                    <div style="margin-bottom: 20px; text-align: center;">
+                        <button onclick="clearAllPendingPayments()" style="
+                            padding: 12px 24px;
+                            background: #dc3545;
+                            color: white;
+                            border: 4px solid #000000;
+                            font-family: 'Work Sans', sans-serif;
+                            font-weight: 600;
+                            font-size: 1rem;
+                            cursor: pointer;
+                            box-shadow: 4px 4px 0px #000000;
+                            transition: all 0.2s ease;
+                        " onmouseover="this.style.background='#c82333'; this.style.transform='translateY(-2px)'" 
+                           onmouseout="this.style.background='#dc3545'; this.style.transform='translateY(0)'">
+                            🗑️ Limpar Todos os Pagamentos Pendentes
+                        </button>
+                    </div>
                     <div id="pendingPaymentsList" class="payments-list">
                         <div class="loading">🔄 Carregando pagamentos pendentes...</div>
                     </div>
@@ -697,6 +714,80 @@
             }
             
             return consolidatedList;
+        }
+
+        // Limpar todos os pagamentos pendentes
+        async function clearAllPendingPayments() {
+            // Contar quantos pendentes existem
+            const pendingCount = payments.filter(p => p.status === 'pending').length;
+            
+            if (pendingCount === 0) {
+                alert('✅ Não existem pagamentos pendentes para limpar!');
+                return;
+            }
+            
+            // Mensagem de confirmação detalhada
+            const confirmMessage = `⚠️ ATENÇÃO - OPERAÇÃO IRREVERSÍVEL ⚠️
+
+Esta ação vai APAGAR PERMANENTEMENTE ${pendingCount} pagamento(s) pendente(s) da base de dados.
+
+🗑️ O que será apagado:
+• Todos os pagamentos com status "pending"
+• Dados do cliente associados
+• Referências MBWay não confirmadas
+• Produtos aguardando confirmação
+
+✅ O que NÃO será afetado:
+• Pagamentos confirmados
+• Faturas já emitidas
+• Histórico de vendas
+
+⚠️ IMPORTANTE: Esta operação NÃO pode ser desfeita!
+
+Tem a certeza que deseja continuar?`;
+            
+            const confirmed = confirm(confirmMessage);
+            
+            if (!confirmed) {
+                console.log('❌ Limpeza de pendentes cancelada pelo utilizador');
+                return;
+            }
+            
+            // Segunda confirmação para segurança extra
+            const doubleConfirm = confirm(`🔒 CONFIRMAÇÃO FINAL\n\nVai apagar ${pendingCount} pagamento(s) pendente(s).\n\nTem MESMO a certeza?`);
+            
+            if (!doubleConfirm) {
+                console.log('❌ Limpeza de pendentes cancelada na 2ª confirmação');
+                return;
+            }
+            
+            try {
+                console.log('🗑️ Iniciando limpeza de pagamentos pendentes...');
+                
+                // Fazer requisição DELETE para o webhook endpoint
+                const response = await fetch('/.netlify/functions/payment-webhook/clear-pending', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok && result.success) {
+                    alert(`✅ SUCESSO!\n\n${result.deleted_count} pagamento(s) pendente(s) foram apagados da base de dados.`);
+                    console.log('✅ Pagamentos pendentes limpos com sucesso:', result);
+                    
+                    // Recarregar pagamentos
+                    await loadPayments();
+                } else {
+                    throw new Error(result.message || 'Erro desconhecido');
+                }
+                
+            } catch (error) {
+                console.error('❌ Erro ao limpar pagamentos pendentes:', error);
+                alert(`❌ ERRO ao limpar pagamentos pendentes:\n\n${error.message}\n\nVerifique a consola (F12) para mais detalhes.`);
+            }
         }
 
         // Carregar pagamentos

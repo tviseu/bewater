@@ -101,7 +101,7 @@ exports.handler = async (event, context) => {
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type, X-Signature',
-    'Access-Control-Allow-Methods': 'POST, GET, PUT, OPTIONS',
+    'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE, OPTIONS',
     'Content-Type': 'application/json'
   };
 
@@ -208,6 +208,103 @@ exports.handler = async (event, context) => {
         body: JSON.stringify({
           success: false,
           message: error.message
+        })
+      };
+    }
+  }
+
+  // DELETE: Limpar todos os pagamentos pendentes (chamado pelo staff.html)
+  if (event.httpMethod === 'DELETE' && event.path.includes('clear-pending')) {
+    try {
+      console.log('🗑️ Requisição para limpar pagamentos pendentes recebida');
+      
+      if (supabase) {
+        // Primeiro, contar quantos pendentes existem
+        const { data: countData, error: countError } = await supabase
+          .from('payments')
+          .select('id', { count: 'exact', head: false })
+          .eq('status', 'pending');
+        
+        if (countError) {
+          console.error('❌ Erro ao contar pendentes:', countError);
+          throw countError;
+        }
+        
+        const pendingCount = countData ? countData.length : 0;
+        console.log(`📊 ${pendingCount} pagamento(s) pendente(s) encontrado(s)`);
+        
+        if (pendingCount === 0) {
+          return {
+            statusCode: 200,
+            headers,
+            body: JSON.stringify({
+              success: true,
+              deleted_count: 0,
+              message: 'Nenhum pagamento pendente para limpar'
+            })
+          };
+        }
+        
+        // Apagar todos os pagamentos pendentes
+        const { data: deleteData, error: deleteError } = await supabase
+          .from('payments')
+          .delete()
+          .eq('status', 'pending')
+          .select();
+        
+        if (deleteError) {
+          console.error('❌ Erro ao apagar pendentes:', deleteError);
+          throw deleteError;
+        }
+        
+        const deletedCount = deleteData ? deleteData.length : 0;
+        console.log(`✅ ${deletedCount} pagamento(s) pendente(s) apagado(s) com sucesso`);
+        
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({
+            success: true,
+            deleted_count: deletedCount,
+            message: `${deletedCount} pagamento(s) pendente(s) foram apagados com sucesso`
+          })
+        };
+        
+      } else {
+        // Fallback para Map em memória
+        let deletedCount = 0;
+        const idsToDelete = [];
+        
+        for (const [id, payment] of paymentsDB.entries()) {
+          if (payment.status === 'pending') {
+            idsToDelete.push(id);
+            deletedCount++;
+          }
+        }
+        
+        idsToDelete.forEach(id => paymentsDB.delete(id));
+        
+        console.log(`✅ ${deletedCount} pagamento(s) pendente(s) apagado(s) da memória`);
+        
+        return {
+          statusCode: 200,
+          headers,
+          body: JSON.stringify({
+            success: true,
+            deleted_count: deletedCount,
+            message: `${deletedCount} pagamento(s) pendente(s) foram apagados com sucesso (memória)`
+          })
+        };
+      }
+      
+    } catch (error) {
+      console.error('❌ Erro no DELETE:', error.message);
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({
+          success: false,
+          message: 'Erro ao limpar pagamentos pendentes: ' + error.message
         })
       };
     }
