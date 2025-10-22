@@ -850,7 +850,7 @@
                                     ${payment.nome ? `<div class="detail-line">👤 ${truncateText(payment.nome, 30)}</div>` : ''}
                                     ${payment.email ? `<div class="detail-line">📧 ${truncateEmail(payment.email)}</div>` : ''}
                                     ${payment.nif ? `<div class="detail-line">🧾 NIF: ${payment.nif}</div>` : ''}
-                                    ${payment.fatura && payment.fatura.numero ? `<div class="detail-line">🧾 Fatura: ${payment.fatura.numero}</div>` : ''}
+                                    ${payment.fatura ? (payment.fatura.primeira_fatura ? `<div class="detail-line">🧾 Fatura: ${payment.fatura.primeira_fatura.numero}${payment.fatura.quantidade > 1 ? ` (+${payment.fatura.quantidade - 1})` : ''}</div>` : payment.fatura.numero ? `<div class="detail-line">🧾 Fatura: ${payment.fatura.numero}</div>` : '') : ''}
                                 </div>
                             </div>
                             <div class="payment-actions">

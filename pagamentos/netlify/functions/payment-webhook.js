@@ -535,24 +535,51 @@ exports.handler = async (event, context) => {
 
       // Verificar se já existem registos pendentes (pode ser multi-produto!)
       let existingPayments = [];
-      if (supabase && transactionID) {
+      if (supabase && (transactionID || reference)) {
         try {
-          const { data, error } = await supabase
-            .from('payments')
-            .select('*')
-            .eq('transaction_id', transactionID);
+          // CORRIGIDO: Procurar por transaction_id OU reference
+          // EuPago pode enviar transaction_id diferente no webhook vs resposta inicial
+          let query = supabase.from('payments').select('*');
           
-          if (error) {
-            console.log(`🔍 Erro ao buscar pagamentos existentes: ${error.message}`);
-          } else if (data && data.length > 0) {
-            existingPayments = data;
-            console.log(`🔍 ${data.length} pagamento(s) existente(s) encontrado(s):`, data.map(p => ({
+          if (transactionID) {
+            query = query.eq('transaction_id', transactionID);
+          }
+          
+          const { data: dataByTxId, error: errorByTxId } = await query;
+          
+          if (errorByTxId) {
+            console.log(`🔍 Erro ao buscar por transaction_id: ${errorByTxId.message}`);
+          } else if (dataByTxId && dataByTxId.length > 0) {
+            existingPayments = dataByTxId;
+            console.log(`🔍 ${dataByTxId.length} pagamento(s) encontrado(s) por transaction_id: ${transactionID}`, dataByTxId.map(p => ({
               id: p.id,
               produto: p.produto_nome || p.produto,
               produto_id: p.produto_id,
               status: p.status,
               timestamp: p.timestamp
             })));
+          } else if (reference) {
+            // Fallback: Procurar por reference
+            console.log(`🔍 Não encontrado por transaction_id, tentando por reference: ${reference}`);
+            const { data: dataByRef, error: errorByRef } = await supabase
+              .from('payments')
+              .select('*')
+              .eq('reference', reference);
+            
+            if (errorByRef) {
+              console.log(`🔍 Erro ao buscar por reference: ${errorByRef.message}`);
+            } else if (dataByRef && dataByRef.length > 0) {
+              existingPayments = dataByRef;
+              console.log(`🔍 ${dataByRef.length} pagamento(s) encontrado(s) por reference: ${reference}`, dataByRef.map(p => ({
+                id: p.id,
+                produto: p.produto_nome || p.produto,
+                produto_id: p.produto_id,
+                status: p.status,
+                timestamp: p.timestamp
+              })));
+            } else {
+              console.log(`🔍 Nenhum pagamento encontrado para transaction_id: ${transactionID} nem reference: ${reference}`);
+            }
           } else {
             console.log(`🔍 Nenhum pagamento existente encontrado para transaction_id: ${transactionID}`);
           }
@@ -665,11 +692,22 @@ exports.handler = async (event, context) => {
           else if (!isInternalCall && existingPayments.length > 0) {
             console.log(`📡 WEBHOOK EUPAGO - atualizando ${existingPayments.length} pagamento(s) existente(s) - apenas status e cliente`);
             
-            // Para multi-produto: atualizar TODOS os registos com este transaction_id
+            // Para multi-produto: atualizar TODOS os registos com este transaction_id/reference
             const updateFields = {
               status: paymentStatus,
               last_update: new Date().toISOString()
             };
+            
+            // Se webhook trouxe transaction_id diferente, atualizar também (para sincronizar)
+            if (transactionID && existingPayments[0].transaction_id !== transactionID) {
+              console.log(`🔄 Atualizando transaction_id: ${existingPayments[0].transaction_id} → ${transactionID}`);
+              updateFields.transaction_id = transactionID;
+            }
+            
+            // Se webhook trouxe reference, atualizar também
+            if (reference) {
+              updateFields.reference = reference;
+            }
             
             // Se webhook trouxe dados de cliente, atualizar também
             if (clientData) {
@@ -681,10 +719,12 @@ exports.handler = async (event, context) => {
             
             console.log(`📋 Campos a atualizar:`, updateFields);
             
+            // Atualizar todos os registos com os mesmos IDs que encontrámos
+            const idsToUpdate = existingPayments.map(p => p.id);
             const { data, error } = await supabase
               .from('payments')
               .update(updateFields)
-              .eq('transaction_id', transactionID)
+              .in('id', idsToUpdate)
               .select();
             
             if (error) {
