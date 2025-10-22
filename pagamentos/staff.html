@@ -441,6 +441,100 @@
                 margin-bottom: 4px;
             }
         }
+
+        /* TABS SISTEMA */
+        .tabs-container {
+            margin-bottom: 30px;
+        }
+
+        .tabs-header {
+            display: flex;
+            gap: 0;
+            border-bottom: 4px solid #000000;
+            margin-bottom: 0;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 15px 20px;
+            background: #ffffff;
+            color: #000000;
+            border: 4px solid #000000;
+            border-bottom: none;
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            margin-right: -4px;
+        }
+
+        .tab-button:last-child {
+            margin-right: 0;
+        }
+
+        .tab-button:hover {
+            background: #FFD700;
+            transform: translateY(-2px);
+        }
+
+        .tab-button.active {
+            background: #FFD700;
+            box-shadow: 0px 4px 0px #000000;
+            z-index: 10;
+        }
+
+        .tab-button .badge {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 2px 8px;
+            background: #000000;
+            color: #FFD700;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 900;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: #f8f9fa;
+            border: 4px solid #000000;
+            margin-top: 20px;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .empty-state-text {
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #666;
+        }
     </style>
 </head>
 <body>
@@ -465,12 +559,32 @@
 
 
         <div class="payments-section">
-            <div class="section-title">📋 Pagamentos Recentes</div>
-            
+            <!-- TABS NAVIGATION -->
+            <div class="tabs-container">
+                <div class="tabs-header">
+                    <button class="tab-button active" onclick="switchTab('confirmed')" id="confirmedTab">
+                        ✅ Pagamentos Confirmados
+                        <span class="badge" id="confirmedCount">0</span>
+                    </button>
+                    <button class="tab-button" onclick="switchTab('pending')" id="pendingTab">
+                        ⏳ Pagamentos Pendentes
+                        <span class="badge" id="pendingCount">0</span>
+                    </button>
+                </div>
 
+                <!-- TAB CONTENT: CONFIRMADOS -->
+                <div id="confirmedContent" class="tab-content active">
+                    <div id="paymentsList" class="payments-list">
+                        <div class="loading">🔄 Carregando pagamentos confirmados...</div>
+                    </div>
+                </div>
 
-            <div id="paymentsList" class="payments-list">
-                <div class="loading">🔄 Carregando pagamentos...</div>
+                <!-- TAB CONTENT: PENDENTES -->
+                <div id="pendingContent" class="tab-content">
+                    <div id="pendingPaymentsList" class="payments-list">
+                        <div class="loading">🔄 Carregando pagamentos pendentes...</div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -484,7 +598,29 @@
 
         // Elementos DOM
         const paymentsList = document.getElementById('paymentsList');
+        const pendingPaymentsList = document.getElementById('pendingPaymentsList');
         const lastUpdateSpan = document.getElementById('lastUpdate');
+
+        // Tab switching function
+        function switchTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Update tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            if (tabName === 'confirmed') {
+                document.getElementById('confirmedTab').classList.add('active');
+                document.getElementById('confirmedContent').classList.add('active');
+            } else if (tabName === 'pending') {
+                document.getElementById('pendingTab').classList.add('active');
+                document.getElementById('pendingContent').classList.add('active');
+            }
+        }
 
         // Stats elements
         const statsConfirmados = document.getElementById('statsConfirmados');
@@ -667,88 +803,117 @@
                 );
             }
             
-            if (confirmedPayments.length === 0 && pendingPayments.length === 0) {
-                paymentsList.innerHTML = `
-                    <div class="no-payments">
-                        📭 Nenhum pagamento encontrado<br><br>
-                        Total recebidos: ${payments.length}<br>
-                        Válidos: ${validPayments.length}<br>
-                        Inválidos: ${invalidPayments.length}
-                    </div>`;
-                return;
-            }
+            // Não retornar early - renderizar tabs mesmo que vazias
             
             console.log(`✅ Renderizando ${confirmedPayments.length} pagamentos confirmados`);
 
-            // 🆕 RENDERIZAR CADA PRODUTO INDIVIDUALMENTE (sem agrupar)
+            // Update tab badges
+            document.getElementById('confirmedCount').textContent = confirmedPayments.length;
+            document.getElementById('pendingCount').textContent = pendingPayments.length;
+
+            // 🆕 RENDERIZAR PAGAMENTOS CONFIRMADOS
             // Ordenar por timestamp - mais recentes primeiro
-            const sortedPayments = confirmedPayments.sort((a, b) => {
+            const sortedConfirmed = confirmedPayments.sort((a, b) => {
                 const timestampA = new Date(a.timestamp || 0);
                 const timestampB = new Date(b.timestamp || 0);
                 return timestampB - timestampA; // DESC (mais recentes primeiro)
             });
             
-            console.log(`📋 Renderizando ${sortedPayments.length} pagamentos individuais`);
+            console.log(`📋 Renderizando ${sortedConfirmed.length} pagamentos confirmados`);
             
-            const paymentsHTML = sortedPayments.map(payment => {
-                // Renderizar cada produto como card individual
-                return `
-                    <div class="payment-card ${payment.status}" data-id="${payment.id}">
-                        <div class="payment-info">
-                            <div class="payment-produto">
-                                ${payment.produto}
-                                ${payment.quantidade && payment.quantidade > 1 ? ` x${payment.quantidade}` : ''}
-                                ${payment.is_multi_product ? ' 🛒' : ''}
-                            </div>
-                            <div class="payment-details">
-                                <div class="detail-line">
-                                    💰 €${payment.valor ? payment.valor.toFixed(2) : '0.00'} | 📱 ${payment.telefone || 'N/A'}
-                                </div>
-                                <div class="detail-line">
-                                    📅 ${formatDateTime(payment.timestamp)}
-                                </div>
-                                ${payment.reference ? `<div class="detail-line">🔗 Ref: ${truncateRef(payment.reference)}</div>` : ''}
-                                ${payment.transactionID ? `<div class="detail-line">🆔 ID: ${truncateRef(payment.transactionID)}</div>` : ''}
-                                ${payment.nome ? `<div class="detail-line">👤 ${truncateText(payment.nome, 30)}</div>` : ''}
-                                ${payment.email ? `<div class="detail-line">📧 ${truncateEmail(payment.email)}</div>` : ''}
-                                ${payment.nif ? `<div class="detail-line">🧾 NIF: ${payment.nif}</div>` : ''}
-                                ${payment.fatura ? `<div class="detail-line">🧾 Fatura: ${payment.fatura.numero}</div>` : ''}
-                            </div>
-                        </div>
-                        <div class="payment-actions">
-                            <div class="payment-status ${payment.status}">
-                                ${getStatusText(payment.status)}
-                            </div>
-                            ${getActionButton(payment)}
-                        </div>
+            if (sortedConfirmed.length === 0) {
+                paymentsList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📭</div>
+                        <div class="empty-state-text">Nenhum pagamento confirmado</div>
                     </div>
                 `;
-            }).join('');
-            
-            // Adicionar seção de pending payments se houver
-            let pendingHTML = '';
-            if (pendingPayments.length > 0) {
-                pendingHTML = `
-                    <div style="margin-top: 40px; padding-top: 20px; border-top: 4px solid #FFD700;">
-                        <div class="section-title">⏳ Pagamentos Pendentes (aguardando confirmação)</div>
-                        ${pendingPayments.map(p => `
-                            <div class="payment-card" style="opacity: 0.7; border-color: #FFD700;">
-                                <div class="payment-header" style="background: #FFF9E6;">
-                                    <strong>${p.produto}</strong> ${p.quantidade > 1 ? ` x${p.quantidade}` : ''}
+            } else {
+                const confirmedHTML = sortedConfirmed.map(payment => {
+                    return `
+                        <div class="payment-card ${payment.status}" data-id="${payment.id}">
+                            <div class="payment-info">
+                                <div class="payment-produto">
+                                    ${payment.produto}
+                                    ${payment.quantidade && payment.quantidade > 1 ? ` x${payment.quantidade}` : ''}
+                                    ${payment.is_multi_product ? ' 🛒' : ''}
                                 </div>
                                 <div class="payment-details">
-                                    <div>💰 Valor: <strong>€${p.valor.toFixed(2)}</strong></div>
-                                    <div>📅 ${formatDateTime(p.timestamp)}</div>
-                                    <div>📱 ${p.telefone || 'N/A'}</div>
-                                    <div>⏳ Status: <span style="color: #FFD700; font-weight: bold;">AGUARDANDO CONFIRMAÇÃO</span></div>
+                                    <div class="detail-line">
+                                        💰 €${payment.valor ? payment.valor.toFixed(2) : '0.00'} | 📱 ${payment.telefone || 'N/A'}
+                                    </div>
+                                    <div class="detail-line">
+                                        📅 ${formatDateTime(payment.timestamp)}
+                                    </div>
+                                    ${payment.reference ? `<div class="detail-line">🔗 Ref: ${truncateRef(payment.reference)}</div>` : ''}
+                                    ${payment.transactionID ? `<div class="detail-line">🆔 ID: ${truncateRef(payment.transactionID)}</div>` : ''}
+                                    ${payment.nome ? `<div class="detail-line">👤 ${truncateText(payment.nome, 30)}</div>` : ''}
+                                    ${payment.email ? `<div class="detail-line">📧 ${truncateEmail(payment.email)}</div>` : ''}
+                                    ${payment.nif ? `<div class="detail-line">🧾 NIF: ${payment.nif}</div>` : ''}
+                                    ${payment.fatura && payment.fatura.numero ? `<div class="detail-line">🧾 Fatura: ${payment.fatura.numero}</div>` : ''}
                                 </div>
                             </div>
-                        `).join('')}
-                    </div>
-                `;
+                            <div class="payment-actions">
+                                <div class="payment-status ${payment.status}">
+                                    ${getStatusText(payment.status)}
+                                </div>
+                                ${getActionButton(payment)}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                paymentsList.innerHTML = confirmedHTML;
             }
             
-            paymentsList.innerHTML = paymentsHTML + pendingHTML;
+            // 🆕 RENDERIZAR PAGAMENTOS PENDENTES (em tab separada)
+            const sortedPending = pendingPayments.sort((a, b) => {
+                const timestampA = new Date(a.timestamp || 0);
+                const timestampB = new Date(b.timestamp || 0);
+                return timestampB - timestampA; // DESC (mais recentes primeiro)
+            });
+
+            if (sortedPending.length === 0) {
+                pendingPaymentsList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">✅</div>
+                        <div class="empty-state-text">Nenhum pagamento pendente</div>
+                    </div>
+                `;
+            } else {
+                const pendingHTML = sortedPending.map(payment => {
+                    return `
+                        <div class="payment-card" style="border-color: #FFD700; background: #FFF9E6;" data-id="${payment.id}">
+                            <div class="payment-info">
+                                <div class="payment-produto">
+                                    ${payment.produto}
+                                    ${payment.quantidade && payment.quantidade > 1 ? ` x${payment.quantidade}` : ''}
+                                    ${payment.is_multi_product ? ' 🛒' : ''}
+                                </div>
+                                <div class="payment-details">
+                                    <div class="detail-line">
+                                        💰 €${payment.valor ? payment.valor.toFixed(2) : '0.00'} | 📱 ${payment.telefone || 'N/A'}
+                                    </div>
+                                    <div class="detail-line">
+                                        📅 ${formatDateTime(payment.timestamp)}
+                                    </div>
+                                    ${payment.reference ? `<div class="detail-line">🔗 Ref: ${truncateRef(payment.reference)}</div>` : ''}
+                                    ${payment.transactionID ? `<div class="detail-line">🆔 ID: ${truncateRef(payment.transactionID)}</div>` : ''}
+                                    ${payment.nome ? `<div class="detail-line">👤 ${truncateText(payment.nome, 30)}</div>` : ''}
+                                    ${payment.email ? `<div class="detail-line">📧 ${truncateEmail(payment.email)}</div>` : ''}
+                                    ${payment.nif ? `<div class="detail-line">🧾 NIF: ${payment.nif}</div>` : ''}
+                                    <div class="detail-line">⏳ Status: <span style="color: #FFD700; font-weight: bold;">AGUARDANDO CONFIRMAÇÃO</span></div>
+                                </div>
+                            </div>
+                            <div class="payment-actions">
+                                <div class="payment-status pending">
+                                    ⏳ PENDENTE
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                pendingPaymentsList.innerHTML = pendingHTML;
+            }
         }
 
         // Toggle grupo expandível
