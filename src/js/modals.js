@@ -98,7 +98,66 @@ document.addEventListener('DOMContentLoaded', function() {
       if (modal) {
         modal.classList.remove('active');
         document.body.classList.remove('modal-open');
+        
+        // Reset do sistema de cupões
+        resetCouponForm(modalId);
       }
+    }
+    
+    /**
+     * Reset coupon form when modal closes
+     */
+    function resetCouponForm(modalId) {
+      // Limpar input
+      const couponInput = document.getElementById(`coupon-input-${modalId}`);
+      if (couponInput) {
+        couponInput.value = '';
+      }
+      
+      // Re-habilitar botões
+      const validateBtn = document.querySelector(`#coupon-pre-form-${modalId} .coupon-btn--primary`);
+      const skipBtn = document.querySelector(`#coupon-pre-form-${modalId} .coupon-btn--secondary`);
+      
+      if (validateBtn) {
+        validateBtn.disabled = false;
+      }
+      
+      if (skipBtn) {
+        skipBtn.disabled = false;
+      }
+      
+      // Limpar mensagens
+      const messageDiv = document.getElementById(`coupon-message-${modalId}`);
+      if (messageDiv) {
+        messageDiv.innerHTML = '';
+        messageDiv.style.display = 'none';
+        messageDiv.className = 'coupon-message'; // Reset classes
+      }
+      
+      // Esconder "Como Funciona"
+      const successInfo = document.getElementById(`coupon-success-info-${modalId}`);
+      if (successInfo) {
+        successInfo.style.display = 'none';
+      }
+      
+      // Mostrar pré-form e esconder REGYFIT
+      const couponPreForm = document.getElementById(`coupon-pre-form-${modalId}`);
+      const regyContainer = document.querySelector(`#modal-${modalId} .modal-regy-container`);
+      
+      if (couponPreForm) {
+        couponPreForm.style.display = 'block';
+      }
+      
+      if (regyContainer) {
+        regyContainer.style.display = 'none';
+      }
+      
+      // Limpar sessionStorage
+      if (typeof window.CouponSystem !== 'undefined') {
+        window.CouponSystem.clearSession();
+      }
+      
+      console.log(`✅ Cupão reset para modal: ${modalId}`);
     }
     
     // Attach event listeners to pricing buttons

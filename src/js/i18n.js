@@ -447,7 +447,25 @@ const translations = {
       'modal.privacy.rights.title': 'DIREITOS DOS TITULARES',
       'modal.privacy.rights.text': 'Os titulares dos dados têm direito ao acesso, retificação, apagamento, limitação do tratamento, portabilidade e oposição ao tratamento dos seus dados pessoais.',
       'modal.privacy.contact.title': 'CONTACTO',
-      'modal.privacy.contact.text': 'Para exercer os seus direitos ou esclarecer dúvidas sobre o tratamento de dados pessoais, contacte-nos através dos meios disponibilizados na seção de contacto do website.'
+      'modal.privacy.contact.text': 'Para exercer os seus direitos ou esclarecer dúvidas sobre o tratamento de dados pessoais, contacte-nos através dos meios disponibilizados na seção de contacto do website.',
+      
+      // Coupon System
+      'coupon.title': 'Tens um Cupão de Desconto?',
+      'coupon.subtitle': 'Usa o email de um sócio ou código promocional',
+      'coupon.label': 'Cupão',
+      'coupon.placeholder': 'Email de sócio ou código',
+      'coupon.validate': 'VALIDAR CUPÃO',
+      'coupon.skip': 'NÃO TENHO CUPÃO',
+      'coupon.valid': '✅ Cupão válido!',
+      'coupon.invalid': '❌ Cupão inválido',
+      'coupon.error.empty': '⚠️ Insere um cupão',
+      'coupon.continue': 'CONTINUAR PARA INSCRIÇÃO',
+      'coupon.discount_info': '💰 <strong>50% desconto na PRÓXIMA mensalidade</strong> para ti e para o sócio!',
+      'coupon.how_it_works': 'ℹ️ Como funciona:',
+      'coupon.step1': '1️⃣ Pagas o valor COMPLETO agora (primeira mensalidade + inscrição)',
+      'coupon.step2': '2️⃣ Na PRÓXIMA mensalidade recebes 50% de desconto',
+      'coupon.step3': '3️⃣ O sócio que te referenciou também recebe 50% de desconto',
+      'coupon.step4': '4️⃣ Staff aplica os descontos automaticamente'
     },
     en: {
       // Meta tags
@@ -892,7 +910,25 @@ const translations = {
       'modal.privacy.rights.title': 'DATA SUBJECTS\' RIGHTS',
       'modal.privacy.rights.text': 'Data subjects have the right to access, rectification, deletion, limitation of processing, portability and opposition to the processing of their personal data.',
       'modal.privacy.contact.title': 'CONTACT',
-      'modal.privacy.contact.text': 'To exercise your rights or clarify doubts about the processing of personal data, contact us through the means available in the contact section of the website.'
+      'modal.privacy.contact.text': 'To exercise your rights or clarify doubts about the processing of personal data, contact us through the means available in the contact section of the website.',
+      
+      // Coupon System
+      'coupon.title': 'Have a Discount Coupon?',
+      'coupon.subtitle': 'Use a member\'s email or promo code',
+      'coupon.label': 'Coupon',
+      'coupon.placeholder': 'Member email or code',
+      'coupon.validate': 'VALIDATE COUPON',
+      'coupon.skip': 'NO COUPON',
+      'coupon.valid': '✅ Valid coupon!',
+      'coupon.invalid': '❌ Invalid coupon',
+      'coupon.error.empty': '⚠️ Enter a coupon',
+      'coupon.continue': 'CONTINUE TO REGISTRATION',
+      'coupon.discount_info': '💰 <strong>50% discount on NEXT membership fee</strong> for you and the member!',
+      'coupon.how_it_works': 'ℹ️ How it works:',
+      'coupon.step1': '1️⃣ Pay FULL price now (first month + registration)',
+      'coupon.step2': '2️⃣ Get 50% discount on NEXT monthly payment',
+      'coupon.step3': '3️⃣ Referring member also gets 50% discount',
+      'coupon.step4': '4️⃣ Staff applies discounts automatically'
     }
   };
   
