@@ -5638,8 +5638,8 @@ body.modal-open {
   background-color: #E8E8E8; /* Light Gray - Open gym */
 }
 
-.legend__item--lone-warrior .legend__color {
-  background-color: #FF6B35; /* Orange - Express training */
+.legend__item--bewater-live .legend__color {
+  background-color: #FF6B35; /* Orange - Live training */
 }
 /* Muay Thai Legend Color - use site pink */
 .legend__item--muaythai .legend__color {
@@ -5855,17 +5855,17 @@ body.modal-open {
 /* Timeline Container with Open Gym Sidebar */
 /* Removed opengym sidebar styles - using regular activities now */
 
-.activity--lone-warrior {
+.activity--bewater-live {
   background-color: #FF6B35;
   border-color: var(--color-black);
 }
 
-.activity--lone-warrior:hover {
+.activity--bewater-live:hover {
   background-color: #FF5722;
 }
 
-.activity--lone-warrior .activity__name,
-.activity--lone-warrior .activity__time {
+.activity--bewater-live .activity__name,
+.activity--bewater-live .activity__time {
   color: var(--color-white);
 }
 

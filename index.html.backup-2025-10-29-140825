@@ -1383,12 +1383,8 @@
               <span class="activity__name">OPEN GYM</span>
             </div>
             <div class="activity activity--bewater">
-              <span class="activity__time">06:30-07:30</span>
+              <span class="activity__time">07:00-08:00</span>
               <span class="activity__name">BE WATER</span>
-            </div>
-            <div class="activity activity--bewater-live">
-              <span class="activity__time">07:30-08:30</span>
-              <span class="activity__name">BE WATER (LIVE)</span>
             </div>
             <div class="activity activity--jiujitsu">
               <span class="activity__time">11:00-12:00</span>
@@ -1402,12 +1398,12 @@
               <span class="activity__time">14:00-16:00</span>
               <span class="activity__name" data-i18n="schedule.activities.closed">FECHADO</span>
             </div>
-            <div class="activity activity--bewater">
-              <span class="activity__time">18:15-19:15</span>
-              <span class="activity__name">BE WATER</span>
+            <div class="activity activity--lone-warrior">
+              <span class="activity__time">18:00-18:45</span>
+              <span class="activity__name">LONE WARRIOR</span>
             </div>
             <div class="activity activity--bewater">
-              <span class="activity__time">19:30-20:30</span>
+              <span class="activity__time">19:00-20:00</span>
               <span class="activity__name">BE WATER</span>
             </div>
             <div class="activity activity--boxe">
@@ -1465,12 +1461,8 @@
               <span class="activity__name">OPEN GYM</span>
             </div>
             <div class="activity activity--bewater">
-              <span class="activity__time">06:30-07:30</span>
+              <span class="activity__time">07:00-08:00</span>
               <span class="activity__name">BE WATER</span>
-            </div>
-            <div class="activity activity--bewater-live">
-              <span class="activity__time">07:30-08:30</span>
-              <span class="activity__name">BE WATER (LIVE)</span>
             </div>
             <div class="activity activity--jiujitsu">
               <span class="activity__time">11:00-12:00</span>
@@ -1484,12 +1476,12 @@
               <span class="activity__time">14:00-16:00</span>
               <span class="activity__name" data-i18n="schedule.activities.closed">FECHADO</span>
             </div>
-            <div class="activity activity--bewater">
-              <span class="activity__time">18:15-19:15</span>
-              <span class="activity__name">BE WATER</span>
+            <div class="activity activity--lone-warrior">
+              <span class="activity__time">18:00-18:45</span>
+              <span class="activity__name">LONE WARRIOR</span>
             </div>
             <div class="activity activity--bewater">
-              <span class="activity__time">19:30-20:30</span>
+              <span class="activity__time">19:00-20:00</span>
               <span class="activity__name">BE WATER</span>
             </div>
             <div class="activity activity--boxe">
@@ -1562,9 +1554,9 @@
               <span class="activity__time">14:00-16:00</span>
               <span class="activity__name" data-i18n="schedule.activities.closed">FECHADO</span>
             </div>
-            <div class="activity activity--bewater-live">
-              <span class="activity__time">18:00-19:00</span>
-              <span class="activity__name">BE WATER (LIVE)</span>
+            <div class="activity activity--lone-warrior">
+              <span class="activity__time">18:00-18:45</span>
+              <span class="activity__name">LONE WARRIOR</span>
             </div>
             <div class="activity activity--bewater">
               <span class="activity__time">19:00-20:00</span>
@@ -1617,11 +1609,11 @@
             <span class="legend__description" data-i18n="schedule.legend.bewater">Treino funcional completo que junta força, condicionamento, calistenia e técnicas híbridas. O treino mais desafiante para te tornar numa máquina!</span>
           </div>
         </div>
-        <div class="legend__item legend__item--bewater-live">
+        <div class="legend__item legend__item--lone-warrior">
           <span class="legend__color"></span>
           <div class="legend__content">
-            <span class="legend__label">BE WATER (LIVE)</span>
-            <span class="legend__description" data-i18n="schedule.legend.bewaterlive">Treino funcional BeWater gravado e transmitido ao vivo, adaptado para ser realizado em casa com menos equipamento. Todas as sessões BeWater (Live) são gravadas e ficam disponíveis no YouTube e na app BeWater.</span>
+            <span class="legend__label">LONE WARRIOR</span>
+            <span class="legend__description" data-i18n="schedule.legend.lonewarrior">Treino express minimalista com peso corporal, halteres e bandas. Intenso, rápido e sem desculpas - ideal para repetir em qualquer lugar.</span>
           </div>
         </div>
         <div class="legend__item legend__item--jiujitsu">
@@ -2083,11 +2075,11 @@
             
             <div class="faq-item">
               <button class="faq-question" data-faq="17">
-                <span data-i18n="faq.question.17">O que é o Treino BeWater (Live)?</span>
+                <span data-i18n="faq.question.17">O que é o Treino Lone Warrior?</span>
                 <span class="faq-icon">▼</span>
               </button>
               <div class="faq-answer" data-faq-answer="17">
-                <p data-i18n="faq.answer.17">As aulas BeWater (Live) são treinos funcionais completos gravados em direto, adaptados para serem realizados em casa ou em qualquer lugar com menos equipamento (peso corporal, halteres, bandas elásticas). Todas as sessões são disponibilizadas no YouTube e na app BeWater, permitindo que treines onde quiseres e quando quiseres, sempre alinhado/a com a nossa programação semanal.</p>
+                <p data-i18n="faq.answer.17">Este treino é uma versão mais curta (45 minutos) e com recurso a menos material do que o Treino do Dia BeWater. Será mais baseado em peso corporal, halteres, bandas elásticas e outro material que possa ser usado mais facilmente em casa/hotel. É um treino que será também gravado para um link privado, que será sempre partilhado com todos os nossos sócios. Assim, se te ausentas uns dias, tens recurso para trabalhar à distância e ainda alinhado/a com a programação semanal.</p>
               </div>
             </div>
             
