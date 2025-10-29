@@ -33,6 +33,7 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
     'AGUA_GAS_001': { nome: 'Água com Gás', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'RED_BULL_001': { nome: 'Red Bull', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'YOPRO_001': { nome: 'YoPro Iogurte Proteico', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'MILBONA_001': { nome: 'Milbona - Iogurte Proteico (35g proteína)', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'DROP_IN_001': { nome: 'Drop In (Aula avulso)', iva: 0, categoria: 'Serviços', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'DONATIVO_001': { nome: 'Donativo BE WATER', iva: 0, categoria: 'Donativos', tax_exempt_reason: 'Artigo 53º do CIVA' }
   };
@@ -366,6 +367,8 @@ exports.handler = async (event, context) => {
       produtoId = 'AGUA_GAS_001';
     } else if (produtoNome.includes('água')) {
       produtoId = 'AGUA_PEQUENA_001'; // Default para água
+    } else if (produtoNome.includes('milbona')) {
+      produtoId = 'MILBONA_001';
     } else if (produtoNome.includes('yopro') || produtoNome.includes('iogurte proteico') || produtoNome.includes('iogurte') || produtoNome.includes('yogurt')) {
       produtoId = 'YOPRO_001';
     } else if (produtoNome.includes('powerade')) {
