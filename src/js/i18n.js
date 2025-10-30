@@ -152,7 +152,7 @@ const translations = {
       'schedule.legend.boxe': 'Treino de boxe com foco em técnica, condicionamento cardiovascular e força. Usa os sacos pesados e desenvolve potência e agilidade.',
       'schedule.legend.muaythai': 'Treino técnico de striking focado em condicionamento e trabalho de almofadas/sacos.',
       'schedule.legend.closed': 'Ginásio encerrado para pausa de almoço e manutenção. Reabrimos às 16h30!',
-      'schedule.note.beta': '<strong>🌊 Horários em Fase Beta:</strong> Estamos na época de verão e ainda em fase de testes e afinações das modalidades. Os horários apresentados são iniciais e poderão sofrer ajustes conforme a resposta da comunidade BE WATER e otimização das dinâmicas do clube.',
+      'schedule.note.beta': 'Os horários apresentados estão sujeitos a alterações conforme a resposta da comunidade BE WATER e otimização das dinâmicas do clube.',
       'schedule.note.events': '<strong>Nota:</strong> Teremos ainda frequentemente modalidades surpresa e eventos de treino, cultura e convívio no clube.',
       
       // Salgueiro Section
@@ -615,7 +615,7 @@ const translations = {
       'schedule.legend.boxe': 'Boxing training focused on technique, cardiovascular conditioning and strength. Use the heavy bags and develop power and agility.',
       'schedule.legend.muaythai': 'Technical striking training focused on conditioning and pad/bag work.',
       'schedule.legend.closed': 'Gym closed for lunch break. We reopen at 4:30 PM!',
-      'schedule.note.beta': '<strong>🌊 Beta Phase Schedule:</strong> We are in summer season and still in testing and fine-tuning phase of activities. The schedules presented are initial and may be adjusted according to the BE WATER community response and club dynamics optimization.',
+      'schedule.note.beta': 'The schedules presented are subject to change according to BE WATER community response and club dynamics optimization.',
       'schedule.note.events': '<strong>Note:</strong> We will also frequently have surprise activities and training, cultural and social events at the club.',
       
       // Salgueiro Section
