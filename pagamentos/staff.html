@@ -535,6 +535,89 @@
             font-size: 1.2rem;
             color: #666;
         }
+
+        /* FILTRO DE MÊS */
+        .month-filter {
+            background: #ffffff;
+            color: #000000;
+            padding: 20px;
+            border: 4px solid #000000;
+            box-shadow: 8px 8px 0px #FFD700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .month-filter-title {
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 900;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .month-selector {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .month-nav-btn {
+            padding: 10px 20px;
+            background: #FFD700;
+            color: #000000;
+            border: 3px solid #000000;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .month-nav-btn:hover:not(:disabled) {
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0px #000000;
+        }
+
+        .month-nav-btn:disabled {
+            background: #e7e7e7;
+            color: #999999;
+            cursor: not-allowed;
+        }
+
+        .current-month {
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 600;
+            font-size: 1.3rem;
+            padding: 10px 30px;
+            background: #000000;
+            color: #FFD700;
+            border: 3px solid #000000;
+            min-width: 200px;
+        }
+
+        .month-badge {
+            display: inline-block;
+            margin-left: 10px;
+            padding: 4px 10px;
+            background: #28a745;
+            color: #ffffff;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 900;
+        }
+
+        @media (max-width: 768px) {
+            .month-selector {
+                flex-direction: column;
+            }
+            
+            .current-month {
+                font-size: 1.1rem;
+                padding: 8px 20px;
+                min-width: auto;
+            }
+        }
     </style>
 </head>
 <body>
@@ -556,7 +639,21 @@
             
         </div>
 
-
+        <!-- FILTRO DE MÊS -->
+        <div class="month-filter">
+            <div class="month-filter-title">📅 Filtrar por Mês</div>
+            <div class="month-selector">
+                <button class="month-nav-btn" onclick="changeMonth(-1)" id="prevMonthBtn">
+                    ⬅️ Anterior
+                </button>
+                <div class="current-month" id="currentMonthDisplay">
+                    Novembro 2025
+                </div>
+                <button class="month-nav-btn" onclick="changeMonth(1)" id="nextMonthBtn" disabled>
+                    Seguinte ➡️
+                </button>
+            </div>
+        </div>
 
         <div class="payments-section">
             <!-- TABS NAVIGATION -->
@@ -612,11 +709,16 @@
 
     <script>
         let payments = [];
+        let currentFilterMonth = new Date(); // Mês atual selecionado
+        const today = new Date();
 
         // Elementos DOM
         const paymentsList = document.getElementById('paymentsList');
         const pendingPaymentsList = document.getElementById('pendingPaymentsList');
         const lastUpdateSpan = document.getElementById('lastUpdate');
+        const currentMonthDisplay = document.getElementById('currentMonthDisplay');
+        const prevMonthBtn = document.getElementById('prevMonthBtn');
+        const nextMonthBtn = document.getElementById('nextMonthBtn');
 
         // Tab switching function
         function switchTab(tabName) {
@@ -637,6 +739,52 @@
                 document.getElementById('pendingTab').classList.add('active');
                 document.getElementById('pendingContent').classList.add('active');
             }
+        }
+
+        // Função para mudar o mês
+        function changeMonth(delta) {
+            currentFilterMonth.setMonth(currentFilterMonth.getMonth() + delta);
+            updateMonthDisplay();
+            renderPayments();
+            updateStats();
+        }
+
+        // Atualizar display do mês
+        function updateMonthDisplay() {
+            const monthNames = [
+                'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+                'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+            ];
+            
+            const month = monthNames[currentFilterMonth.getMonth()];
+            const year = currentFilterMonth.getFullYear();
+            const isCurrentMonth = (currentFilterMonth.getMonth() === today.getMonth() && 
+                                    currentFilterMonth.getFullYear() === today.getFullYear());
+            
+            const badge = isCurrentMonth ? '<span class="month-badge">MÊS ATUAL</span>' : '';
+            currentMonthDisplay.innerHTML = `${month} ${year} ${badge}`;
+            
+            // Desabilitar botão "Seguinte" se estiver no mês atual
+            if (isCurrentMonth) {
+                nextMonthBtn.disabled = true;
+                nextMonthBtn.style.cursor = 'not-allowed';
+            } else {
+                nextMonthBtn.disabled = false;
+                nextMonthBtn.style.cursor = 'pointer';
+            }
+        }
+
+        // Filtrar pagamentos por mês
+        function filterPaymentsByMonth(paymentsList) {
+            return paymentsList.filter(payment => {
+                if (!payment.timestamp) return false;
+                
+                const paymentDate = new Date(payment.timestamp);
+                return (
+                    paymentDate.getMonth() === currentFilterMonth.getMonth() &&
+                    paymentDate.getFullYear() === currentFilterMonth.getFullYear()
+                );
+            });
         }
 
         // Stats elements
@@ -862,12 +1010,16 @@ Tem a certeza que deseja continuar?`;
         function renderPayments() {
             console.log('🖼️ Renderizando pagamentos. Total recebido:', payments.length);
             
+            // 🆕 FILTRAR POR MÊS SELECIONADO
+            const paymentsInMonth = filterPaymentsByMonth(payments);
+            console.log(`📅 Pagamentos no mês ${currentFilterMonth.getMonth() + 1}/${currentFilterMonth.getFullYear()}: ${paymentsInMonth.length}`);
+            
             // FILTRAR: Separar pagamentos por valor (mais debug)
-            const invalidPayments = payments.filter(p => {
+            const invalidPayments = paymentsInMonth.filter(p => {
                 const valor = parseFloat(p.valor);
                 return !p.valor || isNaN(valor) || valor <= 0;
             });
-            const validPayments = payments.filter(p => {
+            const validPayments = paymentsInMonth.filter(p => {
                 const valor = parseFloat(p.valor);
                 return p.valor && !isNaN(valor) && valor > 0;
             });
@@ -1017,8 +1169,12 @@ Tem a certeza que deseja continuar?`;
 
         // Atualizar estatísticas (apenas confirmados com valor > 0)
         function updateStats() {
+            // 🆕 FILTRAR POR MÊS SELECIONADO
+            const paymentsInMonth = filterPaymentsByMonth(payments);
+            
             // DEBUG: Mostrar todos os pagamentos recebidos
             console.log('📊 DEBUG - Todos os pagamentos recebidos:', payments.length);
+            console.log('📊 DEBUG - Pagamentos no mês selecionado:', paymentsInMonth.length);
             console.log('📊 DEBUG - Primeiros 5 pagamentos:', payments.slice(0, 5).map(p => ({
                 produto: p.produto,
                 valor: p.valor,
@@ -1027,7 +1183,7 @@ Tem a certeza que deseja continuar?`;
             })));
             
             // Filtrar apenas pagamentos confirmados (mais permissivo com valores)
-            const confirmadosVendidos = payments.filter(p => {
+            const confirmadosVendidos = paymentsInMonth.filter(p => {
                 const hasValidStatus = p.status === 'confirmado';
                 const hasValidValue = p.valor && parseFloat(p.valor) > 0;
                 
@@ -1316,7 +1472,8 @@ Tem a certeza que deseja continuar?`;
         // Auto-refresh a cada 10 segundos
         setInterval(loadPayments, 10000);
 
-
+        // Inicializar display do mês
+        updateMonthDisplay();
 
         // Carregar inicial
         loadPayments();
