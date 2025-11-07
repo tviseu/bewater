@@ -19,3 +19,6 @@ src/images/coaches/coaches-optimized/desktop.ini
 src/images/coaches/desktop.ini
 src/images/coaches/coaches-optimized/desktop.ini
 src/images/coaches/desktop.ini
+CUPOES-ESPECIAIS-README.md
+SUMARIO-ATUALIZACAO-CUPOES.md
+pagamentos/supabase-add-special-coupon-column.sql

@@ -465,7 +465,14 @@ const translations = {
       'coupon.step1': '1️⃣ Pagas o valor COMPLETO agora (primeira mensalidade + inscrição)',
       'coupon.step2': '2️⃣ Na PRÓXIMA mensalidade recebes 50% de desconto',
       'coupon.step3': '3️⃣ O sócio que te referenciou também recebe 50% de desconto',
-      'coupon.step4': '4️⃣ Staff aplica os descontos automaticamente'
+      'coupon.step4': '4️⃣ Staff aplica os descontos automaticamente',
+      // Cupões especiais (Planalto)
+      'coupon.special.discount_info': '🎉 <strong>10 EUR menos na mensalidade e 25 EUR menos na inscrição!</strong>',
+      'coupon.special.how_it_works': 'ℹ️ Como funciona:',
+      'coupon.special.step1': '1️⃣ Pagas menos €10 mensalidade',
+      'coupon.special.step2': '2️⃣ NÃO pagas o seguro este ano nem taxa de inscrição (poupas 25 EUR)',
+      'coupon.special.step3': '3️⃣ Desconto aplicado automaticamente no pagamento',
+      'coupon.special.step4': ''
     },
     en: {
       // Meta tags
@@ -928,7 +935,14 @@ const translations = {
       'coupon.step1': '1️⃣ Pay FULL price now (first month + registration)',
       'coupon.step2': '2️⃣ Get 50% discount on NEXT monthly payment',
       'coupon.step3': '3️⃣ Referring member also gets 50% discount',
-      'coupon.step4': '4️⃣ Staff applies discounts automatically'
+      'coupon.step4': '4️⃣ Staff applies discounts automatically',
+      // Special coupons (Planalto)
+      'coupon.special.discount_info': '🎉 <strong>10 EUR less monthly fee and 25 EUR less registration!</strong>',
+      'coupon.special.how_it_works': 'ℹ️ How it works:',
+      'coupon.special.step1': '1️⃣ Pay €10 less monthly fee',
+      'coupon.special.step2': '2️⃣ NO insurance this year or registration fee (save 25 EUR)',
+      'coupon.special.step3': '3️⃣ Discount automatically applied at checkout',
+      'coupon.special.step4': ''
     }
   };
   

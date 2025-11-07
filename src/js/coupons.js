@@ -19,6 +19,24 @@ const COUPON_CONFIG = {
     'elite': 'Elite',
     'rise': 'Rise',
     'starter': 'Starter'
+  },
+  // Cupões especiais que redirecionam para integrações Regyfit diferentes
+  // (€10 desconto PERMANENTE, sem seguro este ano, sem taxa inscrição €25)
+  SPECIAL_COUPONS: [
+    'planalto',  // Cupão Planalto: €10 desconto PARA SEMPRE + sem seguro este ano + sem taxa inscrição
+  ],
+  // Mapeamento de IDs de integração Regyfit
+  REGYFIT_INTEGRATIONS: {
+    normal: {
+      elite: { id: 5, int: 1 },    // id_int=1
+      rise: { id: 6, int: 3 },     // id_int=3
+      starter: { id: 7, int: 2 }   // id_int=2
+    },
+    special: {
+      elite: { id: 20, int: 20 },   // id_int=20
+      rise: { id: 21, int: 21 },    // id_int=21
+      starter: { id: 22, int: 22 }  // id_int=22
+    }
   }
 };
 
@@ -29,7 +47,7 @@ const COUPON_CONFIG = {
 /**
  * Valida um cupão contra a base de dados Supabase
  * @param {string} code - Código do cupão (email ou código genérico)
- * @returns {Promise<{valid: boolean, type: string, message: string}>}
+ * @returns {Promise<{valid: boolean, type: string, message: string, code: string, isSpecial: boolean}>}
  */
 async function validateCoupon(code) {
   try {
@@ -40,6 +58,8 @@ async function validateCoupon(code) {
       return {
         valid: false,
         type: null,
+        code: null,
+        isSpecial: false,
         message: window.i18n ? window.i18n.t('coupon.error.empty') : 'Cupão não pode estar vazio'
       };
     }
@@ -52,6 +72,8 @@ async function validateCoupon(code) {
       return {
         valid: false,
         type: null,
+        code: null,
+        isSpecial: false,
         message: 'Erro de configuração. Contacte o staff.'
       };
     }
@@ -72,6 +94,8 @@ async function validateCoupon(code) {
         return {
           valid: false,
           type: null,
+          code: null,
+          isSpecial: false,
           message: window.i18n ? window.i18n.t('coupon.invalid') : '❌ Cupão inválido'
         };
       }
@@ -80,6 +104,8 @@ async function validateCoupon(code) {
       return {
         valid: false,
         type: null,
+        code: null,
+        isSpecial: false,
         message: 'Erro ao validar cupão. Tente novamente.'
       };
     }
@@ -87,12 +113,23 @@ async function validateCoupon(code) {
     // Cupão válido!
     console.log('✅ Cupão válido:', data);
     
+    // Verificar se é um cupão especial (redireciona para Regyfit diferente)
+    const isSpecial = COUPON_CONFIG.SPECIAL_COUPONS.includes(normalizedCode);
+    
     const typeLabel = data.type === 'member_email' ? 'Email de Sócio' : 'Cupão Genérico';
+    
+    let message = window.i18n ? window.i18n.t('coupon.valid') : '✅ Cupão válido! 50% desconto confirmado';
+    if (isSpecial) {
+      message = '✅ Cupão Planalto válido!';
+      console.log('🌟 Cupão ESPECIAL detectado - vai usar Regyfit diferente');
+    }
     
     return {
       valid: true,
       type: data.type,
-      message: window.i18n ? window.i18n.t('coupon.valid') : '✅ Cupão válido! 50% desconto confirmado'
+      code: normalizedCode,
+      isSpecial: isSpecial,
+      message: message
     };
 
   } catch (err) {
@@ -100,6 +137,8 @@ async function validateCoupon(code) {
     return {
       valid: false,
       type: null,
+      code: null,
+      isSpecial: false,
       message: 'Erro inesperado. Contacte o staff.'
     };
   }
@@ -112,16 +151,20 @@ async function validateCoupon(code) {
 /**
  * Guarda dados do cupão validado na sessão
  */
-function saveCouponToSession(couponCode, couponType, planType) {
+function saveCouponToSession(couponCode, couponType, planType, isSpecial = false) {
   const data = {
     couponCode: couponCode.trim().toLowerCase(),
     couponType,
     planType,
+    isSpecial: isSpecial,
     timestamp: new Date().toISOString()
   };
   
   sessionStorage.setItem(COUPON_CONFIG.SESSION_KEY, JSON.stringify(data));
   console.log('💾 Cupão guardado na sessão:', data);
+  if (isSpecial) {
+    console.log('🌟 Cupão ESPECIAL guardado - vai usar integração Regyfit diferente');
+  }
 }
 
 /**
@@ -284,7 +327,7 @@ function showCouponStep(modalId) {
 }
 
 /**
- * Mostra o iframe REGYFIT
+ * Mostra o iframe REGYFIT (normal ou especial)
  */
 function showRegyStep(modalId) {
   const modal = document.getElementById(modalId);
@@ -294,6 +337,42 @@ function showRegyStep(modalId) {
   const regyContainer = modal.querySelector('.modal-regy-container');
   const instructions = modal.querySelector('.modal-purchase-instructions');
   const postForm = modal.querySelector('.coupon-post-form');
+
+  // Verificar se há cupão especial na sessão
+  const couponData = getCouponFromSession();
+  const isSpecial = couponData && couponData.isSpecial;
+  
+  // Extrair o tipo de plano do modalId (ex: 'modal-elite' -> 'elite')
+  const planType = modalId.replace('modal-', '');
+  
+  // Esconder todos os iframes primeiro
+  const allIframes = regyContainer.querySelectorAll('iframe');
+  allIframes.forEach(iframe => {
+    iframe.style.display = 'none';
+  });
+  
+  // Determinar qual iframe mostrar
+  let iframeId, iframeToShow;
+  if (isSpecial) {
+    // Cupão especial - usar integrações id_int=20/21/22
+    const specialConfig = COUPON_CONFIG.REGYFIT_INTEGRATIONS.special[planType];
+    iframeId = `frame_regy${specialConfig.id}`;
+    console.log(`🌟 Usando Regyfit ESPECIAL (id_int=${specialConfig.int}) para plano ${planType}`);
+  } else {
+    // Cupão normal ou sem cupão - usar integrações normais id_int=1/3/2
+    const normalConfig = COUPON_CONFIG.REGYFIT_INTEGRATIONS.normal[planType];
+    iframeId = `frame_regy${normalConfig.id}`;
+    console.log(`📋 Usando Regyfit NORMAL (id_int=${normalConfig.int}) para plano ${planType}`);
+  }
+  
+  // Mostrar o iframe correto
+  iframeToShow = document.getElementById(iframeId);
+  if (iframeToShow) {
+    iframeToShow.style.display = 'block';
+    console.log(`✅ Iframe mostrado: ${iframeId}`);
+  } else {
+    console.error(`❌ Iframe não encontrado: ${iframeId}`);
+  }
 
   if (couponForm) couponForm.style.display = 'none';
   if (regyContainer) regyContainer.style.display = 'block';

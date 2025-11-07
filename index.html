@@ -837,7 +837,7 @@
 
           <div id="coupon-message-elite" class="coupon-message"></div>
 
-          <!-- Success Info: Mostrar só após validação -->
+          <!-- Success Info: Cupão Normal - Mostrar só após validação -->
           <div id="coupon-success-info-elite" class="coupon-success-info" style="display: none;">
             <div class="coupon-pre-form__discount-badge" data-i18n="coupon.discount_info">
               💰 <strong>50% desconto na PRÓXIMA mensalidade</strong> para ti e para o sócio!
@@ -850,6 +850,23 @@
                 <li data-i18n="coupon.step2">2️⃣ Na PRÓXIMA mensalidade recebes 50% de desconto</li>
                 <li data-i18n="coupon.step3">3️⃣ O sócio que te referenciou também recebe 50% de desconto</li>
                 <li data-i18n="coupon.step4">4️⃣ Staff aplica os descontos automaticamente</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Success Info: Cupão ESPECIAL - Mostrar só após validação de cupão especial -->
+          <div id="coupon-success-info-special-elite" class="coupon-success-info" style="display: none;">
+            <div class="coupon-pre-form__discount-badge" data-i18n="coupon.special.discount_info">
+              🎉 <strong>Desconto imediato + Bónus</strong>
+            </div>
+
+            <div class="coupon-pre-form__how-it-works">
+              <h5 data-i18n="coupon.special.how_it_works">ℹ️ Como funciona:</h5>
+              <ul>
+                <li data-i18n="coupon.special.step1">1️⃣ Pagas €10 MENOS na mensalidade</li>
+                <li data-i18n="coupon.special.step2">2️⃣ SEM seguro (poupas mais €5/mês)</li>
+                <li data-i18n="coupon.special.step3">3️⃣ SEM taxa de inscrição (poupas €25)</li>
+                <li data-i18n="coupon.special.step4">4️⃣ Desconto aplicado automaticamente no pagamento</li>
               </ul>
             </div>
           </div>
@@ -880,9 +897,13 @@
         </div>
 
         <div class="modal-regy-container" style="display: none;">
-          <!-- Regy Integration for ELITE - Lazy Loaded -->
+          <!-- Regy Integration for ELITE - Normal (id_int=1) -->
           <input type="hidden" class="class_regy" id="src_regy5" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=1&acs=38e6d410bd1118bc516ba1a7a0b91264&site=s">
           <iframe name="frame_regy5" id="frame_regy5" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Elite" style="display: block;"></iframe>
+          
+          <!-- Regy Integration for ELITE - Special (id_int=20) - Cupão Especial -->
+          <input type="hidden" class="class_regy" id="src_regy20" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=20&acs=fe311881680ec913dd483fedac15de77&site=s">
+          <iframe name="frame_regy20" id="frame_regy20" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Elite (Cupão Especial)" style="display: none;"></iframe>
         </div>
 
       </div>
@@ -949,7 +970,7 @@
 
           <div id="coupon-message-rise" class="coupon-message"></div>
 
-          <!-- Success Info: Mostrar só após validação -->
+          <!-- Success Info: Cupão Normal - Mostrar só após validação -->
           <div id="coupon-success-info-rise" class="coupon-success-info" style="display: none;">
             <div class="coupon-pre-form__discount-badge" data-i18n="coupon.discount_info">
               💰 <strong>50% desconto na PRÓXIMA mensalidade</strong> para ti e para o sócio!
@@ -962,6 +983,23 @@
                 <li data-i18n="coupon.step2">2️⃣ Na PRÓXIMA mensalidade recebes 50% de desconto</li>
                 <li data-i18n="coupon.step3">3️⃣ O sócio que te referenciou também recebe 50% de desconto</li>
                 <li data-i18n="coupon.step4">4️⃣ Staff aplica os descontos automaticamente</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Success Info: Cupão ESPECIAL - Mostrar só após validação de cupão especial -->
+          <div id="coupon-success-info-special-rise" class="coupon-success-info" style="display: none;">
+            <div class="coupon-pre-form__discount-badge" data-i18n="coupon.special.discount_info">
+              🎉 <strong>Desconto imediato + Bónus</strong>
+            </div>
+
+            <div class="coupon-pre-form__how-it-works">
+              <h5 data-i18n="coupon.special.how_it_works">ℹ️ Como funciona:</h5>
+              <ul>
+                <li data-i18n="coupon.special.step1">1️⃣ Pagas €10 MENOS na mensalidade</li>
+                <li data-i18n="coupon.special.step2">2️⃣ SEM seguro (poupas mais €5/mês)</li>
+                <li data-i18n="coupon.special.step3">3️⃣ SEM taxa de inscrição (poupas €25)</li>
+                <li data-i18n="coupon.special.step4">4️⃣ Desconto aplicado automaticamente no pagamento</li>
               </ul>
             </div>
           </div>
@@ -992,9 +1030,13 @@
         </div>
 
         <div class="modal-regy-container" style="display: none;">
-          <!-- Regy Integration for RISE - Lazy Loaded -->
+          <!-- Regy Integration for RISE - Normal (id_int=3) -->
           <input type="hidden" class="class_regy" id="src_regy6" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=3&acs=3ddf69e0b105421fc7423c06a6ffccbd&site=s">
           <iframe name="frame_regy6" id="frame_regy6" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Rise" style="display: block;"></iframe>
+          
+          <!-- Regy Integration for RISE - Special (id_int=21) - Cupão Especial -->
+          <input type="hidden" class="class_regy" id="src_regy21" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=21&acs=49bf44f8ec2ed220d2e6bb5bf2e85d78&site=s">
+          <iframe name="frame_regy21" id="frame_regy21" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Rise (Cupão Especial)" style="display: none;"></iframe>
         </div>
 
       </div>
@@ -1061,7 +1103,7 @@
 
           <div id="coupon-message-starter" class="coupon-message"></div>
 
-          <!-- Success Info: Mostrar só após validação -->
+          <!-- Success Info: Cupão Normal - Mostrar só após validação -->
           <div id="coupon-success-info-starter" class="coupon-success-info" style="display: none;">
             <div class="coupon-pre-form__discount-badge" data-i18n="coupon.discount_info">
               💰 <strong>50% desconto na PRÓXIMA mensalidade</strong> para ti e para o sócio!
@@ -1074,6 +1116,23 @@
                 <li data-i18n="coupon.step2">2️⃣ Na PRÓXIMA mensalidade recebes 50% de desconto</li>
                 <li data-i18n="coupon.step3">3️⃣ O sócio que te referenciou também recebe 50% de desconto</li>
                 <li data-i18n="coupon.step4">4️⃣ Staff aplica os descontos automaticamente</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Success Info: Cupão ESPECIAL - Mostrar só após validação de cupão especial -->
+          <div id="coupon-success-info-special-starter" class="coupon-success-info" style="display: none;">
+            <div class="coupon-pre-form__discount-badge" data-i18n="coupon.special.discount_info">
+              🎉 <strong>Desconto imediato + Bónus</strong>
+            </div>
+
+            <div class="coupon-pre-form__how-it-works">
+              <h5 data-i18n="coupon.special.how_it_works">ℹ️ Como funciona:</h5>
+              <ul>
+                <li data-i18n="coupon.special.step1">1️⃣ Pagas €10 MENOS na mensalidade</li>
+                <li data-i18n="coupon.special.step2">2️⃣ SEM seguro (poupas mais €5/mês)</li>
+                <li data-i18n="coupon.special.step3">3️⃣ SEM taxa de inscrição (poupas €25)</li>
+                <li data-i18n="coupon.special.step4">4️⃣ Desconto aplicado automaticamente no pagamento</li>
               </ul>
             </div>
           </div>
@@ -1104,9 +1163,13 @@
         </div>
 
         <div class="modal-regy-container" style="display: none;">
-          <!-- Regy Integration for STARTER - Lazy Loaded -->
+          <!-- Regy Integration for STARTER - Normal (id_int=2) -->
           <input type="hidden" class="class_regy" id="src_regy7" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=2&acs=7efff90d4101aed0cec7330e5d7c8b6a&site=s">
           <iframe name="frame_regy7" id="frame_regy7" width="100%" height="1000px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Starter" style="display: block;"></iframe>
+          
+          <!-- Regy Integration for STARTER - Special (id_int=22) - Cupão Especial -->
+          <input type="hidden" class="class_regy" id="src_regy22" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=22&acs=ff635bb01e7c428e092b0365587f433c&site=s">
+          <iframe name="frame_regy22" id="frame_regy22" width="100%" height="1000px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Starter (Cupão Especial)" style="display: none;"></iframe>
         </div>
 
       </div>
@@ -2477,8 +2540,8 @@
           messageDiv.style.display = 'block';
           messageDiv.textContent = result.message;
           
-          // Save to session
-          window.CouponSystem.saveToSession(couponCode, result.type, planType);
+          // Save to session (including isSpecial flag)
+          window.CouponSystem.saveToSession(couponCode, result.type, planType, result.isSpecial);
           
           // Show "Continue" button
           setTimeout(() => {
@@ -2514,26 +2577,39 @@
     async function showCouponValidSuccess(planType) {
       const messageId = `coupon-message-${planType}`;
       const messageDiv = document.getElementById(messageId);
-      const successInfoId = `coupon-success-info-${planType}`;
-      const successInfoDiv = document.getElementById(successInfoId);
       const couponData = window.CouponSystem.getFromSession();
       
       if (!couponData) return;
+      
+      // Determinar qual secção de sucesso mostrar (normal ou especial)
+      const isSpecial = couponData.isSpecial || false;
+      const successInfoId = isSpecial 
+        ? `coupon-success-info-special-${planType}` 
+        : `coupon-success-info-${planType}`;
+      const successInfoDiv = document.getElementById(successInfoId);
+      
+      // Esconder ambas as secções primeiro
+      const normalInfoDiv = document.getElementById(`coupon-success-info-${planType}`);
+      const specialInfoDiv = document.getElementById(`coupon-success-info-special-${planType}`);
+      if (normalInfoDiv) normalInfoDiv.style.display = 'none';
+      if (specialInfoDiv) specialInfoDiv.style.display = 'none';
       
       // Enviar email via Formspree E guardar no Supabase
       try {
         const couponTypeLabel = couponData.couponType === 'member_email' ? 'Email de Sócio' : 'Cupão Genérico';
         const planLabel = planType.charAt(0).toUpperCase() + planType.slice(1);
+        const specialLabel = isSpecial ? ' (ESPECIAL - €10 desconto + sem seguro/taxa)' : '';
         
         // 1. Enviar email via Formspark
         await fetch('https://submit-form.com/cMzqixKrn', {
           method: 'POST',
           body: JSON.stringify({
             coupon_code: couponData.couponCode,
-            coupon_type: couponTypeLabel,
+            coupon_type: couponTypeLabel + specialLabel,
             plan_type: planLabel,
+            is_special_coupon: isSpecial ? 'Sim' : 'Não',
             _email: {
-              subject: `🎟️ Novo Cupão Utilizado - ${planLabel}`
+              subject: `🎟️ Novo Cupão${isSpecial ? ' ESPECIAL' : ''} Utilizado - ${planLabel}`
             }
           }),
           headers: {
@@ -2555,7 +2631,8 @@
               subscriber_email: couponData.couponCode,
               subscriber_phone: null,
               plan_type: planLabel,
-              notification_sent: true
+              notification_sent: true,
+              is_special_coupon: isSpecial
             });
             
           if (dbError) {
