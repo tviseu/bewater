@@ -1323,6 +1323,7 @@
           const script = document.createElement('script');
           script.src = 'https://www.regyfit.com/admin2/modulos/crm/site_integrations/regy.min.js';
           script.async = true;
+          script.id = 'regy-script';
           
           // Add error handling
           script.onerror = function() {
@@ -1345,6 +1346,49 @@
           setTimeout(() => window.loadRegyScript(), 200);
         }
       }
+    };
+    
+    /**
+     * Force reload Regyfit script to reinitialize all iframes
+     * This is needed because Regyfit script replaces iframes and only runs once
+     */
+    window.reloadRegyScript = function() {
+      console.log('🔄 Reloading Regyfit script...');
+      
+      // Remove old script if exists
+      const oldScript = document.getElementById('regy-script');
+      if (oldScript) {
+        oldScript.remove();
+        console.log('   🗑️ Removed old Regy script');
+      }
+      
+      // Reset flag
+      window.regyScriptLoaded = false;
+      
+      // Reload script
+      setTimeout(() => {
+        window.loadRegyScript();
+      }, 100);
+    };
+    
+    /**
+     * Initialize Regyfit iframes - only on first load
+     * The Regyfit script will take over and manage the iframes after this
+     */
+    window.initializeRegyIframes = function(specificIframeId = null) {
+      // This function is now a no-op since Regyfit script handles everything
+      // We keep it for compatibility but don't interfere with Regyfit's iframe management
+      console.log('ℹ️ Regyfit script will handle iframe initialization');
+    };
+    
+    /**
+     * Reinitialize a specific Regyfit iframe when it becomes visible
+     * Call this when showing a modal with Regyfit integration
+     */
+    window.reinitializeRegyIframe = function(iframeId) {
+      // Don't interfere with Regyfit's iframe management
+      // The Regyfit script handles all iframe initialization and updates
+      console.log('ℹ️ Regyfit manages iframe:', iframeId);
     };
     
     // Auto-load when DOM is ready and modal is opened

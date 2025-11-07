@@ -80,13 +80,29 @@ document.addEventListener('DOMContentLoaded', function() {
         // Ensure iframe is properly sized when modal opens
         const iframe = modal.querySelector('iframe[name^="frame_regy"]');
         if (iframe) {
+          console.log('  Found iframe:', iframe.id);
+          console.log('  Iframe src:', iframe.src || 'EMPTY');
+          console.log('  Iframe height:', iframe.height);
+          
           makeIframesDynamic();
           
-          // Load Regy script when modal with iframe opens
+          // Load Regy script when modal with iframe opens (only once)
           if (typeof window.loadRegyScript === 'function') {
-            // Small delay to ensure modal is fully opened
             setTimeout(() => {
               window.loadRegyScript();
+              
+              // Check iframe state after script loads
+              setTimeout(() => {
+                console.log('  After Regy load - iframe src:', iframe.src || 'EMPTY');
+                console.log('  After Regy load - iframe height:', iframe.height);
+                
+                // Fix: Force minimum height if Regyfit set it to 0
+                if (iframe.height === '0px' || iframe.height === '0') {
+                  iframe.height = '1000px';
+                  iframe.style.minHeight = '1000px';
+                  console.log('  ⚠️ Fixed iframe height from 0px to 1000px');
+                }
+              }, 1000);
             }, 300);
           }
         }
@@ -101,6 +117,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Reset do sistema de cupões
         resetCouponForm(modalId);
+        
+        // DON'T clear iframe - let Regyfit keep its state
+        // The Regyfit script manages the iframes and clearing them breaks functionality
+        console.log('✅ Modal closed, iframe state preserved:', modalId);
       }
     }
     

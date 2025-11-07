@@ -299,6 +299,9 @@ function showRegyStep(modalId) {
   if (regyContainer) regyContainer.style.display = 'block';
   if (instructions) instructions.style.display = 'block';
   if (postForm) postForm.style.display = 'none';
+  
+  // Regyfit script handles iframe initialization automatically
+  console.log('✅ Showing Regyfit container for modal:', modalId);
 }
 
 /**
