@@ -182,6 +182,35 @@
     /* Inscrição: superfície branca para maior contraste */
     .form-surface { background: var(--color-white); border: var(--border-width) solid var(--color-black); padding: var(--spacing-lg); box-shadow: 6px 6px 0 var(--color-black); }
     
+    /* Evento encerrado - formulário desativado */
+    .event-closed { opacity: 0.6; pointer-events: none; position: relative; }
+    .event-closed::after { 
+      content: "INSCRIÇÕES ENCERRADAS"; 
+      position: absolute; 
+      top: 50%; 
+      left: 50%; 
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.85);
+      color: var(--color-white);
+      padding: 1rem 2rem;
+      border: 3px solid var(--color-white);
+      font-weight: 900;
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      z-index: 10;
+    }
+    .event-closed input, 
+    .event-closed textarea, 
+    .event-closed button,
+    .event-closed select { 
+      background: #f0f0f0 !important; 
+      color: #999 !important;
+      cursor: not-allowed;
+    }
+    
     /* Price highlight */
     .price-info {
       background: var(--color-primary);
@@ -320,7 +349,7 @@
         Celebra o São Martinho connosco! Treino de Ginástica com <strong>Bernardo Simões</strong>, seguido de convívio com castanhas assadas e 2 minis incluídas.
       </p>
       <div class="hero__cta">
-        <a class="btn btn--hero" href="#inscricao" data-i18n="evento.cta">Inscrever Agora</a>
+        <a class="btn btn--hero event-closed" style="opacity: 0.5; pointer-events: none; cursor: not-allowed;" href="#inscricao" data-i18n="evento.cta">Inscrições Encerradas</a>
       </div>
       
     </div>
@@ -375,7 +404,7 @@
 
         <div id="inscricao" class="card card--accent">
           <h2 style="margin-top:0" data-i18n="evento.form.title">Inscrição</h2>
-          <div class="form-surface">
+          <div class="form-surface event-closed">
             <form id="inscricao-form" class="form">
               <label for="nome"><span data-i18n="evento.form.name">Nome</span></label>
               <input id="nome" name="nome" type="text" placeholder="O teu nome" autocomplete="name" required>
@@ -601,7 +630,7 @@
         'evento.title': 'São Martinho no BE WATER',
         'evento.date': 'SÁBADO, 8 NOV',
         'evento.subtitle': 'Celebra o São Martinho connosco! Treino de Ginástica com <strong>Bernardo Simões</strong>, seguido de convívio com castanhas assadas e 2 minis incluídas.',
-        'evento.cta': 'Inscrever Agora',
+        'evento.cta': 'Inscrições Encerradas',
         'evento.plan.title': 'Plano do Evento',
         'evento.plan.dateinfo': '8 de novembro (sábado)',
         'evento.plan.maps': 'ver Google Maps',
@@ -646,7 +675,7 @@
         'evento.title': 'São Martinho at BE WATER',
         'evento.date': 'SATURDAY, NOV 8',
         'evento.subtitle': 'Celebrate São Martinho with us! Gymnastics training with <strong>Bernardo Simões</strong>, followed by gathering with roasted chestnuts and 2 drinks included.',
-        'evento.cta': 'Register Now',
+        'evento.cta': 'Registration Closed',
         'evento.plan.title': 'Event Schedule',
         'evento.plan.dateinfo': 'November 8 (Saturday)',
         'evento.plan.maps': 'view Google Maps',
