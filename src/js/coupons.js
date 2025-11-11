@@ -317,6 +317,10 @@ function showCouponStep(modalId) {
   const modal = document.getElementById(modalId);
   if (!modal) return;
 
+  // Limpar sessão ao mostrar formulário de cupão para evitar dados residuais
+  clearCouponSession();
+  console.log('🧹 Sessão limpa ao abrir formulário de cupão');
+
   const couponForm = modal.querySelector('.coupon-pre-form');
   const regyContainer = modal.querySelector('.modal-regy-container');
   const instructions = modal.querySelector('.modal-purchase-instructions');
@@ -328,8 +332,10 @@ function showCouponStep(modalId) {
 
 /**
  * Mostra o iframe REGYFIT (normal ou especial)
+ * @param {string} modalId - ID do modal (ex: 'modal-elite')
+ * @param {boolean} forceNormal - Forçar uso do iframe normal (sem cupão especial)
  */
-function showRegyStep(modalId) {
+function showRegyStep(modalId, forceNormal = false) {
   const modal = document.getElementById(modalId);
   if (!modal) return;
 
@@ -340,7 +346,11 @@ function showRegyStep(modalId) {
 
   // Verificar se há cupão especial na sessão
   const couponData = getCouponFromSession();
-  const isSpecial = couponData && couponData.isSpecial;
+  const isSpecial = forceNormal ? false : (couponData && couponData.isSpecial);
+  
+  if (forceNormal) {
+    console.log('🔒 Forçando uso de iframe NORMAL (ignorando cupão especial da sessão)');
+  }
   
   // Extrair o tipo de plano do modalId (ex: 'modal-elite' -> 'elite')
   const planType = modalId.replace('modal-', '');

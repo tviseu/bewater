@@ -2682,8 +2682,8 @@
       // Clear any stored coupon
       window.CouponSystem.clearSession();
       
-      // Show REGYFIT directly
-      window.CouponSystem.ui.showRegyStep(`modal-${planType}`);
+      // Show REGYFIT directly - FORCE normal iframe (no special coupon)
+      window.CouponSystem.ui.showRegyStep(`modal-${planType}`, true);
     }
     
     /**
