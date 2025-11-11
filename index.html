@@ -2661,7 +2661,7 @@
         </div>
         <button 
           type="button" 
-          class="coupon-btn coupon-btn--primary" 
+          class="coupon-btn coupon-btn--continue" 
           onclick="proceedWithCoupon('${planType}')"
           style="width: 100%; margin-top: 1rem;"
         >
@@ -2673,6 +2673,25 @@
       if (successInfoDiv) {
         successInfoDiv.style.display = 'block';
       }
+      
+      // Scroll suave para a mensagem de sucesso (frame verde) ficar no topo
+      setTimeout(() => {
+        // Fazer scroll para a mensagem verde de sucesso
+        messageDiv.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+          inline: 'nearest'
+        });
+        
+        // Ajustar com um pequeno offset do topo da página
+        setTimeout(() => {
+          const currentScroll = window.pageYOffset;
+          window.scrollTo({
+            top: currentScroll - 80, // Offset do header fixo
+            behavior: 'smooth'
+          });
+        }, 300);
+      }, 150); // Delay para garantir que o conteúdo foi renderizado
     }
     
     /**

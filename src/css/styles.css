@@ -1248,6 +1248,8 @@ section {
   color: #FFFFFF;
   font-size: 1.1rem;
   font-weight: 900;
+  animation: ctaPulse 2s ease-in-out infinite;
+  cursor: pointer;
   padding: var(--spacing-sm) var(--spacing-md);
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -1261,11 +1263,13 @@ section {
   transform: translate(-3px, -3px);
   box-shadow: 11px 11px 0 #0088CC;
   color: #0088CC;
+  animation: none;
 }
 
 .pricing .btn:active {
   transform: translate(2px, 2px);
   box-shadow: 4px 4px 0 #000000;
+  animation: none;
 }
 
 /* Featured plan button - same style as others */
@@ -3235,6 +3239,42 @@ button.btn:active {
   text-align: center;
 }
 
+/* Animação de pulsação para botões CTA */
+@keyframes ctaPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 12px 12px 0 var(--color-primary);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 12px 12px 0 var(--color-primary), 0 0 30px rgba(0, 136, 204, 0.6);
+  }
+}
+
+/* Animação de pulsação para botão de cupão */
+@keyframes couponPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 6px 6px 0 var(--color-black);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 6px 6px 0 var(--color-black), 0 0 25px rgba(255, 215, 0, 0.6);
+  }
+}
+
+/* Animação de pulsação para botão continuar (azul) */
+@keyframes continuePulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 6px 6px 0 var(--color-black);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 6px 6px 0 var(--color-black), 0 0 30px rgba(0, 136, 204, 0.6);
+  }
+}
+
 /* Enhanced primary button - larger for better visibility */
 .btn--primary {
   background-color: #0088CC;
@@ -3247,6 +3287,8 @@ button.btn:active {
   box-shadow: 12px 12px 0 var(--color-primary);
   text-align: center;
   display: inline-block;
+  animation: ctaPulse 2s ease-in-out infinite;
+  cursor: pointer;
 }
 
 .btn--primary:hover {
@@ -3254,11 +3296,13 @@ button.btn:active {
   color: #0088CC;
   transform: translate(-2px, -2px);
   box-shadow: 14px 14px 0 #0088CC;
+  animation: none;
 }
 
 .btn--primary:active {
   transform: translate(2px, 2px);
   box-shadow: 8px 8px 0 var(--color-primary);
+  animation: none;
 }
 
 /* Responsive button sizes */
@@ -3277,11 +3321,13 @@ button.btn:active {
     color: #0088CC;
     transform: translate(-2px, -2px);
     box-shadow: 12px 12px 0 #0088CC;
+    animation: none;
   }
   
   .btn--primary:active {
     transform: translate(2px, 2px);
     box-shadow: 6px 6px 0 var(--color-primary);
+    animation: none;
   }
 }
 
@@ -3304,11 +3350,13 @@ button.btn:active {
     color: #0088CC;
     transform: translate(-1px, -1px);
     box-shadow: 10px 10px 0 #0088CC;
+    animation: none;
   }
   
   .btn--primary:active {
     transform: translate(1px, 1px);
     box-shadow: 5px 5px 0 var(--color-primary);
+    animation: none;
   }
 }
 
@@ -8598,11 +8646,13 @@ html, body {
 .coupon-btn:active:not(:disabled) {
   transform: translate(0, 0);
   box-shadow: 3px 3px 0 var(--color-black);
+  animation: none;
 }
 
 .coupon-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  animation: none;
 }
 
 .coupon-btn--primary {
@@ -8610,6 +8660,7 @@ html, body {
   color: var(--color-black);
   border-color: var(--color-black);
   font-weight: 900;
+  cursor: pointer;
 }
 
 .coupon-btn--primary:hover:not(:disabled) {
@@ -8617,21 +8668,48 @@ html, body {
   color: var(--color-black);
   transform: translate(-3px, -3px);
   box-shadow: 9px 9px 0 var(--color-black);
+  animation: none;
 }
 
 .coupon-btn--secondary {
-  background: var(--color-black); /* Preto - não parece desativado */
+  background: var(--color-white); /* Fundo branco para contraste */
   border-color: var(--color-black);
-  color: var(--color-white);
-  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.3);
+  color: var(--color-black);
+  box-shadow: 6px 6px 0 var(--color-black);
+  font-weight: 700;
+  position: relative;
 }
 
 .coupon-btn--secondary:hover:not(:disabled) {
-  background: #333333; /* Cinza escuro */
-  color: var(--color-white);
+  background: #f0f0f0; /* Cinza muito claro no hover */
+  color: var(--color-black);
   border-color: var(--color-black);
   transform: translate(-3px, -3px);
-  box-shadow: 9px 9px 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 9px 9px 0 var(--color-black);
+}
+
+/* Botão Continuar para Inscrição - Azul como INSCREVE-TE JÁ */
+.coupon-btn--continue {
+  background: #0088CC; /* Azul como o INSCREVE-TE JÁ */
+  color: var(--color-white);
+  border-color: var(--color-black);
+  font-weight: 900;
+  animation: continuePulse 2s ease-in-out infinite;
+  cursor: pointer;
+}
+
+.coupon-btn--continue:hover:not(:disabled) {
+  background: #000000; /* Preto no hover */
+  color: #0088CC;
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0 #0088CC;
+  animation: none;
+}
+
+.coupon-btn--continue:active:not(:disabled) {
+  transform: translate(0, 0);
+  box-shadow: 3px 3px 0 var(--color-black);
+  animation: none;
 }
 
 /* Mensagens de Validação */
