@@ -12,7 +12,7 @@ const translations = {
       // Header Navigation
       'header.logo.tagline': 'by Dicas do Salgueiro',
       'nav.gym': 'GYM',
-      'nav.pricing': 'PREÇOS',
+      'nav.pricing': 'PLANOS',
       'nav.schedule': 'HORÁRIOS',
       'nav.events': 'EVENTOS',
       'nav.salgueiro': 'SALGUEIRO',
@@ -43,10 +43,9 @@ const translations = {
       'gym.collage.mobile.instruction': '👈 Arrasta para o lado para ver mais fotos 👉',
       
       // Pricing Section
-      'pricing.title': 'PREÇOS',
+      'pricing.title': 'PLANOS',
       'pricing.promo': 'Escolhe o plano ideal para ti e começa a treinar!',
       'pricing.period': '/mês',
-      'pricing.test.note': '<strong>TESTA PRIMEIRO, DECIDE DEPOIS!</strong><br><a href="#contact" class="test-note__link">Clicka aqui</a> para usar o formulário de contacto e agendar a tua visita.',
       'pricing.elite.title': 'ELITE',
       'pricing.elite.price': '€84.90',
       'pricing.elite.original': '€94.90',
@@ -466,13 +465,61 @@ const translations = {
       'coupon.step2': '2️⃣ Na PRÓXIMA mensalidade recebes 50% de desconto',
       'coupon.step3': '3️⃣ O sócio que te referenciou também recebe 50% de desconto',
       'coupon.step4': '4️⃣ Staff aplica os descontos automaticamente',
-      // Cupões especiais (Planalto)
-      'coupon.special.discount_info': '🎉 <strong>10 EUR menos na mensalidade e 25 EUR menos na inscrição!</strong>',
+      // Cupões especiais (instruções vêm da base de dados)
+      'coupon.special.discount_info': '🎉 <strong>Desconto Especial Aplicado!</strong>',
       'coupon.special.how_it_works': 'ℹ️ Como funciona:',
-      'coupon.special.step1': '1️⃣ Pagas menos €10 mensalidade',
-      'coupon.special.step2': '2️⃣ NÃO pagas o seguro este ano nem taxa de inscrição (poupas 25 EUR)',
-      'coupon.special.step3': '3️⃣ Desconto aplicado automaticamente no pagamento',
-      'coupon.special.step4': ''
+      
+      // Floating Contacts
+      'floating_contacts.trial': 'Aula Grátis',
+      'floating_contacts.whatsapp': 'WhatsApp',
+      'floating_contacts.instagram': 'Instagram',
+      'floating_contacts.trial_aria': 'Aula Experimental Grátis',
+      'floating_contacts.whatsapp_aria': 'Contactar via WhatsApp',
+      'floating_contacts.instagram_aria': 'Contactar via Instagram',
+      
+      // Trial Class Booking
+      'trial.button': 'AULA EXPERIMENTAL GRÁTIS',
+      'trial.modal.title': 'AULA EXPERIMENTAL GRÁTIS',
+      'trial.modal.intro': 'Preenche o formulário abaixo e entraremos em contacto para agendar a tua aula experimental gratuita!',
+      'trial.form.name': 'Nome',
+      'trial.form.phone': 'Telefone (opcional)',
+      'trial.form.email': 'Email',
+      'trial.form.schedule': 'Preferência de Horários (opcional)',
+      'trial.form.schedule_placeholder': 'Ex: Manhãs de segunda a sexta',
+      'trial.form.submit': 'SOLICITAR AULA GRÁTIS',
+      'trial.form.submitting': 'A ENVIAR...',
+      'trial.form.error': 'Erro ao enviar formulário. Por favor tente novamente.',
+      'trial.form.invalid_email': 'Por favor, insira um email válido no formato: nome@dominio.com',
+      'trial.success.title': 'Pedido Enviado!',
+      'trial.success.message': 'Obrigado! Entraremos em contacto em breve para agendar a tua aula experimental.',
+      
+      // Hidden Prices
+      'pricing.price_on_request': 'SOLICITE O SEU CÓDIGO',
+      
+      // Registration Code System
+      'registration_code.modal.title': 'Código de Inscrição',
+      'registration_code.placeholder': 'Insira o seu código',
+      'registration_code.validate': 'VALIDAR CÓDIGO',
+      'registration_code.no_code_button': 'NÃO TENHO CÓDIGO',
+      
+      // Request Code Form
+      'registration_code.request_form.title': 'Solicitar Código de Inscrição',
+      'registration_code.request_form.subtitle': 'Preencha os seus dados e receberá o código com a promoção atual no seu email.',
+      'registration_code.request_form.name': 'Nome',
+      'registration_code.request_form.phone': 'Telefone (opcional)',
+      'registration_code.request_form.email': 'Email',
+      'registration_code.request_form.submit': 'SOLICITAR CÓDIGO',
+      'registration_code.request_form.submitting': 'A ENVIAR...',
+      'registration_code.request_form.back': 'VOLTAR',
+      'registration_code.request_form.error': 'Erro ao enviar pedido. Por favor tente novamente.',
+      'registration_code.request_form.invalid_email': 'Por favor, insira um email válido no formato: nome@dominio.com',
+      'registration_code.request_form.success_title': 'Pedido Enviado!',
+      'registration_code.request_form.success_message': 'Receberá o código de inscrição no seu email em breve com a promoção atual.',
+      
+      // Discount Display
+      'discount.standard_price': 'Preço Standard',
+      'discount.your_discount': 'O Seu Desconto',
+      'discount.final_price': 'Preço Final'
     },
     en: {
       // Meta tags
@@ -482,7 +529,7 @@ const translations = {
       // Header Navigation
       'header.logo.tagline': 'by Bruce Willow',
       'nav.gym': 'GYM',
-      'nav.pricing': 'PRICING',
+      'nav.pricing': 'PLANS',
       'nav.schedule': 'SCHEDULE',
       'nav.events': 'EVENTS',
       'nav.salgueiro': 'SALGUEIRO',
@@ -513,10 +560,9 @@ const translations = {
       'gym.collage.mobile.instruction': '👈 Swipe to see more photos 👉',
       
       // Pricing Section
-      'pricing.title': 'PRICING',
+      'pricing.title': 'PLANS',
       'pricing.promo': 'Choose the ideal plan for you and start training!',
       'pricing.period': '/month',
-      'pricing.test.note': '<strong>TEST FIRST, DECIDE LATER!</strong><br><a href="#contact" class="test-note__link">Click here</a> to use the contact form and schedule your visit.',
       'pricing.elite.title': 'ELITE',
       'pricing.elite.price': '€84.90',
       'pricing.elite.original': '€94.90',
@@ -936,13 +982,61 @@ const translations = {
       'coupon.step2': '2️⃣ Get 50% discount on NEXT monthly payment',
       'coupon.step3': '3️⃣ Referring member also gets 50% discount',
       'coupon.step4': '4️⃣ Staff applies discounts automatically',
-      // Special coupons (Planalto)
-      'coupon.special.discount_info': '🎉 <strong>10 EUR less monthly fee and 25 EUR less registration!</strong>',
+      // Special coupons (instructions come from database)
+      'coupon.special.discount_info': '🎉 <strong>Special Discount Applied!</strong>',
       'coupon.special.how_it_works': 'ℹ️ How it works:',
-      'coupon.special.step1': '1️⃣ Pay €10 less monthly fee',
-      'coupon.special.step2': '2️⃣ NO insurance this year or registration fee (save 25 EUR)',
-      'coupon.special.step3': '3️⃣ Discount automatically applied at checkout',
-      'coupon.special.step4': ''
+      
+      // Floating Contacts
+      'floating_contacts.trial': 'Free Trial',
+      'floating_contacts.whatsapp': 'WhatsApp',
+      'floating_contacts.instagram': 'Instagram',
+      'floating_contacts.trial_aria': 'Free Trial Class',
+      'floating_contacts.whatsapp_aria': 'Contact via WhatsApp',
+      'floating_contacts.instagram_aria': 'Contact via Instagram',
+      
+      // Trial Class Booking
+      'trial.button': 'FREE TRIAL CLASS',
+      'trial.modal.title': 'FREE TRIAL CLASS',
+      'trial.modal.intro': 'Fill out the form below and we will contact you to schedule your free trial class!',
+      'trial.form.name': 'Name',
+      'trial.form.phone': 'Phone (optional)',
+      'trial.form.email': 'Email',
+      'trial.form.schedule': 'Schedule Preference (optional)',
+      'trial.form.schedule_placeholder': 'E.g.: Mornings Monday to Friday',
+      'trial.form.submit': 'REQUEST FREE CLASS',
+      'trial.form.submitting': 'SENDING...',
+      'trial.form.error': 'Error submitting form. Please try again.',
+      'trial.form.invalid_email': 'Please enter a valid email in the format: name@domain.com',
+      'trial.success.title': 'Request Sent!',
+      'trial.success.message': 'Thank you! We will contact you soon to schedule your trial class.',
+      
+      // Hidden Prices
+      'pricing.price_on_request': 'REQUEST YOUR CODE',
+      
+      // Registration Code System
+      'registration_code.modal.title': 'Registration Code',
+      'registration_code.placeholder': 'Enter your code',
+      'registration_code.validate': 'VALIDATE CODE',
+      'registration_code.no_code_button': 'NO CODE',
+      
+      // Request Code Form
+      'registration_code.request_form.title': 'Request Registration Code',
+      'registration_code.request_form.subtitle': 'Fill in your details and you will receive the code with the current promotion in your email.',
+      'registration_code.request_form.name': 'Name',
+      'registration_code.request_form.phone': 'Phone (optional)',
+      'registration_code.request_form.email': 'Email',
+      'registration_code.request_form.submit': 'REQUEST CODE',
+      'registration_code.request_form.submitting': 'SENDING...',
+      'registration_code.request_form.back': 'BACK',
+      'registration_code.request_form.error': 'Error submitting request. Please try again.',
+      'registration_code.request_form.invalid_email': 'Please enter a valid email in the format: name@domain.com',
+      'registration_code.request_form.success_title': 'Request Sent!',
+      'registration_code.request_form.success_message': 'You will receive the registration code in your email soon with the current promotion.',
+      
+      // Discount Display
+      'discount.standard_price': 'Standard Price',
+      'discount.your_discount': 'Your Discount',
+      'discount.final_price': 'Final Price'
     }
   };
   
@@ -1187,6 +1281,14 @@ const translations = {
             element.style.display = '';
           }
         }
+      });
+      
+      // Processar elementos com data-i18n-placeholder (para textareas e outros)
+      const placeholderElements = document.querySelectorAll('[data-i18n-placeholder]');
+      placeholderElements.forEach(element => {
+        const key = element.getAttribute('data-i18n-placeholder');
+        const translation = this.getTranslation(key, lang);
+        element.placeholder = translation;
       });
   
       // Atualizar classe do body para CSS específico de idioma

@@ -19,26 +19,84 @@ const COUPON_CONFIG = {
     'elite': 'Elite',
     'rise': 'Rise',
     'starter': 'Starter'
-  },
-  // Cupões especiais que redirecionam para integrações Regyfit diferentes
-  // (€10 desconto PERMANENTE, sem seguro este ano, sem taxa inscrição €25)
-  SPECIAL_COUPONS: [
-    'planalto',  // Cupão Planalto: €10 desconto PARA SEMPRE + sem seguro este ano + sem taxa inscrição
-  ],
-  // Mapeamento de IDs de integração Regyfit
-  REGYFIT_INTEGRATIONS: {
-    normal: {
-      elite: { id: 5, int: 1 },    // id_int=1
-      rise: { id: 6, int: 3 },     // id_int=3
-      starter: { id: 7, int: 2 }   // id_int=2
-    },
-    special: {
-      elite: { id: 20, int: 20 },   // id_int=20
-      rise: { id: 21, int: 21 },    // id_int=21
-      starter: { id: 22, int: 22 }  // id_int=22
-    }
   }
 };
+
+// ============================================
+// REGYFIT INTEGRATIONS (Database-driven)
+// ============================================
+
+/**
+ * Obtém configuração de integração Regyfit para um cupão específico
+ * @param {string} couponCode - Código do cupão (lowercase)
+ * @param {string} planType - Tipo de plano ('elite', 'rise', 'starter')
+ * @returns {Promise<{id: number, int: number}>} - IDs do iframe e integração
+ */
+async function getCouponRegyfit(couponCode, planType) {
+  try {
+    console.log(`🔍 Buscando Regyfit integration para cupão "${couponCode}" / plano "${planType}"`);
+    
+    // Primeiro tentar buscar integração específica do cupão
+    const { data, error } = await supabase
+      .from('coupon_regyfit_integrations')
+      .select('iframe_id, integration_id')
+      .eq('coupon_code', couponCode.toLowerCase())
+      .eq('plan_type', planType)
+      .limit(1);
+    
+    if (!error && data && data.length > 0) {
+      console.log(`✅ Integração específica encontrada: iframe_id=${data[0].iframe_id}, integration_id=${data[0].integration_id}`);
+      return { id: data[0].iframe_id, int: data[0].integration_id };
+    }
+    
+    // Se não encontrar, usar integração default
+    console.log(`⚠️ Integração específica não encontrada para "${couponCode}", usando default`);
+    return getDefaultRegyfit(planType);
+    
+  } catch (err) {
+    console.error('❌ Erro ao buscar Regyfit integration:', err);
+    return getDefaultRegyfit(planType);
+  }
+}
+
+/**
+ * Obtém configuração default de Regyfit (sem cupão especial)
+ * @param {string} planType - Tipo de plano ('elite', 'rise', 'starter')
+ * @returns {Promise<{id: number, int: number}>}
+ */
+async function getDefaultRegyfit(planType) {
+  try {
+    const { data, error } = await supabase
+      .from('coupon_regyfit_integrations')
+      .select('iframe_id, integration_id')
+      .eq('coupon_code', '_default')
+      .eq('plan_type', planType)
+      .limit(1);
+    
+    if (!error && data && data.length > 0) {
+      console.log(`✅ Integração default encontrada: iframe_id=${data[0].iframe_id}, integration_id=${data[0].integration_id}`);
+      return { id: data[0].iframe_id, int: data[0].integration_id };
+    }
+    
+    // Fallback hardcoded caso a BD não tenha dados
+    console.warn('⚠️ Usando fallback hardcoded para integração default');
+    const fallback = {
+      elite: { id: 5, int: 1 },
+      rise: { id: 6, int: 3 },
+      starter: { id: 7, int: 2 }
+    };
+    return fallback[planType];
+    
+  } catch (err) {
+    console.error('❌ Erro ao buscar default Regyfit, usando fallback:', err);
+    const fallback = {
+      elite: { id: 5, int: 1 },
+      rise: { id: 6, int: 3 },
+      starter: { id: 7, int: 2 }
+    };
+    return fallback[planType];
+  }
+}
 
 // ============================================
 // VALIDAÇÃO DE CUPÃO
@@ -78,29 +136,16 @@ async function validateCoupon(code) {
       };
     }
 
-    // Consultar Supabase
+    // Consultar Supabase - usar limit(1) em vez de single() para evitar erro com duplicatas
     const { data, error } = await supabase
       .from('coupons')
       .select('*')
       .eq('code', normalizedCode)
       .eq('active', true)
-      .single();
+      .limit(1);
 
     if (error) {
       console.log('⚠️ Erro Supabase:', error.message);
-      
-      // Se não encontrou, é cupão inválido
-      if (error.code === 'PGRST116') {
-        return {
-          valid: false,
-          type: null,
-          code: null,
-          isSpecial: false,
-          message: window.i18n ? window.i18n.t('coupon.invalid') : '❌ Cupão inválido'
-        };
-      }
-      
-      // Outro erro
       return {
         valid: false,
         type: null,
@@ -110,26 +155,62 @@ async function validateCoupon(code) {
       };
     }
 
+    // Verificar se encontrou pelo menos 1 resultado
+    if (!data || data.length === 0) {
+      console.log('⚠️ Cupão não encontrado na BD');
+      return {
+        valid: false,
+        type: null,
+        code: null,
+        isSpecial: false,
+        message: window.i18n ? window.i18n.t('coupon.invalid') : '❌ Cupão inválido'
+      };
+    }
+
+    // Pegar o primeiro resultado (mesmo que haja duplicatas)
+    const couponData = data[0];
+    
+    // Avisar se houver duplicatas (e dizer ao utilizador para limpar a BD)
+    if (data.length > 1) {
+      console.warn(`⚠️ ATENÇÃO: Encontradas ${data.length} entradas duplicadas para o cupão "${normalizedCode}". Usando a primeira. Recomenda-se limpar duplicatas na BD.`);
+    }
+
     // Cupão válido!
-    console.log('✅ Cupão válido:', data);
+    console.log('✅ Cupão válido:', couponData);
     
-    // Verificar se é um cupão especial (redireciona para Regyfit diferente)
-    const isSpecial = COUPON_CONFIG.SPECIAL_COUPONS.includes(normalizedCode);
+    const typeLabel = couponData.type === 'member_email' ? 'Email de Sócio' : 'Cupão Genérico';
     
-    const typeLabel = data.type === 'member_email' ? 'Email de Sócio' : 'Cupão Genérico';
+    // Usar descrição da base de dados se disponível, senão usar mensagem padrão
+    let message = window.i18n ? window.i18n.t('coupon.valid') : '✅ Cupão válido!';
     
-    let message = window.i18n ? window.i18n.t('coupon.valid') : '✅ Cupão válido! 50% desconto confirmado';
+    if (couponData.description_pt) {
+      const currentLang = window.i18n && window.i18n.currentLang ? window.i18n.currentLang() : 'pt';
+      const description = currentLang === 'en' && couponData.description_en ? couponData.description_en : couponData.description_pt;
+      message = `✅ Cupão válido! ${description}`;
+    }
+    
+    // Determinar se é especial baseado no discount_type (não mais array hardcoded)
+    const isSpecial = couponData.discount_type && 
+                      (couponData.discount_type === 'permanent_amount' || 
+                       couponData.discount_type === 'permanent_monthly');
+    
     if (isSpecial) {
-      message = '✅ Cupão Planalto válido!';
-      console.log('🌟 Cupão ESPECIAL detectado - vai usar Regyfit diferente');
+      console.log('🌟 Cupão ESPECIAL detectado (desconto permanente) - vai usar Regyfit específico');
     }
     
     return {
       valid: true,
-      type: data.type,
+      type: couponData.type,
       code: normalizedCode,
       isSpecial: isSpecial,
-      message: message
+      message: message,
+      discountType: couponData.discount_type || 'percentage_next',
+      discountValue: couponData.discount_value || 50.00,
+      waiveRegistrationFee: couponData.waive_registration_fee || false,
+      descriptionPt: couponData.description_pt,
+      descriptionEn: couponData.description_en,
+      instructionsStepsPt: couponData.instructions_steps_pt || null,
+      instructionsStepsEn: couponData.instructions_steps_en || null
     };
 
   } catch (err) {
@@ -151,19 +232,23 @@ async function validateCoupon(code) {
 /**
  * Guarda dados do cupão validado na sessão
  */
-function saveCouponToSession(couponCode, couponType, planType, isSpecial = false) {
+function saveCouponToSession(couponCode, couponType, planType, isSpecial = false, instructionsStepsPt = null, instructionsStepsEn = null, discountValue = null, waiveRegistrationFee = false) {
   const data = {
     couponCode: couponCode.trim().toLowerCase(),
     couponType,
     planType,
     isSpecial: isSpecial,
+    instructionsStepsPt: instructionsStepsPt,
+    instructionsStepsEn: instructionsStepsEn,
+    discountValue: discountValue,
+    waiveRegistrationFee: waiveRegistrationFee,
     timestamp: new Date().toISOString()
   };
   
   sessionStorage.setItem(COUPON_CONFIG.SESSION_KEY, JSON.stringify(data));
   console.log('💾 Cupão guardado na sessão:', data);
   if (isSpecial) {
-    console.log('🌟 Cupão ESPECIAL guardado - vai usar integração Regyfit diferente');
+    console.log('🌟 Cupão ESPECIAL guardado - desconto: €' + discountValue + ', dispensa seguro: ' + waiveRegistrationFee);
   }
 }
 
@@ -335,7 +420,7 @@ function showCouponStep(modalId) {
  * @param {string} modalId - ID do modal (ex: 'modal-elite')
  * @param {boolean} forceNormal - Forçar uso do iframe normal (sem cupão especial)
  */
-function showRegyStep(modalId, forceNormal = false) {
+async function showRegyStep(modalId, forceNormal = false) {
   const modal = document.getElementById(modalId);
   if (!modal) return;
 
@@ -361,22 +446,25 @@ function showRegyStep(modalId, forceNormal = false) {
     iframe.style.display = 'none';
   });
   
-  // Determinar qual iframe mostrar
-  let iframeId, iframeToShow;
-  if (isSpecial) {
-    // Cupão especial - usar integrações id_int=20/21/22
-    const specialConfig = COUPON_CONFIG.REGYFIT_INTEGRATIONS.special[planType];
-    iframeId = `frame_regy${specialConfig.id}`;
-    console.log(`🌟 Usando Regyfit ESPECIAL (id_int=${specialConfig.int}) para plano ${planType}`);
+  // Determinar qual iframe mostrar usando a BD
+  let integrationConfig;
+  
+  if (isSpecial && couponData && couponData.couponCode) {
+    // Cupão especial - buscar integração específica da BD
+    const couponCode = couponData.couponCode.toLowerCase();
+    integrationConfig = await getCouponRegyfit(couponCode, planType);
+    console.log(`🌟 Usando Regyfit para cupão "${couponCode.toUpperCase()}" (id_int=${integrationConfig.int}) para plano ${planType}`);
   } else {
-    // Cupão normal ou sem cupão - usar integrações normais id_int=1/3/2
-    const normalConfig = COUPON_CONFIG.REGYFIT_INTEGRATIONS.normal[planType];
-    iframeId = `frame_regy${normalConfig.id}`;
-    console.log(`📋 Usando Regyfit NORMAL (id_int=${normalConfig.int}) para plano ${planType}`);
+    // Cupão normal ou sem cupão - usar integração default da BD
+    integrationConfig = await getDefaultRegyfit(planType);
+    console.log(`📋 Usando Regyfit NORMAL (id_int=${integrationConfig.int}) para plano ${planType}`);
   }
   
+  // Construir ID do iframe
+  const iframeId = `frame_regy${integrationConfig.id}`;
+  
   // Mostrar o iframe correto
-  iframeToShow = document.getElementById(iframeId);
+  const iframeToShow = document.getElementById(iframeId);
   if (iframeToShow) {
     iframeToShow.style.display = 'block';
     console.log(`✅ Iframe mostrado: ${iframeId}`);

@@ -77,6 +77,11 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.classList.add('modal-open');
         console.log('Modal opened:', modalId);
         
+        // Setup email validation when modal opens (for trial and request forms)
+        if (typeof setupEmailValidation === 'function') {
+          setupEmailValidation();
+        }
+        
         // Ensure iframe is properly sized when modal opens
         const iframe = modal.querySelector('iframe[name^="frame_regy"]');
         if (iframe) {
