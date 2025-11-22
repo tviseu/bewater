@@ -9958,3 +9958,167 @@ html, body {
     font-size: 1rem;
   }
 }
+
+/* =========================================
+   ANIMATIONS & INTERACTIVITY
+   ========================================= */
+
+/* 1. Scroll Animations (Fade In Blur) */
+.animate-on-scroll {
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              filter 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: opacity, transform, filter;
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+/* Stagger delays for children if needed */
+.animate-stagger-1 { transition-delay: 0.1s; }
+.animate-stagger-2 { transition-delay: 0.2s; }
+.animate-stagger-3 { transition-delay: 0.3s; }
+
+
+/* 2. Hero Text Animation (Vertical Clip Slide) */
+.hero__title.text-animated .line-wrapper {
+  display: block;
+  overflow: hidden; /* Ensures the clip effect works per line */
+}
+
+.hero__title.text-animated .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100%);
+  animation: textSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero__title.text-animated .char.space {
+  width: 0.3em; /* Preserve space width */
+}
+
+@keyframes textSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* 3. Button Beam Animation (Adapted for Brutalist/Square) */
+/* Adds a moving border effect on hover */
+.btn {
+  position: relative;
+  overflow: hidden; /* Contains the beam */
+  z-index: 1;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+  z-index: -1;
+  opacity: 0;
+}
+
+.btn:hover::after {
+  animation: beamSlide 1.5s infinite linear;
+  opacity: 0.3;
+}
+
+@keyframes beamSlide {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+
+/* 4. Flashlight/Spotlight Effect on Cards */
+/* Uses CSS variables set by JS */
+.card,
+.price-card,
+.trainer-card,
+.gym-collage-slide {
+  position: relative;
+  /* Ensure background handles the gradient overlay */
+  background-color: #fff; /* Fallback */
+}
+
+/* The Spotlight Overlay */
+.card::before,
+.price-card::before,
+.trainer-card::before,
+.gym-collage-slide::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  pointer-events: none; /* Let clicks pass through */
+  z-index: 2;
+  
+  /* The gradient follows the mouse */
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 215, 0, 0.06), /* Very subtle Gold glow */
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover::before,
+.price-card:hover::before,
+.trainer-card:hover::before,
+.gym-collage-slide:hover::before {
+  opacity: 1;
+}
+
+/* Add a border glow effect as well */
+.card::after,
+.price-card::after,
+.trainer-card::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  z-index: -1;
+  background: radial-gradient(
+    400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 215, 0, 0.4), 
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.card:hover::after,
+.price-card:hover::after,
+.trainer-card:hover::after {
+  opacity: 1;
+}
