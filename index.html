@@ -1604,6 +1604,13 @@
         const regyIframes = document.querySelectorAll('iframe[name^="frame_regy"]');
         const regyInputs = document.querySelectorAll('input[class="class_regy"]');
         
+        // Check if script already exists in DOM to prevent duplication
+        if (document.getElementById('regy-script')) {
+          console.log('Regy script already present in DOM');
+          window.regyScriptLoaded = true;
+          return;
+        }
+        
         if (regyIframes.length > 0 && regyInputs.length > 0) {
           const script = document.createElement('script');
           script.src = 'https://www.regyfit.com/admin2/modulos/crm/site_integrations/regy.min.js';
