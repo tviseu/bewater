@@ -440,12 +440,6 @@ async function showRegyStep(modalId, forceNormal = false) {
   // Extrair o tipo de plano do modalId (ex: 'modal-elite' -> 'elite')
   const planType = modalId.replace('modal-', '');
   
-  // Esconder todos os iframes primeiro
-  const allIframes = regyContainer.querySelectorAll('iframe');
-  allIframes.forEach(iframe => {
-    iframe.style.display = 'none';
-  });
-  
   // Determinar qual iframe mostrar usando a BD
   let integrationConfig;
   
@@ -460,10 +454,34 @@ async function showRegyStep(modalId, forceNormal = false) {
     console.log(`📋 Usando Regyfit NORMAL (id_int=${integrationConfig.int}) para plano ${planType}`);
   }
   
-  // Construir ID do iframe
+  // Construir ID do iframe e input corretos
   const iframeId = `frame_regy${integrationConfig.id}`;
+  const inputId = `src_regy${integrationConfig.id}`;
   
-  // Mostrar o iframe correto
+  // CRITICAL: Disable ALL Regyfit inputs in this modal EXCEPT the one we want
+  // This prevents Regyfit script from processing multiple iframes
+  const allRegyInputs = regyContainer.querySelectorAll('input.class_regy');
+  allRegyInputs.forEach(input => {
+    if (input.id !== inputId) {
+      // Remove class_regy to prevent Regyfit from processing this input
+      input.classList.remove('class_regy');
+      input.classList.add('class_regy_disabled');
+      console.log(`  🚫 Disabled Regyfit input: ${input.id}`);
+    } else {
+      // Ensure the correct input has class_regy
+      input.classList.add('class_regy');
+      input.classList.remove('class_regy_disabled');
+      console.log(`  ✅ Enabled Regyfit input: ${input.id}`);
+    }
+  });
+  
+  // Hide all iframes first
+  const allIframes = regyContainer.querySelectorAll('iframe');
+  allIframes.forEach(iframe => {
+    iframe.style.display = 'none';
+  });
+  
+  // Show the correct iframe
   const iframeToShow = document.getElementById(iframeId);
   if (iframeToShow) {
     iframeToShow.style.display = 'block';
