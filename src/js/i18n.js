@@ -1036,7 +1036,12 @@ const translations = {
       // Discount Display
       'discount.standard_price': 'Standard Price',
       'discount.your_discount': 'Your Discount',
-      'discount.final_price': 'Final Price'
+      'discount.final_price': 'Final Price',
+
+      // MISSING KEYS
+      'coupon.form.processing': 'Validating...',
+      'coupon.success_title': 'All Set!',
+      'coupon.success': 'Thank you! The 50% discount will be manually applied by the staff on your next monthly fee and that of the member who referred you.'
     }
   };
   
