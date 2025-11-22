@@ -460,7 +460,7 @@ async function showRegyStep(modalId, forceNormal = false) {
   
   // CRITICAL: Disable ALL Regyfit inputs in this modal EXCEPT the one we want
   // This prevents Regyfit script from processing multiple iframes
-  const allRegyInputs = regyContainer.querySelectorAll('input.class_regy');
+  const allRegyInputs = regyContainer.querySelectorAll('input.class_regy, input.class_regy_disabled');
   allRegyInputs.forEach(input => {
     if (input.id !== inputId) {
       // Remove class_regy to prevent Regyfit from processing this input
@@ -475,16 +475,22 @@ async function showRegyStep(modalId, forceNormal = false) {
     }
   });
   
-  // Hide all iframes first
+  // REMOVE all iframes that are NOT the one we want (to prevent empty space)
   const allIframes = regyContainer.querySelectorAll('iframe');
   allIframes.forEach(iframe => {
-    iframe.style.display = 'none';
+    if (iframe.id !== iframeId) {
+      // Remove from DOM completely (not just hide)
+      iframe.remove();
+      console.log(`  🗑️ Removed iframe: ${iframe.id}`);
+    }
   });
   
   // Show the correct iframe
   const iframeToShow = document.getElementById(iframeId);
   if (iframeToShow) {
     iframeToShow.style.display = 'block';
+    iframeToShow.style.width = '100%';
+    iframeToShow.style.minHeight = '800px';
     console.log(`✅ Iframe mostrado: ${iframeId}`);
   } else {
     console.error(`❌ Iframe não encontrado: ${iframeId}`);

@@ -4541,6 +4541,10 @@ button.btn:active {
   background-color: var(--color-background);
   box-shadow: 8px 8px 0 var(--color-primary);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: auto;
 }
 
 .modal-regy-container iframe {
@@ -4548,6 +4552,9 @@ button.btn:active {
   min-height: 600px !important;
   border: none !important;
   background-color: var(--color-background) !important;
+  flex: 1 1 auto;
+  height: auto !important;
+  max-height: none !important;
 }
 
 /* Override Regy styles within modal */
