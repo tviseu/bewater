@@ -68,14 +68,40 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Initialize modal functionality with enhanced timing
   setTimeout(function() {
+    // Track last modal open time to prevent rapid successive opens
+    let lastModalOpenTime = 0;
+    const MODAL_OPEN_DEBOUNCE = 500; // milliseconds
+    
     // Modal functions
     function openModal(modalId) {
+      // Debounce: prevent opening modals too quickly in succession
+      const now = Date.now();
+      if (now - lastModalOpenTime < MODAL_OPEN_DEBOUNCE) {
+        console.log('⏳ Modal open debounced, please wait...');
+        return;
+      }
+      lastModalOpenTime = now;
       const modal = document.getElementById('modal-' + modalId);
       
       if (modal) {
         modal.classList.add('active');
         document.body.classList.add('modal-open');
         console.log('Modal opened:', modalId);
+        
+        // Check if this is a PLAN modal (with coupon system) or a PACK modal (direct purchase)
+        const couponPreForm = modal.querySelector('.coupon-pre-form');
+        const regyContainer = modal.querySelector('.modal-regy-container');
+        
+        if (couponPreForm && regyContainer) {
+          // PLAN modal (Elite/Rise/Starter) - start with coupon form visible
+          couponPreForm.style.display = 'block';
+          regyContainer.style.display = 'none';
+          console.log('  ✅ Plan modal initialized with coupon form visible');
+        } else if (regyContainer && !couponPreForm) {
+          // PACK modal (Pack5/Pack10/etc) - show Regyfit directly
+          regyContainer.style.display = 'block';
+          console.log('  ✅ Pack modal initialized with Regyfit visible');
+        }
         
         // Setup email validation when modal opens (for trial and request forms)
         if (typeof setupEmailValidation === 'function') {
@@ -91,8 +117,9 @@ document.addEventListener('DOMContentLoaded', function() {
           
           makeIframesDynamic();
           
-          // Load Regy script when modal with iframe opens (only once)
-          if (typeof window.loadRegyScript === 'function') {
+          // Load Regy script ONLY ONCE globally (not per modal)
+          if (typeof window.loadRegyScript === 'function' && !window.regyScriptLoaded) {
+            console.log('  🔄 Loading Regy script for the first time...');
             setTimeout(() => {
               window.loadRegyScript();
               
@@ -109,6 +136,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
               }, 1000);
             }, 300);
+          } else if (window.regyScriptLoaded) {
+            console.log('  ✅ Regy script already loaded, skipping reload');
           }
         }
       }
@@ -123,8 +152,36 @@ document.addEventListener('DOMContentLoaded', function() {
         // Reset do sistema de cupões
         resetCouponForm(modalId);
         
-        // DON'T clear iframe - let Regyfit keep its state
-        // The Regyfit script manages the iframes and clearing them breaks functionality
+        // Clean up any duplicate iframe content that might have been created
+        // BUT DON'T hide the iframes - let them stay ready for next open
+        const regyContainer = modal.querySelector('.modal-regy-container');
+        if (regyContainer) {
+          const iframes = regyContainer.querySelectorAll('iframe[name^="frame_regy"]');
+          iframes.forEach(iframe => {
+            // DON'T hide iframes - just clean up duplicates if they exist
+            // iframe.style.display will be managed by showRegyStep() when needed
+            
+            // Remove any duplicate form content inside iframes (if Regyfit created duplicates)
+            try {
+              const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+              if (iframeDoc && iframeDoc.body) {
+                // Check for duplicate forms
+                const forms = iframeDoc.querySelectorAll('form');
+                if (forms.length > 1) {
+                  console.warn(`⚠️ Found ${forms.length} forms in iframe ${iframe.id}, keeping only the first one`);
+                  // Remove duplicates (keep only the first form)
+                  for (let i = 1; i < forms.length; i++) {
+                    forms[i].remove();
+                  }
+                }
+              }
+            } catch (e) {
+              // Cross-origin restrictions - can't access iframe content
+              // This is expected for Regyfit iframes
+            }
+          });
+        }
+        
         console.log('✅ Modal closed, iframe state preserved:', modalId);
       }
     }
@@ -133,6 +190,17 @@ document.addEventListener('DOMContentLoaded', function() {
      * Reset coupon form when modal closes
      */
     function resetCouponForm(modalId) {
+      // Check if this modal has a coupon system (plan modals only)
+      const couponPreForm = document.getElementById(`coupon-pre-form-${modalId}`);
+      
+      if (!couponPreForm) {
+        // This is a PACK modal (no coupon system) - nothing to reset
+        console.log(`ℹ️ Pack modal closed (no coupon reset needed): ${modalId}`);
+        return;
+      }
+      
+      // This is a PLAN modal - reset coupon system
+      
       // Limpar input
       const couponInput = document.getElementById(`coupon-input-${modalId}`);
       if (couponInput) {
@@ -166,7 +234,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       
       // Mostrar pré-form e esconder REGYFIT
-      const couponPreForm = document.getElementById(`coupon-pre-form-${modalId}`);
       const regyContainer = document.querySelector(`#modal-${modalId} .modal-regy-container`);
       
       if (couponPreForm) {

@@ -1604,14 +1604,9 @@
         const regyIframes = document.querySelectorAll('iframe[name^="frame_regy"]');
         const regyInputs = document.querySelectorAll('input[class="class_regy"]');
         
-        // Check if script already exists in DOM to prevent duplication
-        if (document.getElementById('regy-script')) {
-          console.log('Regy script already present in DOM');
-          window.regyScriptLoaded = true;
-          return;
-        }
-        
         if (regyIframes.length > 0 && regyInputs.length > 0) {
+          console.log('🔄 Loading Regy script for the first time...');
+          
           const script = document.createElement('script');
           script.src = 'https://www.regyfit.com/admin2/modulos/crm/site_integrations/regy.min.js';
           script.async = true;
@@ -1619,16 +1614,20 @@
           
           // Add error handling
           script.onerror = function() {
-            console.warn('Regy script failed to load');
+            console.warn('❌ Regy script failed to load');
             window.regyScriptLoaded = false;
           };
           
           script.onload = function() {
-            console.log('Regy script loaded successfully');
-            // Small delay to ensure iframe elements are ready
-            setTimeout(() => {
-              window.regyScriptLoaded = true;
-            }, 100);
+            console.log('✅ Regy script loaded successfully');
+            // Mark as loaded immediately to prevent duplicate loads
+            window.regyScriptLoaded = true;
+            
+            // Mark all iframes as processed to prevent Regyfit from processing them multiple times
+            const allRegyIframes = document.querySelectorAll('iframe[name^="frame_regy"]');
+            allRegyIframes.forEach(iframe => {
+              iframe.setAttribute('data-regy-processed', 'true');
+            });
           };
           
           document.head.appendChild(script);
@@ -1637,6 +1636,8 @@
           // Retry after a short delay if elements aren't ready
           setTimeout(() => window.loadRegyScript(), 200);
         }
+      } else if (window.regyScriptLoaded) {
+        console.log('ℹ️ Regy script already loaded, skipping');
       }
     };
     

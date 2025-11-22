@@ -479,19 +479,6 @@ async function showRegyStep(modalId, forceNormal = false) {
   
   // Regyfit script handles iframe initialization automatically
   console.log('✅ Showing Regyfit container for modal:', modalId);
-  
-  // Ensure Regyfit script runs again if needed to process the visible iframes
-  if (window.regyScriptLoaded && window.loadRegyScript) {
-    console.log('🔄 Re-triggering Regyfit processor for visible iframe');
-    // Recarregar script se necessário ou forçar reinicialização
-    // Se houver função exposta pelo Regyfit para reprocessar, usar aqui.
-    // Como fallback, o reloadRegyScript remove e adiciona o script novamente.
-    if (window.reloadRegyScript) {
-        window.reloadRegyScript();
-    }
-  } else if (window.loadRegyScript) {
-    window.loadRegyScript();
-  }
 }
 
 /**
