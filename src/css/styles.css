@@ -4455,6 +4455,10 @@ button.btn:active {
   justify-content: space-between;
   align-items: center;
   border-bottom: 6px solid var(--color-primary);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .modal-title {
@@ -4555,6 +4559,19 @@ button.btn:active {
   flex: 1 1 auto;
   height: auto !important;
   max-height: none !important;
+}
+
+/* Hidden iframes should NOT take up any space */
+.modal-regy-container iframe[style*="display: none"],
+.modal-regy-container iframe[style*="position: absolute"] {
+  position: absolute !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
 }
 
 /* Override Regy styles within modal */

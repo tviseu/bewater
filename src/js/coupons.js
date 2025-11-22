@@ -458,42 +458,29 @@ async function showRegyStep(modalId, forceNormal = false) {
   const iframeId = `frame_regy${integrationConfig.id}`;
   const inputId = `src_regy${integrationConfig.id}`;
   
-  // CRITICAL: Disable ALL Regyfit inputs in this modal EXCEPT the one we want
-  // This prevents Regyfit script from processing multiple iframes
-  const allRegyInputs = regyContainer.querySelectorAll('input.class_regy, input.class_regy_disabled');
-  allRegyInputs.forEach(input => {
-    if (input.id !== inputId) {
-      // Remove class_regy to prevent Regyfit from processing this input
-      input.classList.remove('class_regy');
-      input.classList.add('class_regy_disabled');
-      console.log(`  🚫 Disabled Regyfit input: ${input.id}`);
-    } else {
-      // Ensure the correct input has class_regy
-      input.classList.add('class_regy');
-      input.classList.remove('class_regy_disabled');
-      console.log(`  ✅ Enabled Regyfit input: ${input.id}`);
-    }
-  });
-  
-  // REMOVE all iframes that are NOT the one we want (to prevent empty space)
-  const allIframes = regyContainer.querySelectorAll('iframe');
+  // Hide ALL iframes in this modal first
+  const allIframes = regyContainer.querySelectorAll('iframe[name^="frame_regy"]');
   allIframes.forEach(iframe => {
-    if (iframe.id !== iframeId) {
-      // Remove from DOM completely (not just hide)
-      iframe.remove();
-      console.log(`  🗑️ Removed iframe: ${iframe.id}`);
-    }
+    iframe.style.display = 'none';
+    iframe.style.position = 'absolute';  // Remove from layout flow
+    iframe.style.visibility = 'hidden';  // Extra hiding
+    iframe.style.height = '0';
+    iframe.style.minHeight = '0';
   });
   
-  // Show the correct iframe
+  // Show ONLY the correct iframe
   const iframeToShow = document.getElementById(iframeId);
   if (iframeToShow) {
     iframeToShow.style.display = 'block';
+    iframeToShow.style.position = 'relative';  // Back to normal flow
+    iframeToShow.style.visibility = 'visible';
     iframeToShow.style.width = '100%';
+    iframeToShow.style.height = 'auto';
     iframeToShow.style.minHeight = '800px';
     console.log(`✅ Iframe mostrado: ${iframeId}`);
   } else {
     console.error(`❌ Iframe não encontrado: ${iframeId}`);
+    console.error(`   Iframes disponíveis:`, Array.from(allIframes).map(i => i.id));
   }
 
   if (couponForm) couponForm.style.display = 'none';

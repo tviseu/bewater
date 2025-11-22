@@ -1597,12 +1597,18 @@
   <script>
     /**
      * Prepare Regyfit inputs before loading the script
-     * Disable all inputs except the default ones (to prevent multiple forms showing)
+     * Keep ALL inputs active so Regyfit processes all iframes
+     * We'll control which one is visible via display:none/block
      */
     window.prepareRegyInputs = function() {
       console.log('🔧 Preparing Regyfit inputs...');
       
-      // For each modal with multiple Regyfit integrations, disable all except the default (first one)
+      // Keep ALL inputs active - Regyfit needs to process all iframes
+      // We'll control visibility later in showRegyStep()
+      const allInputs = document.querySelectorAll('input.class_regy');
+      console.log(`  ✅ Found ${allInputs.length} Regyfit inputs - keeping all active`);
+      
+      // Hide all iframes except the default ones initially
       const modalsWithMultipleIntegrations = ['modal-elite', 'modal-rise', 'modal-starter'];
       
       modalsWithMultipleIntegrations.forEach(modalId => {
@@ -1612,19 +1618,17 @@
         const regyContainer = modal.querySelector('.modal-regy-container');
         if (!regyContainer) return;
         
-        const allInputs = regyContainer.querySelectorAll('input.class_regy');
-        let firstInput = null;
+        const allIframes = regyContainer.querySelectorAll('iframe[name^="frame_regy"]');
         
-        allInputs.forEach((input, index) => {
+        allIframes.forEach((iframe, index) => {
           if (index === 0) {
-            // Keep first input active (default/normal plan)
-            firstInput = input;
-            console.log(`  ✅ Keeping active: ${input.id} in ${modalId}`);
+            // Keep first iframe visible (default/normal plan)
+            iframe.style.display = 'block';
+            console.log(`  👁️ Default iframe visible: ${iframe.id} in ${modalId}`);
           } else {
-            // Disable other inputs (special promotions)
-            input.classList.remove('class_regy');
-            input.classList.add('class_regy_disabled');
-            console.log(`  🚫 Disabled: ${input.id} in ${modalId}`);
+            // Hide other iframes (special promotions) - but keep them in DOM
+            iframe.style.display = 'none';
+            console.log(`  👁️‍🗨️ Hidden iframe: ${iframe.id} in ${modalId}`);
           }
         });
       });
