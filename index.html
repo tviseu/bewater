@@ -3149,7 +3149,38 @@
       try {
         const couponTypeLabel = couponData.couponType === 'member_email' ? 'Email de Sócio' : 'Cupão Genérico';
         const planLabel = planType.charAt(0).toUpperCase() + planType.slice(1);
-        const specialLabel = isSpecial ? ' (ESPECIAL - €10 desconto + sem seguro/taxa)' : '';
+        
+        // Determinar label especial baseado no tipo de cupão
+        let specialLabel = '';
+        if (isSpecial) {
+          const couponCode = couponData.couponCode.toLowerCase();
+          
+          // BRUCELEE ou cupões com 100% desconto + sem taxa = Dezembro GRÁTIS
+          if (couponCode === 'brucelee' || (couponData.discountValue === 100 && couponData.waiveRegistrationFee)) {
+            specialLabel = ' (ESPECIAL - Dezembro 2025 GRÁTIS + só paga seguro €25)';
+          }
+          // Cupões de sócio (member_email) - não adicionar label especial extra
+          else if (couponData.couponType === 'member_email') {
+            specialLabel = ' (50% desconto na mensalidade de inscrição + 50% próxima mensalidade do sócio)';
+          }
+          // PLANALTO - desconto permanente + sem seguro
+          else if (couponCode === 'planalto') {
+            specialLabel = ' (ESPECIAL - €10 desconto PERMANENTE + sem seguro/taxa)';
+          }
+          // EARLYBIRD ou outros com desconto permanente
+          else if (couponCode === 'earlybird' || couponData.discountType === 'permanent_amount') {
+            const discount = couponData.discountValue || 10;
+            specialLabel = ` (ESPECIAL - €${discount} desconto PERMANENTE)`;
+          }
+          // Outros cupões especiais - usar descrição da BD se disponível
+          else if (couponData.descriptionPt) {
+            specialLabel = ` (ESPECIAL - ${couponData.descriptionPt})`;
+          }
+          // Fallback genérico
+          else {
+            specialLabel = ' (ESPECIAL)';
+          }
+        }
         
         // 1. Enviar email via Formspark
         await fetch('https://submit-form.com/cMzqixKrn', {
