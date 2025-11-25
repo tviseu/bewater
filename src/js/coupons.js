@@ -30,17 +30,25 @@ const COUPON_CONFIG = {
  * Obtém configuração de integração Regyfit para um cupão específico
  * @param {string} couponCode - Código do cupão (lowercase)
  * @param {string} planType - Tipo de plano ('elite', 'rise', 'starter')
+ * @param {string} couponType - Tipo do cupão ('member_email' ou 'generic')
  * @returns {Promise<{id: number, int: number}>} - IDs do iframe e integração
  */
-async function getCouponRegyfit(couponCode, planType) {
+async function getCouponRegyfit(couponCode, planType, couponType = null) {
   try {
-    console.log(`🔍 Buscando Regyfit integration para cupão "${couponCode}" / plano "${planType}"`);
+    console.log(`🔍 Buscando Regyfit integration para cupão "${couponCode}" / plano "${planType}" / tipo "${couponType}"`);
+    
+    // Se for cupão de sócio (member_email), buscar por '_member_email'
+    const lookupCode = couponType === 'member_email' ? '_member_email' : couponCode.toLowerCase();
+    
+    if (couponType === 'member_email') {
+      console.log(`👥 Cupão de sócio detectado, buscando integração especial para member_email`);
+    }
     
     // Primeiro tentar buscar integração específica do cupão
     const { data, error } = await supabase
       .from('coupon_regyfit_integrations')
       .select('iframe_id, integration_id')
-      .eq('coupon_code', couponCode.toLowerCase())
+      .eq('coupon_code', lookupCode)
       .eq('plan_type', planType)
       .limit(1);
     
@@ -50,7 +58,7 @@ async function getCouponRegyfit(couponCode, planType) {
     }
     
     // Se não encontrar, usar integração default
-    console.log(`⚠️ Integração específica não encontrada para "${couponCode}", usando default`);
+    console.log(`⚠️ Integração específica não encontrada para "${lookupCode}", usando default`);
     return getDefaultRegyfit(planType);
     
   } catch (err) {
@@ -187,15 +195,27 @@ async function validateCoupon(code) {
       const currentLang = window.i18n && window.i18n.currentLang ? window.i18n.currentLang() : 'pt';
       const description = currentLang === 'en' && couponData.description_en ? couponData.description_en : couponData.description_pt;
       message = `✅ Cupão válido! ${description}`;
+    } else if (couponData.type === 'member_email') {
+      // Para cupões de sócio sem descrição, mostrar desconto automaticamente
+      const discountValue = couponData.discount_value || 50;
+      const currentLang = window.i18n && window.i18n.currentLang ? window.i18n.currentLang() : 'pt';
+      if (currentLang === 'en') {
+        message = `✅ Valid coupon! You'll get ${discountValue}% off your first membership payment, and the member who referred you will get ${discountValue}% off their next payment!`;
+      } else {
+        message = `✅ Cupão válido! Vais receber ${discountValue}% de desconto na tua mensalidade agora, e o sócio que te referenciou recebe ${discountValue}% de desconto na próxima mensalidade!`;
+      }
     }
     
     // Determinar se é especial baseado no discount_type (não mais array hardcoded)
-    const isSpecial = couponData.discount_type && 
+    // BRUCELEE (100% desconto + sem taxa) também é considerado especial
+    const isSpecial = (couponData.discount_type && 
                       (couponData.discount_type === 'permanent_amount' || 
-                       couponData.discount_type === 'permanent_monthly');
+                       couponData.discount_type === 'permanent_monthly')) ||
+                      (couponData.discount_value === 100.00 && couponData.waive_registration_fee) ||
+                      normalizedCode === 'brucelee';
     
     if (isSpecial) {
-      console.log('🌟 Cupão ESPECIAL detectado (desconto permanente) - vai usar Regyfit específico');
+      console.log('🌟 Cupão ESPECIAL detectado - vai usar Regyfit específico e mostrar banner');
     }
     
     return {
@@ -232,7 +252,7 @@ async function validateCoupon(code) {
 /**
  * Guarda dados do cupão validado na sessão
  */
-function saveCouponToSession(couponCode, couponType, planType, isSpecial = false, instructionsStepsPt = null, instructionsStepsEn = null, discountValue = null, waiveRegistrationFee = false) {
+function saveCouponToSession(couponCode, couponType, planType, isSpecial = false, instructionsStepsPt = null, instructionsStepsEn = null, discountValue = null, waiveRegistrationFee = false, discountType = null) {
   const data = {
     couponCode: couponCode.trim().toLowerCase(),
     couponType,
@@ -242,13 +262,14 @@ function saveCouponToSession(couponCode, couponType, planType, isSpecial = false
     instructionsStepsEn: instructionsStepsEn,
     discountValue: discountValue,
     waiveRegistrationFee: waiveRegistrationFee,
+    discountType: discountType,
     timestamp: new Date().toISOString()
   };
   
   sessionStorage.setItem(COUPON_CONFIG.SESSION_KEY, JSON.stringify(data));
   console.log('💾 Cupão guardado na sessão:', data);
   if (isSpecial) {
-    console.log('🌟 Cupão ESPECIAL guardado - desconto: €' + discountValue + ', dispensa seguro: ' + waiveRegistrationFee);
+    console.log('🌟 Cupão ESPECIAL guardado - tipo: ' + discountType + ', valor: ' + discountValue + ', dispensa seguro: ' + waiveRegistrationFee);
   }
 }
 
@@ -446,8 +467,14 @@ async function showRegyStep(modalId, forceNormal = false) {
   if (isSpecial && couponData && couponData.couponCode) {
     // Cupão especial - buscar integração específica da BD
     const couponCode = couponData.couponCode.toLowerCase();
-    integrationConfig = await getCouponRegyfit(couponCode, planType);
+    const couponType = couponData.couponType || null;
+    integrationConfig = await getCouponRegyfit(couponCode, planType, couponType);
     console.log(`🌟 Usando Regyfit para cupão "${couponCode.toUpperCase()}" (id_int=${integrationConfig.int}) para plano ${planType}`);
+  } else if (couponData && couponData.couponCode && couponData.couponType === 'member_email') {
+    // Cupão de sócio (member_email) - usar integração específica de member_email
+    const couponCode = couponData.couponCode.toLowerCase();
+    integrationConfig = await getCouponRegyfit(couponCode, planType, 'member_email');
+    console.log(`👥 Usando Regyfit para cupão de SÓCIO (id_int=${integrationConfig.int}) para plano ${planType}`);
   } else {
     // Cupão normal ou sem cupão - usar integração default da BD
     integrationConfig = await getDefaultRegyfit(planType);
