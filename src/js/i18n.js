@@ -44,13 +44,27 @@ const translations = {
       'about.title': 'CONHECE O ESPAÇO',
       'about.lead': 'Vem treinar com o Bruno Salgueiro, conhecido por ser o rosto por detrás das <a href="#salgueiro" class="dicas-link">"Dicas do Salgueiro"</a>, e trabalha diretamente com a sua equipa de treinadores pessoalmente selecionada.',
       'about.secondary': '<span class="brand-highlight">BE WATER</span> - O teu clube no centro de Lisboa com 3 zonas distintas: Um lounge de convívio e co-working, um ginásio de treino físico com regime de aulas de grupo e open gym e ainda um dojo dedicado à prática de artes marciais e meditação. Junta-te a esta comunidade!',
+      'gym.pillar.1.title': 'DOJO & LUTAS',
+      'gym.pillar.1.desc': 'Artes Marciais e Defesa Pessoal.',
+      'gym.pillar.2.title': 'GINÁSIO & FUNCIONAL',
+      'gym.pillar.2.desc': 'Treino de força e condicionamento.',
+      'gym.pillar.3.title': 'LOUNGE & COWORK',
+      'gym.pillar.3.desc': 'Comunidade, eventos e trabalho.',
       
       // Gym Section
       'gym.collage.mobile.instruction': '👈 Arrasta para o lado para ver mais fotos 👉',
+      'gym.gallery.alt.detail': 'Detalhe do Ginásio',
+      'gym.gallery.alt.equipment': 'Equipamento de Ginásio',
+      'gym.gallery.alt.training': 'Área de Treino',
+      'gym.gallery.alt.weights': 'Pesos do Ginásio',
+      'gym.gallery.alt.view': 'Vista do Ginásio',
+      'gym.gallery.alt.atmosphere': 'Atmosfera do Ginásio',
+      'gym.gallery.alt.details': 'Detalhes do Ginásio',
       
       
       // Reviews
       'reviews.title': 'O QUE DIZEM OS NOSSOS ATLETAS',
+      'reviews.source.google': 'Google Review',
       'reviews.1.text': '"Excelentes instalações, equipa fantástica! A melhor parte é que posso escolher livremente o que quero experimentar, desde treino funcional a artes marciais. A localização ajuda muito, com ótimos acessos de transportes públicos."',
       'reviews.1.author': '- Bernardo',
       'reviews.2.text': '"O melhor centro de treino. Os instrutores são pros, a dinâmica do treino é muito diversificada e motivadora, as instalações são impecáveis, o ambiente é ótimo. Mesmo para quem acha que não vai “aguentar” o treino, arranjam sempre uma adaptação fazível. Ainda por cima têm bom gosto musical! Como não gostar?"',
@@ -610,13 +624,27 @@ const translations = {
       'about.title': 'MEET THE SPACE',
       'about.lead': 'Come train with Bruno Salgueiro (aka <a href="https://www.instagram.com/thebrucewillow/" target="_blank" rel="noopener noreferrer" class="dicas-link">Bruce Willow</a>), known for being the face behind <a href="#salgueiro" class="dicas-link">"Dicas do Salgueiro"</a>, and work directly with his personally selected team of trainers.',
       'about.secondary': '<span class="brand-highlight">BE WATER</span> - Your club in the center of Lisbon with 3 distinct zones: A social lounge and co-working space, a physical training gym with group classes and open gym, and a dojo dedicated to martial arts and meditation practice. Join this community!',
+      'gym.pillar.1.title': 'DOJO & FIGHTS',
+      'gym.pillar.1.desc': 'Martial Arts and Self Defense.',
+      'gym.pillar.2.title': 'GYM & FUNCTIONAL',
+      'gym.pillar.2.desc': 'Strength training and conditioning.',
+      'gym.pillar.3.title': 'LOUNGE & CO-WORKING',
+      'gym.pillar.3.desc': 'Community, events and work.',
       
       // Gym Section
       'gym.collage.mobile.instruction': '👈 Swipe to see more photos 👉',
+      'gym.gallery.alt.detail': 'Gym Detail',
+      'gym.gallery.alt.equipment': 'Gym Equipment',
+      'gym.gallery.alt.training': 'Training Area',
+      'gym.gallery.alt.weights': 'Gym Weights',
+      'gym.gallery.alt.view': 'Gym View',
+      'gym.gallery.alt.atmosphere': 'Gym Atmosphere',
+      'gym.gallery.alt.details': 'Gym Details',
       
       
       // Reviews
       'reviews.title': 'WHAT OUR ATHLETES SAY',
+      'reviews.source.google': 'Google Review',
       'reviews.1.text': '"Great amenities, amazing staff! The best thing about it is that I can freely choose what I want to try out, from bodywork training, martial arts. Location helps a lot, with great access from public transportation."',
       'reviews.1.author': '- Bernardo',
       'reviews.2.text': '"The best training center. The instructors are pros, the training dynamics are very diverse and motivating, the facilities are impeccable, the atmosphere is great. Even for those who think they won\'t “handle” the workout, they always find a feasible adaptation. Plus, they have great taste in music! How can you not like it?"',
@@ -1375,6 +1403,8 @@ const translations = {
         // Verificar se é um input placeholder
         if (element.tagName === 'INPUT' && element.type !== 'submit') {
           element.placeholder = translation;
+        } else if (element.tagName === 'IMG') {
+          element.alt = translation;
         } else {
           element.innerHTML = translation;
           // Esconder elemento se tradução for vazia
