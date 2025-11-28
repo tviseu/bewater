@@ -277,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Create form data manually
         const formData = new FormData();
         formData.append('email', email);
-        formData.append('_subject', 'Nova subscrição newsletter BE WATER');
+        formData.append('_email.subject', 'Nova subscrição newsletter BE WATER');
         
         const response = await fetch(originalAction, {
           method: 'POST',

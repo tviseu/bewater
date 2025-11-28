@@ -280,10 +280,7 @@
         <div id="inscricao" class="card card--accent">
           <h2 style="margin-top:0" data-i18n="evento.form.title">Inscrição</h2>
           <div class="form-surface event-closed">
-            <form id="inscricao-form" class="form" action="https://formspree.io/f/mqayzgvw" method="POST">
-              <input type="hidden" name="_subject" value="Inscrição Evento de Nutrição - BE WATER">
-              <input type="hidden" name="_next" value="../eventos.html#inscrito">
-              <input type="text" name="_gotcha" style="display:none">
+            <form id="inscricao-form" class="form" novalidate>
 
               <label for="nome">Nome</label>
               <input id="nome" name="nome" type="text" placeholder="O teu nome" autocomplete="name" required>
@@ -435,6 +432,102 @@
     if (savedLang !== 'pt') {
       switchLanguage(savedLang);
     }
+
+    // Form submission handler for Formspark
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('inscricao-form');
+      const formSurface = form.closest('.form-surface');
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const errorMsg = document.getElementById('inscricao-error');
+      const checkboxError = document.getElementById('checkbox-error');
+      
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Prevent submission if event is closed
+        if (formSurface && formSurface.classList.contains('event-closed')) {
+          console.log('Evento encerrado - submissão bloqueada');
+          return false;
+        }
+        
+        // Reset error messages
+        errorMsg.style.display = 'none';
+        checkboxError.style.display = 'none';
+        
+        // Get form data
+        const formData = new FormData(form);
+        const nome = formData.get('nome');
+        const email = formData.get('email');
+        const telemovel = formData.get('telemovel');
+        const observacoes = formData.get('observacoes') || '';
+        const consentimento = formData.get('consentimento');
+        
+        // Get selected checkboxes
+        const participacao = [];
+        const checkboxes = form.querySelectorAll('input[name="participacao[]"]:checked');
+        checkboxes.forEach(cb => participacao.push(cb.value));
+        
+        // Validate at least one participation option
+        if (participacao.length === 0) {
+          checkboxError.style.display = 'block';
+          return;
+        }
+        
+        // Validate consent
+        if (!consentimento) {
+          errorMsg.textContent = 'Precisas de aceitar o tratamento de dados.';
+          errorMsg.style.display = 'block';
+          return;
+        }
+        
+        // Disable submit button
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'A enviar...';
+        
+        try {
+          const response = await fetch('https://submit-form.com/VWeqgDqZu', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              event_name: 'Nutrição',
+              _email: {
+                subject: 'Inscrição Evento de Nutrição - BE WATER'
+              },
+              nome: nome,
+              email: email,
+              telemovel: telemovel,
+              participacao: participacao.join(', '),
+              observacoes: observacoes,
+              data_inscricao: new Date().toLocaleString('pt-PT')
+            })
+          });
+          
+          if (!response.ok) {
+            throw new Error('Erro no envio');
+          }
+          
+          // Success - show message and reset form
+          form.innerHTML = `
+            <div style="text-align: center; padding: 2rem; background: #e8f5e9; border: 2px solid #4caf50; border-radius: 4px;">
+              <h3 style="color: #2e7d32; margin-bottom: 1rem;">✅ Inscrição Recebida!</h3>
+              <p style="margin-bottom: 1rem;">Obrigado pelo interesse. Receberás um email de confirmação em breve.</p>
+              <p><strong>BE WATER, MY FRIEND.</strong></p>
+            </div>
+          `;
+          
+        } catch (error) {
+          console.error('Erro ao submeter form:', error);
+          errorMsg.textContent = 'Ocorreu um erro ao enviar. Tenta novamente.';
+          errorMsg.style.display = 'block';
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
+      });
+    });
   </script>
 </body>
 </html>

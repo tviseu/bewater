@@ -484,6 +484,13 @@
     document.getElementById('inscricao-form').addEventListener('submit', async function(e) {
       e.preventDefault();
       
+      // Prevent submission if event is closed
+      const formSurface = this.closest('.form-surface');
+      if (formSurface && formSurface.classList.contains('event-closed')) {
+        console.log('Evento encerrado - submissão bloqueada');
+        return false;
+      }
+      
       // Get form values
       const nome = document.getElementById('nome').value.trim();
       const email = document.getElementById('email').value.trim();
@@ -525,15 +532,19 @@
         const result = await response.json();
         
         if (result.success) {
-          // Enviar dados para Formspree (notificação email)
+          // Enviar dados para Formspark (notificação email)
           try {
-            await fetch('https://formspree.io/f/mrbyvbkq', {
+            await fetch('https://submit-form.com/VWeqgDqZu', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json'
               },
               body: JSON.stringify({
-                _subject: 'Inscrição São Martinho - BE WATER',
+                event_name: 'São Martinho',
+                _email: {
+                  subject: 'Inscrição São Martinho - BE WATER'
+                },
                 nome: nome,
                 email: email,
                 telemovel: phone,
@@ -543,8 +554,8 @@
                 data_inscricao: new Date().toLocaleString('pt-PT')
               })
             });
-          } catch (formspreeError) {
-            console.log('Erro Formspree (não crítico):', formspreeError);
+          } catch (formsparkError) {
+            console.log('Erro Formspark (não crítico):', formsparkError);
           }
           
           showSuccess('✅ Pedido de pagamento enviado! Abre a app MBWay no teu telemóvel para confirmar o pagamento de €15.00. Após confirmação, receberás email com os detalhes da inscrição.');
