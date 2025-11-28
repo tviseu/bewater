@@ -88,19 +88,62 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.classList.add('modal-open');
         console.log('Modal opened:', modalId);
         
-        // Check if this is a PLAN modal (with coupon system) or a PACK modal (direct purchase)
+        // Check if this is a PLAN modal (with pricing request form) or a PACK/COUPON modal
+        const pricingRequestForm = modal.querySelector('.pricing-request-form');
         const couponPreForm = modal.querySelector('.coupon-pre-form');
+        const requestCodeForm = modal.querySelector('.request-code-form');
         const regyContainer = modal.querySelector('.modal-regy-container');
         
-        if (couponPreForm && regyContainer) {
-          // PLAN modal (Elite/Rise/Starter) - start with coupon form visible
+        if (pricingRequestForm) {
+          // PLAN modal (Elite/Rise/Starter) - always show pricing request form
+          pricingRequestForm.style.display = 'block';
+          if (requestCodeForm) requestCodeForm.style.display = 'none';
+          if (regyContainer) regyContainer.style.display = 'none';
+          
+          // Reset pricing request form state
+          const pricingForm = pricingRequestForm.querySelector('form');
+          const pricingSuccess = modal.querySelector('.pricing-request-success');
+          const submitBtn = pricingForm ? pricingForm.querySelector('button[type="submit"]') : null;
+          
+          if (pricingForm) pricingForm.reset();
+          if (pricingSuccess) pricingSuccess.style.display = 'none';
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = window.i18n ? window.i18n.t('pricing_request.submit') : 'PEDIR INFORMAÇÃO';
+          }
+          
+          console.log('  ✅ Plan modal initialized with pricing request form visible');
+        } else if (couponPreForm) {
+          // COUPON modal (Elite/Rise/Starter coupon systems) - show coupon form
           couponPreForm.style.display = 'block';
-          regyContainer.style.display = 'none';
-          console.log('  ✅ Plan modal initialized with coupon form visible');
-        } else if (regyContainer && !couponPreForm) {
+          if (requestCodeForm) requestCodeForm.style.display = 'none';
+          if (regyContainer) regyContainer.style.display = 'none';
+          console.log('  ✅ Coupon modal initialized with coupon form visible');
+        } else if (regyContainer) {
           // PACK modal (Pack5/Pack10/etc) - show Regyfit directly
           regyContainer.style.display = 'block';
+          if (requestCodeForm) requestCodeForm.style.display = 'none';
           console.log('  ✅ Pack modal initialized with Regyfit visible');
+        }
+        
+        // TRIAL modal - reset form state when opening
+        if (modalId === 'trial') {
+          const trialForm = modal.querySelector('#trial-booking-form');
+          const trialSuccessMessage = modal.querySelector('#trial-success-message');
+          const trialIntro = modal.querySelector('.trial-intro');
+          const submitBtn = trialForm ? trialForm.querySelector('button[type="submit"]') : null;
+          
+          if (trialForm) {
+            trialForm.style.display = 'block';
+            trialForm.reset();
+          }
+          if (trialIntro) trialIntro.style.display = 'block';
+          if (trialSuccessMessage) trialSuccessMessage.style.display = 'none';
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = window.i18n ? window.i18n.t('trial.form.submit') : 'SOLICITAR AULA GRÁTIS';
+          }
+          console.log('  ✅ Trial modal reset and ready for new submission');
         }
         
         // Setup email validation when modal opens (for trial and request forms)
@@ -233,23 +276,38 @@ document.addEventListener('DOMContentLoaded', function() {
         successInfo.style.display = 'none';
       }
       
-      // Mostrar pré-form e esconder REGYFIT
+      // Reset all forms to default state - show pricing request
+      const pricingRequestForm = document.querySelector(`#modal-${modalId} .pricing-request-form`);
+      const pricingRequestSuccess = document.querySelector(`#modal-${modalId} .pricing-request-success`);
+      const requestCodeForm = document.querySelector(`#modal-${modalId} .request-code-form`);
       const regyContainer = document.querySelector(`#modal-${modalId} .modal-regy-container`);
       
+      if (pricingRequestForm) {
+        pricingRequestForm.style.display = 'block';
+      }
+      
+      if (pricingRequestSuccess) {
+        pricingRequestSuccess.style.display = 'none';
+      }
+      
       if (couponPreForm) {
-        couponPreForm.style.display = 'block';
+        couponPreForm.setAttribute('style', 'display: none !important;');
+      }
+      
+      if (requestCodeForm) {
+        requestCodeForm.style.display = 'none';
       }
       
       if (regyContainer) {
         regyContainer.style.display = 'none';
       }
       
-      // Limpar sessionStorage
+      // Limpar sessionStorage coupon data
       if (typeof window.CouponSystem !== 'undefined') {
         window.CouponSystem.clearSession();
       }
       
-      console.log(`✅ Cupão reset para modal: ${modalId}`);
+      console.log(`✅ Modal reset para estado inicial: ${modalId}`);
     }
     
     // Attach event listeners to pricing buttons

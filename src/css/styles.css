@@ -1174,6 +1174,10 @@ section {
   padding: var(--spacing-md);
   text-align: center;
   border-bottom: var(--border-thick);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .price-card--featured .price-card__header {
@@ -1241,6 +1245,60 @@ section {
   text-align: center;
 }
 
+.price-card__anchor {
+  margin: 0 0 var(--spacing-sm) 0;
+  font-weight: 900;
+  font-size: 1.2rem;
+  color: var(--color-black);
+  text-align: center;
+  background-color: #FFD700;
+  padding: 0.5rem 1rem;
+  border: 3px solid #000000;
+  box-shadow: 4px 4px 0 #000000;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Price Card Coupon Link */
+.price-card__coupon-link {
+  margin-top: var(--spacing-sm);
+  text-align: center;
+}
+
+.price-card__coupon-btn {
+  background: none;
+  border: none;
+  color: #0066cc; /* Blue color */
+  font-family: var(--font-body); /* Space Mono - fonte do site */
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.price-card__coupon-btn:hover {
+  color: #004499; /* Darker blue on hover */
+}
+
+.price-card__subtitle {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #000000;
+  text-align: center;
+  background-color: #FFFFFF;
+  padding: 0.4rem 1rem;
+  border: 2px solid #000000;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Enhanced pricing buttons - neobrutalist style with site colors */
 .pricing .btn {
   background-color: #0088CC;
@@ -1292,9 +1350,16 @@ section {
 .pricing__promo-text {
   text-align: center;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   margin-bottom: var(--spacing-md);
   color: var(--color-black);
+  line-height: 1.6;
+}
+
+.pricing__promo-text strong {
+  font-weight: 900;
+  color: #0088CC;
+  font-size: 1.3rem;
 }
 /* Contact Section */
 .contact {
@@ -2644,7 +2709,7 @@ section {
   color: #FFFFFF;
   border: 3px solid #000000;
   padding: 0.75rem 1rem;
-  margin: 0.5rem 0;
+  margin: 0.5rem 0 0.5rem -1rem; /* Negative left margin to align with other items */
   box-shadow: 4px 4px 0 #000000;
   font-weight: 900;
   animation: priceGlowMobile 2s ease-in-out infinite;
@@ -8341,9 +8406,9 @@ html, body {
   padding: 2rem;
   margin-bottom: 2rem;
   box-shadow: 12px 12px 0 var(--color-black);
-  display: block;
   position: relative;
   overflow: hidden;
+  display: none; /* Hidden by default, shown via JS */
 }
 
 .coupon-pre-form::before {
@@ -9298,181 +9363,261 @@ html, body {
 }
 
 /* ============================================
-   FLOATING CONTACT BUTTONS
+   MOBILE BOTTOM ACTION BAR
    ============================================ */
 
-.floating-contacts {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+/* Hide on desktop - mobile only */
+.mobile-bottom-bar {
+  display: none;
 }
 
-.floating-contacts__button {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1rem 1.25rem;
-  background-color: #FFFFFF;
-  border: 3px solid #000000;
-  box-shadow: 6px 6px 0 #000000;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  font-family: var(--font-primary);
-  font-weight: 700;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+/* Hide mobile bottom bar when modal is open */
+body.modal-open .mobile-bottom-bar {
+  display: none !important;
 }
 
-.floating-contacts__button:hover {
-  transform: translate(3px, 3px);
-  box-shadow: 3px 3px 0 #000000;
-}
-
-.floating-contacts__button:active {
-  transform: translate(6px, 6px);
-  box-shadow: none;
-}
-
-.floating-contacts__button svg {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
-}
-
-.floating-contacts__button--whatsapp {
-  color: #25D366;
-  border-color: #25D366;
-  box-shadow: 6px 6px 0 #25D366;
-}
-
-.floating-contacts__button--whatsapp:hover {
-  background-color: #E8F8F0;
-  box-shadow: 3px 3px 0 #25D366;
-}
-
-.floating-contacts__button--whatsapp:active {
-  box-shadow: none;
-}
-
-.floating-contacts__button--instagram {
-  color: #E1306C;
-  border-color: #E1306C;
-  box-shadow: 6px 6px 0 #E1306C;
-}
-
-.floating-contacts__button--instagram:hover {
-  background-color: #FCE8F3;
-  box-shadow: 3px 3px 0 #E1306C;
-}
-
-.floating-contacts__button--instagram:active {
-  box-shadow: none;
-}
-
-.floating-contacts__button--trial {
-  color: #FFD700;
-  background-color: #FFFFFF;
-  border-color: #FFD700;
-  box-shadow: 6px 6px 0 #FFD700;
-  cursor: pointer;
-}
-
-.floating-contacts__button--trial:hover {
-  background-color: #FFFEF0;
-  box-shadow: 3px 3px 0 #FFD700;
-}
-
-.floating-contacts__button--trial:active {
-  box-shadow: none;
-}
-
-.floating-contacts__label {
-  white-space: nowrap;
-}
-
-/* Mobile responsive */
 @media (max-width: 768px) {
-  .floating-contacts {
-    bottom: 1rem;
-    right: 1rem;
-    gap: 0.75rem;
+  .mobile-bottom-bar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 9999;
+    background-color: #FFFFFF;
+    border-top: 4px solid #000000;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+    padding: 0;
+    gap: 0;
   }
 
-  .floating-contacts__button {
-    padding: 0.875rem 1rem;
-    font-size: 0.8rem;
-    gap: 0.5rem;
+  .mobile-bottom-bar__main-cta {
+    flex: 0 0 85%;
+    width: 85%;
+    background-color: #FFD700;
+    color: #000000;
+    border: none;
+    border-right: 4px solid #000000;
+    padding: 1rem;
+    font-family: var(--font-primary);
+    font-weight: 900;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .mobile-bottom-bar__main-cta:active {
+    background-color: #FFC700;
+    transform: scale(0.98);
+  }
+
+  .mobile-bottom-bar__menu {
+    flex: 0 0 15%;
+    width: 15%;
+    position: relative;
+  }
+
+  .mobile-bottom-bar__menu-button {
+    width: 100%;
+    height: 100%;
+    background-color: #FFFFFF;
+    border: none;
+    padding: 1rem 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+  }
+
+  .mobile-bottom-bar__menu-button:active {
+    background-color: #F5F5F5;
+  }
+
+  .mobile-bottom-bar__menu-button svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .mobile-bottom-bar__dropdown {
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    background-color: #FFFFFF;
+    border: 4px solid #000000;
     box-shadow: 4px 4px 0 #000000;
+    min-width: 200px;
+    margin-bottom: 0.5rem;
+    display: none;
+    flex-direction: column;
   }
 
-  .floating-contacts__button:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0 #000000;
+  .mobile-bottom-bar__dropdown.active {
+    display: flex;
   }
 
-  .floating-contacts__button:active {
-    transform: translate(4px, 4px);
-    box-shadow: none;
+  .mobile-bottom-bar__dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    text-decoration: none;
+    color: #000000;
+    font-family: var(--font-primary);
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-bottom: 3px solid #000000;
+    transition: background-color 0.2s ease;
   }
 
-  .floating-contacts__button--whatsapp {
-    box-shadow: 4px 4px 0 #25D366;
+  .mobile-bottom-bar__dropdown-item:last-child {
+    border-bottom: none;
   }
 
-  .floating-contacts__button--whatsapp:hover {
-    box-shadow: 2px 2px 0 #25D366;
+  .mobile-bottom-bar__dropdown-item:hover,
+  .mobile-bottom-bar__dropdown-item:active {
+    background-color: #F5F5F5;
   }
 
-  .floating-contacts__button--instagram {
-    box-shadow: 4px 4px 0 #E1306C;
-  }
-
-  .floating-contacts__button--instagram:hover {
-    box-shadow: 2px 2px 0 #E1306C;
-  }
-
-  .floating-contacts__button--trial {
-    box-shadow: 4px 4px 0 #FFD700;
-  }
-
-  .floating-contacts__button--trial:hover {
-    box-shadow: 2px 2px 0 #FFD700;
-  }
-
-  .floating-contacts__button svg {
+  .mobile-bottom-bar__dropdown-item svg {
     width: 20px;
     height: 20px;
+    flex-shrink: 0;
   }
 
-  .floating-contacts__label {
-    font-size: 0.75rem;
+  .mobile-bottom-bar__dropdown-item:first-child svg {
+    fill: #25D366;
+  }
+
+  .mobile-bottom-bar__dropdown-item:last-child svg {
+    fill: #E1306C;
   }
 }
 
-/* Small mobile - compact version */
-@media (max-width: 480px) {
-  .floating-contacts {
-    bottom: 0.75rem;
-    right: 0.75rem;
+/* Desktop Floating Action Button Group */
+.desktop-fab {
+  display: none;
+}
+
+/* Hide desktop FAB when modal is open */
+body.modal-open .desktop-fab {
+  display: none !important;
+}
+
+@media (min-width: 769px) {
+  .desktop-fab {
+    display: block;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 9998;
   }
 
-  .floating-contacts__button {
-    padding: 0.75rem 0.875rem;
-    font-size: 0.7rem;
+  /* Main CTA Button */
+  .desktop-fab__button {
+    background-color: #FFD700;
+    color: #000000;
+    border: 4px solid #000000;
+    box-shadow: 6px 6px 0 #000000;
+    padding: 1rem 1.5rem;
+    font-family: var(--font-primary);
+    font-weight: 900;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    animation: fab-pulse 2s ease-in-out infinite;
+    display: block;
+    width: 100%;
   }
 
-  .floating-contacts__label {
-    display: none;
+  .desktop-fab__button:hover {
+    background-color: #000000;
+    color: #FFD700;
+    transform: translate(-3px, -3px);
+    box-shadow: 9px 9px 0 #000000;
   }
 
-  .floating-contacts__button svg {
-    width: 28px;
-    height: 28px;
+  @keyframes fab-pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+
+  /* Secondary Actions (WhatsApp & Instagram) */
+  .desktop-fab__secondary {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+  }
+
+  .desktop-fab__secondary-btn {
+    width: 50px;
+    height: 50px;
+    background-color: #FFFFFF;
+    border: 3px solid #000000;
+    box-shadow: 4px 4px 0 #000000;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+
+  .desktop-fab__secondary-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 #000000;
+  }
+
+  .desktop-fab__secondary-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .desktop-fab__secondary-btn--whatsapp svg {
+    fill: #25D366;
+  }
+
+  .desktop-fab__secondary-btn--instagram svg {
+    fill: #E1306C;
+  }
+
+  /* Tooltip on hover */
+  .desktop-fab__secondary-btn {
+    position: relative;
+  }
+
+  .desktop-fab__secondary-btn::before {
+    content: attr(aria-label);
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #000000;
+    color: #FFFFFF;
+    padding: 0.5rem 0.75rem;
+    font-family: var(--font-primary);
+    font-size: 0.875rem;
+    font-weight: 700;
+    white-space: nowrap;
+    margin-right: 0.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .desktop-fab__secondary-btn:hover::before {
+    opacity: 1;
   }
 }
 
@@ -9483,6 +9628,7 @@ html, body {
 .trial-form-container {
   max-width: 600px;
   margin: 0 auto;
+  padding-bottom: 3rem; /* Extra space at bottom */
 }
 
 .trial-intro {
@@ -9638,37 +9784,104 @@ html, body {
   animation: none;
 }
 
-/* Hero CTA button spacing */
+/* Hero CTA - Single Button + Microcopy Layout */
 .hero__cta {
   display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.hero__cta-eyebrow {
+  font-family: var(--font-primary);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-gray);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.hero__cta-main {
+  background-color: #FFD700;
+  color: #000000;
+  border: 4px solid #000000;
+  box-shadow: 8px 8px 0 #000000;
+  padding: 1.5rem 3rem;
+  font-family: var(--font-primary);
+  font-weight: 900;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  max-width: 500px;
+  animation: hero-cta-pulse 2s ease-in-out infinite;
+}
+
+.hero__cta-main:hover {
+  background-color: #000000;
+  color: #FFD700;
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0 #000000;
+  animation: none;
+}
+
+.hero__cta-main:active {
+  transform: translate(4px, 4px);
+  box-shadow: 4px 4px 0 #000000;
+}
+
+@keyframes hero-cta-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+.hero__cta-benefits {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+  padding: 0;
   justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero__cta-benefits li {
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-gray);
+  display: flex;
   align-items: center;
 }
 
-/* Make hero buttons EXACTLY the same size */
-.hero__cta .btn {
-  /* Force exact same size for both buttons */
-  font-size: 1.6rem !important;
-  padding: calc(var(--spacing-md) + 0.8rem) calc(var(--spacing-lg) + 1.5rem) !important;
-  border-width: 3px !important;
-  box-shadow: 6px 6px 0 #000000 !important;
-  font-family: var(--font-heading) !important;
-  font-weight: 900 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 2px !important;
-  text-align: center !important;
-  display: inline-block !important;
-  line-height: 1 !important;
+.hero__cta-secondary {
+  margin-top: 1rem;
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  color: var(--color-gray);
+  text-align: center;
 }
 
-/* Force secondary button (trial) to be AMARELO #FFD700 in hero */
-.hero__cta .btn--secondary {
-  background-color: #FFD700 !important;
-  color: #000000 !important;
-  /* Inherit all sizing from .hero__cta .btn above */
+.hero__cta-link {
+  color: #0088CC;
+  text-decoration: underline;
+  font-weight: 700;
+  transition: color 0.2s ease;
 }
+
+.hero__cta-link:hover {
+  color: #000000;
+}
+
+/* Mobile responsive hero CTA */
 
 /* Mobile responsive */
 @media (max-width: 768px) {
@@ -9694,6 +9907,7 @@ html, body {
     padding: 1rem 1.5rem;
     font-size: 1rem;
     box-shadow: 4px 4px 0 #000000;
+    margin-bottom: 2rem; /* Extra space at bottom for mobile */
   }
 
   .trial-form .btn--full:hover {
@@ -9728,27 +9942,41 @@ html, body {
   }
 
   .hero__cta {
-    flex-direction: column;
-    width: 100%;
+    padding: 0 1rem;
   }
 
-  .hero__cta .btn {
-    width: 100% !important;
-    text-align: center !important;
-    font-size: 1.4rem !important;
-    padding: calc(var(--spacing-sm) + 0.4rem) calc(var(--spacing-md) + 0.7rem) !important;
-    box-shadow: 4px 4px 0 #000000 !important;
-    letter-spacing: 1.5px !important;
+  .hero__cta-eyebrow {
+    font-size: 1.2rem;
   }
 
-  .hero__cta .btn:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0 #000000 !important;
+  .hero__cta-main {
+    font-size: 1.4rem;
+    padding: 1.25rem 2rem;
+    box-shadow: 6px 6px 0 #000000;
+  }
+
+  .hero__cta-main:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0 #000000;
   }
   
-  .hero__cta .btn:active {
-    transform: translate(4px, 4px);
-    box-shadow: none !important;
+  .hero__cta-main:active {
+    transform: translate(3px, 3px);
+    box-shadow: 3px 3px 0 #000000;
+  }
+
+  .hero__cta-benefits {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .hero__cta-benefits li {
+    font-size: 0.95rem;
+  }
+
+  .hero__cta-secondary {
+    font-size: 0.95rem;
   }
 }
 
@@ -9908,6 +10136,203 @@ html, body {
   background-color: #E8F8F0;
   border: 3px solid #25D366;
   box-shadow: 8px 8px 0 #25D366;
+}
+
+/* ============================================
+   PRICING REQUEST FORM (LEAD CAPTURE)
+   ============================================ */
+
+.pricing-request-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.pricing-request-form__header {
+  background-color: #0088CC;
+  border: 3px solid #000000;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 6px 6px 0 #000000;
+  text-align: center;
+}
+
+.pricing-request-form__title {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #FFFFFF;
+  font-family: var(--font-primary);
+  text-transform: uppercase;
+}
+
+.pricing-request-form__subtitle {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #FFFFFF;
+}
+
+.pricing-request-form__inputs .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.pricing-request-form__inputs label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  font-family: var(--font-primary);
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+.pricing-request-form__inputs input[type="text"],
+.pricing-request-form__inputs input[type="tel"],
+.pricing-request-form__inputs input[type="email"] {
+  width: 100%;
+  padding: 1rem;
+  border: 3px solid #000000;
+  background-color: #FFFFFF;
+  font-family: var(--font-secondary);
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.pricing-request-form__inputs input:focus {
+  outline: none;
+  border-color: #0088CC;
+  box-shadow: 4px 4px 0 #0088CC;
+  transform: translate(-2px, -2px);
+}
+
+.pricing-request-form__submit {
+  width: 100%;
+  padding: 1rem 2rem;
+  background-color: #FFD700;
+  color: #000000;
+  border: 3px solid #000000;
+  font-family: var(--font-primary);
+  font-weight: 900;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 6px 6px 0 #000000;
+  margin-top: 1.5rem;
+}
+
+.pricing-request-form__submit:hover {
+  background-color: #000000;
+  color: #FFD700;
+  transform: translate(3px, 3px);
+  box-shadow: 3px 3px 0 #FFD700;
+}
+
+.pricing-request-form__submit:active {
+  transform: translate(6px, 6px);
+  box-shadow: none;
+}
+
+.pricing-request-form__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pricing-request-form__coupon-link {
+  display: block;
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #E0E0E0;
+}
+
+.pricing-request-form__coupon-link button {
+  background: none;
+  border: none;
+  color: #0088CC;
+  text-decoration: underline;
+  font-family: var(--font-secondary);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.pricing-request-form__coupon-link button:hover {
+  color: #006699;
+}
+
+/* Success State */
+.pricing-request-success {
+  text-align: center;
+  padding: 2rem;
+}
+
+.pricing-request-success__icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.pricing-request-success__title {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  color: #000000;
+  font-family: var(--font-primary);
+  text-transform: uppercase;
+}
+
+.pricing-request-success__message {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #000000;
+  margin-bottom: 2rem;
+}
+
+.pricing-request-upsell {
+  background-color: #E8F8F0;
+  border: 3px solid #000000;
+  padding: 2rem;
+  margin-top: 2rem;
+  box-shadow: 6px 6px 0 #000000;
+}
+
+.pricing-request-upsell__text {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #000000;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.pricing-request-upsell__cta {
+  width: 100%;
+  padding: 1rem 2rem;
+  background-color: #FFD700;
+  color: #000000;
+  border: 3px solid #000000;
+  font-family: var(--font-primary);
+  font-weight: 900;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 6px 6px 0 #000000;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.pricing-request-upsell__cta:hover {
+  background-color: #000000;
+  color: #FFD700;
+  transform: translate(3px, 3px);
+  box-shadow: 3px 3px 0 #FFD700;
+}
+
+.pricing-request-upsell__cta:active {
+  transform: translate(6px, 6px);
+  box-shadow: none;
 }
 
 .request-code-success .success-icon {

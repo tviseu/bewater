@@ -73,12 +73,15 @@ async function getCouponRegyfit(couponCode, planType, couponType = null) {
  * @returns {Promise<{id: number, int: number}>}
  */
 async function getDefaultRegyfit(planType) {
+  // Normalize planType (remove -coupon suffix if present)
+  const normalizedPlanType = planType.replace('-coupon', '');
+  
   try {
     const { data, error } = await supabase
       .from('coupon_regyfit_integrations')
       .select('iframe_id, integration_id')
       .eq('coupon_code', '_default')
-      .eq('plan_type', planType)
+      .eq('plan_type', normalizedPlanType)
       .limit(1);
     
     if (!error && data && data.length > 0) {
@@ -87,13 +90,13 @@ async function getDefaultRegyfit(planType) {
     }
     
     // Fallback hardcoded caso a BD não tenha dados
-    console.warn('⚠️ Usando fallback hardcoded para integração default');
+    console.warn(`⚠️ Usando fallback hardcoded para integração default (${normalizedPlanType})`);
     const fallback = {
       elite: { id: 5, int: 1 },
       rise: { id: 6, int: 3 },
       starter: { id: 7, int: 2 }
     };
-    return fallback[planType];
+    return fallback[normalizedPlanType] || fallback.elite; // Default to elite if not found
     
   } catch (err) {
     console.error('❌ Erro ao buscar default Regyfit, usando fallback:', err);
@@ -102,7 +105,7 @@ async function getDefaultRegyfit(planType) {
       rise: { id: 6, int: 3 },
       starter: { id: 7, int: 2 }
     };
-    return fallback[planType];
+    return fallback[normalizedPlanType] || fallback.elite; // Default to elite if not found
   }
 }
 
@@ -459,7 +462,8 @@ async function showRegyStep(modalId, forceNormal = false) {
   }
   
   // Extrair o tipo de plano do modalId (ex: 'modal-elite' -> 'elite')
-  const planType = modalId.replace('modal-', '');
+  // Normalize planType (remove -coupon suffix if present)
+  const planType = modalId.replace('modal-', '').replace('-coupon', '');
   
   // Determinar qual iframe mostrar usando a BD
   let integrationConfig;
@@ -469,21 +473,39 @@ async function showRegyStep(modalId, forceNormal = false) {
     const couponCode = couponData.couponCode.toLowerCase();
     const couponType = couponData.couponType || null;
     integrationConfig = await getCouponRegyfit(couponCode, planType, couponType);
+    if (!integrationConfig) {
+      console.error('❌ Falha ao obter configuração do cupão especial, usando fallback');
+      integrationConfig = { id: 5, int: 1 }; // Fallback to elite default
+    }
     console.log(`🌟 Usando Regyfit para cupão "${couponCode.toUpperCase()}" (id_int=${integrationConfig.int}) para plano ${planType}`);
   } else if (couponData && couponData.couponCode && couponData.couponType === 'member_email') {
     // Cupão de sócio (member_email) - usar integração específica de member_email
     const couponCode = couponData.couponCode.toLowerCase();
     integrationConfig = await getCouponRegyfit(couponCode, planType, 'member_email');
+    if (!integrationConfig) {
+      console.error('❌ Falha ao obter configuração do cupão de sócio, usando fallback');
+      integrationConfig = { id: 5, int: 1 }; // Fallback to elite default
+    }
     console.log(`👥 Usando Regyfit para cupão de SÓCIO (id_int=${integrationConfig.int}) para plano ${planType}`);
   } else {
     // Cupão normal ou sem cupão - usar integração default da BD
     integrationConfig = await getDefaultRegyfit(planType);
+    if (!integrationConfig) {
+      console.error('❌ Falha ao obter configuração default, usando fallback hardcoded');
+      integrationConfig = { id: 5, int: 1 }; // Fallback to elite default
+    }
     console.log(`📋 Usando Regyfit NORMAL (id_int=${integrationConfig.int}) para plano ${planType}`);
   }
   
+  // Determinar se estamos num modal de cupões (que tem IDs com sufixo "_coupon")
+  const isCouponModal = modalId.includes('-coupon');
+  const iframeSuffix = isCouponModal ? '_coupon' : '';
+  
   // Construir ID do iframe e input corretos
-  const iframeId = `frame_regy${integrationConfig.id}`;
-  const inputId = `src_regy${integrationConfig.id}`;
+  const iframeId = `frame_regy${integrationConfig.id}${iframeSuffix}`;
+  const inputId = `src_regy${integrationConfig.id}${iframeSuffix}`;
+  
+  console.log(`🎯 Procurando iframe: ${iframeId} (modal: ${modalId}, isCouponModal: ${isCouponModal}, integration: ${integrationConfig.int})`);
   
   // Hide ALL iframes in this modal first
   const allIframes = regyContainer.querySelectorAll('iframe[name^="frame_regy"]');
@@ -507,6 +529,7 @@ async function showRegyStep(modalId, forceNormal = false) {
     console.log(`✅ Iframe mostrado: ${iframeId}`);
   } else {
     console.error(`❌ Iframe não encontrado: ${iframeId}`);
+    console.log(`🔍 IDs disponíveis no modal:`, Array.from(allIframes).map(f => f.id));
     console.error(`   Iframes disponíveis:`, Array.from(allIframes).map(i => i.id));
   }
 

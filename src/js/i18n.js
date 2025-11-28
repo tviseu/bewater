@@ -23,7 +23,13 @@ const translations = {
       // Hero Section
       'hero.title': 'BE WATER,<br>MY FRIEND',
       'hero.subtitle': 'Desenvolve a tua força, agilidade e flexibilidade num espaço que reflecte a filosofia "be water" popularizada por Bruce Lee. Vem fazer parte desta corrente.',
-      'hero.cta': 'INSCREVE-TE JÁ',
+      'hero.cta_eyebrow': 'Experimenta 1 Aula Grátis',
+      'hero.cta_main': 'RESERVA A TUA VAGA',
+      'hero.benefit1': '✓ Sem compromisso',
+      'hero.benefit2': '✓ Conhece os coaches',
+      'hero.benefit3': '✓ Treino completo incluído',
+      'hero.secondary_text': 'Já conheces os planos?',
+      'hero.secondary_link': 'Ver preços',
       
       // Event Section
       'event.eyebrow': 'EVENTO!',
@@ -44,29 +50,47 @@ const translations = {
       
       // Pricing Section
       'pricing.title': 'PLANOS',
-      'pricing.promo': 'Escolhe o plano ideal para ti e começa a treinar!',
+      'pricing.promo_part1': 'Planos desde',
+      'pricing.promo_price': '3,7€ por treino',
+      'pricing.promo_part2': 'Treino em',
+      'pricing.promo_highlight_blue': 'grupos exclusivos',
+      'pricing.promo_part3': 'e acompanhamento contínuo dos nossos coaches — funciona para quem está a',
+      'pricing.promo_highlight_blue2': 'dar os primeiros passos',
+      'pricing.promo_part4': 'e para quem quer',
+      'pricing.promo_highlight_blue3': 'elevar o nível',
       'pricing.period': '/mês',
+      'pricing.anchor_text': 'Desde 5€ / treino',
       'pricing.elite.title': 'ELITE',
+      'pricing.elite.subtitle': 'Plano Sem Limites',
+      'pricing.elite.anchor': 'A partir de 3,7€ / treino',
       'pricing.elite.price': '€84.90',
       'pricing.elite.original': '€94.90',
-      'pricing.elite.cta': 'INSCREVE-TE JÁ',
-          'pricing.elite.feature1': 'Acesso livre trânsito (ilimitado) a todas as modalidades e open gym',
-    'pricing.elite.feature2': 'Sem fidelização',
-    'pricing.elite.feature3': 'A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar',
+      'pricing.elite.cta': 'VER TABELA DE PREÇOS',
+      'pricing.coupon_link': 'Tens cupão? Inscreve-te aqui',
+      'pricing.elite.feature1': 'Acesso livre trânsito (ilimitado) a todas as modalidades e open gym',
+      'pricing.elite.feature2': 'Sem fidelização',
+      'pricing.elite.feature3': 'Acesso ilimitado ao lounge & co-working',
+      'pricing.elite.feature4': 'A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar',
       'pricing.rise.title': 'RISE',
+      'pricing.rise.subtitle': 'Plano Consistência',
+      'pricing.rise.anchor': 'A partir de 6,2€ / treino',
       'pricing.rise.price': '€69.90',
       'pricing.rise.original': '€79.90',
-      'pricing.rise.cta': 'INSCREVE-TE JÁ',
-          'pricing.rise.feature1': 'Acesso 3x por semana a todas as modalidades e open gym',
-    'pricing.rise.feature2': 'Sem fidelização',
-    'pricing.rise.feature3': 'A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar',
+      'pricing.rise.cta': 'VER TABELA DE PREÇOS',
+      'pricing.rise.feature1': 'Acesso 3x por semana a todas as modalidades e open gym (podes assistir a várias aulas no mesmo dia)',
+      'pricing.rise.feature2': 'Sem fidelização',
+      'pricing.rise.feature3': 'Acesso ilimitado ao lounge & co-working',
+      'pricing.rise.feature4': 'A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar',
       'pricing.starter.title': 'STARTER',
+      'pricing.starter.subtitle': 'Plano Introdução',
+      'pricing.starter.anchor': 'A partir de 7,2€ / treino',
       'pricing.starter.price': '€54.90',
       'pricing.starter.original': '€64.90',
-      'pricing.starter.cta': 'INSCREVE-TE JÁ',
-          'pricing.starter.feature1': 'Acesso 2x por semana a todas as modalidades e open gym',
-    'pricing.starter.feature2': 'Sem fidelização',
-    'pricing.starter.feature3': 'A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar',
+      'pricing.starter.cta': 'VER TABELA DE PREÇOS',
+      'pricing.starter.feature1': 'Acesso 2x por semana a todas as modalidades e open gym (podes assistir a várias aulas no mesmo dia)',
+      'pricing.starter.feature2': 'Sem fidelização',
+      'pricing.starter.feature3': 'Acesso ilimitado ao lounge & co-working',
+      'pricing.starter.feature4': 'A mensalidade do primeiro mês é cobrada apenas a partir da data em que começas a treinar',
       
       // Drop-in pricing
       'pricing.dropin.period': '/aula',
@@ -449,6 +473,7 @@ const translations = {
       'modal.privacy.contact.text': 'Para exercer os seus direitos ou esclarecer dúvidas sobre o tratamento de dados pessoais, contacte-nos através dos meios disponibilizados na seção de contacto do website.',
       
       // Coupon System
+      'coupon.modal_title': 'Inscrever com Cupão',
       'coupon.title': 'Tens um Cupão de Desconto?',
       'coupon.subtitle': 'Usa o email de um sócio ou código promocional',
       'coupon.label': 'Cupão',
@@ -469,13 +494,11 @@ const translations = {
       'coupon.special.discount_info': '🎉 <strong>Desconto Especial Aplicado!</strong>',
       'coupon.special.how_it_works': 'ℹ️ Como funciona:',
       
-      // Floating Contacts
-      'floating_contacts.trial': 'Aula Grátis',
-      'floating_contacts.whatsapp': 'WhatsApp',
-      'floating_contacts.instagram': 'Instagram',
-      'floating_contacts.trial_aria': 'Aula Experimental Grátis',
-      'floating_contacts.whatsapp_aria': 'Contactar via WhatsApp',
-      'floating_contacts.instagram_aria': 'Contactar via Instagram',
+      // Mobile Bottom Bar
+      'mobile_bottom_bar.cta': 'AULA GRÁTIS',
+      'mobile_bottom_bar.menu_label': 'Mais',
+      'mobile_bottom_bar.whatsapp': 'WhatsApp',
+      'mobile_bottom_bar.instagram': 'Instagram DM',
       
       // Trial Class Booking
       'trial.button': 'AULA EXPERIMENTAL GRÁTIS',
@@ -519,7 +542,23 @@ const translations = {
       // Discount Display
       'discount.standard_price': 'Preço Standard',
       'discount.your_discount': 'O Seu Desconto',
-      'discount.final_price': 'Preço Final'
+      'discount.final_price': 'Preço Final',
+      
+      // Pricing Request Form
+      'pricing_request.title': 'Receber Preçário Completo',
+      'pricing_request.subtitle': 'Insere os teus dados para receberes a tabela detalhada de preços e as campanhas em vigor. A nossa equipa entrará em contacto contigo brevemente.',
+      'pricing_request.name': 'Nome',
+      'pricing_request.email': 'Email',
+      'pricing_request.phone': 'Telefone (opcional)',
+      'pricing_request.submit': 'PEDIR INFORMAÇÃO',
+      'pricing_request.submitting': 'A ENVIAR...',
+      'pricing_request.error': 'Erro ao enviar formulário. Por favor tente novamente.',
+      'pricing_request.success_title': 'Obrigado!',
+      'pricing_request.success_message': 'Recebemos o teu pedido. Vamos enviar a informação para o teu email muito em breve.',
+      'pricing_request.success_upsell': 'Não precisas de esperar para treinar. Marca já a tua aula experimental sem compromisso.',
+      'pricing_request.success_cta': 'MARCAR AULA EXPERIMENTAL GRATUITA AGORA',
+      'pricing_request.have_coupon': 'Já tens um cupão de sócio? Clica aqui.',
+      'pricing_request.invalid_email': 'Por favor, insira um email válido no formato: nome@dominio.com'
     },
     en: {
       // Meta tags
@@ -540,7 +579,13 @@ const translations = {
       // Hero Section
       'hero.title': 'BE WATER,<br>MY FRIEND',
       'hero.subtitle': 'Develop your strength, agility and flexibility in a space that reflects the "be water" philosophy popularized by Bruce Lee. Come be part of this flow.',
-      'hero.cta': 'JOIN NOW',
+      'hero.cta_eyebrow': 'Try 1 Free Class',
+      'hero.cta_main': 'BOOK YOUR SPOT',
+      'hero.benefit1': '✓ No commitment',
+      'hero.benefit2': '✓ Meet the coaches',
+      'hero.benefit3': '✓ Full workout included',
+      'hero.secondary_text': 'Already know the plans?',
+      'hero.secondary_link': 'View prices',
       
       // Event Section
       'event.eyebrow': 'EVENT!',
@@ -561,29 +606,47 @@ const translations = {
       
       // Pricing Section
       'pricing.title': 'PLANS',
-      'pricing.promo': 'Choose the ideal plan for you and start training!',
+      'pricing.promo_part1': 'Plans from',
+      'pricing.promo_price': '3.7€ per session',
+      'pricing.promo_part2': 'Training in',
+      'pricing.promo_highlight_blue': 'exclusive groups',
+      'pricing.promo_part3': 'with continuous coaching from our coaches — works for those taking their',
+      'pricing.promo_highlight_blue2': 'first steps',
+      'pricing.promo_part4': 'and for those who want to',
+      'pricing.promo_highlight_blue3': 'level up',
       'pricing.period': '/month',
+      'pricing.anchor_text': 'From 5€ / session',
       'pricing.elite.title': 'ELITE',
+      'pricing.elite.subtitle': 'No Limits Plan',
+      'pricing.elite.anchor': 'From 3.7€ / session',
       'pricing.elite.price': '€84.90',
       'pricing.elite.original': '€94.90',
-      'pricing.elite.cta': 'JOIN NOW',
+      'pricing.elite.cta': 'VIEW PRICE TABLE',
+      'pricing.coupon_link': 'Have a coupon? Sign up here',
       'pricing.elite.feature1': 'Unlimited access to all modalities and open gym',
       'pricing.elite.feature2': 'No commitment',
-      'pricing.elite.feature3': 'The first month\'s fee is charged only from the date you start training',
+      'pricing.elite.feature3': 'Unlimited access to lounge & co-working',
+      'pricing.elite.feature4': 'First month\'s fee charged only from your start date',
       'pricing.rise.title': 'RISE',
+      'pricing.rise.subtitle': 'Consistency Plan',
+      'pricing.rise.anchor': 'From 6.2€ / session',
       'pricing.rise.price': '€69.90',
       'pricing.rise.original': '€79.90',
-      'pricing.rise.cta': 'JOIN NOW',
-      'pricing.rise.feature1': '3x per week access to all modalities and open gym',
+      'pricing.rise.cta': 'VIEW PRICE TABLE',
+      'pricing.rise.feature1': 'Access 3x per week to all modalities and open gym (you can attend multiple classes on the same day)',
       'pricing.rise.feature2': 'No commitment',
-      'pricing.rise.feature3': 'The first month\'s fee is charged only from the date you start training',
+      'pricing.rise.feature3': 'Unlimited access to lounge & co-working',
+      'pricing.rise.feature4': 'First month\'s fee charged only from your start date',
       'pricing.starter.title': 'STARTER',
+      'pricing.starter.subtitle': 'Introduction Plan',
+      'pricing.starter.anchor': 'From 7.2€ / session',
       'pricing.starter.price': '€54.90',
       'pricing.starter.original': '€64.90',
-      'pricing.starter.cta': 'JOIN NOW',
-      'pricing.starter.feature1': '2x per week access to all modalities and open gym',
+      'pricing.starter.cta': 'VIEW PRICE TABLE',
+      'pricing.starter.feature1': 'Access 2x per week to all modalities and open gym (you can attend multiple classes on the same day)',
       'pricing.starter.feature2': 'No commitment',
-      'pricing.starter.feature3': 'The first month\'s fee is charged only from the date you start training',
+      'pricing.starter.feature3': 'Unlimited access to lounge & co-working',
+      'pricing.starter.feature4': 'First month\'s fee charged only from your start date',
       
       // Drop-in pricing
       'pricing.dropin.period': '/class',
@@ -966,6 +1029,7 @@ const translations = {
       'modal.privacy.contact.text': 'To exercise your rights or clarify doubts about the processing of personal data, contact us through the means available in the contact section of the website.',
       
       // Coupon System
+      'coupon.modal_title': 'Sign Up with Coupon',
       'coupon.title': 'Have a Discount Coupon?',
       'coupon.subtitle': 'Use a member\'s email or promo code',
       'coupon.label': 'Coupon',
@@ -986,13 +1050,11 @@ const translations = {
       'coupon.special.discount_info': '🎉 <strong>Special Discount Applied!</strong>',
       'coupon.special.how_it_works': 'ℹ️ How it works:',
       
-      // Floating Contacts
-      'floating_contacts.trial': 'Free Trial',
-      'floating_contacts.whatsapp': 'WhatsApp',
-      'floating_contacts.instagram': 'Instagram',
-      'floating_contacts.trial_aria': 'Free Trial Class',
-      'floating_contacts.whatsapp_aria': 'Contact via WhatsApp',
-      'floating_contacts.instagram_aria': 'Contact via Instagram',
+      // Mobile Bottom Bar
+      'mobile_bottom_bar.cta': 'FREE CLASS',
+      'mobile_bottom_bar.menu_label': 'More',
+      'mobile_bottom_bar.whatsapp': 'WhatsApp',
+      'mobile_bottom_bar.instagram': 'Instagram DM',
       
       // Trial Class Booking
       'trial.button': 'FREE TRIAL CLASS',
@@ -1041,7 +1103,23 @@ const translations = {
       // MISSING KEYS
       'coupon.form.processing': 'Validating...',
       'coupon.success_title': 'All Set!',
-      'coupon.success': 'Thank you! The 50% discount will be manually applied by the staff on your next monthly fee and that of the member who referred you.'
+      'coupon.success': 'Thank you! The 50% discount will be manually applied by the staff on your next monthly fee and that of the member who referred you.',
+      
+      // Pricing Request Form
+      'pricing_request.title': 'Receive Complete Price List',
+      'pricing_request.subtitle': 'Enter your details to receive the detailed price table and current campaigns. Our team will contact you shortly.',
+      'pricing_request.name': 'Name',
+      'pricing_request.email': 'Email',
+      'pricing_request.phone': 'Phone (optional)',
+      'pricing_request.submit': 'REQUEST INFORMATION',
+      'pricing_request.submitting': 'SENDING...',
+      'pricing_request.error': 'Error submitting form. Please try again.',
+      'pricing_request.success_title': 'Thank you!',
+      'pricing_request.success_message': 'We received your request. We will send the information to your email very soon.',
+      'pricing_request.success_upsell': 'You don\'t have to wait to train. Book your free trial class now with no commitment.',
+      'pricing_request.success_cta': 'BOOK FREE TRIAL CLASS NOW',
+      'pricing_request.have_coupon': 'Already have a member coupon? Click here.',
+      'pricing_request.invalid_email': 'Please enter a valid email in the format: name@domain.com'
     }
   };
   
