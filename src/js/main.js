@@ -274,15 +274,19 @@ document.addEventListener('DOMContentLoaded', function() {
       submitBtn.textContent = 'A SUBSCREVER...';
       
       try {
-        // Create form data manually
-        const formData = new FormData();
-        formData.append('email', email);
-        formData.append('_email.subject', 'Nova subscrição newsletter BE WATER');
+        // Create JSON data manually
+        const data = {
+          email: email,
+          _email: {
+            subject: 'Nova subscrição newsletter BE WATER'
+          }
+        };
         
         const response = await fetch(originalAction, {
           method: 'POST',
-          body: formData,
+          body: JSON.stringify(data),
           headers: {
+            'Content-Type': 'application/json',
             'Accept': 'application/json'
           }
         });
@@ -413,12 +417,22 @@ document.addEventListener('DOMContentLoaded', function() {
       submitBtn.textContent = 'A ENVIAR...';
       
       try {
-        // Send form data to Formspree via AJAX
-        const formData = new FormData(contactForm);
+        // Send form data to Formspark via JSON
+        const data = {
+          name: nameField.value,
+          email: emailField.value,
+          phone: contactForm.querySelector('#phone').value,
+          message: messageField.value,
+          _email: {
+            subject: 'Nova mensagem BE WATER'
+          }
+        };
+
         const response = await fetch(contactForm.action, {
           method: 'POST',
-          body: formData,
+          body: JSON.stringify(data),
           headers: {
+            'Content-Type': 'application/json',
             'Accept': 'application/json'
           }
         });
