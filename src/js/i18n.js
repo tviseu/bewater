@@ -22,12 +22,12 @@ const translations = {
       
       // Hero Section
       'hero.title': 'BE WATER,<br>MY FRIEND',
-      'hero.subtitle': 'Desenvolve a tua força, agilidade e flexibilidade num espaço que reflecte a filosofia "be water" popularizada por Bruce Lee. Vem fazer parte desta corrente.',
-      'hero.cta_eyebrow': 'Experimenta 1 Aula Grátis',
-      'hero.cta_main': 'RESERVA A TUA VAGA',
-      'hero.benefit1': '✓ Sem compromisso',
-      'hero.benefit2': '✓ Conhece os coaches',
-      'hero.benefit3': '✓ Treino completo incluído',
+      'hero.subtitle': 'O teu clube de treino funcional e artes marciais no centro de Lisboa.',
+      'hero.cta_eyebrow': '',
+      'hero.cta_main': 'AULA EXPERIMENTAL GRÁTIS',
+      'hero.benefit1': '✓ Sem Compromisso',
+      'hero.benefit2': '',
+      'hero.benefit3': '',
       'hero.secondary_text': 'Já conheces os planos?',
       'hero.secondary_link': 'Ver preços',
       
@@ -47,6 +47,16 @@ const translations = {
       
       // Gym Section
       'gym.collage.mobile.instruction': '👈 Arrasta para o lado para ver mais fotos 👉',
+      
+      
+      // Reviews
+      'reviews.title': 'O QUE DIZEM OS NOSSOS ATLETAS',
+      'reviews.1.text': '"Excelentes instalações, equipa fantástica! A melhor parte é que posso escolher livremente o que quero experimentar, desde treino funcional a artes marciais. A localização ajuda muito, com ótimos acessos de transportes públicos."',
+      'reviews.1.author': '- Bernardo',
+      'reviews.2.text': '"O melhor centro de treino. Os instrutores são pros, a dinâmica do treino é muito diversificada e motivadora, as instalações são impecáveis, o ambiente é ótimo. Mesmo para quem acha que não vai “aguentar” o treino, arranjam sempre uma adaptação fazível. Ainda por cima têm bom gosto musical! Como não gostar?"',
+      'reviews.2.author': '- Ana',
+      'reviews.3.text': '"Espaço super acolhedor, com decoração original. Material novo e de qualidade, staff super disponivel e atencioso. Instalações com condições otimas. Vale definitivamente uma visita."',
+      'reviews.3.author': '- Isabel',
       
       // Pricing Section
       'pricing.title': 'PLANOS',
@@ -578,12 +588,12 @@ const translations = {
       
       // Hero Section
       'hero.title': 'BE WATER,<br>MY FRIEND',
-      'hero.subtitle': 'Develop your strength, agility and flexibility in a space that reflects the "be water" philosophy popularized by Bruce Lee. Come be part of this flow.',
-      'hero.cta_eyebrow': 'Try 1 Free Class',
-      'hero.cta_main': 'BOOK YOUR SPOT',
-      'hero.benefit1': '✓ No commitment',
-      'hero.benefit2': '✓ Meet the coaches',
-      'hero.benefit3': '✓ Full workout included',
+      'hero.subtitle': 'Your functional training and martial arts club in the center of Lisbon.',
+      'hero.cta_eyebrow': '',
+      'hero.cta_main': 'FREE TRIAL CLASS',
+      'hero.benefit1': '✓ No Commitment',
+      'hero.benefit2': '',
+      'hero.benefit3': '',
       'hero.secondary_text': 'Already know the plans?',
       'hero.secondary_link': 'View prices',
       
@@ -603,6 +613,16 @@ const translations = {
       
       // Gym Section
       'gym.collage.mobile.instruction': '👈 Swipe to see more photos 👉',
+      
+      
+      // Reviews
+      'reviews.title': 'WHAT OUR ATHLETES SAY',
+      'reviews.1.text': '"Great amenities, amazing staff! The best thing about it is that I can freely choose what I want to try out, from bodywork training, martial arts. Location helps a lot, with great access from public transportation."',
+      'reviews.1.author': '- Bernardo',
+      'reviews.2.text': '"The best training center. The instructors are pros, the training dynamics are very diverse and motivating, the facilities are impeccable, the atmosphere is great. Even for those who think they won\'t “handle” the workout, they always find a feasible adaptation. Plus, they have great taste in music! How can you not like it?"',
+      'reviews.2.author': '- Ana',
+      'reviews.3.text': '"Super welcoming space with original decoration. New and quality equipment, super available and attentive staff. Facilities with great conditions. Definitely worth a visit."',
+      'reviews.3.author': '- Isabel',
       
       // Pricing Section
       'pricing.title': 'PLANS',

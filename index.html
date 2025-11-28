@@ -47,7 +47,7 @@
     }
     
     .hero {
-      background-color: var(--color-white);
+      background-color: var(--color-black);
       min-height: 100vh;
       min-height: 100dvh; /* Dynamic viewport height */
       display: flex;
@@ -56,8 +56,64 @@
       position: relative;
       overflow: hidden;
       padding: 4rem 0;
+      color: var(--color-white);
+    }
+
+    /* Video Background Styles */
+    .hero__video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    .hero__overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Specificity overrides for styles.css */
+    #hero .hero__title {
+      color: var(--color-white);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
     
+    #hero .hero__subtitle {
+      color: var(--color-white);
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      line-height: 1.6;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      font-weight: 500;
+      max-width: 700px;
+    }
+
+    #hero .hero__cta-main {
+      font-size: 1.2rem;
+      padding: 1.2rem 2.5rem;
+    }
+    
+    #hero .hero__cta-link {
+      color: var(--color-white);
+      text-decoration: underline;
+    }
+    
+    #hero .hero__cta-link:hover {
+      color: var(--color-primary);
+    }
+
+    #hero .hero__cta-secondary {
+      color: var(--color-white);
+    }
+
     .hero__container {
       max-width: 1200px;
       margin: 0 auto;
@@ -268,36 +324,22 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="hero">
-    <!-- Water Effects Background -->
-    <div class="water-effects">
-      <!-- Water Drops -->
-      <div class="water-drop water-drop--1"></div>
-      <div class="water-drop water-drop--2"></div>
-      <div class="water-drop water-drop--3"></div>
-      <div class="water-drop water-drop--4"></div>
-      <div class="water-drop water-drop--5"></div>
-      <div class="water-drop water-drop--6"></div>
-      <div class="water-drop water-drop--7"></div>
-      <div class="water-drop water-drop--8"></div>
-      <div class="water-drop water-drop--9"></div>
-      <div class="water-drop water-drop--10"></div>
-      <div class="water-drop water-drop--11"></div>
-      <div class="water-drop water-drop--12"></div>
-    </div>
+  <section class="hero" id="hero">
+    <!-- Video Background -->
+    <video class="hero__video" autoplay loop muted playsinline poster="">
+      <source src="src/images/general/hero2.m4v" type="video/mp4">
+    </video>
+    <div class="hero__overlay"></div>
     
     <div class="hero__container">
               <h1 class="hero__title" data-i18n="hero.title">BE WATER,<br>MY FRIEND</h1>
-      <p class="hero__subtitle animate-on-scroll" data-i18n="hero.subtitle">Desenvolve a tua força, agilidade e flexibilidade num espaço que reflecte a filosofia "be water" popularizada por Bruce Lee. Vem fazer parte desta corrente.</p>
+      <p class="hero__subtitle animate-on-scroll" data-i18n="hero.subtitle">O teu clube de treino funcional e artes marciais no centro de Lisboa.</p>
       <div class="hero__cta animate-on-scroll">
-        <p class="hero__cta-eyebrow" data-i18n="hero.cta_eyebrow">Experimenta 1 Aula Grátis</p>
-        <button type="button" class="hero__cta-main" data-modal="trial" data-i18n="hero.cta_main">RESERVA A TUA VAGA</button>
-        <ul class="hero__cta-benefits">
-          <li data-i18n="hero.benefit1">✓ Sem compromisso</li>
-          <li data-i18n="hero.benefit2">✓ Conhece os coaches</li>
-          <li data-i18n="hero.benefit3">✓ Treino completo incluído</li>
-        </ul>
-        <p class="hero__cta-secondary">
+        <button type="button" class="hero__cta-main" data-modal="trial" data-i18n="hero.cta_main">AULA EXPERIMENTAL GRÁTIS</button>
+        <div class="hero__cta-benefits-single-line" style="color: white; margin-top: 1rem; font-size: 0.9rem;">
+          <span data-i18n="hero.benefit1">✓ Sem Compromisso</span>
+        </div>
+        <p class="hero__cta-secondary" style="margin-top: 1.5rem;">
           <span data-i18n="hero.secondary_text">Já conheces os planos?</span> 
           <a href="#pricing" class="hero__cta-link" data-i18n="hero.secondary_link">Ver preços</a>
         </p>
@@ -307,332 +349,168 @@
 
   <!-- About Section -->
   <section id="gym" class="about">
-    <!-- Gym Hero Section -->
-    <div class="gym-hero">
-      <div class="gym-hero__background"></div>
-      <div class="gym-hero__overlay"></div>
-      <div class="gym-hero__container">
-        <div class="gym-hero__content">
-          <h2 class="gym-hero__title animate-on-scroll" data-i18n="gym.hero.title">O CENTRO<br>DE TREINO</h2>
-        </div>
-      </div>
-    </div>
     
     <div class="about__container">
       <div class="about__header">
         <h2 class="section-title" data-i18n="about.title">CONHECE O ESPAÇO</h2>
         <div class="section-line"></div>
       </div>
+      <!-- Intro Text -->
       <div class="about__intro animate-on-scroll">
         <p class="about__lead" data-i18n="about.lead">
           Vem treinar com o Bruno Salgueiro, das <a href="#salgueiro" class="dicas-link">"Dicas do Salgueiro"</a> e com a sua equipa de instrutores escolhidos a dedo.
         </p>
-        <p class="about__secondary" data-i18n="about.secondary">
-          <span class="brand-highlight">BE WATER</span> - O teu clube no centro de Lisboa com 3 zonas distintas: Um lounge de convívio e co-working, um ginásio de treino físico com regime de aulas de grupo e open gym e ainda um dojo dedicado à prática de artes marciais e meditação. Junta-te a esta comunidade!
-        </p>
-      </div>
-
-      <!-- SINGLE PHOTO SLIDER BRUTAL -->
-      <div class="gym-collage-slider animate-on-scroll">
-        <!-- Mobile Swipe Instruction -->
-        <div class="gym-collage-slider__mobile-instruction">
-          <span data-i18n="gym.collage.mobile.instruction">👈 Arrasta para o lado para ver mais fotos 👉</span>
-        </div>
         
-        <div class="gym-collage-slider__track" id="gymCollageTrack">
+        <!-- 3 Pillars Section -->
+        <div class="pillars-grid">
+          <!-- Pillar 1: Martial Arts -->
+          <div class="pillar-card">
+            <div class="pillar-icon">
+              <i class="fa-solid fa-user-ninja"></i>
+            </div>
+            <div class="pillar-content">
+              <h3 class="pillar-title">DOJO & LUTAS</h3>
+              <p class="pillar-desc">Artes Marciais e Defesa Pessoal.</p>
+            </div>
+          </div>
           
-          <!-- Slide 1 -->
-          <div class="gym-collage-slide active">
-            <div class="gym-collage__container">
-              <div class="gym-photo gym-photo--single-1" data-photo="Be Water, my friend.">
-                <img src="src/images/gym/optimized/1.jpg" alt="Be Water, my friend." />
-                <div class="gym-photo__caption">Be Water, my friend.</div>
-              </div>
-              <div class="gym-graphic gym-graphic--single-text">BE WATER</div>
-              <div class="gym-graphic gym-graphic--single-text-opposite">BE WATER</div>
+          <!-- Pillar 2: Gym/Functional -->
+          <div class="pillar-card">
+            <div class="pillar-icon">
+               <i class="fa-solid fa-dumbbell"></i>
+            </div>
+            <div class="pillar-content">
+              <h3 class="pillar-title">GINÁSIO & FUNCIONAL</h3>
+              <p class="pillar-desc">Treino de força e condicionamento.</p>
             </div>
           </div>
 
-          <!-- Slide 2 -->
-          <div class="gym-collage-slide">
-            <div class="gym-collage__container">
-              <div class="gym-photo gym-photo--single-2" data-photo="BARRAS E BUMPERS SEMPERFIT">
-                <img src="src/images/gym/optimized/2.jpg" alt="BARRAS E BUMPERS SEMPERFIT" />
-                <div class="gym-photo__caption">BARRAS E BUMPERS SEMPERFIT</div>
-              </div>
-              <div class="gym-graphic gym-graphic--single-text">BE WATER</div>
-              <div class="gym-graphic gym-graphic--single-text-opposite">BE WATER</div>
+          <!-- Pillar 3: Lounge/Community -->
+          <div class="pillar-card">
+            <div class="pillar-icon">
+              <i class="fa-solid fa-mug-hot"></i>
             </div>
-          </div>
-
-          <!-- Slide 3 -->
-          <div class="gym-collage-slide">
-            <div class="gym-collage__container">
-              <div class="gym-photo gym-photo--single-3" data-photo="PERSPECTIVAS DIFERENTES">
-                <img src="src/images/gym/optimized/3.jpg" alt="PERSPECTIVAS DIFERENTES" />
-                <div class="gym-photo__caption">PERSPECTIVAS DIFERENTES</div>
-              </div>
-              <div class="gym-graphic gym-graphic--single-text">BE WATER</div>
-              <div class="gym-graphic gym-graphic--single-text-opposite">BE WATER</div>
+            <div class="pillar-content">
+              <h3 class="pillar-title">LOUNGE & COWORK</h3>
+              <p class="pillar-desc">Comunidade, eventos e trabalho.</p>
             </div>
-          </div>
-
-          <!-- Slide 4 -->
-          <div class="gym-collage-slide">
-            <div class="gym-collage__container">
-              <div class="gym-photo gym-photo--single-4" data-photo="DUMBELLS SEM FIM!">
-                <img src="src/images/gym/optimized/4.jpg" alt="DUMBELLS SEM FIM!" />
-                <div class="gym-photo__caption">DUMBELLS SEM FIM!</div>
-              </div>
-              <div class="gym-graphic gym-graphic--single-text">BE WATER</div>
-              <div class="gym-graphic gym-graphic--single-text-opposite">BE WATER</div>
-            </div>
-          </div>
-
-          <!-- Slide 5 -->
-          <div class="gym-collage-slide">
-            <div class="gym-collage__container">
-              <div class="gym-photo gym-photo--single-5" data-photo="RINGS">
-                <img src="src/images/gym/optimized/5.jpg" alt="RINGS" />
-                <div class="gym-photo__caption">RINGS</div>
-              </div>
-              <div class="gym-graphic gym-graphic--single-text">BE WATER</div>
-              <div class="gym-graphic gym-graphic--single-text-opposite">BE WATER</div>
-            </div>
-          </div>
-
-          <!-- Slide 6 -->
-          <div class="gym-collage-slide">
-            <div class="gym-collage__container">
-              <div class="gym-photo gym-photo--single-6" data-photo="CAIXAS E MAIS CAIXAS">
-                <img src="src/images/gym/optimized/6.jpg" alt="CAIXAS E MAIS CAIXAS" />
-                <div class="gym-photo__caption">CAIXAS E MAIS CAIXAS</div>
-              </div>
-              <div class="gym-graphic gym-graphic--single-text">BE WATER</div>
-              <div class="gym-graphic gym-graphic--single-text-opposite">BE WATER</div>
-            </div>
-          </div>
-
-          <!-- Slide 7 -->
-          <div class="gym-collage-slide">
-            <div class="gym-collage__container">
-              <div class="gym-photo gym-photo--single-7" data-photo="BALNEÁRIO MASCULINO">
-                <img src="src/images/gym/optimized/7.jpg" alt="BALNEÁRIO MASCULINO" />
-                <div class="gym-photo__caption">BALNEÁRIO MASCULINO</div>
-              </div>
-              <div class="gym-graphic gym-graphic--single-text">BE WATER</div>
-              <div class="gym-graphic gym-graphic--single-text-opposite">BE WATER</div>
-            </div>
-          </div>
-
-          <!-- Slide 8 -->
-          <div class="gym-collage-slide">
-            <div class="gym-collage__container">
-              <div class="gym-photo gym-photo--single-8" data-photo="DETALHES SEMPERFIT">
-                <img src="src/images/gym/optimized/8.jpg" alt="DETALHES SEMPERFIT" />
-                <div class="gym-photo__caption">DETALHES SEMPERFIT</div>
-              </div>
-              <div class="gym-graphic gym-graphic--single-text">BE WATER</div>
-              <div class="gym-graphic gym-graphic--single-text-opposite">BE WATER</div>
-            </div>
-          </div>
-
-          <!-- Slide 9 -->
-          <div class="gym-collage-slide">
-            <div class="gym-collage__container">
-              <div class="gym-photo gym-photo--single-9" data-photo="BALNEÁRIO FEMININO">
-                <img src="src/images/gym/optimized/9.jpg" alt="BALNEÁRIO FEMININO" />
-                <div class="gym-photo__caption">BALNEÁRIO FEMININO</div>
-              </div>
-              <div class="gym-graphic gym-graphic--single-text">BE WATER</div>
-              <div class="gym-graphic gym-graphic--single-text-opposite">BE WATER</div>
-            </div>
-          </div>
-
-          <!-- Slide 10 -->
-          <div class="gym-collage-slide">
-            <div class="gym-collage__container">
-              <div class="gym-photo gym-photo--single-10" data-photo="RELVA SINTÉTICA PARA PUXARES PELO SLED">
-                <img src="src/images/gym/optimized/10.jpg" alt="RELVA SINTÉTICA PARA PUXARES PELO SLED" />
-                <div class="gym-photo__caption">RELVA SINTÉTICA PARA PUXARES PELO SLED</div>
-              </div>
-              <div class="gym-graphic gym-graphic--single-text">BE WATER</div>
-              <div class="gym-graphic gym-graphic--single-text-opposite">BE WATER</div>
-            </div>
-          </div>
-
-          <!-- Slide 11 -->
-          <div class="gym-collage-slide">
-            <div class="gym-collage__container">
-              <div class="gym-photo gym-photo--single-11" data-photo="REFERÊNCIAS">
-                <img src="src/images/gym/optimized/11.jpg" alt="REFERÊNCIAS" />
-                <div class="gym-photo__caption">REFERÊNCIAS</div>
-              </div>
-              <div class="gym-graphic gym-graphic--single-text">BE WATER</div>
-              <div class="gym-graphic gym-graphic--single-text-opposite">BE WATER</div>
-            </div>
-          </div>
-
-          <!-- Slide 12 -->
-          <div class="gym-collage-slide">
-            <div class="gym-collage__container">
-              <div class="gym-photo gym-photo--single-12" data-photo="WALLBALLS PARA TODOS OS GOSTOS">
-                <img src="src/images/gym/optimized/12.jpg" alt="WALLBALLS PARA TODOS OS GOSTOS" />
-                <div class="gym-photo__caption">WALLBALLS PARA TODOS OS GOSTOS</div>
-              </div>
-              <div class="gym-graphic gym-graphic--single-text">BE WATER</div>
-              <div class="gym-graphic gym-graphic--single-text-opposite">BE WATER</div>
-            </div>
-          </div>
-
-          <!-- Slide 13 -->
-          <div class="gym-collage-slide">
-            <div class="gym-collage__container">
-              <div class="gym-photo gym-photo--single-13" data-photo="KETTLEBELLS QUE PARECEM SKITTLES">
-                <img src="src/images/gym/optimized/13.jpg" alt="KETTLEBELLS QUE PARECEM SKITTLES" />
-                <div class="gym-photo__caption">KETTLEBELLS QUE PARECEM SKITTLES</div>
-              </div>
-              <div class="gym-graphic gym-graphic--single-text">BE WATER</div>
-              <div class="gym-graphic gym-graphic--single-text-opposite">BE WATER</div>
-            </div>
-          </div>
-
-          <!-- Slide 14 -->
-          <div class="gym-collage-slide">
-            <div class="gym-collage__container">
-              <div class="gym-photo gym-photo--single-14" data-photo="O MESTRE!">
-                <img src="src/images/gym/optimized/14.jpg" alt="O MESTRE!" />
-                <div class="gym-photo__caption">O MESTRE!</div>
-              </div>
-              <div class="gym-graphic gym-graphic--single-text">BE WATER</div>
-              <div class="gym-graphic gym-graphic--single-text-opposite">BE WATER</div>
-            </div>
-          </div>
-
-          <!-- Slide 15 -->
-          <div class="gym-collage-slide">
-            <div class="gym-collage__container">
-              <div class="gym-photo gym-photo--single-15" data-photo="CO-WORK AND RELAX">
-                <img src="src/images/gym/optimized/14-2.jpg" alt="CO-WORK AND RELAX" />
-                <div class="gym-photo__caption">CO-WORK AND RELAX</div>
-              </div>
-              <div class="gym-graphic gym-graphic--single-text">BE WATER</div>
-              <div class="gym-graphic gym-graphic--single-text-opposite">BE WATER</div>
-            </div>
-          </div>
-
-          <!-- Slide 16 -->
-          <div class="gym-collage-slide">
-            <div class="gym-collage__container">
-              <div class="gym-photo gym-photo--single-16" data-photo="REFRESCA-TE!">
-                <img src="src/images/gym/optimized/15.jpg" alt="REFRESCA-TE!" />
-                <div class="gym-photo__caption">REFRESCA-TE!</div>
-              </div>
-              <div class="gym-graphic gym-graphic--single-text">BE WATER</div>
-              <div class="gym-graphic gym-graphic--single-text-opposite">BE WATER</div>
-            </div>
-          </div>
-
-          <!-- Slide 17 -->
-          <div class="gym-collage-slide">
-            <div class="gym-collage__container">
-              <div class="gym-photo gym-photo--single-17" data-photo="EQUIPAMENTO E MAIS EQUIPAMENTO">
-                <img src="src/images/gym/optimized/16.jpg" alt="EQUIPAMENTO E MAIS EQUIPAMENTO" />
-                <div class="gym-photo__caption">EQUIPAMENTO E MAIS EQUIPAMENTO</div>
-              </div>
-              <div class="gym-graphic gym-graphic--single-text">BE WATER</div>
-              <div class="gym-graphic gym-graphic--single-text-opposite">BE WATER</div>
-            </div>
-          </div>
-
-          <!-- Slide 18 -->
-          <div class="gym-collage-slide">
-            <div class="gym-collage__container">
-              <div class="gym-photo gym-photo--single-18" data-photo="RIGS">
-                <img src="src/images/gym/optimized/17.jpg" alt="RIGS" />
-                <div class="gym-photo__caption">RIGS</div>
-              </div>
-              <div class="gym-graphic gym-graphic--single-text">BE WATER</div>
-              <div class="gym-graphic gym-graphic--single-text-opposite">BE WATER</div>
-            </div>
-          </div>
-
-          <!-- Slide 19 -->
-          <div class="gym-collage-slide">
-            <div class="gym-collage__container">
-              <div class="gym-photo gym-photo--single-19" data-photo="PÕE-TE À PROVA">
-                <img src="src/images/gym/optimized/18.jpg" alt="PÕE-TE À PROVA" />
-                <div class="gym-photo__caption">PÕE-TE À PROVA</div>
-              </div>
-              <div class="gym-graphic gym-graphic--single-text">BE WATER</div>
-              <div class="gym-graphic gym-graphic--single-text-opposite">BE WATER</div>
-            </div>
-          </div>
-
-          <!-- Slide 20 -->
-          <div class="gym-collage-slide">
-            <div class="gym-collage__container">
-              <div class="gym-photo gym-photo--single-20" data-photo="TEMPO PASSA A VOAR">
-                <img src="src/images/gym/optimized/19.jpg" alt="TEMPO PASSA A VOAR" />
-                <div class="gym-photo__caption">TEMPO PASSA A VOAR</div>
-              </div>
-              <div class="gym-graphic gym-graphic--single-text">BE WATER</div>
-              <div class="gym-graphic gym-graphic--single-text-opposite">BE WATER</div>
-            </div>
-          </div>
-
-
-
-        </div>
-
-        <!-- Slider Navigation -->
-        <div class="gym-collage-slider__nav">
-          <button class="collage-nav-btn collage-nav-btn--prev" id="gymCollagePrev">←</button>
-          <button class="collage-nav-btn collage-nav-btn--next" id="gymCollageNext">→</button>
-        </div>
-
-        <!-- Slider Indicators -->
-        <div class="gym-collage-slider__indicators">
-          <button class="collage-indicator active" data-slide="0"></button>
-          <button class="collage-indicator" data-slide="1"></button>
-          <button class="collage-indicator" data-slide="2"></button>
-          <button class="collage-indicator" data-slide="3"></button>
-          <button class="collage-indicator" data-slide="4"></button>
-          <button class="collage-indicator" data-slide="5"></button>
-          <button class="collage-indicator" data-slide="6"></button>
-          <button class="collage-indicator" data-slide="7"></button>
-          <button class="collage-indicator" data-slide="8"></button>
-          <button class="collage-indicator" data-slide="9"></button>
-          <button class="collage-indicator" data-slide="10"></button>
-          <button class="collage-indicator" data-slide="11"></button>
-          <button class="collage-indicator" data-slide="12"></button>
-          <button class="collage-indicator" data-slide="13"></button>
-          <button class="collage-indicator" data-slide="14"></button>
-          <button class="collage-indicator" data-slide="15"></button>
-          <button class="collage-indicator" data-slide="16"></button>
-          <button class="collage-indicator" data-slide="17"></button>
-          <button class="collage-indicator" data-slide="18"></button>
-          <button class="collage-indicator" data-slide="19"></button>
-
-        </div>
-
-      </div>
-
-      <!-- Photo Popup Modal -->
-      <div class="gym-photo-popup" id="gymPhotoPopup">
-        <div class="popup-overlay" id="popupOverlay"></div>
-        <div class="popup-container">
-          <button class="popup-close" id="popupClose">&times;</button>
-          <button class="popup-nav popup-nav--prev" id="popupPrev">‹</button>
-          <button class="popup-nav popup-nav--next" id="popupNext">›</button>
-          <div class="popup-content">
-            <img id="popupImage" src="" alt="" />
-            <div class="popup-caption" id="popupCaption"></div>
           </div>
         </div>
       </div>
 
+                        <!-- Bento Grid Gallery -->
+      <div class="bento-grid animate-on-scroll">
+        <!-- Item 1: Main Video Overview -->
+        <div class="bento-item bento-item--large video-item">
+           <video poster="src/images/gym/optimized/2.jpg" loop muted playsinline>
+             <source src="src/images/gym/video/gym overview 1.m4v" type="video/mp4">
+          </video>
+          <div class="bento-overlay"><i class="fa-solid fa-play"></i></div>
+        </div>
 
+        <!-- Item 2: Vertical Photo -->
+        <div class="bento-item bento-item--tall" data-lightbox-src="src/images/gym/optimized/13.jpg">
+           <img src="src/images/gym/optimized/13.jpg" alt="Gym Detail" loading="lazy">
+           <div class="bento-overlay"><i class="fa-solid fa-expand"></i></div>
+        </div>
+
+        <!-- Item 3: Standard Photo -->
+        <div class="bento-item bento-item--box" data-lightbox-src="src/images/gym/optimized/5.jpg">
+           <img src="src/images/gym/optimized/5.jpg" alt="Gym Equipment" loading="lazy">
+           <div class="bento-overlay"><i class="fa-solid fa-expand"></i></div>
+        </div>
+
+        <!-- Item 4: Standard Photo -->
+        <div class="bento-item bento-item--box" data-lightbox-src="src/images/gym/optimized/7.jpg">
+           <img src="src/images/gym/optimized/7.jpg" alt="Training Area" loading="lazy">
+           <div class="bento-overlay"><i class="fa-solid fa-expand"></i></div>
+        </div>
+
+         <!-- Item 5: Secondary Video -->
+        <div class="bento-item bento-item--wide video-item">
+           <video poster="src/images/gym/optimized/6.jpg" loop muted playsinline>
+             <source src="src/images/gym/video/gym overview 2.m4v" type="video/mp4">
+          </video>
+          <div class="bento-overlay"><i class="fa-solid fa-play"></i></div>
+        </div>
+         
+         <!-- Item 6: Wide Photo -->
+        <div class="bento-item bento-item--wide" data-lightbox-src="src/images/gym/optimized/2.jpg">
+           <img src="src/images/gym/optimized/2.jpg" alt="Gym Weights" loading="lazy">
+           <div class="bento-overlay"><i class="fa-solid fa-expand"></i></div>
+        </div>
+
+        <!-- Item 7: Wide Photo -->
+        <div class="bento-item bento-item--wide" data-lightbox-src="src/images/gym/optimized/9.jpg">
+           <img src="src/images/gym/optimized/9.jpg" alt="Gym View" loading="lazy">
+           <div class="bento-overlay"><i class="fa-solid fa-expand"></i></div>
+        </div>
+
+        <!-- Item 8: Wide Photo (New) -->
+        <div class="bento-item bento-item--wide" data-lightbox-src="src/images/gym/optimized/1.jpg">
+           <img src="src/images/gym/optimized/1.jpg" alt="Gym Atmosphere" loading="lazy">
+           <div class="bento-overlay"><i class="fa-solid fa-expand"></i></div>
+        </div>
+
+        <!-- Item 9: Wide Photo (New) -->
+        <div class="bento-item bento-item--wide" data-lightbox-src="src/images/gym/optimized/16.jpg">
+           <img src="src/images/gym/optimized/16.jpg" alt="Gym Details" loading="lazy">
+           <div class="bento-overlay"><i class="fa-solid fa-expand"></i></div>
+        </div>
+
+        <!-- Item 10: Tall Photo (New - adjusted to Tall-ish Box span 4) -->
+        <div class="bento-item bento-item--tallish" style="grid-column: span 4; grid-row: span 1;" data-lightbox-src="src/images/gym/optimized/3.jpg">
+           <img src="src/images/gym/optimized/3.jpg" alt="Training" loading="lazy">
+           <div class="bento-overlay"><i class="fa-solid fa-expand"></i></div>
+        </div>
+
+        <!-- Item 11: Tall Photo (New - adjusted to Tall-ish Box span 4) -->
+        <div class="bento-item bento-item--tallish" style="grid-column: span 4; grid-row: span 1;" data-lightbox-src="src/images/gym/optimized/4.jpg">
+           <img src="src/images/gym/optimized/4.jpg" alt="Weights" loading="lazy">
+           <div class="bento-overlay"><i class="fa-solid fa-expand"></i></div>
+        </div>
+
+        <!-- Item 12: Tall Photo (New - adjusted to Tall-ish Box span 4) -->
+        <div class="bento-item bento-item--tallish" style="grid-column: span 4; grid-row: span 1;" data-lightbox-src="src/images/gym/optimized/11.jpg">
+           <img src="src/images/gym/optimized/11.jpg" alt="Community" loading="lazy">
+           <div class="bento-overlay"><i class="fa-solid fa-expand"></i></div>
+        </div>
+      </div>
+      
+      <!-- Lightbox Modal -->
+      <div id="bento-lightbox" class="bento-lightbox">
+        <button class="lightbox-close">&times;</button>
+        <div class="lightbox-content">
+           <img src="" alt="Full view">
+        </div>
+      </div>
+
+      <!-- Social Proof (Reviews) -->
+      <div class="reviews-section animate-on-scroll">
+         <div class="reviews-header">
+            <h3 class="reviews-title" data-i18n="reviews.title">O QUE DIZEM OS NOSSOS ATLETAS</h3>
+         </div>
+         <div class="reviews-grid">
+            <div class="review-card">
+               <div class="review-stars">⭐⭐⭐⭐⭐</div>
+               <p class="review-text" data-i18n="reviews.1.text">"Great amenities, amazing staff! The best thing about it is that I can freely choose what I want to try out, from bodywork training, martial arts. Location helps a lot, with great access from public transportation."</p>
+               <p class="review-author"><strong data-i18n="reviews.1.author">- Bernardo</strong></p>
+               <div class="review-source"><i class="fa-brands fa-google"></i> Google Review</div>
+            </div>
+             <div class="review-card">
+               <div class="review-stars">⭐⭐⭐⭐⭐</div>
+               <p class="review-text" data-i18n="reviews.2.text">"O melhor centro de treino. Os instrutores são pros, a dinâmica do treino é muito diversificada e motivadora, as instalações são impecáveis, o ambiente é ótimo. Mesmo para quem acha que não vai “aguentar” o treino, arranjam sempre uma adaptação fazível. Ainda por cima têm bom gosto musical! Como não gostar?"</p>
+               <p class="review-author"><strong data-i18n="reviews.2.author">- Ana</strong></p>
+               <div class="review-source"><i class="fa-brands fa-google"></i> Google Review</div>
+            </div>
+             <div class="review-card">
+               <div class="review-stars">⭐⭐⭐⭐⭐</div>
+               <p class="review-text" data-i18n="reviews.3.text">"Espaço super acolhedor, com decoração original. Material novo e de qualidade, staff super disponivel e atencioso. Instalações com condições otimas. Vale definitivamente uma visita."</p>
+               <p class="review-author"><strong data-i18n="reviews.3.author">- Isabel</strong></p>
+               <div class="review-source"><i class="fa-brands fa-google"></i> Google Review</div>
+            </div>
+         </div>
+      </div>
 
 
     </div>
@@ -3012,7 +2890,7 @@
 
   <script src="src/js/main.js"></script>
   <script src="src/js/modals.js"></script>
-  <script src="src/js/gym-collage-slider.js"></script>
+  <script src="src/js/bento-gallery.js"></script>
   <script src="src/js/i18n.js"></script>
   
   <!-- Supabase Client -->
