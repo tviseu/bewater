@@ -509,34 +509,135 @@ async function showRegyStep(modalId, forceNormal = false) {
   
   // Hide ALL iframes in this modal first
   const allIframes = regyContainer.querySelectorAll('iframe[name^="frame_regy"]');
-  allIframes.forEach(iframe => {
-    iframe.style.display = 'none';
-    iframe.style.position = 'absolute';  // Remove from layout flow
-    iframe.style.visibility = 'hidden';  // Extra hiding
-    iframe.style.height = '0';
-    iframe.style.minHeight = '0';
+  console.log('  🔍 DEBUG: Total iframes found in container:', allIframes.length);
+  allIframes.forEach((iframe, index) => {
+    console.log(`  🔍 DEBUG: Hiding iframe ${index}:`, iframe.id, 'current display:', window.getComputedStyle(iframe).display);
+    iframe.style.setProperty('display', 'none', 'important');
+    iframe.style.setProperty('position', 'absolute', 'important');  // Remove from layout flow
+    iframe.style.setProperty('visibility', 'hidden', 'important');  // Extra hiding
+    iframe.style.setProperty('height', '0', 'important');
+    iframe.style.setProperty('min-height', '0', 'important');
   });
+  
+  // Reactivate the corresponding input if it was deferred
+  const inputToActivate = document.getElementById(inputId);
+  if (inputToActivate && inputToActivate.classList.contains('class_regy_deferred')) {
+    inputToActivate.classList.remove('class_regy_deferred');
+    inputToActivate.classList.add('class_regy');
+    console.log(`  ✅ Reactivated deferred input: ${inputId}`);
+    
+    // Reload Regyfit script to process the newly activated input
+    if (typeof window.reloadRegyScript === 'function') {
+      window.reloadRegyScript();
+    }
+  }
   
   // Show ONLY the correct iframe
   const iframeToShow = document.getElementById(iframeId);
   if (iframeToShow) {
-    iframeToShow.style.display = 'block';
-    iframeToShow.style.position = 'relative';  // Back to normal flow
-    iframeToShow.style.visibility = 'visible';
+    console.log('  🔍 DEBUG: Found iframe to show:', iframeId);
+    console.log('  🔍 DEBUG: Iframe current src:', iframeToShow.src);
+    console.log('  🔍 DEBUG: Iframe current display:', window.getComputedStyle(iframeToShow).display);
+    console.log('  🔍 DEBUG: Iframe current position:', window.getComputedStyle(iframeToShow).position);
+    console.log('  🔍 DEBUG: Iframe current height:', window.getComputedStyle(iframeToShow).height);
+    console.log('  🔍 DEBUG: Iframe current minHeight:', window.getComputedStyle(iframeToShow).minHeight);
+    
+    // Ensure iframe is initialized if empty (fallback for when hidden initially)
+    if (!iframeToShow.src || iframeToShow.src === '' || iframeToShow.src === 'about:blank') {
+        console.log(`  ⚠️ Iframe ${iframeId} vazio, a inicializar manualmente...`);
+        const input = document.getElementById(inputId);
+        if (input && input.value) {
+            const url = input.value;
+            const lang = document.documentElement.lang || 'pt';
+            const fullUrl = `${url}&lang=${lang}&site_url=${encodeURIComponent(window.location.href)}`;
+            iframeToShow.src = fullUrl;
+            console.log(`  ✅ Iframe src definido: ${fullUrl}`);
+        }
+    }
+
+    iframeToShow.style.setProperty('display', 'block', 'important');
+    iframeToShow.style.setProperty('position', 'relative', 'important');  // Back to normal flow
+    iframeToShow.style.setProperty('visibility', 'visible', 'important');
     iframeToShow.style.width = '100%';
     iframeToShow.style.height = 'auto';
-    iframeToShow.style.minHeight = '800px';
+    iframeToShow.style.setProperty('min-height', '800px', 'important');
+    iframeToShow.style.border = '5px solid blue'; // DEBUG
+    iframeToShow.style.padding = '0';
+    iframeToShow.style.margin = '0';
+    
     console.log(`✅ Iframe mostrado: ${iframeId}`);
+    console.log('  🔍 DEBUG: Iframe AFTER changes - display:', window.getComputedStyle(iframeToShow).display);
+    console.log('  🔍 DEBUG: Iframe AFTER changes - height:', window.getComputedStyle(iframeToShow).height);
+    console.log('  🔍 DEBUG: Iframe AFTER changes - minHeight:', window.getComputedStyle(iframeToShow).minHeight);
+    
+    // Check if there are any siblings taking up space
+    const siblings = Array.from(regyContainer.children);
+    console.log('  🔍 DEBUG: regyContainer children count:', siblings.length);
+    siblings.forEach((child, index) => {
+      const computedStyle = window.getComputedStyle(child);
+      console.log(`  🔍 DEBUG: Child ${index}:`, {
+        tagName: child.tagName,
+        id: child.id,
+        display: computedStyle.display,
+        height: computedStyle.height,
+        minHeight: computedStyle.minHeight,
+        position: computedStyle.position
+      });
+    });
   } else {
     console.error(`❌ Iframe não encontrado: ${iframeId}`);
     console.log(`🔍 IDs disponíveis no modal:`, Array.from(allIframes).map(f => f.id));
     console.error(`   Iframes disponíveis:`, Array.from(allIframes).map(i => i.id));
   }
 
-  if (couponForm) couponForm.style.display = 'none';
-  if (regyContainer) regyContainer.style.display = 'block';
-  if (instructions) instructions.style.display = 'block';
-  if (postForm) postForm.style.display = 'none';
+  if (couponForm) {
+    couponForm.style.display = 'none';
+    console.log('  🔍 DEBUG: couponForm hidden');
+  }
+  if (regyContainer) {
+    regyContainer.style.display = 'block';
+    regyContainer.style.border = '3px solid red'; // DEBUG
+    regyContainer.style.padding = '0';
+    regyContainer.style.margin = '0';
+    console.log('  🔍 DEBUG: regyContainer shown with red border');
+    console.log('  🔍 DEBUG: regyContainer computed height:', window.getComputedStyle(regyContainer).height);
+    console.log('  🔍 DEBUG: regyContainer computed padding:', window.getComputedStyle(regyContainer).padding);
+    console.log('  🔍 DEBUG: regyContainer computed margin:', window.getComputedStyle(regyContainer).margin);
+    
+    // Expandir modal para largura completa quando Regyfit é mostrado
+    const modalContainer = modal.querySelector('.modal-container');
+    if (modalContainer) {
+      modalContainer.style.maxWidth = '1200px';
+      modalContainer.style.width = '98%';
+      console.log('  🔍 DEBUG: Modal container expanded for Regyfit');
+    }
+    
+    // Scroll suave para o topo do container Regyfit
+    setTimeout(() => {
+      regyContainer.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest'
+      });
+      
+      // Ajustar com offset para compensar header fixo
+      setTimeout(() => {
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+        window.scrollTo({
+          top: Math.max(0, currentScroll - 100), // Offset de 100px para header
+          behavior: 'smooth'
+        });
+      }, 300);
+    }, 200); // Delay para garantir que o iframe foi renderizado
+  }
+  if (instructions) {
+    instructions.style.display = 'none';
+    console.log('  🔍 DEBUG: instructions hidden');
+  }
+  if (postForm) {
+    postForm.style.display = 'none';
+    console.log('  🔍 DEBUG: postForm hidden');
+  }
   
   // Regyfit script handles iframe initialization automatically
   console.log('✅ Showing Regyfit container for modal:', modalId);

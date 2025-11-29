@@ -285,6 +285,690 @@
   <link rel="stylesheet" href="src/css/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
+  
+  <!-- Modal Trial CTA Styles -->
+  <style>
+    /* Two-Column Layout for Membership Modals */
+    .modal-content-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 2rem;
+      align-items: start;
+    }
+    
+    /* Trial Sidebar (Desktop) */
+    .modal-trial-sidebar {
+      position: sticky;
+      top: 2rem;
+    }
+    
+    .trial-card {
+      background: linear-gradient(135deg, #f6f8fb 0%, #e9ecef 100%);
+      border: 3px solid var(--color-black, #000);
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.1);
+    }
+    
+    .trial-card__icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .trial-card__title {
+      font-family: var(--font-heading, 'Work Sans', sans-serif);
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: var(--color-black, #000);
+    }
+    
+    .trial-card__text {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+    
+    .btn--trial {
+      width: 100%;
+      background: var(--color-primary, #00bcd4);
+      color: var(--color-black, #000);
+      border: 3px solid var(--color-black, #000);
+      padding: 1rem;
+      font-family: var(--font-heading, 'Work Sans', sans-serif);
+      font-weight: 800;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+    }
+    
+    .btn--trial:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 var(--color-black, #000);
+    }
+    
+    /* Sticky Bottom Bar (Mobile) - OLD BLOCK REMOVED */
+    
+    /* Trial Banner for Packs/Drop-ins */
+    .modal-trial-banner {
+      background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+      border: 3px solid var(--color-black, #000);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.1);
+    }
+    
+    .trial-banner__content {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .trial-banner__icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+    
+    .trial-banner__text {
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    .trial-banner__text strong {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+    }
+    
+    .btn-trial-banner {
+      background: var(--color-black, #000);
+      color: var(--color-white, #fff);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-family: var(--font-heading, 'Work Sans', sans-serif);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+    
+    .btn-trial-banner:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 3px 3px 0 var(--color-primary, #00bcd4);
+    }
+    
+    /* Responsive Utilities */
+    .desktop-only {
+      display: block;
+    }
+    
+    .mobile-only {
+      display: none;
+    }
+    
+    /* Tablet and Mobile */
+    @media (max-width: 1024px) {
+      .modal-content-wrapper {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      
+      .modal-trial-sidebar {
+        display: none;
+      }
+      
+      .desktop-only {
+        display: none;
+      }
+      
+      .mobile-only {
+        display: block;
+      }
+      
+      /* Adjust modal content padding to account for sticky bar */
+      .modal-content {
+        padding-bottom: 5rem;
+      }
+    }
+    
+    /* Mobile specific adjustments */
+    @media (max-width: 768px) {
+      .trial-banner__content {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .btn-trial-banner {
+        width: 100%;
+      }
+    }
+    
+    /* --- BRUTALIST MODAL STYLES --- */
+    
+    /* Layout Container */
+    .modal-content-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 2rem;
+      align-items: start;
+      margin-top: 1rem;
+    }
+
+    /* 1. INSTRUCTIONS: Clean & High Contrast */
+    .modal-purchase-instructions {
+      background: #f8f9fa;
+      color: #000000;
+      border: 3px solid #000;
+      padding: 1rem;
+      margin: 0 0 1rem 0;
+    }
+    
+    .modal-purchase-instructions h4 {
+      margin: 0 0 1rem 0;
+      font-size: 1.1rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .purchase-instructions-header h4 {
+      color: #000;
+      text-transform: uppercase;
+      font-weight: 900;
+      font-size: 1.1rem;
+      margin-bottom: 1.2rem;
+      border-bottom: 2px solid #000;
+      padding-bottom: 0.8rem;
+      letter-spacing: 0.5px;
+    }
+
+    .purchase-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .purchase-step {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      padding: 10px;
+      border: 2px solid #e9ecef;
+    }
+
+    .step-number {
+      background: #000;
+      color: #FFE600;
+      font-weight: 900;
+      font-size: 1rem;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .step-text {
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.3;
+      color: #333;
+    }
+
+    /* ... (Regyfit container styles remain same) ... */
+
+    /* MOBILE STICKY BAR FIXES - BRUTALIST STYLE */
+    .modal-trial-sticky {
+      display: none; /* Hidden by default on Desktop */
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 99999; /* Safe high z-index */
+      padding: 15px;
+      background: #FFFFFF;
+      border-top: 4px solid #000;
+      justify-content: center;
+      box-shadow: 0 -5px 20px rgba(0,0,0,0.15);
+      pointer-events: auto !important; /* FORCE EVENTS */
+    }
+
+    /* Fix Overlay Interaction Issues on Mobile */
+    @media (max-width: 1024px) {
+      .modal-trial-sticky {
+        display: flex !important;
+      }
+      
+      /* Ensure modal content is clickable */
+      .modal-container, .modal-content, .modal-content-wrapper {
+        pointer-events: auto !important;
+      }
+      
+      /* Ensure no overlays block clicks */
+      .modal-overlay {
+        pointer-events: auto; /* Allow scroll/clicks inside */
+      }
+      
+      /* Ensure iframe is clickable on mobile */
+      .modal-regy-container iframe {
+         pointer-events: auto !important;
+         touch-action: auto !important;
+      }
+    }
+    
+    .btn-sticky-trial {
+      width: 100%;
+      max-width: 100%; /* Full width for easier tapping */
+      background: #FFE600; /* Brand Yellow */
+      color: #000;
+      border: 3px solid #000;
+      padding: 16px;
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 5px 5px 0px #000; /* HARD SHADOW */
+      transition: transform 0.1s, box-shadow 0.1s;
+      letter-spacing: 1px;
+    }
+    
+    .btn-sticky-trial:active {
+      transform: translate(2px, 2px);
+      box-shadow: 3px 3px 0px #000;
+    }
+    
+    /* Important: Add padding to modal content so sticky bar doesn't cover content */
+    .modal-content {
+      padding-bottom: 140px !important; /* Plenty of space for sticky bar */
+    }
+    
+    /* Make sure modal container allows scrolling over the padding */
+    .modal-container {
+      max-height: 95vh;
+      overflow-y: auto;
+    }
+    
+    /* PRICE BREAKDOWN STYLES */
+    .price-breakdown {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      background: transparent;
+      padding: 0;
+    }
+    
+    .price-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border: 2px solid #000;
+      padding: 10px 8px;
+      background: #FFE600; /* Brand Yellow */
+      box-shadow: 4px 4px 0px #000; /* Hard Shadow */
+      color: #000;
+    }
+    
+    .price-label {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #000;
+      margin-bottom: 4px;
+      letter-spacing: 0.5px;
+    }
+    
+    .price-value {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: #000;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+    
+    .price-note {
+      font-size: 0.7rem;
+      color: #000;
+      margin-top: 4px;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    /* MOBILE COMPACT INSTRUCTIONS & PRICE BREAKDOWN */
+    @media (max-width: 900px) {
+      /* Compact Title */
+      .modal-purchase-instructions h4 {
+        font-size: 0.8rem !important;
+        margin-bottom: 0.3rem !important;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      /* Super Compact Price Breakdown */
+      .price-breakdown {
+        padding: 2px !important;
+        gap: 10px !important;
+        margin-bottom: 15px !important;
+        background: transparent !important;
+      }
+      
+      .price-item {
+        padding: 8px 4px !important;
+        border: 2px solid #000 !important;
+        background: #FFE600 !important;
+        box-shadow: 3px 3px 0 #000 !important;
+        color: #000 !important;
+      }
+      
+      .price-label {
+        font-size: 0.6rem !important;
+        margin-bottom: 2px !important;
+        color: #000 !important;
+      }
+      
+      .price-value {
+        font-size: 1rem !important;
+        color: #000 !important;
+      }
+      
+      .price-note {
+        font-size: 0.55rem !important;
+        line-height: 1.1 !important;
+        color: #000 !important;
+      }
+      
+      /* Compact Steps Grid 2x2 */
+      .purchase-steps {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr; 
+        gap: 4px !important;
+      }
+      
+      .purchase-step {
+        padding: 6px !important;
+        font-size: 0.7rem !important;
+        min-height: auto !important; /* Let content dictate height */
+        height: auto !important;
+        display: flex;
+        flex-direction: row !important; /* Icon side-by-side with text */
+        align-items: center !important;
+        text-align: left !important;
+        background: #f5f5f5;
+        border: 1px solid #ddd;
+      }
+      
+      .step-number {
+        width: 16px !important;
+        height: 16px !important;
+        font-size: 0.65rem !important;
+        margin-bottom: 0 !important;
+        margin-right: 6px !important;
+        flex-shrink: 0;
+      }
+      
+      .step-text {
+        font-size: 0.65rem !important;
+        line-height: 1.1 !important;
+      }
+      
+      .modal-purchase-instructions {
+        padding: 8px !important;
+        background: #fff;
+        border-bottom: 1px solid #eee;
+      }
+    }
+
+    /* DESKTOP MODAL LAYOUT */
+    @media (min-width: 1025px) {
+      .modal-content {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 2rem;
+        align-items: start;
+      }
+      
+      .modal-purchase-instructions {
+        grid-column: 1 / -1; /* Full width top instructions */
+      }
+      
+      .modal-regy-container {
+        grid-column: 1 / 2; /* Left column */
+      }
+      
+      .modal-trial-sidebar {
+        grid-column: 2 / 3; /* Right column */
+        position: sticky;
+        top: 1rem;
+      }
+    }
+
+    /* MOBILE ADJUSTMENTS - ULTRA-SIMPLE FOR CLICK ACCURACY */
+    @media (max-width: 900px) {
+      /* Make modal behave like a native full-screen page */
+      .modal-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: #fff !important;
+        display: block !important;
+        overflow-y: scroll !important;
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      .modal-overlay:not(.active) {
+        display: none !important;
+      }
+
+      .modal-container {
+        position: static !important;
+        transform: none !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 100vh !important;
+        max-height: none !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        overflow: visible !important;
+      }
+      
+      .modal-content {
+        padding: 1rem !important;
+        padding-bottom: 120px !important; /* Space for sticky bar */
+      }
+      
+      .modal-header {
+        position: sticky !important;
+        top: 0 !important;
+        background: #000 !important;
+        color: #FFE600 !important;
+        z-index: 100 !important;
+        padding: 1rem !important;
+        border-bottom: 3px solid #000 !important;
+      }
+      
+      .modal-title {
+        color: #FFE600 !important;
+      }
+      
+      .modal-close {
+        color: #FFE600 !important;
+        background: transparent !important;
+        border: 2px solid #FFE600 !important;
+      }
+
+      .purchase-step {
+        padding: 10px;
+        align-items: center;
+      }
+      
+      .step-text {
+        font-size: 16px !important; /* Prevent auto-zoom on iOS */
+      }
+      
+      /* Ensure inputs don't trigger zoom */
+      input, select, textarea {
+        font-size: 16px !important;
+      }
+      
+      /* Iframe must be simple block element */
+      .modal-regy-container {
+        position: static !important;
+        transform: none !important;
+        margin: 1rem 0 !important;
+        padding: 0 !important;
+        border: 2px solid #000 !important;
+        overflow: visible !important;
+      }
+      
+      .modal-regy-container iframe {
+        position: static !important;
+        transform: none !important;
+        display: block !important;
+        width: 100% !important;
+        height: 1400px !important;
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+    }
+
+    /* 2. REGYFIT CONTAINER */
+    .modal-regy-container {
+      background: #fff;
+      border: 3px solid #000;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      display: block !important;
+      visibility: visible !important;
+    }
+
+    .modal-regy-container iframe {
+      display: block !important;
+      visibility: visible !important;
+      width: 100% !important;
+      height: 1400px !important;
+      min-height: 1400px !important;
+      border: none;
+      margin: 0;
+      padding: 0;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
+
+    /* 3. TRIAL CTA SIDEBAR (Desktop) - "Sticky Note" Style */
+    .modal-trial-sidebar {
+      position: sticky;
+      top: 1rem;
+      z-index: 10;
+    }
+
+    .trial-card {
+      background: #FFE600; /* Brand Yellow */
+      border: 3px solid #000;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 8px 8px 0px #000; /* Hard shadow */
+      transform: rotate(-1deg); /* Slight tilt for "raw" feel */
+      transition: transform 0.3s ease;
+    }
+
+    .trial-card:hover {
+      transform: rotate(0deg) scale(1.02);
+    }
+
+    .trial-card__title {
+      font-family: 'Teko', sans-serif; /* Assuming Teko is used, or brand font */
+      font-size: 2rem;
+      line-height: 1;
+      text-transform: uppercase;
+      color: #000;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .trial-card__text {
+      color: #000;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+    }
+
+    .btn--trial {
+      background: #000;
+      color: #fff;
+      border: none;
+      width: 100%;
+      padding: 1rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: 2px solid #000;
+      transition: all 0.2s;
+    }
+
+    .btn--trial:hover {
+      background: #fff;
+      color: #000;
+      box-shadow: 4px 4px 0px #000;
+    }
+
+    /* MOBILE ADJUSTMENTS */
+    @media (max-width: 900px) {
+      .modal-content-wrapper {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .modal-purchase-instructions {
+        padding: 1rem;
+      }
+      
+      .purchase-steps {
+        grid-template-columns: 1fr; /* Stack steps on mobile */
+      }
+      
+      .modal-regy-container {
+        box-shadow: 3px 3px 0px #000;
+      }
+    }
+    
+    /* Ensure visibility overrides */
+    .modal-regy-container iframe[name^="frame_regy"] {
+      display: block !important;
+      min-height: 1300px !important;
+      height: 1300px !important;
+      width: 100% !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      position: relative !important;
+      pointer-events: auto !important; /* Ensure clickable */
+    }
+    
+    /* Ensure purchase instructions are visible */
+    .modal-purchase-instructions {
+      display: block !important;
+    }
+  </style>
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -527,7 +1211,6 @@
       <div class="pricing__header">
         <h2 class="section-title" data-i18n="pricing.title">PREÇOS</h2>
         <div class="section-line"></div>
-        <p class="pricing__promo-text"><span data-i18n="pricing.promo_part1">Planos desde</span> <strong data-i18n="pricing.promo_price">3,7€ por treino</strong>. <span data-i18n="pricing.promo_part2">Treino em</span> <strong data-i18n="pricing.promo_highlight_blue">grupos exclusivos</strong> <span data-i18n="pricing.promo_part3">e acompanhamento contínuo dos nossos coaches — funciona para quem está a</span> <strong data-i18n="pricing.promo_highlight_blue2">dar os primeiros passos</strong> <span data-i18n="pricing.promo_part4">e para quem quer</span> <strong data-i18n="pricing.promo_highlight_blue3">elevar o nível</strong>.</p>
       </div>
       <div class="pricing__grid">
         <div class="price-card price-card--elite">
@@ -544,8 +1227,7 @@
             </ul>
           </div>
           <div class="price-card__cta">
-            <p class="price-card__anchor" data-i18n="pricing.elite.anchor">A partir de 3,7€ / treino</p>
-            <button type="button" class="btn" data-modal="elite" data-i18n="pricing.elite.cta">SABER MAIS</button>
+            <button type="button" class="btn" data-modal="elite" data-i18n="pricing.elite.cta">VER PLANO</button>
             <p class="price-card__coupon-link">
               <button type="button" class="price-card__coupon-btn" data-modal="elite-coupon" data-i18n="pricing.coupon_link">
                 Tens cupão? Inscreve-te aqui
@@ -567,8 +1249,7 @@
             </ul>
           </div>
           <div class="price-card__cta">
-            <p class="price-card__anchor" data-i18n="pricing.rise.anchor">A partir de 6,2€ / treino</p>
-            <button type="button" class="btn" data-modal="rise" data-i18n="pricing.rise.cta">SABER MAIS</button>
+            <button type="button" class="btn" data-modal="rise" data-i18n="pricing.rise.cta">VER PLANO</button>
             <p class="price-card__coupon-link">
               <button type="button" class="price-card__coupon-btn" data-modal="rise-coupon" data-i18n="pricing.coupon_link">
                 Tens cupão? Inscreve-te aqui
@@ -590,8 +1271,7 @@
             </ul>
           </div>
           <div class="price-card__cta">
-            <p class="price-card__anchor" data-i18n="pricing.starter.anchor">A partir de 7,2€ / treino</p>
-            <button type="button" class="btn" data-modal="starter" data-i18n="pricing.starter.cta">SABER MAIS</button>
+            <button type="button" class="btn" data-modal="starter" data-i18n="pricing.starter.cta">VER PLANO</button>
             <p class="price-card__coupon-link">
               <button type="button" class="price-card__coupon-btn" data-modal="starter-coupon" data-i18n="pricing.coupon_link">
                 Tens cupão? Inscreve-te aqui
@@ -604,10 +1284,6 @@
         <div class="price-card price-card--dropin">
           <div class="price-card__header">
             <h3 class="price-card__title">DROP-IN</h3>
-            <div class="price-card__price">
-              <span class="price-card__amount">€15</span>
-              <span class="price-card__period" data-i18n="pricing.dropin.period">/aula</span>
-            </div>
           </div>
           <div class="price-card__features">
             <ul>
@@ -626,10 +1302,6 @@
         <div class="price-card price-card--pack5">
           <div class="price-card__header">
             <h3 class="price-card__title" data-i18n="pricing.pack5.title">PACK 5</h3>
-            <div class="price-card__price">
-              <span class="price-card__amount">€70</span>
-              <span class="price-card__period" data-i18n="pricing.pack5.period">/pack</span>
-            </div>
           </div>
           <div class="price-card__features">
             <ul>
@@ -647,10 +1319,6 @@
         <div class="price-card price-card--pack10">
           <div class="price-card__header">
             <h3 class="price-card__title" data-i18n="pricing.pack10.title">PACK 10</h3>
-            <div class="price-card__price">
-              <span class="price-card__amount">€130</span>
-              <span class="price-card__period" data-i18n="pricing.pack10.period">/pack</span>
-            </div>
           </div>
           <div class="price-card__features">
             <ul>
@@ -680,144 +1348,75 @@
         <button class="modal-close" data-close="elite">&times;</button>
       </div>
       <div class="modal-content">
-        <!-- Pricing Request Form (Lead Capture) -->
-        <div class="pricing-request-form" id="pricing-request-form-elite">
-          <div class="pricing-request-form__header">
-            <h4 class="pricing-request-form__title" data-i18n="pricing_request.title">Receber Preçário Completo</h4>
-            <p class="pricing-request-form__subtitle" data-i18n="pricing_request.subtitle">Insere os teus dados para receberes a tabela detalhada de preços e as campanhas em vigor. A nossa equipa entrará em contacto contigo brevemente.</p>
-          </div>
-
-          <form class="pricing-request-form__inputs" id="pricing-request-form-inputs-elite">
-            <input type="hidden" name="_form_type" value="request_pricing_info" />
-            <input type="hidden" name="_email.subject" value="Solicitação de Preçário Completo" />
-            <input type="hidden" name="plan_type" value="Elite" />
-            
-            <div class="form-group">
-              <label for="pricing-name-elite" data-i18n="pricing_request.name">Nome</label>
-              <input type="text" id="pricing-name-elite" name="name" required autocomplete="name">
-            </div>
-            
-            <div class="form-group">
-              <label for="pricing-email-elite" data-i18n="pricing_request.email">Email</label>
-              <input type="email" id="pricing-email-elite" name="email" required autocomplete="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
-            </div>
-            
-            <div class="form-group">
-              <label for="pricing-phone-elite" data-i18n="pricing_request.phone">Telefone (opcional)</label>
-              <input type="tel" id="pricing-phone-elite" name="phone" autocomplete="tel">
-            </div>
-            
-            <button type="submit" class="pricing-request-form__submit" data-i18n="pricing_request.submit">
-              PEDIR INFORMAÇÃO
-            </button>
-          </form>
-        </div>
-
-        <!-- Success State -->
-        <div class="pricing-request-success" id="pricing-request-success-elite" style="display: none;">
-          <div class="pricing-request-success__icon">✅</div>
-          <h4 class="pricing-request-success__title" data-i18n="pricing_request.success_title">Obrigado!</h4>
-          <p class="pricing-request-success__message" data-i18n="pricing_request.success_message">Recebemos o teu pedido. Vamos enviar a informação para o teu email muito em breve.</p>
+        
+        <!-- Purchase Instructions -->
+        <div class="modal-purchase-instructions">
+          <h4 data-i18n="modal.purchase.title">Como fazer a inscrição:</h4>
           
-          <div class="pricing-request-upsell">
-            <p class="pricing-request-upsell__text" data-i18n="pricing_request.success_upsell">Não precisas de esperar para treinar. Marca já a tua aula experimental sem compromisso.</p>
-            <button type="button" class="pricing-request-upsell__cta" data-modal="trial" onclick="window.closeModal('elite'); setTimeout(() => window.openModal('trial'), 300);" data-i18n="pricing_request.success_cta">
-              MARCAR AULA EXPERIMENTAL AGORA
-            </button>
+          <!-- Price Breakdown Stickers -->
+          <div class="price-breakdown">
+            <div class="price-item">
+              <span class="price-label">MENSALIDADE</span>
+              <span class="price-value">€94.90</span>
+              <span class="price-note">Na 1ª pagas só os dias que restam do mês!</span>
+            </div>
+            <div class="price-item">
+              <span class="price-label">SEGURO</span>
+              <span class="price-value">€25.00</span>
+              <span class="price-note">Anual</span>
+            </div>
           </div>
-        </div>
 
-        <!-- Request Code Form -->
-        <div class="request-code-form" id="request-code-form-elite" style="display: none;">
-          <div class="request-code-form__header">
-            <h4 class="request-code-form__title" data-i18n="registration_code.request_form.title">Solicitar Código de Inscrição</h4>
-            <p class="request-code-form__subtitle" data-i18n="registration_code.request_form.subtitle">Preencha os seus dados e receberá o código com a promoção atual no seu email.</p>
-          </div>
-
-          <form class="request-code-form__inputs" id="request-code-form-inputs-elite">
-            <input type="hidden" name="_form_type" value="request_registration_code" />
-            <input type="hidden" name="_email.subject" value="Solicitação de Código de Inscrição" />
-            <input type="hidden" name="plan_type" value="Elite" />
-            
-            <div class="form-group">
-              <label for="request-name-elite" data-i18n="registration_code.request_form.name">Nome</label>
-              <input type="text" id="request-name-elite" name="name" required autocomplete="name">
+          <div class="purchase-steps">
+            <div class="purchase-step">
+              <span class="step-number">1</span>
+              <span class="step-text" data-i18n="modal.membership.step1">Escolhe a data de início</span>
             </div>
-            
-            <div class="form-group">
-              <label for="request-email-elite" data-i18n="registration_code.request_form.email">Email</label>
-              <input type="email" id="request-email-elite" name="email" required autocomplete="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
+            <div class="purchase-step">
+              <span class="step-number">2</span>
+              <span class="step-text" data-i18n="modal.membership.step2">Preenche os teus dados pessoais</span>
             </div>
-            
-            <div class="form-group">
-              <label for="request-phone-elite" data-i18n="registration_code.request_form.phone">Telefone (opcional)</label>
-              <input type="tel" id="request-phone-elite" name="phone" autocomplete="tel">
+            <div class="purchase-step">
+              <span class="step-number">3</span>
+              <span class="step-text" data-i18n="modal.membership.step3">Clica no valor "total a pagar"</span>
             </div>
-            
-            <div class="request-code-form__buttons">
-              <button type="submit" class="coupon-btn coupon-btn--primary" data-i18n="registration_code.request_form.submit">
-                SOLICITAR CÓDIGO
-              </button>
-              <button type="button" class="coupon-btn coupon-btn--secondary" onclick="backToPricingRequest('elite')" data-i18n="registration_code.request_form.back">
-                VOLTAR
-              </button>
+            <div class="purchase-step">
+              <span class="step-number">4</span>
+              <span class="step-text" data-i18n="modal.membership.step4">Escolhe a forma de pagamento preferida</span>
             </div>
-          </form>
-
-          <div class="request-code-success" id="request-code-success-elite" style="display: none;">
-            <div class="success-icon">✅</div>
-            <h4 data-i18n="registration_code.request_form.success_title">Pedido Enviado!</h4>
-            <p data-i18n="registration_code.request_form.success_message">Receberá o código de inscrição no seu email em breve com a promoção atual.</p>
           </div>
         </div>
         
-        <div class="modal-purchase-instructions" style="display: none;">
-          <div class="purchase-instructions-header">
-            <h4 data-i18n="modal.purchase.title">Como comprar o teu pack:</h4>
-          </div>
-          <div class="purchase-steps">
-            <div class="purchase-step">
-              <div class="step-number">1</div>
-              <div class="step-text" data-i18n="modal.purchase.step1">Escolhe a data de início</div>
-            </div>
-            <div class="purchase-step">
-              <div class="step-number">2</div>
-              <div class="step-text" data-i18n="modal.purchase.step2">Carrega no valor "total a pagar"</div>
-            </div>
-            <div class="purchase-step">
-              <div class="step-number">3</div>
-              <div class="step-text" data-i18n="modal.purchase.step3">Faz o registo da conta na app Be Water</div>
-            </div>
-            <div class="purchase-step">
-              <div class="step-number">4</div>
-              <div class="step-text" data-i18n="modal.purchase.step4">"Ir para pagamento" e escolhe a forma de pagamento preferida</div>
-            </div>
-          </div>
+        <!-- Regyfit Form Container -->
+        <div class="modal-regy-container">
+          <input type="hidden" class="class_regy" id="src_regy1" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=1&acs=38e6d410bd1118bc516ba1a7a0b91264&site=s">
+          <iframe name="frame_regy1" id="frame_regy1" width="100%" height="1400px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Elite"></iframe>
         </div>
 
-        <div class="modal-regy-container" style="display: none;">
-          <!-- Regy Integration for ELITE - Normal (id_int=1) -->
-          <input type="hidden" class="class_regy" id="src_regy5" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=1&acs=38e6d410bd1118bc516ba1a7a0b91264&site=s">
-          <iframe name="frame_regy5" id="frame_regy5" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Elite" style="display: block;"></iframe>
-          
-          <!-- Regy Integration Elite - Special Promotion A -->
-          <input type="hidden" class="class_regy" id="src_regy20" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=20&acs=fe311881680ec913dd483fedac15de77&site=s">
-          <iframe name="frame_regy20" id="frame_regy20" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Elite" style="display: none;"></iframe>
-          
-          <!-- Regy Integration Elite - Special Promotion B -->
-          <input type="hidden" class="class_regy" id="src_regy24" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=24&acs=a6b4fcb7a11fa9fde47fbce2f4d9355c&site=s">
-          <iframe name="frame_regy24" id="frame_regy24" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Elite" style="display: none;"></iframe>
-          
-          <!-- Regy Integration Elite - Member Referral Coupon (id_int=26) -->
-          <input type="hidden" class="class_regy" id="src_regy26" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=26&acs=459bb07eb91b84bd4be29e53fb3b7ea7&site=s">
-          <iframe name="frame_regy26" id="frame_regy26" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Elite" style="display: none;"></iframe>
-          
-          <!-- Regy Integration Elite - BRUCELEE Coupon (id_int=29) -->
-          <input type="hidden" class="class_regy" id="src_regy29" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=29&acs=ad132b9f16c3f46392dcbfb643c5738a&site=s">
-          <iframe name="frame_regy29" id="frame_regy29" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição - BRUCELEE" style="display: none;"></iframe>
+        <!-- Sidebar: Trial Class CTA (Desktop Only) -->
+        <div class="modal-trial-sidebar desktop-only">
+          <div class="trial-card">
+            <h4 class="trial-card__title" data-i18n="modal.trial_cta.title">PRECISAS DE OPÇÕES?</h4>
+            
+            <p class="trial-card__text" data-i18n="modal.trial_cta.text">Vem treinar e encontramos a solução perfeita para a tua carteira.</p>
+            <button type="button" class="btn btn--trial" onclick="window.closeModal('elite'); setTimeout(() => window.openModal('trial'), 300);">
+              <span data-i18n="modal.trial_cta.button">MARCAR E CONVERSAR</span>
+            </button>
+          </div>
         </div>
 
       </div>
+    </div>
+    
+    <!-- Sticky Bottom Bar: Trial CTA (Mobile Only) -->
+    <div class="modal-trial-sticky mobile-only" style="flex-direction: column; align-items: center;">
+      <div style="width: 100%; text-align: center; font-size: 0.8rem; margin-bottom: 8px; font-weight: 600; color: #000; line-height: 1.2;" data-i18n="modal.trial_cta.text_mobile">
+        Vem treinar e encontramos a solução perfeita para ti.
+      </div>
+      <button type="button" class="btn-sticky-trial" onclick="window.closeModal('elite'); setTimeout(() => window.openModal('trial'), 300);">
+        <span class="btn-sticky-trial__icon">🎯</span>
+        <span class="btn-sticky-trial__text" data-i18n="modal.trial_cta.mobile">PRECISAS DE OPÇÕES? MARCA AULA</span>
+      </button>
     </div>
   </div>
 
@@ -831,144 +1430,75 @@
         <button class="modal-close" data-close="rise">&times;</button>
       </div>
       <div class="modal-content">
-        <!-- Pricing Request Form (Lead Capture) -->
-        <div class="pricing-request-form" id="pricing-request-form-rise">
-          <div class="pricing-request-form__header">
-            <h4 class="pricing-request-form__title" data-i18n="pricing_request.title">Receber Preçário Completo</h4>
-            <p class="pricing-request-form__subtitle" data-i18n="pricing_request.subtitle">Insere os teus dados para receberes a tabela detalhada de preços e as campanhas em vigor. A nossa equipa entrará em contacto contigo brevemente.</p>
-          </div>
-
-          <form class="pricing-request-form__inputs" id="pricing-request-form-inputs-rise">
-            <input type="hidden" name="_form_type" value="request_pricing_info" />
-            <input type="hidden" name="_email.subject" value="Solicitação de Preçário Completo" />
-            <input type="hidden" name="plan_type" value="Rise" />
-            
-            <div class="form-group">
-              <label for="pricing-name-rise" data-i18n="pricing_request.name">Nome</label>
-              <input type="text" id="pricing-name-rise" name="name" required autocomplete="name">
-            </div>
-            
-            <div class="form-group">
-              <label for="pricing-email-rise" data-i18n="pricing_request.email">Email</label>
-              <input type="email" id="pricing-email-rise" name="email" required autocomplete="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
-            </div>
-            
-            <div class="form-group">
-              <label for="pricing-phone-rise" data-i18n="pricing_request.phone">Telefone (opcional)</label>
-              <input type="tel" id="pricing-phone-rise" name="phone" autocomplete="tel">
-            </div>
-            
-            <button type="submit" class="pricing-request-form__submit" data-i18n="pricing_request.submit">
-              PEDIR INFORMAÇÃO
-            </button>
-          </form>
-        </div>
-
-        <!-- Success State -->
-        <div class="pricing-request-success" id="pricing-request-success-rise" style="display: none;">
-          <div class="pricing-request-success__icon">✅</div>
-          <h4 class="pricing-request-success__title" data-i18n="pricing_request.success_title">Obrigado!</h4>
-          <p class="pricing-request-success__message" data-i18n="pricing_request.success_message">Recebemos o teu pedido. Vamos enviar a informação para o teu email muito em breve.</p>
+        
+        <!-- Purchase Instructions -->
+        <div class="modal-purchase-instructions">
+          <h4 data-i18n="modal.purchase.title">Como fazer a inscrição:</h4>
           
-          <div class="pricing-request-upsell">
-            <p class="pricing-request-upsell__text" data-i18n="pricing_request.success_upsell">Não precisas de esperar para treinar. Marca já a tua aula experimental sem compromisso.</p>
-            <button type="button" class="pricing-request-upsell__cta" data-modal="trial" onclick="window.closeModal('rise'); setTimeout(() => window.openModal('trial'), 300);" data-i18n="pricing_request.success_cta">
-              MARCAR AULA EXPERIMENTAL AGORA
-            </button>
+          <!-- Price Breakdown Stickers -->
+          <div class="price-breakdown">
+            <div class="price-item">
+              <span class="price-label">MENSALIDADE</span>
+              <span class="price-value">€79.90</span>
+              <span class="price-note">Na 1ª pagas só os dias que restam do mês!</span>
+            </div>
+            <div class="price-item">
+              <span class="price-label">SEGURO</span>
+              <span class="price-value">€25.00</span>
+              <span class="price-note">Anual</span>
+            </div>
           </div>
-        </div>
 
-        <!-- Request Code Form -->
-        <div class="request-code-form" id="request-code-form-rise" style="display: none;">
-          <div class="request-code-form__header">
-            <h4 class="request-code-form__title" data-i18n="registration_code.request_form.title">Solicitar Código de Inscrição</h4>
-            <p class="request-code-form__subtitle" data-i18n="registration_code.request_form.subtitle">Preencha os seus dados e receberá o código com a promoção atual no seu email.</p>
-          </div>
-
-          <form class="request-code-form__inputs" id="request-code-form-inputs-rise">
-            <input type="hidden" name="_form_type" value="request_registration_code" />
-            <input type="hidden" name="_email.subject" value="Solicitação de Código de Inscrição" />
-            <input type="hidden" name="plan_type" value="Rise" />
-            
-            <div class="form-group">
-              <label for="request-name-rise" data-i18n="registration_code.request_form.name">Nome</label>
-              <input type="text" id="request-name-rise" name="name" required autocomplete="name">
+          <div class="purchase-steps">
+            <div class="purchase-step">
+              <span class="step-number">1</span>
+              <span class="step-text" data-i18n="modal.membership.step1">Escolhe a data de início</span>
             </div>
-            
-            <div class="form-group">
-              <label for="request-email-rise" data-i18n="registration_code.request_form.email">Email</label>
-              <input type="email" id="request-email-rise" name="email" required autocomplete="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
+            <div class="purchase-step">
+              <span class="step-number">2</span>
+              <span class="step-text" data-i18n="modal.membership.step2">Preenche os teus dados pessoais</span>
             </div>
-            
-            <div class="form-group">
-              <label for="request-phone-rise" data-i18n="registration_code.request_form.phone">Telefone (opcional)</label>
-              <input type="tel" id="request-phone-rise" name="phone" autocomplete="tel">
+            <div class="purchase-step">
+              <span class="step-number">3</span>
+              <span class="step-text" data-i18n="modal.membership.step3">Clica no valor "total a pagar"</span>
             </div>
-            
-            <div class="request-code-form__buttons">
-              <button type="submit" class="coupon-btn coupon-btn--primary" data-i18n="registration_code.request_form.submit">
-                SOLICITAR CÓDIGO
-              </button>
-              <button type="button" class="coupon-btn coupon-btn--secondary" onclick="backToPricingRequest('rise')" data-i18n="registration_code.request_form.back">
-                VOLTAR
-              </button>
+            <div class="purchase-step">
+              <span class="step-number">4</span>
+              <span class="step-text" data-i18n="modal.membership.step4">Escolhe a forma de pagamento preferida</span>
             </div>
-          </form>
-
-          <div class="request-code-success" id="request-code-success-rise" style="display: none;">
-            <div class="success-icon">✅</div>
-            <h4 data-i18n="registration_code.request_form.success_title">Pedido Enviado!</h4>
-            <p data-i18n="registration_code.request_form.success_message">Receberá o código de inscrição no seu email em breve com a promoção atual.</p>
           </div>
         </div>
         
-        <div class="modal-purchase-instructions" style="display: none;">
-          <div class="purchase-instructions-header">
-            <h4 data-i18n="modal.purchase.title">Como comprar o teu pack:</h4>
-          </div>
-          <div class="purchase-steps">
-            <div class="purchase-step">
-              <div class="step-number">1</div>
-              <div class="step-text" data-i18n="modal.purchase.step1">Escolhe a data de início</div>
-            </div>
-            <div class="purchase-step">
-              <div class="step-number">2</div>
-              <div class="step-text" data-i18n="modal.purchase.step2">Carrega no valor "total a pagar"</div>
-            </div>
-            <div class="purchase-step">
-              <div class="step-number">3</div>
-              <div class="step-text" data-i18n="modal.purchase.step3">Faz o registo da conta na app Be Water</div>
-            </div>
-            <div class="purchase-step">
-              <div class="step-number">4</div>
-              <div class="step-text" data-i18n="modal.purchase.step4">"Ir para pagamento" e escolhe a forma de pagamento preferida</div>
-            </div>
-          </div>
+        <!-- Regyfit Form Container -->
+        <div class="modal-regy-container">
+          <input type="hidden" class="class_regy" id="src_regy3" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=3&acs=3ddf69e0b105421fc7423c06a6ffccbd&site=s">
+          <iframe name="frame_regy3" id="frame_regy3" width="100%" height="1400px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Rise"></iframe>
         </div>
 
-        <div class="modal-regy-container" style="display: none;">
-          <!-- Regy Integration for RISE - Normal (id_int=3) -->
-          <input type="hidden" class="class_regy" id="src_regy6" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=3&acs=3ddf69e0b105421fc7423c06a6ffccbd&site=s">
-          <iframe name="frame_regy6" id="frame_regy6" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Rise" style="display: block;"></iframe>
-          
-          <!-- Regy Integration Rise - Special Promotion A -->
-          <input type="hidden" class="class_regy" id="src_regy21" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=21&acs=49bf44f8ec2ed220d2e6bb5bf2e85d78&site=s">
-          <iframe name="frame_regy21" id="frame_regy21" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Rise" style="display: none;"></iframe>
-          
-          <!-- Regy Integration Rise - Special Promotion B -->
-          <input type="hidden" class="class_regy" id="src_regy23" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=23&acs=a1d1d043945c3be3dac6a94184454292&site=s">
-          <iframe name="frame_regy23" id="frame_regy23" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Rise" style="display: none;"></iframe>
-          
-          <!-- Regy Integration Rise - Member Referral Coupon (id_int=27) -->
-          <input type="hidden" class="class_regy" id="src_regy27" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=27&acs=9e2c1ebc5a786b390848e4b21bc10653&site=s">
-          <iframe name="frame_regy27" id="frame_regy27" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Rise" style="display: none;"></iframe>
-          
-          <!-- Regy Integration Rise - BRUCELEE Coupon (id_int=29, iframe_id=30) -->
-          <input type="hidden" class="class_regy" id="src_regy30" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=29&acs=ad132b9f16c3f46392dcbfb643c5738a&site=s">
-          <iframe name="frame_regy30" id="frame_regy30" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição - BRUCELEE" style="display: none;"></iframe>
+        <!-- Sidebar: Trial Class CTA (Desktop Only) -->
+        <div class="modal-trial-sidebar desktop-only">
+          <div class="trial-card">
+            <h4 class="trial-card__title" data-i18n="modal.trial_cta.title">PRECISAS DE OPÇÕES?</h4>
+            
+            <p class="trial-card__text" data-i18n="modal.trial_cta.text">Vem treinar e encontramos a solução perfeita para a tua carteira.</p>
+            <button type="button" class="btn btn--trial" onclick="window.closeModal('rise'); setTimeout(() => window.openModal('trial'), 300);">
+              <span data-i18n="modal.trial_cta.button">MARCAR E CONVERSAR</span>
+            </button>
+          </div>
         </div>
 
       </div>
+    </div>
+    
+    <!-- Sticky Bottom Bar: Trial CTA (Mobile Only) -->
+    <div class="modal-trial-sticky mobile-only" style="flex-direction: column; align-items: center;">
+      <div style="width: 100%; text-align: center; font-size: 0.8rem; margin-bottom: 8px; font-weight: 600; color: #000; line-height: 1.2;" data-i18n="modal.trial_cta.text_mobile">
+        Vem treinar e encontramos a solução perfeita para ti.
+      </div>
+      <button type="button" class="btn-sticky-trial" onclick="window.closeModal('rise'); setTimeout(() => window.openModal('trial'), 300);">
+        <span class="btn-sticky-trial__icon">🎯</span>
+        <span class="btn-sticky-trial__text" data-i18n="modal.trial_cta.mobile">PRECISAS DE OPÇÕES? MARCA AULA</span>
+      </button>
     </div>
   </div>
 
@@ -982,144 +1512,75 @@
         <button class="modal-close" data-close="starter">&times;</button>
       </div>
       <div class="modal-content">
-        <!-- Pricing Request Form (Lead Capture) -->
-        <div class="pricing-request-form" id="pricing-request-form-starter">
-          <div class="pricing-request-form__header">
-            <h4 class="pricing-request-form__title" data-i18n="pricing_request.title">Receber Preçário Completo</h4>
-            <p class="pricing-request-form__subtitle" data-i18n="pricing_request.subtitle">Insere os teus dados para receberes a tabela detalhada de preços e as campanhas em vigor. A nossa equipa entrará em contacto contigo brevemente.</p>
-          </div>
-
-          <form class="pricing-request-form__inputs" id="pricing-request-form-inputs-starter">
-            <input type="hidden" name="_form_type" value="request_pricing_info" />
-            <input type="hidden" name="_email.subject" value="Solicitação de Preçário Completo" />
-            <input type="hidden" name="plan_type" value="Starter" />
-            
-            <div class="form-group">
-              <label for="pricing-name-starter" data-i18n="pricing_request.name">Nome</label>
-              <input type="text" id="pricing-name-starter" name="name" required autocomplete="name">
-            </div>
-            
-            <div class="form-group">
-              <label for="pricing-email-starter" data-i18n="pricing_request.email">Email</label>
-              <input type="email" id="pricing-email-starter" name="email" required autocomplete="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
-            </div>
-            
-            <div class="form-group">
-              <label for="pricing-phone-starter" data-i18n="pricing_request.phone">Telefone (opcional)</label>
-              <input type="tel" id="pricing-phone-starter" name="phone" autocomplete="tel">
-            </div>
-            
-            <button type="submit" class="pricing-request-form__submit" data-i18n="pricing_request.submit">
-              PEDIR INFORMAÇÃO
-            </button>
-          </form>
-        </div>
-
-        <!-- Success State -->
-        <div class="pricing-request-success" id="pricing-request-success-starter" style="display: none;">
-          <div class="pricing-request-success__icon">✅</div>
-          <h4 class="pricing-request-success__title" data-i18n="pricing_request.success_title">Obrigado!</h4>
-          <p class="pricing-request-success__message" data-i18n="pricing_request.success_message">Recebemos o teu pedido. Vamos enviar a informação para o teu email muito em breve.</p>
+        
+        <!-- Purchase Instructions -->
+        <div class="modal-purchase-instructions">
+          <h4 data-i18n="modal.purchase.title">Como fazer a inscrição:</h4>
           
-          <div class="pricing-request-upsell">
-            <p class="pricing-request-upsell__text" data-i18n="pricing_request.success_upsell">Não precisas de esperar para treinar. Marca já a tua aula experimental sem compromisso.</p>
-            <button type="button" class="pricing-request-upsell__cta" data-modal="trial" onclick="window.closeModal('starter'); setTimeout(() => window.openModal('trial'), 300);" data-i18n="pricing_request.success_cta">
-              MARCAR AULA EXPERIMENTAL AGORA
-            </button>
+          <!-- Price Breakdown Stickers -->
+          <div class="price-breakdown">
+            <div class="price-item">
+              <span class="price-label">MENSALIDADE</span>
+              <span class="price-value">€64.90</span>
+              <span class="price-note">Na 1ª pagas só os dias que restam do mês!</span>
+            </div>
+            <div class="price-item">
+              <span class="price-label">SEGURO</span>
+              <span class="price-value">€25.00</span>
+              <span class="price-note">Anual</span>
+            </div>
           </div>
-        </div>
 
-        <!-- Request Code Form -->
-        <div class="request-code-form" id="request-code-form-starter" style="display: none;">
-          <div class="request-code-form__header">
-            <h4 class="request-code-form__title" data-i18n="registration_code.request_form.title">Solicitar Código de Inscrição</h4>
-            <p class="request-code-form__subtitle" data-i18n="registration_code.request_form.subtitle">Preencha os seus dados e receberá o código com a promoção atual no seu email.</p>
-          </div>
-
-          <form class="request-code-form__inputs" id="request-code-form-inputs-starter">
-            <input type="hidden" name="_form_type" value="request_registration_code" />
-            <input type="hidden" name="_email.subject" value="Solicitação de Código de Inscrição" />
-            <input type="hidden" name="plan_type" value="Starter" />
-            
-            <div class="form-group">
-              <label for="request-name-starter" data-i18n="registration_code.request_form.name">Nome</label>
-              <input type="text" id="request-name-starter" name="name" required autocomplete="name">
+          <div class="purchase-steps">
+            <div class="purchase-step">
+              <span class="step-number">1</span>
+              <span class="step-text" data-i18n="modal.membership.step1">Escolhe a data de início</span>
             </div>
-            
-            <div class="form-group">
-              <label for="request-email-starter" data-i18n="registration_code.request_form.email">Email</label>
-              <input type="email" id="request-email-starter" name="email" required autocomplete="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
+            <div class="purchase-step">
+              <span class="step-number">2</span>
+              <span class="step-text" data-i18n="modal.membership.step2">Preenche os teus dados pessoais</span>
             </div>
-            
-            <div class="form-group">
-              <label for="request-phone-starter" data-i18n="registration_code.request_form.phone">Telefone (opcional)</label>
-              <input type="tel" id="request-phone-starter" name="phone" autocomplete="tel">
+            <div class="purchase-step">
+              <span class="step-number">3</span>
+              <span class="step-text" data-i18n="modal.membership.step3">Clica no valor "total a pagar"</span>
             </div>
-            
-            <div class="request-code-form__buttons">
-              <button type="submit" class="coupon-btn coupon-btn--primary" data-i18n="registration_code.request_form.submit">
-                SOLICITAR CÓDIGO
-              </button>
-              <button type="button" class="coupon-btn coupon-btn--secondary" onclick="backToPricingRequest('starter')" data-i18n="registration_code.request_form.back">
-                VOLTAR
-              </button>
+            <div class="purchase-step">
+              <span class="step-number">4</span>
+              <span class="step-text" data-i18n="modal.membership.step4">Escolhe a forma de pagamento preferida</span>
             </div>
-          </form>
-
-          <div class="request-code-success" id="request-code-success-starter" style="display: none;">
-            <div class="success-icon">✅</div>
-            <h4 data-i18n="registration_code.request_form.success_title">Pedido Enviado!</h4>
-            <p data-i18n="registration_code.request_form.success_message">Receberá o código de inscrição no seu email em breve com a promoção atual.</p>
           </div>
         </div>
         
-        <div class="modal-purchase-instructions" style="display: none;">
-          <div class="purchase-instructions-header">
-            <h4 data-i18n="modal.purchase.title">Como comprar o teu pack:</h4>
-          </div>
-          <div class="purchase-steps">
-            <div class="purchase-step">
-              <div class="step-number">1</div>
-              <div class="step-text" data-i18n="modal.purchase.step1">Escolhe a data de início</div>
-            </div>
-            <div class="purchase-step">
-              <div class="step-number">2</div>
-              <div class="step-text" data-i18n="modal.purchase.step2">Carrega no valor "total a pagar"</div>
-            </div>
-            <div class="purchase-step">
-              <div class="step-number">3</div>
-              <div class="step-text" data-i18n="modal.purchase.step3">Faz o registo da conta na app Be Water</div>
-            </div>
-            <div class="purchase-step">
-              <div class="step-number">4</div>
-              <div class="step-text" data-i18n="modal.purchase.step4">"Ir para pagamento" e escolhe a forma de pagamento preferida</div>
-            </div>
-          </div>
+        <!-- Regyfit Form Container -->
+        <div class="modal-regy-container">
+          <input type="hidden" class="class_regy" id="src_regy2" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=2&acs=7efff90d4101aed0cec7330e5d7c8b6a&site=s">
+          <iframe name="frame_regy2" id="frame_regy2" width="100%" height="1400px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Starter"></iframe>
         </div>
 
-        <div class="modal-regy-container" style="display: none;">
-          <!-- Regy Integration for STARTER - Normal (id_int=2) -->
-          <input type="hidden" class="class_regy" id="src_regy7" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=2&acs=7efff90d4101aed0cec7330e5d7c8b6a&site=s">
-          <iframe name="frame_regy7" id="frame_regy7" width="100%" height="1000px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Starter" style="display: block;"></iframe>
-          
-          <!-- Regy Integration Starter - Special Promotion A -->
-          <input type="hidden" class="class_regy" id="src_regy22" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=22&acs=ff635bb01e7c428e092b0365587f433c&site=s">
-          <iframe name="frame_regy22" id="frame_regy22" width="100%" height="1000px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Starter" style="display: none;"></iframe>
-          
-          <!-- Regy Integration Starter - Special Promotion B -->
-          <input type="hidden" class="class_regy" id="src_regy25" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=25&acs=1b89f203764f2f4d32749275d66cb8c9&site=s">
-          <iframe name="frame_regy25" id="frame_regy25" width="100%" height="1000px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Starter" style="display: none;"></iframe>
-          
-          <!-- Regy Integration Starter - Member Referral Coupon (id_int=28) -->
-          <input type="hidden" class="class_regy" id="src_regy28" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=28&acs=0a3a876daefffe1e3a26b590f934a48c&site=s">
-          <iframe name="frame_regy28" id="frame_regy28" width="100%" height="1000px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Starter" style="display: none;"></iframe>
-          
-          <!-- Regy Integration Starter - BRUCELEE Coupon (id_int=29, iframe_id=31) -->
-          <input type="hidden" class="class_regy" id="src_regy31" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=29&acs=ad132b9f16c3f46392dcbfb643c5738a&site=s">
-          <iframe name="frame_regy31" id="frame_regy31" width="100%" height="1000px" frameborder="0" scrolling="auto" title="Formulário de inscrição - BRUCELEE" style="display: none;"></iframe>
+        <!-- Sidebar: Trial Class CTA (Desktop Only) -->
+        <div class="modal-trial-sidebar desktop-only">
+          <div class="trial-card">
+            <h4 class="trial-card__title" data-i18n="modal.trial_cta.title">PRECISAS DE OPÇÕES?</h4>
+            
+            <p class="trial-card__text" data-i18n="modal.trial_cta.text">Vem treinar e encontramos a solução perfeita para a tua carteira.</p>
+            <button type="button" class="btn btn--trial" onclick="window.closeModal('starter'); setTimeout(() => window.openModal('trial'), 300);">
+              <span data-i18n="modal.trial_cta.button">MARCAR E CONVERSAR</span>
+            </button>
+          </div>
         </div>
 
       </div>
+    </div>
+    
+    <!-- Sticky Bottom Bar: Trial CTA (Mobile Only) -->
+    <div class="modal-trial-sticky mobile-only" style="flex-direction: column; align-items: center;">
+      <div style="width: 100%; text-align: center; font-size: 0.8rem; margin-bottom: 8px; font-weight: 600; color: #000; line-height: 1.2;" data-i18n="modal.trial_cta.text_mobile">
+        Vem treinar e encontramos a solução perfeita para ti.
+      </div>
+      <button type="button" class="btn-sticky-trial" onclick="window.closeModal('starter'); setTimeout(() => window.openModal('trial'), 300);">
+        <span class="btn-sticky-trial__icon">🎯</span>
+        <span class="btn-sticky-trial__text" data-i18n="modal.trial_cta.mobile">PRECISAS DE OPÇÕES? MARCA AULA</span>
+      </button>
     </div>
   </div>
 
@@ -1168,7 +1629,32 @@
           <input type="hidden" class="class_regy" id="src_regy15" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/aula_avulso.php?id_box=2244&id_int=15&acs=ec0896d34cf06fc3c88ffa93d68ebc1b&site=s">
           <iframe name="frame_regy15" id="frame_regy15" width="100%" height="1000px" frameborder="0" scrolling="auto" title="Formulário de reserva de aula avulsa" style="display: block;"></iframe>
         </div>
+
+        <!-- Trial CTA Banner for Packs/Drop-ins -->
+        <div class="modal-trial-banner desktop-only">
+          <div class="trial-banner__content">
+            <div class="trial-banner__icon">💡</div>
+            <div class="trial-banner__text">
+              <strong data-i18n="modal.pack_trial_cta.title">Porquê pagar €15?</strong>
+              <span data-i18n="modal.pack_trial_cta.text">Experimenta grátis primeiro!</span>
+            </div>
+            <button type="button" class="btn-trial-banner" onclick="window.closeModal('dropin'); setTimeout(() => window.openModal('trial'), 300);" data-i18n="modal.pack_trial_cta.button">
+              Aula Experimental Grátis
+            </button>
+          </div>
+        </div>
+
       </div>
+    </div>
+    <!-- Sticky Bottom Bar: Trial Class CTA (Mobile) -->
+    <div class="modal-trial-sticky mobile-only" style="flex-direction: column; align-items: center;">
+      <div style="width: 100%; text-align: center; font-size: 0.8rem; margin-bottom: 8px; font-weight: 600; color: #000; line-height: 1.2;" data-i18n="modal.trial_cta.text_mobile">
+        Vem treinar e encontramos a solução perfeita para ti.
+      </div>
+      <button type="button" class="btn-sticky-trial" onclick="window.closeModal('dropin'); setTimeout(() => window.openModal('trial'), 300);">
+        <span class="btn-sticky-trial__icon">🎯</span>
+        <span class="btn-sticky-trial__text" data-i18n="modal.trial_cta.mobile">PRECISAS DE OPÇÕES? MARCA AULA</span>
+      </button>
     </div>
   </div>
 
@@ -1199,18 +1685,14 @@
           <div class="purchase-steps">
             <div class="purchase-step">
               <div class="step-number">1</div>
-              <div class="step-text" data-i18n="modal.purchase.step1">Escolhe a data de início</div>
-            </div>
-            <div class="purchase-step">
-              <div class="step-number">2</div>
               <div class="step-text" data-i18n="modal.purchase.step2">Carrega no valor "total a pagar"</div>
             </div>
             <div class="purchase-step">
-              <div class="step-number">3</div>
+              <div class="step-number">2</div>
               <div class="step-text" data-i18n="modal.purchase.step3">Faz o registo da conta na app Be Water</div>
             </div>
             <div class="purchase-step">
-              <div class="step-number">4</div>
+              <div class="step-number">3</div>
               <div class="step-text" data-i18n="modal.purchase.step4">"Ir para pagamento" e escolhe a forma de pagamento preferida</div>
             </div>
           </div>
@@ -1221,7 +1703,32 @@
           <input type="hidden" class="class_regy" id="src_regy19" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_pack.php?id_box=2244&id_int=19&acs=92c6751aa223d1a34d491341c97d8628&site=s">
           <iframe name="frame_regy19" id="frame_regy19" width="100%" height="0px" frameborder="0" scrolling="no" title="Formulário de compra Pack 5" style="display: block;"></iframe>
         </div>
+
+        <!-- Trial CTA Banner for Packs/Drop-ins -->
+        <div class="modal-trial-banner desktop-only">
+          <div class="trial-banner__content">
+            <div class="trial-banner__icon">💡</div>
+            <div class="trial-banner__text">
+              <strong data-i18n="modal.pack_trial_cta.title">Experimenta grátis primeiro!</strong>
+              <span data-i18n="modal.pack_trial_cta.text">Marca uma aula experimental antes de comprar.</span>
+            </div>
+            <button type="button" class="btn-trial-banner" onclick="window.closeModal('pack5'); setTimeout(() => window.openModal('trial'), 300);" data-i18n="modal.pack_trial_cta.button">
+              Aula Experimental Grátis
+            </button>
+          </div>
+        </div>
+
       </div>
+    </div>
+    <!-- Sticky Bottom Bar: Trial Class CTA (Mobile) -->
+    <div class="modal-trial-sticky mobile-only" style="flex-direction: column; align-items: center;">
+      <div style="width: 100%; text-align: center; font-size: 0.8rem; margin-bottom: 8px; font-weight: 600; color: #000; line-height: 1.2;" data-i18n="modal.trial_cta.text_mobile">
+        Vem treinar e encontramos a solução perfeita para ti.
+      </div>
+      <button type="button" class="btn-sticky-trial" onclick="window.closeModal('pack5'); setTimeout(() => window.openModal('trial'), 300);">
+        <span class="btn-sticky-trial__icon">🎯</span>
+        <span class="btn-sticky-trial__text" data-i18n="modal.trial_cta.mobile">PRECISAS DE OPÇÕES? MARCA AULA</span>
+      </button>
     </div>
   </div>
 
@@ -1252,18 +1759,14 @@
           <div class="purchase-steps">
             <div class="purchase-step">
               <div class="step-number">1</div>
-              <div class="step-text" data-i18n="modal.purchase.step1">Escolhe a data de início</div>
-            </div>
-            <div class="purchase-step">
-              <div class="step-number">2</div>
               <div class="step-text" data-i18n="modal.purchase.step2">Carrega no valor "total a pagar"</div>
             </div>
             <div class="purchase-step">
-              <div class="step-number">3</div>
+              <div class="step-number">2</div>
               <div class="step-text" data-i18n="modal.purchase.step3">Faz o registo da conta na app Be Water</div>
             </div>
             <div class="purchase-step">
-              <div class="step-number">4</div>
+              <div class="step-number">3</div>
               <div class="step-text" data-i18n="modal.purchase.step4">"Ir para pagamento" e escolhe a forma de pagamento preferida</div>
             </div>
           </div>
@@ -1274,7 +1777,32 @@
           <input type="hidden" class="class_regy" id="src_regy18" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_pack.php?id_box=2244&id_int=18&acs=84ef9a58d4979c4cbe9685754f8bb744&site=s">
           <iframe name="frame_regy18" id="frame_regy18" width="100%" height="0px" frameborder="0" scrolling="no" title="Formulário de compra Pack 10" style="display: block;"></iframe>
         </div>
+
+        <!-- Trial CTA Banner for Packs/Drop-ins -->
+        <div class="modal-trial-banner desktop-only">
+          <div class="trial-banner__content">
+            <div class="trial-banner__icon">💡</div>
+            <div class="trial-banner__text">
+              <strong data-i18n="modal.pack_trial_cta.title">Experimenta grátis primeiro!</strong>
+              <span data-i18n="modal.pack_trial_cta.text">Marca uma aula experimental antes de comprar.</span>
+            </div>
+            <button type="button" class="btn-trial-banner" onclick="window.closeModal('pack10'); setTimeout(() => window.openModal('trial'), 300);" data-i18n="modal.pack_trial_cta.button">
+              Aula Experimental Grátis
+            </button>
+          </div>
+        </div>
+
       </div>
+    </div>
+    <!-- Sticky Bottom Bar: Trial Class CTA (Mobile) -->
+    <div class="modal-trial-sticky mobile-only" style="flex-direction: column; align-items: center;">
+      <div style="width: 100%; text-align: center; font-size: 0.8rem; margin-bottom: 8px; font-weight: 600; color: #000; line-height: 1.2;" data-i18n="modal.trial_cta.text_mobile">
+        Vem treinar e encontramos a solução perfeita para ti.
+      </div>
+      <button type="button" class="btn-sticky-trial" onclick="window.closeModal('pack10'); setTimeout(() => window.openModal('trial'), 300);">
+        <span class="btn-sticky-trial__icon">🎯</span>
+        <span class="btn-sticky-trial__text" data-i18n="modal.trial_cta.mobile">PRECISAS DE OPÇÕES? MARCA AULA</span>
+      </button>
     </div>
   </div>
 
@@ -1289,6 +1817,11 @@
         <div class="trial-form-container">
           <div class="trial-intro">
             <p data-i18n="trial.modal.intro">Preenche o formulário abaixo e entraremos em contacto para agendar a tua aula experimental gratuita!</p>
+          </div>
+          
+          <!-- Flexibility Message -->
+          <div class="trial-flexibility-message" style="background: #f8f9fa; padding: 12px; border-left: 4px solid #FFE600; margin-bottom: 15px; font-size: 0.9rem;">
+            <p data-i18n="trial.modal.flexibility" style="margin: 0; color: #333;">Queremos muito que treines connosco! Diz-nos a tua disponibilidade e fala connosco na visita para encontrarmos a melhor solução para ti.</p>
           </div>
           
           <form class="trial-form" id="trial-booking-form" action="https://submit-form.com/gFtP1xKRm" method="POST">
@@ -1312,7 +1845,7 @@
             
             <div class="form-group">
               <label for="trial-schedule" data-i18n="trial.form.schedule">Preferência de Horários (opcional)</label>
-              <textarea id="trial-schedule" name="schedule_preference" rows="3" placeholder="Ex: Manhãs de segunda a sexta" data-i18n-placeholder="trial.form.schedule_placeholder" autocomplete="off"></textarea>
+              <textarea id="trial-schedule" name="schedule_preference" rows="3" placeholder="Ex: Manhãs de 2ª a 6ª, ou Sábados. Tenho flexibilidade à tarde. Gostava de vir 3x por semana." data-i18n-placeholder="trial.form.schedule_placeholder" autocomplete="off"></textarea>
             </div>
             
             <button type="submit" class="btn btn--full" data-i18n="trial.form.submit">SOLICITAR AULA</button>
@@ -1429,7 +1962,6 @@
         <div class="modal-regy-container" style="display: none;">
           <!-- Regy Integration for ELITE - Normal (id_int=1, iframe_id=5) -->
           <input type="hidden" class="class_regy" id="src_regy5_coupon" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=1&acs=38e6d410bd1118bc516ba1a7a0b91264&site=s">
-          <iframe name="frame_regy5_coupon" id="frame_regy5_coupon" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Elite" style="display: block;" data-iframe-id="5" data-integration-id="1"></iframe>
           
           <!-- Regy Integration Elite - Special Promotion A (id_int=20, iframe_id=20) -->
           <input type="hidden" class="class_regy" id="src_regy20_coupon" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=20&acs=fe311881680ec913dd483fedac15de77&site=s">
@@ -1445,7 +1977,7 @@
           
           <!-- Regy Integration Elite - BRUCELEE Coupon (id_int=29, iframe_id=29) -->
           <input type="hidden" class="class_regy" id="src_regy29_coupon" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=29&acs=ad132b9f16c3f46392dcbfb643c5738a&site=s">
-          <iframe name="frame_regy29_coupon" id="frame_regy29_coupon" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição - BRUCELEE" style="display: none;" data-iframe-id="29" data-integration-id="29"></iframe>
+          <iframe name="frame_regy29_coupon" id="frame_regy29_coupon" width="100%" height="1300px" frameborder="0" scrolling="auto" title="Formulário de inscrição do plano Elite" style="display: none;" data-iframe-id="29" data-integration-id="29"></iframe>
         </div>
       </div>
     </div>
@@ -1739,40 +2271,38 @@
   <script>
     /**
      * Prepare Regyfit inputs before loading the script
-     * Keep ALL inputs active so Regyfit processes all iframes
-     * We'll control which one is visible via display:none/block
+     * Only activate the inputs we want Regyfit to process immediately
      */
     window.prepareRegyInputs = function() {
       console.log('🔧 Preparing Regyfit inputs...');
       
-      // Keep ALL inputs active - Regyfit needs to process all iframes
-      // We'll control visibility later in showRegyStep()
       const allInputs = document.querySelectorAll('input.class_regy');
-      console.log(`  ✅ Found ${allInputs.length} Regyfit inputs - keeping all active`);
+      console.log(`  📋 Found ${allInputs.length} total Regyfit inputs`);
       
-      // Hide all iframes except the default ones initially
-      const modalsWithMultipleIntegrations = ['modal-elite', 'modal-rise', 'modal-starter'];
+      // Temporarily remove class_regy from coupon inputs to prevent Regyfit from processing them
+      // They will be activated manually when needed via coupons.js
+      allInputs.forEach(input => {
+        if (input.id.includes('_coupon')) {
+          input.classList.remove('class_regy');
+          input.classList.add('class_regy_deferred');
+          console.log(`  ⏸️ Deferred coupon input: ${input.id}`);
+        }
+      });
       
-      modalsWithMultipleIntegrations.forEach(modalId => {
-        const modal = document.getElementById(modalId);
-        if (!modal) return;
-        
-        const regyContainer = modal.querySelector('.modal-regy-container');
-        if (!regyContainer) return;
-        
-        const allIframes = regyContainer.querySelectorAll('iframe[name^="frame_regy"]');
-        
-        allIframes.forEach((iframe, index) => {
-          if (index === 0) {
-            // Keep first iframe visible (default/normal plan)
-            iframe.style.display = 'block';
-            console.log(`  👁️ Default iframe visible: ${iframe.id} in ${modalId}`);
-          } else {
-            // Hide other iframes (special promotions) - but keep them in DOM
-            iframe.style.display = 'none';
-            console.log(`  👁️‍🗨️ Hidden iframe: ${iframe.id} in ${modalId}`);
-          }
-        });
+      const activeInputs = document.querySelectorAll('input.class_regy');
+      console.log(`  ✅ Active inputs for immediate processing: ${activeInputs.length}`);
+      
+      // Ensure default iframes are visible and have proper dimensions
+      const defaultIframes = ['frame_regy1', 'frame_regy3', 'frame_regy2', 'frame_regy15', 'frame_regy18', 'frame_regy19'];
+      defaultIframes.forEach(iframeId => {
+        const iframe = document.getElementById(iframeId);
+        if (iframe) {
+          iframe.style.display = 'block';
+          iframe.style.minHeight = '1300px';
+          iframe.style.width = '100%';
+          iframe.setAttribute('scrolling', 'auto');
+          console.log(`  ✅ Prepared iframe: ${iframeId}`);
+        }
       });
     };
     
@@ -1808,11 +2338,29 @@
             // Mark as loaded immediately to prevent duplicate loads
             window.regyScriptLoaded = true;
             
-            // Mark all iframes as processed to prevent Regyfit from processing them multiple times
-            const allRegyIframes = document.querySelectorAll('iframe[name^="frame_regy"]');
-            allRegyIframes.forEach(iframe => {
-              iframe.setAttribute('data-regy-processed', 'true');
-            });
+            // Verify and fix iframes after Regyfit processes them
+            setTimeout(() => {
+              const allRegyIframes = document.querySelectorAll('iframe[name^="frame_regy"]');
+              console.log(`   Verifying ${allRegyIframes.length} iframes...`);
+              
+              allRegyIframes.forEach(iframe => {
+                iframe.setAttribute('data-regy-processed', 'true');
+                
+                // Force minimum height if Regyfit didn't set it properly
+                if (!iframe.height || iframe.height === '0' || iframe.height === '0px') {
+                  iframe.height = '1300px';
+                  iframe.style.minHeight = '1300px';
+                  console.log(`   ⚠️ Fixed height for ${iframe.id}`);
+                }
+                
+                // Ensure default iframes are visible
+                const defaultIframes = ['frame_regy1', 'frame_regy3', 'frame_regy2'];
+                if (defaultIframes.includes(iframe.id)) {
+                  iframe.style.display = 'block';
+                  console.log(`   ✅ ${iframe.id} is visible`);
+                }
+              });
+            }, 1500);
           };
           
           document.head.appendChild(script);
@@ -1873,8 +2421,13 @@
     document.addEventListener('DOMContentLoaded', function() {
       // Wait for all content to be loaded before attempting script load
       window.addEventListener('load', function() {
-        // Don't auto-load, only load when modal is actually opened
+        // Auto-load Regy script on page load to ensure iframes are ready
         console.log('DOM ready for Regy script loading');
+        setTimeout(() => {
+          if (typeof window.loadRegyScript === 'function') {
+            window.loadRegyScript();
+          }
+        }, 500);
       });
     });
   </script>
@@ -3840,5 +4393,7 @@
 
   <!-- Mobile Bottom Bar JavaScript - Removed as we now have direct links -->
 
+</body>
+</html> 
 </body>
 </html> 

@@ -89,7 +89,7 @@ const translations = {
       'pricing.elite.anchor': 'A partir de 3,7€ / treino',
       'pricing.elite.price': '€84.90',
       'pricing.elite.original': '€94.90',
-      'pricing.elite.cta': 'SABER MAIS',
+      'pricing.elite.cta': 'VER PLANO',
       'pricing.coupon_link': 'Tens cupão? Inscreve-te aqui',
       'pricing.elite.feature1': 'Acesso livre trânsito (ilimitado) a todas as modalidades e open gym',
       'pricing.elite.feature2': 'Sem fidelização',
@@ -100,7 +100,7 @@ const translations = {
       'pricing.rise.anchor': 'A partir de 6,2€ / treino',
       'pricing.rise.price': '€69.90',
       'pricing.rise.original': '€79.90',
-      'pricing.rise.cta': 'SABER MAIS',
+      'pricing.rise.cta': 'VER PLANO',
       'pricing.rise.feature1': 'Acesso 3x por semana a todas as modalidades e open gym (podes assistir a várias aulas no mesmo dia)',
       'pricing.rise.feature2': 'Sem fidelização',
       'pricing.rise.feature3': 'Acesso ilimitado ao lounge & co-working',
@@ -110,7 +110,7 @@ const translations = {
       'pricing.starter.anchor': 'A partir de 7,2€ / treino',
       'pricing.starter.price': '€54.90',
       'pricing.starter.original': '€64.90',
-      'pricing.starter.cta': 'SABER MAIS',
+      'pricing.starter.cta': 'VER PLANO',
       'pricing.starter.feature1': 'Acesso 2x por semana a todas as modalidades e open gym (podes assistir a várias aulas no mesmo dia)',
       'pricing.starter.feature2': 'Sem fidelização',
       'pricing.starter.feature3': 'Acesso ilimitado ao lounge & co-working',
@@ -472,6 +472,12 @@ const translations = {
       'modal.purchase.step3': 'Preenche os teus dados 📱',
       'modal.purchase.step4': 'Escolhe a forma de pagamento preferida para finalizar a inscrição! 💳',
       
+      // Membership Instructions
+      'modal.membership.step1': 'Escolhe a data de início',
+      'modal.membership.step2': 'Preenche os teus dados pessoais',
+      'modal.membership.step3': 'Clica no valor "total a pagar"',
+      'modal.membership.step4': 'Escolhe a forma de pagamento preferida',
+      
       // Privacy Policy Modal
       'modal.privacy.title': 'POLÍTICA DE PRIVACIDADE',
       'modal.privacy.info.title': 'INFORMAÇÃO EMPRESARIAL',
@@ -523,17 +529,30 @@ const translations = {
       'trial.button': 'AULA EXPERIMENTAL',
       'trial.modal.title': 'AULA EXPERIMENTAL',
       'trial.modal.intro': 'Preenche o formulário abaixo e entraremos em contacto para agendar a tua aula experimental gratuita!',
+      'trial.modal.flexibility': 'Queremos muito que treines connosco! Diz-nos a tua disponibilidade e fala connosco na visita para encontrarmos a melhor solução para ti.',
       'trial.form.name': 'Nome',
       'trial.form.phone': 'Telefone (opcional)',
       'trial.form.email': 'Email',
       'trial.form.schedule': 'Preferência de Horários (opcional)',
-      'trial.form.schedule_placeholder': 'Ex: Manhãs de segunda a sexta',
+      'trial.form.schedule_placeholder': 'Ex: Manhãs de 2ª a 6ª, ou Sábados. Tenho flexibilidade à tarde. Gostava de vir 3x por semana.',
       'trial.form.submit': 'SOLICITAR AULA',
       'trial.form.submitting': 'A ENVIAR...',
       'trial.form.error': 'Erro ao enviar formulário. Por favor tente novamente.',
       'trial.form.invalid_email': 'Por favor, insere um email válido no formato: nome@dominio.com',
       'trial.success.title': 'Pedido Enviado!',
       'trial.success.message': 'Obrigado! Entraremos em contacto em breve para agendar a tua aula experimental.',
+      
+      // Modal Trial CTA (Sidebar for Memberships)
+      'modal.trial_cta.title': 'PRECISAS DE OPÇÕES?',
+      'modal.trial_cta.text': 'Vem treinar e encontramos a solução perfeita para a tua carteira.',
+      'modal.trial_cta.button': 'MARCAR E CONVERSAR',
+      'modal.trial_cta.mobile': 'PRECISAS DE OPÇÕES? MARCA AULA',
+      'modal.trial_cta.text_mobile': 'Vem treinar e encontramos a solução perfeita para ti.',
+      
+      // Modal Pack Trial CTA (Banner for Packs/Drop-ins)
+      'modal.pack_trial_cta.title': 'Experimenta grátis e falamos!',
+      'modal.pack_trial_cta.text': 'Não pagues já. Marca a experimental e vemos qual a melhor opção.',
+      'modal.pack_trial_cta.button': 'Aula Experimental Grátis',
       
       // Hidden Prices
       'pricing.price_on_request': 'SOLICITA O TEU CÓDIGO',
@@ -685,7 +704,7 @@ const translations = {
       'pricing.starter.anchor': 'From 7.2€ / session',
       'pricing.starter.price': '€54.90',
       'pricing.starter.original': '€64.90',
-      'pricing.starter.cta': 'LEARN MORE',
+      'pricing.starter.cta': 'VIEW PLAN',
       'pricing.starter.feature1': 'Access 2x per week to all modalities and open gym (you can attend multiple classes on the same day)',
       'pricing.starter.feature2': 'No commitment',
       'pricing.starter.feature3': 'Unlimited access to lounge & co-working',
@@ -1047,6 +1066,12 @@ const translations = {
       'modal.purchase.step3': 'Fill in your details 📱',
       'modal.purchase.step4': 'Choose your preferred payment method to complete registration! 💳',
       
+      // Membership Instructions
+      'modal.membership.step1': 'Choose your start date',
+      'modal.membership.step2': 'Fill in your personal details',
+      'modal.membership.step3': 'Click on the "total to pay" amount',
+      'modal.membership.step4': 'Choose your preferred payment method',
+      
       // Privacy Policy Modal
       'modal.privacy.title': 'PRIVACY POLICY',
       'modal.privacy.info.title': 'BUSINESS INFORMATION',
@@ -1098,17 +1123,30 @@ const translations = {
       'trial.button': 'TRIAL CLASS',
       'trial.modal.title': 'TRIAL CLASS',
       'trial.modal.intro': 'Fill out the form below and we will contact you to schedule your free trial class!',
+      'trial.modal.flexibility': 'We really want you to train with us! Tell us your availability and talk to us during your visit so we can find the best solution for you.',
       'trial.form.name': 'Name',
       'trial.form.phone': 'Phone (optional)',
       'trial.form.email': 'Email',
       'trial.form.schedule': 'Schedule Preference (optional)',
-      'trial.form.schedule_placeholder': 'E.g.: Mornings Monday to Friday',
+      'trial.form.schedule_placeholder': 'Ex: Mon-Fri mornings, or Saturdays. Flexible afternoons. Looking for 3x/week.',
       'trial.form.submit': 'REQUEST CLASS',
       'trial.form.submitting': 'SENDING...',
       'trial.form.error': 'Error submitting form. Please try again.',
       'trial.form.invalid_email': 'Please enter a valid email in the format: name@domain.com',
       'trial.success.title': 'Request Sent!',
       'trial.success.message': 'Thank you! We will contact you soon to schedule your trial class.',
+      
+      // Modal Trial CTA (Sidebar for Memberships)
+      'modal.trial_cta.title': 'NEED OPTIONS?',
+      'modal.trial_cta.text': 'Come train and we\'ll find the perfect solution for your wallet.',
+      'modal.trial_cta.button': 'BOOK & CHAT',
+      'modal.trial_cta.mobile': 'NEED OPTIONS? BOOK CLASS',
+      'modal.trial_cta.text_mobile': 'Come train and we\'ll find the perfect solution for you.',
+      
+      // Modal Pack Trial CTA (Banner for Packs/Drop-ins)
+      'modal.pack_trial_cta.title': 'Try for free & Let\'s Talk!',
+      'modal.pack_trial_cta.text': 'Don\'t pay yet. Book a trial and we\'ll find the best option.',
+      'modal.pack_trial_cta.button': 'Free Trial Class',
       
       // Hidden Prices
       'pricing.price_on_request': 'REQUEST YOUR CODE',
