@@ -3408,7 +3408,17 @@ button.btn:active {
 @media (max-width: 480px) {
   .hero__title {
     margin-top: 80px !important;
-    font-size: 3.2rem;
+    font-size: 2.8rem; /* Reduced from 3.2rem to prevent word break */
+    padding: 0 1rem; /* Drastically reduce padding to prevent early wrapping */
+    word-wrap: break-word;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero__title {
+    font-size: 2.4rem; /* Even smaller for very small screens/folded phones */
   }
 }
 
