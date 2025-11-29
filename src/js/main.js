@@ -1124,3 +1124,47 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+// Mobile Schedule Tabs Logic
+document.addEventListener('DOMContentLoaded', function() {
+  const tabs = document.querySelectorAll('.schedule__tab-btn');
+  const days = document.querySelectorAll('.schedule__day');
+  
+  if (!tabs.length || !days.length) return;
+
+  function activateDay(index) {
+    // Deactivate all
+    tabs.forEach(tab => tab.classList.remove('active'));
+    days.forEach(day => day.classList.remove('active'));
+    
+    // Activate specific
+    if (tabs[index]) tabs[index].classList.add('active');
+    if (days[index]) days[index].classList.add('active');
+  }
+
+  // Add click listeners
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      const index = parseInt(this.getAttribute('data-day'));
+      activateDay(index);
+    });
+  });
+
+  // Set initial day based on current day of week
+  // 0=Sun, 1=Mon, ..., 6=Sat
+  const today = new Date().getDay();
+  
+  // Map JS Day (0-6 Sun-Sat) to our Index (0-6 Mon-Sun)
+  // JS: Sun(0), Mon(1), Tue(2), Wed(3), Thu(4), Fri(5), Sat(6)
+  // My Tabs: Mon(0), Tue(1), Wed(2), Thu(3), Fri(4), Sat(5), Sun(6)
+  
+  let initialIndex;
+  if (today === 0) { // Sunday
+    initialIndex = 6;
+  } else {
+    initialIndex = today - 1;
+  }
+
+  // Activate today
+  activateDay(initialIndex);
+});
+
