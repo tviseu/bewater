@@ -3408,22 +3408,23 @@ button.btn:active {
 @media (max-width: 480px) {
   .hero__title {
     margin-top: 80px !important;
-    font-size: 12vw; /* Responsive font size based on viewport width instead of fixed rem */
+    font-size: clamp(2.5rem, 8vw, 4rem); /* Fluid Typography */
     line-height: 1.1;
-    padding: 0 0.5rem; /* Minimal padding */
-    word-wrap: normal; /* Prevent breaking words if possible */
+    padding-left: 1rem; /* Safe Margins */
+    padding-right: 1rem; /* Safe Margins */
+    word-break: keep-all; /* Prevent Word Splitting */
+    overflow-wrap: normal; /* Prevent Word Splitting */
     width: 100%;
     box-sizing: border-box;
-    overflow-wrap: normal;
     hyphens: none;
   }
 }
 
-@media (max-width: 360px) {
+/* @media (max-width: 360px) {
   .hero__title {
-    font-size: 2.4rem; /* Even smaller for very small screens/folded phones */
+    font-size: 2.4rem; 
   }
-}
+} */
 
 /* Gallery Section */
 .gallery {
