@@ -84,6 +84,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     lightboxContent.innerHTML = ''; // Clear content
   }
+
+  // Export closeLightbox globally so modals.js can use it
+  window.closeLightbox = closeLightbox;
   
   // Update Content (The core logic for mixed media)
   function updateLightboxContent() {

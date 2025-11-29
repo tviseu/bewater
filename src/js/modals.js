@@ -80,6 +80,22 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('⏳ Modal open debounced, please wait...');
         return;
       }
+      
+      // CLOSE ANY ACTIVE LIGHTBOX FIRST (Fix for overlaying issues)
+      const activeLightbox = document.querySelector('.bento-lightbox.active');
+      if (activeLightbox) {
+          // Safely close lightbox if function exists, otherwise manual class removal
+          if (typeof window.closeLightbox === 'function') {
+              window.closeLightbox();
+          } else {
+              activeLightbox.classList.remove('active');
+              // Stop videos
+              const videos = activeLightbox.querySelectorAll('video');
+              videos.forEach(v => v.pause());
+              document.body.style.overflow = ''; // Restore scroll
+          }
+      }
+
       lastModalOpenTime = now;
       const modal = document.getElementById('modal-' + modalId);
       
