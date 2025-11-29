@@ -24,12 +24,12 @@ const translations = {
       'hero.title': 'BE WATER,<br>MY FRIEND',
       'hero.subtitle': 'O teu clube de treino funcional e artes marciais no centro de Lisboa.',
       'hero.cta_eyebrow': '',
-      'hero.cta_main': 'AULA EXPERIMENTAL GRÁTIS',
+      'hero.cta_main': 'AULA EXPERIMENTAL',
       'hero.benefit1': '✓ Sem Compromisso',
       'hero.benefit2': '',
       'hero.benefit3': '',
       'hero.secondary_text': 'Já conheces os planos?',
-      'hero.secondary_link': 'Ver preços',
+      'hero.secondary_link': 'Adere Já',
       
       // Event Section
       'event.eyebrow': 'EVENTO!',
@@ -89,7 +89,7 @@ const translations = {
       'pricing.elite.anchor': 'A partir de 3,7€ / treino',
       'pricing.elite.price': '€84.90',
       'pricing.elite.original': '€94.90',
-      'pricing.elite.cta': 'VER TABELA DE PREÇOS',
+      'pricing.elite.cta': 'SABER MAIS',
       'pricing.coupon_link': 'Tens cupão? Inscreve-te aqui',
       'pricing.elite.feature1': 'Acesso livre trânsito (ilimitado) a todas as modalidades e open gym',
       'pricing.elite.feature2': 'Sem fidelização',
@@ -100,7 +100,7 @@ const translations = {
       'pricing.rise.anchor': 'A partir de 6,2€ / treino',
       'pricing.rise.price': '€69.90',
       'pricing.rise.original': '€79.90',
-      'pricing.rise.cta': 'VER TABELA DE PREÇOS',
+      'pricing.rise.cta': 'SABER MAIS',
       'pricing.rise.feature1': 'Acesso 3x por semana a todas as modalidades e open gym (podes assistir a várias aulas no mesmo dia)',
       'pricing.rise.feature2': 'Sem fidelização',
       'pricing.rise.feature3': 'Acesso ilimitado ao lounge & co-working',
@@ -110,7 +110,7 @@ const translations = {
       'pricing.starter.anchor': 'A partir de 7,2€ / treino',
       'pricing.starter.price': '€54.90',
       'pricing.starter.original': '€64.90',
-      'pricing.starter.cta': 'VER TABELA DE PREÇOS',
+      'pricing.starter.cta': 'SABER MAIS',
       'pricing.starter.feature1': 'Acesso 2x por semana a todas as modalidades e open gym (podes assistir a várias aulas no mesmo dia)',
       'pricing.starter.feature2': 'Sem fidelização',
       'pricing.starter.feature3': 'Acesso ilimitado ao lounge & co-working',
@@ -468,7 +468,7 @@ const translations = {
       // Purchase Instructions
       'modal.purchase.title': 'Como comprar o teu pack:',
       'modal.purchase.step1': 'Escolhe a <strong>data de início</strong> 📅',
-      'modal.purchase.step2': 'Click no <strong>VALOR TOTAL</strong> 💰',
+      'modal.purchase.step2': 'Clica no <strong>VALOR TOTAL</strong> 💰',
       'modal.purchase.step3': 'Preenche os teus dados 📱',
       'modal.purchase.step4': 'Escolhe a forma de pagamento preferida para finalizar a inscrição! 💳',
       
@@ -489,7 +489,7 @@ const translations = {
       'modal.privacy.rights.title': 'DIREITOS DOS TITULARES',
       'modal.privacy.rights.text': 'Os titulares dos dados têm direito ao acesso, retificação, apagamento, limitação do tratamento, portabilidade e oposição ao tratamento dos seus dados pessoais.',
       'modal.privacy.contact.title': 'CONTACTO',
-      'modal.privacy.contact.text': 'Para exercer os seus direitos ou esclarecer dúvidas sobre o tratamento de dados pessoais, contacte-nos através dos meios disponibilizados na seção de contacto do website.',
+      'modal.privacy.contact.text': 'Para exerceres os teus direitos ou esclarecer dúvidas sobre o tratamento de dados pessoais, contacta-nos através dos meios disponibilizados na seção de contacto do website.',
       
       // Coupon System
       'coupon.modal_title': 'Inscrever com Cupão',
@@ -514,39 +514,39 @@ const translations = {
       'coupon.special.how_it_works': 'ℹ️ Como funciona:',
       
       // Mobile Bottom Bar
-      'mobile_bottom_bar.cta': 'AULA GRÁTIS',
+      'mobile_bottom_bar.cta': 'AULA EXPERIMENTAL',
       'mobile_bottom_bar.menu_label': 'Mais',
       'mobile_bottom_bar.whatsapp': 'WhatsApp',
       'mobile_bottom_bar.instagram': 'Instagram DM',
       
       // Trial Class Booking
-      'trial.button': 'AULA EXPERIMENTAL GRÁTIS',
-      'trial.modal.title': 'AULA EXPERIMENTAL GRÁTIS',
+      'trial.button': 'AULA EXPERIMENTAL',
+      'trial.modal.title': 'AULA EXPERIMENTAL',
       'trial.modal.intro': 'Preenche o formulário abaixo e entraremos em contacto para agendar a tua aula experimental gratuita!',
       'trial.form.name': 'Nome',
       'trial.form.phone': 'Telefone (opcional)',
       'trial.form.email': 'Email',
       'trial.form.schedule': 'Preferência de Horários (opcional)',
       'trial.form.schedule_placeholder': 'Ex: Manhãs de segunda a sexta',
-      'trial.form.submit': 'SOLICITAR AULA GRÁTIS',
+      'trial.form.submit': 'SOLICITAR AULA',
       'trial.form.submitting': 'A ENVIAR...',
       'trial.form.error': 'Erro ao enviar formulário. Por favor tente novamente.',
-      'trial.form.invalid_email': 'Por favor, insira um email válido no formato: nome@dominio.com',
+      'trial.form.invalid_email': 'Por favor, insere um email válido no formato: nome@dominio.com',
       'trial.success.title': 'Pedido Enviado!',
       'trial.success.message': 'Obrigado! Entraremos em contacto em breve para agendar a tua aula experimental.',
       
       // Hidden Prices
-      'pricing.price_on_request': 'SOLICITE O SEU CÓDIGO',
+      'pricing.price_on_request': 'SOLICITA O TEU CÓDIGO',
       
       // Registration Code System
       'registration_code.modal.title': 'Código de Inscrição',
-      'registration_code.placeholder': 'Insira o seu código',
+      'registration_code.placeholder': 'Insere o teu código',
       'registration_code.validate': 'VALIDAR CÓDIGO',
       'registration_code.no_code_button': 'NÃO TENHO CÓDIGO',
       
       // Request Code Form
       'registration_code.request_form.title': 'Solicitar Código de Inscrição',
-      'registration_code.request_form.subtitle': 'Preencha os seus dados e receberá o código com a promoção atual no seu email.',
+      'registration_code.request_form.subtitle': 'Preenche os teus dados e receberás o código com a promoção atual no teu email.',
       'registration_code.request_form.name': 'Nome',
       'registration_code.request_form.phone': 'Telefone (opcional)',
       'registration_code.request_form.email': 'Email',
@@ -554,9 +554,9 @@ const translations = {
       'registration_code.request_form.submitting': 'A ENVIAR...',
       'registration_code.request_form.back': 'VOLTAR',
       'registration_code.request_form.error': 'Erro ao enviar pedido. Por favor tente novamente.',
-      'registration_code.request_form.invalid_email': 'Por favor, insira um email válido no formato: nome@dominio.com',
+      'registration_code.request_form.invalid_email': 'Por favor, insere um email válido no formato: nome@dominio.com',
       'registration_code.request_form.success_title': 'Pedido Enviado!',
-      'registration_code.request_form.success_message': 'Receberá o código de inscrição no seu email em breve com a promoção atual.',
+      'registration_code.request_form.success_message': 'Receberás o código de inscrição no teu email em breve com a promoção atual.',
       
       // Discount Display
       'discount.standard_price': 'Preço Standard',
@@ -575,9 +575,9 @@ const translations = {
       'pricing_request.success_title': 'Obrigado!',
       'pricing_request.success_message': 'Recebemos o teu pedido. Vamos enviar a informação para o teu email muito em breve.',
       'pricing_request.success_upsell': 'Não precisas de esperar para treinar. Marca já a tua aula experimental sem compromisso.',
-      'pricing_request.success_cta': 'MARCAR AULA EXPERIMENTAL GRATUITA AGORA',
+      'pricing_request.success_cta': 'MARCAR AULA EXPERIMENTAL AGORA',
       'pricing_request.have_coupon': 'Já tens um cupão de sócio? Clica aqui.',
-      'pricing_request.invalid_email': 'Por favor, insira um email válido no formato: nome@dominio.com'
+      'pricing_request.invalid_email': 'Por favor, insere um email válido no formato: nome@dominio.com'
     },
     en: {
       // Meta tags
@@ -599,12 +599,12 @@ const translations = {
       'hero.title': 'BE WATER,<br>MY FRIEND',
       'hero.subtitle': 'Your functional training and martial arts club in the center of Lisbon.',
       'hero.cta_eyebrow': '',
-      'hero.cta_main': 'FREE TRIAL CLASS',
+      'hero.cta_main': 'TRIAL CLASS',
       'hero.benefit1': '✓ No Commitment',
       'hero.benefit2': '',
       'hero.benefit3': '',
       'hero.secondary_text': 'Already know the plans?',
-      'hero.secondary_link': 'View prices',
+      'hero.secondary_link': 'Join Now',
       
       // Event Section
       'event.eyebrow': 'EVENT!',
@@ -664,7 +664,7 @@ const translations = {
       'pricing.elite.anchor': 'From 3.7€ / session',
       'pricing.elite.price': '€84.90',
       'pricing.elite.original': '€94.90',
-      'pricing.elite.cta': 'VIEW PRICE TABLE',
+      'pricing.elite.cta': 'LEARN MORE',
       'pricing.coupon_link': 'Have a coupon? Sign up here',
       'pricing.elite.feature1': 'Unlimited access to all modalities and open gym',
       'pricing.elite.feature2': 'No commitment',
@@ -675,7 +675,7 @@ const translations = {
       'pricing.rise.anchor': 'From 6.2€ / session',
       'pricing.rise.price': '€69.90',
       'pricing.rise.original': '€79.90',
-      'pricing.rise.cta': 'VIEW PRICE TABLE',
+      'pricing.rise.cta': 'LEARN MORE',
       'pricing.rise.feature1': 'Access 3x per week to all modalities and open gym (you can attend multiple classes on the same day)',
       'pricing.rise.feature2': 'No commitment',
       'pricing.rise.feature3': 'Unlimited access to lounge & co-working',
@@ -685,7 +685,7 @@ const translations = {
       'pricing.starter.anchor': 'From 7.2€ / session',
       'pricing.starter.price': '€54.90',
       'pricing.starter.original': '€64.90',
-      'pricing.starter.cta': 'VIEW PRICE TABLE',
+      'pricing.starter.cta': 'LEARN MORE',
       'pricing.starter.feature1': 'Access 2x per week to all modalities and open gym (you can attend multiple classes on the same day)',
       'pricing.starter.feature2': 'No commitment',
       'pricing.starter.feature3': 'Unlimited access to lounge & co-working',
@@ -1089,21 +1089,21 @@ const translations = {
       'coupon.special.how_it_works': 'ℹ️ How it works:',
       
       // Mobile Bottom Bar
-      'mobile_bottom_bar.cta': 'FREE CLASS',
+      'mobile_bottom_bar.cta': 'TRIAL CLASS',
       'mobile_bottom_bar.menu_label': 'More',
       'mobile_bottom_bar.whatsapp': 'WhatsApp',
       'mobile_bottom_bar.instagram': 'Instagram DM',
       
       // Trial Class Booking
-      'trial.button': 'FREE TRIAL CLASS',
-      'trial.modal.title': 'FREE TRIAL CLASS',
+      'trial.button': 'TRIAL CLASS',
+      'trial.modal.title': 'TRIAL CLASS',
       'trial.modal.intro': 'Fill out the form below and we will contact you to schedule your free trial class!',
       'trial.form.name': 'Name',
       'trial.form.phone': 'Phone (optional)',
       'trial.form.email': 'Email',
       'trial.form.schedule': 'Schedule Preference (optional)',
       'trial.form.schedule_placeholder': 'E.g.: Mornings Monday to Friday',
-      'trial.form.submit': 'REQUEST FREE CLASS',
+      'trial.form.submit': 'REQUEST CLASS',
       'trial.form.submitting': 'SENDING...',
       'trial.form.error': 'Error submitting form. Please try again.',
       'trial.form.invalid_email': 'Please enter a valid email in the format: name@domain.com',
@@ -1155,7 +1155,7 @@ const translations = {
       'pricing_request.success_title': 'Thank you!',
       'pricing_request.success_message': 'We received your request. We will send the information to your email very soon.',
       'pricing_request.success_upsell': 'You don\'t have to wait to train. Book your free trial class now with no commitment.',
-      'pricing_request.success_cta': 'BOOK FREE TRIAL CLASS NOW',
+      'pricing_request.success_cta': 'BOOK TRIAL CLASS NOW',
       'pricing_request.have_coupon': 'Already have a member coupon? Click here.',
       'pricing_request.invalid_email': 'Please enter a valid email in the format: name@domain.com'
     }

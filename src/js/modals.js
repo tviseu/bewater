@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
           if (trialSuccessMessage) trialSuccessMessage.style.display = 'none';
           if (submitBtn) {
             submitBtn.disabled = false;
-            submitBtn.textContent = window.i18n ? window.i18n.t('trial.form.submit') : 'SOLICITAR AULA GRÁTIS';
+            submitBtn.textContent = window.i18n ? window.i18n.t('trial.form.submit') : 'SOLICITAR AULA';
           }
           console.log('  ✅ Trial modal reset and ready for new submission');
         }

@@ -7,7 +7,7 @@ const paymentTranslations = {
   pt: {
     // Header
     'header.title': '🏋️ BE WATER',
-    'header.subtitle': 'Pagamentos MBWay - Selecione o produto desejado',
+    'header.subtitle': 'Pagamentos MBWay - Seleciona o produto desejado',
     
     // Seções
     'section.food-drinks': '🍽️ Comidas & Bebidas',
@@ -101,7 +101,7 @@ const paymentTranslations = {
     'form.email.label': '📧 Email',
     'form.email.placeholder': 'exemplo@email.com',
     'form.name.label': '👤 Nome',
-    'form.name.placeholder': 'Seu nome completo',
+    'form.name.placeholder': 'O teu nome completo',
     'form.nif.label': '🆔 NIF',
     'form.nif.placeholder': 'XXXXXXXXX',
     'form.selected.product': '📦 Produto:',
@@ -118,12 +118,12 @@ const paymentTranslations = {
     'loading.subtitle': 'Confirma o pagamento na app MBWay',
     
     // Popup de sucesso
-    'popup.title': 'Vá ao seu Telemóvel!',
+    'popup.title': 'Vai ao teu Telemóvel!',
     'popup.attention': 'ATENÇÃO:',
     'popup.not-paid': 'O pagamento ainda <strong>NÃO</strong> foi realizado!',
-    'popup.open-app': '📱 <strong>Abra a aplicação MBWay no seu telemóvel AGORA</strong>',
-    'popup.confirm-payment': '💳 <strong>Confirme o pagamento de €',
-    'popup.only-after': '<em>Só após confirmar no telemóvel é que o pagamento será processado.</em>',
+    'popup.open-app': '📱 <strong>Abre a aplicação MBWay no teu telemóvel AGORA</strong>',
+    'popup.confirm-payment': '💳 <strong>Confirma o pagamento de €',
+    'popup.only-after': '<em>Só após confirmares no telemóvel é que o pagamento será processado.</em>',
     'popup.btn': 'Vou Confirmar no Telemóvel',
     
     // Language Toggle

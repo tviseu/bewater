@@ -9158,14 +9158,13 @@ body.modal-open .mobile-bottom-bar {
     z-index: 9999;
     background-color: #FFFFFF;
     border-top: 4px solid #000000;
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.4);
     padding: 0;
     gap: 0;
   }
 
   .mobile-bottom-bar__main-cta {
-    flex: 0 0 85%;
-    width: 85%;
+    flex: 1;
     background-color: #FFD700;
     color: #000000;
     border: none;
@@ -9185,85 +9184,45 @@ body.modal-open .mobile-bottom-bar {
     transform: scale(0.98);
   }
 
-  .mobile-bottom-bar__menu {
-    flex: 0 0 15%;
-    width: 15%;
-    position: relative;
-  }
-
-  .mobile-bottom-bar__menu-button {
-    width: 100%;
-    height: 100%;
-    background-color: #FFFFFF;
-    border: none;
-    padding: 1rem 0.5rem;
-    cursor: pointer;
+  .mobile-bottom-bar__icon-link {
+    width: 3.5rem;
+    flex: 0 0 3.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #FFFFFF;
+    border-right: 4px solid #000000;
+    color: #000000;
     transition: background-color 0.2s ease;
   }
 
-  .mobile-bottom-bar__menu-button:active {
-    background-color: #F5F5F5;
+  .mobile-bottom-bar__icon-link:last-child {
+    border-right: none;
   }
 
-  .mobile-bottom-bar__menu-button svg {
+  .mobile-bottom-bar__icon-link:active {
+    filter: brightness(0.95);
+  }
+
+  .mobile-bottom-bar__icon-link svg {
     width: 24px;
     height: 24px;
   }
 
-  .mobile-bottom-bar__dropdown {
-    position: absolute;
-    bottom: 100%;
-    right: 0;
-    background-color: #FFFFFF;
-    border: 4px solid #000000;
-    box-shadow: 4px 4px 0 #000000;
-    min-width: 200px;
-    margin-bottom: 0.5rem;
-    display: none;
-    flex-direction: column;
+  /* Subtle colored backgrounds for better affordance */
+  .mobile-bottom-bar__icon-link--whatsapp {
+    background-color: #E8F5E9; /* Very light green */
   }
 
-  .mobile-bottom-bar__dropdown.active {
-    display: flex;
+  .mobile-bottom-bar__icon-link--instagram {
+    background-color: #FCE4EC; /* Very light pink */
   }
 
-  .mobile-bottom-bar__dropdown-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 1rem 1.25rem;
-    text-decoration: none;
-    color: #000000;
-    font-family: var(--font-primary);
-    font-weight: 700;
-    font-size: 0.9rem;
-    border-bottom: 3px solid #000000;
-    transition: background-color 0.2s ease;
-  }
-
-  .mobile-bottom-bar__dropdown-item:last-child {
-    border-bottom: none;
-  }
-
-  .mobile-bottom-bar__dropdown-item:hover,
-  .mobile-bottom-bar__dropdown-item:active {
-    background-color: #F5F5F5;
-  }
-
-  .mobile-bottom-bar__dropdown-item svg {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-  }
-
-  .mobile-bottom-bar__dropdown-item:first-child svg {
+  .mobile-bottom-bar__icon-link--whatsapp svg {
     fill: #25D366;
   }
 
-  .mobile-bottom-bar__dropdown-item:last-child svg {
+  .mobile-bottom-bar__icon-link--instagram svg {
     fill: #E1306C;
   }
 }
