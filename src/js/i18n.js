@@ -543,11 +543,11 @@ const translations = {
       'trial.success.message': 'Obrigado! Entraremos em contacto em breve para agendar a tua aula experimental.',
       
       // Modal Trial CTA (Sidebar for Memberships)
-      'modal.trial_cta.title': 'PRECISAS DE OPÇÕES?',
-      'modal.trial_cta.text': 'Vem treinar e encontramos a solução perfeita para a tua carteira.',
-      'modal.trial_cta.button': 'MARCAR E CONVERSAR',
-      'modal.trial_cta.mobile': 'PRECISAS DE OPÇÕES? MARCA AULA',
-      'modal.trial_cta.text_mobile': 'Vem treinar e encontramos a solução perfeita para ti.',
+        'modal.trial_cta.title': 'PRECISAS DE OPÇÕES?',
+        'modal.trial_cta.text': 'Não deixes que o pagamento te impeça. Vem treinar e encontramos a solução perfeita para ti.',
+        'modal.trial_cta.button': 'MARCAR AULA',
+        'modal.trial_cta.mobile': 'PRECISAS DE OPÇÕES? MARCA AULA',
+        'modal.trial_cta.text_mobile': 'Não deixes que o pagamento te impeça. Vem treinar e encontramos a solução perfeita para ti.',
       
       // Modal Pack Trial CTA (Banner for Packs/Drop-ins)
       'modal.pack_trial_cta.title': 'Experimenta grátis e falamos!',
@@ -1137,11 +1137,11 @@ const translations = {
       'trial.success.message': 'Thank you! We will contact you soon to schedule your trial class.',
       
       // Modal Trial CTA (Sidebar for Memberships)
-      'modal.trial_cta.title': 'NEED OPTIONS?',
-      'modal.trial_cta.text': 'Come train and we\'ll find the perfect solution for your wallet.',
-      'modal.trial_cta.button': 'BOOK & CHAT',
-      'modal.trial_cta.mobile': 'NEED OPTIONS? BOOK CLASS',
-      'modal.trial_cta.text_mobile': 'Come train and we\'ll find the perfect solution for you.',
+        'modal.trial_cta.title': 'NEED OPTIONS?',
+        'modal.trial_cta.text': 'Don\'t let payment stop you. Come train and we\'ll find the perfect solution for you.',
+        'modal.trial_cta.button': 'BOOK CLASS',
+        'modal.trial_cta.mobile': 'NEED OPTIONS? BOOK CLASS',
+        'modal.trial_cta.text_mobile': 'Don\'t let payment stop you. Come train and we\'ll find the perfect solution for you.',
       
       // Modal Pack Trial CTA (Banner for Packs/Drop-ins)
       'modal.pack_trial_cta.title': 'Try for free & Let\'s Talk!',
