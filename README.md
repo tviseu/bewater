@@ -193,6 +193,7 @@ git push origin main
 - 🍺 **Cerveja Mini** - €2.00
 - 🏊 **Toalha BE WATER** - €15.00
 - 🥹 **Donativos** - €1-€100
+...  (**Donativos**)
 
 ---
 
