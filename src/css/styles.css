@@ -10615,6 +10615,10 @@ body.modal-open .desktop-fab {
 .lightbox-content {
   max-width: 90%;
   max-height: 90vh;
+  transition: opacity 0.2s ease; /* Smooth content switch */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .lightbox-content img,
@@ -10636,7 +10640,76 @@ body.modal-open .desktop-fab {
   border: none;
   cursor: pointer;
   padding: 10px;
+  z-index: 10001;
 }
+
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  color: rgba(255, 255, 255, 0.7);
+  border: none;
+  font-size: 3rem; /* Chevron size */
+  padding: 1rem;
+  cursor: pointer;
+  z-index: 10001;
+  width: auto;
+  height: auto;
+  display: block !important; /* Always visible */
+  transition: color 0.3s ease, transform 0.2s ease;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.5); /* Drop shadow */
+  font-family: monospace; /* Or sans-serif for cleaner look if using custom icon */
+}
+
+.lightbox-nav:hover,
+.lightbox-nav:active {
+  color: rgba(255, 255, 255, 1.0);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-prev {
+  left: 10px;
+}
+
+.lightbox-next {
+  right: 10px;
+}
+
+.lightbox-counter {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: white;
+  font-family: 'Roboto Mono', monospace; /* Example font */
+  font-size: 1rem;
+  z-index: 10002;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  pointer-events: none;
+}
+
+/* Shake/Bounce animation for end of gallery */
+@keyframes bounce-left {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-20px); }
+  75% { transform: translateX(5px); }
+}
+
+@keyframes bounce-right {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(20px); }
+  75% { transform: translateX(-5px); }
+}
+
+.bounce-left {
+  animation: bounce-left 0.4s ease;
+}
+
+.bounce-right {
+  animation: bounce-right 0.4s ease;
+}
+
 
 /* --- REVIEWS SECTION UPDATES --- */
 .review-stars {
