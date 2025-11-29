@@ -43,7 +43,7 @@ O **BE WATER** é o primeiro centro de treino e desenvolvimento pessoal em Lisbo
 
 #### 🏠 **Website Principal** ([bewaterlisboa.pt](https://bewaterlisboa.pt))
 - **⏰ Countdown Timer** - Contagem regressiva para abertura
-- **🏋️ Planos de Preços** - 3 modalidades (Starter, Rise, Elite) com modais interativos
+- **🏋️ Planos de Treino** - 3 modalidades (Starter, Rise, Elite) com modais interativos
 - **👨‍🏫 Equipa de Treinadores** - Apresentação da equipa especializada
 - **📅 Horários Dinâmicos** - Grelha interativa de modalidades
 - **📷 Galeria Gym** - Slider com fotos do espaço
@@ -169,17 +169,17 @@ git push origin main
 
 ---
 
-## 💰 **Preços & Planos**
+## 🏋️ **Planos de Treino**
 
 <div align="center">
 
 | 🥉 **STARTER** | 🥈 **RISE** | 🥇 **ELITE** |
 |:--------------:|:-----------:|:------------:|
-| **€64.90**/mês | **€79.90**/mês | **€94.90**/mês |
 | 2x por semana | 3x por semana | **Ilimitado** |
 | Open Gym + Aulas | Open Gym + Aulas | Open Gym + Aulas |
 | Modalidades incluídas | Modalidades incluídas | Modalidades incluídas |
 | **Sem fidelização** | **Sem fidelização** | **Sem fidelização** |
+| Múltiplas aulas no mesmo dia | Múltiplas aulas no mesmo dia | Múltiplas aulas no mesmo dia |
 
 </div>
 
