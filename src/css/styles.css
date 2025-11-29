@@ -10648,25 +10648,29 @@ body.modal-open .desktop-fab {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: none;
-  color: rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.3); /* Semi-transparent background for better tap target */
+  color: rgba(255, 255, 255, 0.9);
   border: none;
-  font-size: 3rem; /* Chevron size */
+  font-size: 3rem;
   padding: 1rem;
   cursor: pointer;
   z-index: 10001;
-  width: auto;
-  height: auto;
-  display: block !important; /* Always visible */
-  transition: color 0.3s ease, transform 0.2s ease;
-  text-shadow: 0 2px 5px rgba(0,0,0,0.5); /* Drop shadow */
-  font-family: monospace; /* Or sans-serif for cleaner look if using custom icon */
+  width: 60px; /* Fixed width for easier tapping */
+  height: 100px; /* Taller hit area */
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  font-family: monospace;
+  border-radius: 8px; /* Slight rounding */
 }
 
 .lightbox-nav:hover,
 .lightbox-nav:active {
-  color: rgba(255, 255, 255, 1.0);
-  transform: translateY(-50%) scale(1.1);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transform: translateY(-50%) scale(1.05);
 }
 
 .lightbox-prev {
