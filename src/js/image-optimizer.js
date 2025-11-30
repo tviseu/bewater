@@ -15,7 +15,7 @@
  * - node src/js/image-optimizer.js src/images/gallery src/images/gallery-optimized
  * 
  * @author BeWater Website
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 const sharp = require('sharp');
@@ -31,10 +31,14 @@ const CONFIG = {
     MAX_WIDTH: 1200,
     MAX_HEIGHT: 800,
     
+    // Dimensões para thumbnails (novo)
+    THUMB_WIDTH: 400,
+    THUMB_HEIGHT: 300,
+    
     // Qualidade de compressão (0-100)
-    JPEG_QUALITY: 85,
-    PNG_QUALITY: 85,
-    WEBP_QUALITY: 85,
+    JPEG_QUALITY: 80,
+    PNG_QUALITY: 80,
+    WEBP_QUALITY: 80,
     
     // Extensões suportadas
     SUPPORTED_EXTENSIONS: ['.jpg', '.jpeg', '.png', '.webp'],
@@ -43,7 +47,10 @@ const CONFIG = {
     CREATE_BACKUP: true,
     
     // Sobrescrever imagens existentes
-    OVERWRITE_ORIGINALS: false
+    OVERWRITE_ORIGINALS: false,
+
+    // Forçar conversão para WebP (Recomendado)
+    FORCE_WEBP: true
 };
 
 // ===============================
@@ -54,16 +61,20 @@ const CONFIG = {
  * Otimiza uma única imagem
  * @param {string} inputPath - Caminho da imagem original
  * @param {string} outputPath - Caminho da imagem otimizada
+ * @param {object} options - Opções específicas (ex: width, height)
  * @returns {Object|null} - Estatísticas da otimização ou null em caso de erro
  */
-async function optimizeImage(inputPath, outputPath) {
+async function optimizeImage(inputPath, outputPath, options = {}) {
     try {
         // Obter metadados da imagem
         const metadata = await sharp(inputPath).metadata();
-        console.log(`📸 Processando: ${path.basename(inputPath)} (${metadata.width}×${metadata.height})`);
+        // console.log(`📸 Processando: ${path.basename(inputPath)} (${metadata.width}×${metadata.height})`);
+
+        const maxWidth = options.width || CONFIG.MAX_WIDTH;
+        const maxHeight = options.height || CONFIG.MAX_HEIGHT;
 
         // Determinar se precisa redimensionar
-        const needsResize = metadata.width > CONFIG.MAX_WIDTH || metadata.height > CONFIG.MAX_HEIGHT;
+        const needsResize = metadata.width > maxWidth || metadata.height > maxHeight;
         
         // Criar pipeline de processamento
         let pipeline = sharp(inputPath);
@@ -71,34 +82,44 @@ async function optimizeImage(inputPath, outputPath) {
         // Aplicar redimensionamento se necessário
         if (needsResize) {
             pipeline = pipeline.resize({
-                width: CONFIG.MAX_WIDTH,
-                height: CONFIG.MAX_HEIGHT,
+                width: maxWidth,
+                height: maxHeight,
                 fit: 'inside',
                 withoutEnlargement: true
             });
         }
 
-        // Aplicar compressão baseada no formato
-        const ext = path.extname(inputPath).toLowerCase();
-        switch (ext) {
-            case '.jpg':
-            case '.jpeg':
-                pipeline = pipeline.jpeg({ 
-                    quality: CONFIG.JPEG_QUALITY, 
-                    progressive: true 
-                });
-                break;
-            case '.png':
-                pipeline = pipeline.png({ 
-                    quality: CONFIG.PNG_QUALITY, 
-                    compressionLevel: 9 
-                });
-                break;
-            case '.webp':
-                pipeline = pipeline.webp({ 
-                    quality: CONFIG.WEBP_QUALITY 
-                });
-                break;
+        // Aplicar compressão baseada no formato de saída (força WebP se configurado)
+        const outputExt = path.extname(outputPath).toLowerCase();
+        
+        if (outputExt === '.webp') {
+             pipeline = pipeline.webp({ 
+                quality: CONFIG.WEBP_QUALITY,
+                smartSubsample: true
+            });
+        } else {
+            // Fallback para outros formatos se não for WebP (mantém original ou converte)
+            const ext = path.extname(inputPath).toLowerCase();
+            switch (ext) {
+                case '.jpg':
+                case '.jpeg':
+                    pipeline = pipeline.jpeg({ 
+                        quality: CONFIG.JPEG_QUALITY, 
+                        progressive: true 
+                    });
+                    break;
+                case '.png':
+                    pipeline = pipeline.png({ 
+                        quality: CONFIG.PNG_QUALITY, 
+                        compressionLevel: 9 
+                    });
+                    break;
+                case '.webp':
+                    pipeline = pipeline.webp({ 
+                        quality: CONFIG.WEBP_QUALITY 
+                    });
+                    break;
+            }
         }
 
         // Salvar imagem otimizada
@@ -109,7 +130,7 @@ async function optimizeImage(inputPath, outputPath) {
         const optimizedSize = fs.statSync(outputPath).size;
         const savings = ((originalSize - optimizedSize) / originalSize * 100).toFixed(2);
         
-        console.log(`✅ ${path.basename(inputPath)}: ${formatFileSize(originalSize)} → ${formatFileSize(optimizedSize)} (${savings}% redução)`);
+        console.log(`✅ ${path.basename(outputPath)}: ${formatFileSize(originalSize)} → ${formatFileSize(optimizedSize)} (${savings}% redução)`);
         
         return { 
             originalSize, 
@@ -146,7 +167,7 @@ function createBackup(sourceDir, imageFiles) {
         }
     }
     
-    console.log(`💾 Backup de ${imageFiles.length} imagens criado\n`);
+    // console.log(`💾 Backup de ${imageFiles.length} imagens criado\n`);
 }
 
 /**
@@ -176,6 +197,7 @@ async function processDirectory(sourceDir, targetDir) {
         const ext = path.extname(file).toLowerCase();
         return CONFIG.SUPPORTED_EXTENSIONS.includes(ext) && 
                !file.includes('_optimized') && 
+               !file.includes('_thumb') &&
                !file.startsWith('temp_');
     });
 
@@ -185,7 +207,7 @@ async function processDirectory(sourceDir, targetDir) {
     }
 
     console.log(`📊 Encontradas ${imageFiles.length} imagens para processar:`);
-    imageFiles.forEach(file => console.log(`   • ${file}`));
+    // imageFiles.forEach(file => console.log(`   • ${file}`));
     console.log('');
 
     // Criar backup se habilitado
@@ -197,21 +219,42 @@ async function processDirectory(sourceDir, targetDir) {
     let totalOriginalSize = 0;
     let totalOptimizedSize = 0;
     let processedCount = 0;
-    let resizedCount = 0;
 
     for (const file of imageFiles) {
         const sourcePath = path.join(sourceDir, file);
+        
+        // 1. Gerar versão otimizada principal (WebP)
+        let optimizedFilename;
+        if (CONFIG.FORCE_WEBP) {
+            optimizedFilename = file.replace(/(\.[^.]+)$/, '_optimized.webp');
+        } else {
+            optimizedFilename = file.replace(/(\.[^.]+)$/, '_optimized$1');
+        }
+
         const targetPath = CONFIG.OVERWRITE_ORIGINALS && sourceDir === targetDir
-            ? path.join(targetDir, file)
-            : path.join(targetDir, file.replace(/(\.[^.]+)$/, '_optimized$1'));
+            ? path.join(targetDir, file.replace(/(\.[^.]+)$/, '.webp')) // Se sobrescrever e forçar webp
+            : path.join(targetDir, optimizedFilename);
 
         const result = await optimizeImage(sourcePath, targetPath);
         
+        // 2. Gerar versão Thumbnail (opcional, sempre WebP se FORCE_WEBP)
         if (result) {
+            let thumbFilename;
+            if (CONFIG.FORCE_WEBP) {
+                thumbFilename = file.replace(/(\.[^.]+)$/, '_thumb.webp');
+            } else {
+                thumbFilename = file.replace(/(\.[^.]+)$/, '_thumb$1');
+            }
+            const thumbPath = path.join(targetDir, thumbFilename);
+            
+            await optimizeImage(sourcePath, thumbPath, { 
+                width: CONFIG.THUMB_WIDTH, 
+                height: CONFIG.THUMB_HEIGHT 
+            });
+
             totalOriginalSize += result.originalSize;
             totalOptimizedSize += result.optimizedSize;
             processedCount++;
-            if (result.needsResize) resizedCount++;
         }
     }
 
@@ -222,18 +265,9 @@ async function processDirectory(sourceDir, targetDir) {
         console.log('\n🎉 OTIMIZAÇÃO CONCLUÍDA!');
         console.log('========================');
         console.log(`📊 Imagens processadas: ${processedCount}/${imageFiles.length}`);
-        console.log(`📐 Imagens redimensionadas: ${resizedCount}`);
-        console.log(`📦 Tamanho original: ${formatFileSize(totalOriginalSize)}`);
-        console.log(`🗜️  Tamanho otimizado: ${formatFileSize(totalOptimizedSize)}`);
-        console.log(`💾 Economia total: ${totalSavings}%`);
-        
-        if (CONFIG.CREATE_BACKUP && sourceDir === targetDir) {
-            console.log(`📁 Backups salvos em: ${path.join(sourceDir, 'backup')}`);
-        }
-        
-        if (!CONFIG.OVERWRITE_ORIGINALS && sourceDir === targetDir) {
-            console.log(`💡 Imagens otimizadas salvas com sufixo "_optimized"`);
-        }
+        console.log(`📦 Tamanho original (total): ${formatFileSize(totalOriginalSize)}`);
+        console.log(`🗜️  Tamanho otimizado (principal): ${formatFileSize(totalOptimizedSize)}`);
+        console.log(`💾 Economia: ${totalSavings}%`);
     }
 }
 
@@ -266,9 +300,9 @@ function showHelp() {
     console.log('');
     console.log('Configurações atuais:');
     console.log(`  • Dimensão máxima: ${CONFIG.MAX_WIDTH}×${CONFIG.MAX_HEIGHT}px`);
-    console.log(`  • Qualidade JPEG: ${CONFIG.JPEG_QUALITY}%`);
-    console.log(`  • Criar backup: ${CONFIG.CREATE_BACKUP ? 'Sim' : 'Não'}`);
-    console.log(`  • Sobrescrever originais: ${CONFIG.OVERWRITE_ORIGINALS ? 'Sim' : 'Não'}`);
+    console.log(`  • Dimensão thumb: ${CONFIG.THUMB_WIDTH}×${CONFIG.THUMB_HEIGHT}px`);
+    console.log(`  • Qualidade WebP: ${CONFIG.WEBP_QUALITY}%`);
+    console.log(`  • Forçar WebP: ${CONFIG.FORCE_WEBP ? 'Sim' : 'Não'}`);
 }
 
 // ===============================
@@ -306,4 +340,4 @@ module.exports = {
     optimizeImage,
     processDirectory,
     CONFIG
-}; 
+};

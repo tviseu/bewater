@@ -640,7 +640,16 @@ class BrutalistGallery {
     for (const num of galleryNumbers) {
       let foundImage = false;
       
-      // Try each extension for this number
+      // 1. Tentar versão otimizada WebP primeiro (Melhor performance)
+      const optimizedWebP = `src/images/gallery/gallery${num}_optimized.webp`;
+      const optimizedExists = await this.checkImageExists(optimizedWebP);
+      
+      if (optimizedExists) {
+        this.images.push(optimizedWebP);
+        continue;
+      }
+      
+      // 2. Tentar outras extensões se não encontrar a otimizada
       for (const ext of imageExtensions) {
         const imagePath = `src/images/gallery/gallery${num}.${ext}`;
         const exists = await this.checkImageExists(imagePath);
