@@ -58,6 +58,32 @@
       padding: 4rem 0;
       color: var(--color-white);
     }
+    
+    /* Blur-Up technique: blurred placeholder background */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('src/images/general/images-optimized/hero static_optimized.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: 0;
+      /* Apply blur and slight scale for atmospheric effect */
+      filter: blur(20px);
+      transform: scale(1.1);
+      transition: filter 0.6s ease-out, transform 0.6s ease-out, opacity 0.6s ease-out;
+    }
+    
+    /* Remove blur when video is loaded */
+    .hero.video-loaded::before {
+      filter: blur(0);
+      transform: scale(1);
+      opacity: 0;
+    }
 
     /* Video Background Styles */
     .hero__video {
@@ -68,6 +94,12 @@
       height: 100%;
       object-fit: cover;
       z-index: 1;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+    
+    .hero__video.loaded {
+      opacity: 1;
     }
 
     .hero__overlay {
@@ -263,6 +295,51 @@
     // Progressive font loading enhancement
     document.fonts.ready.then(function() {
       document.documentElement.classList.add('fonts-loaded');
+    });
+    
+    // Hero video loading - Blur-Up technique
+    document.addEventListener('DOMContentLoaded', function() {
+      const heroVideo = document.querySelector('.hero__video');
+      const heroSection = document.querySelector('.hero');
+      
+      if (heroVideo && heroSection) {
+        let videoShown = false;
+        
+        function showVideo() {
+          if (videoShown) return;
+          videoShown = true;
+          
+          // Fade in the video
+          heroVideo.classList.add('loaded');
+          
+          // Remove blur from background placeholder (Blur-Up technique)
+          // The ::before pseudo-element will fade out smoothly as video fades in
+          // This creates the atmospheric blur-to-sharp transition effect
+          heroSection.classList.add('video-loaded');
+        }
+        
+        // Show video as soon as it starts playing (most reliable)
+        heroVideo.addEventListener('playing', showVideo, { once: true });
+        
+        // Fallback: show when enough data is loaded (faster than canplay)
+        heroVideo.addEventListener('loadeddata', function() {
+          // Try to ensure video is playing
+          if (heroVideo.readyState >= 2) {
+            const playPromise = heroVideo.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(function() {
+                // Autoplay blocked, will wait for playing event
+              });
+            }
+          }
+        }, { once: true });
+        
+        // Fallback: if video fails to load, remove blur to show clear static image
+        heroVideo.addEventListener('error', function() {
+          console.warn('Hero video failed to load, removing blur from static image');
+          heroSection.classList.add('video-loaded');
+        });
+      }
     });
   </script>
   
@@ -982,7 +1059,7 @@
       <div class="header__logo">
         <a href="index.html">
           <div class="logo-container">
-            <img src="src/images/general/logo3.png" alt="BE WATER Logo" class="header__logo-img">
+            <img src="src/images/general/images-optimized/logo3_optimized.png" alt="BE WATER Logo" class="header__logo-img">
             <div class="header__logo-tagline" data-i18n="header.logo.tagline">by Dicas do Salgueiro</div>
           </div>
         </a>
@@ -1010,7 +1087,7 @@
   <!-- Hero Section -->
   <section class="hero" id="hero">
     <!-- Video Background -->
-    <video class="hero__video" autoplay loop muted playsinline poster="">
+    <video class="hero__video" autoplay loop muted playsinline preload="auto" poster="src/images/general/images-optimized/hero static_optimized.png">
       <source src="src/images/general/hero2.m4v" type="video/mp4">
     </video>
     <div class="hero__overlay"></div>
@@ -2770,7 +2847,7 @@
       <h3 data-i18n="events.past">Passados</h3>
       <div class="grid">
         <article class="card">
-          <img src="src/images/general/sao-martinho-evento.jpg" alt="São Martinho no BE WATER">
+          <img src="src/images/general/images-optimized/sao-martinho-evento_optimized.jpg" alt="São Martinho no BE WATER">
           <div class="card-body">
             <div class="meta">
               <span class="date">Sáb, 8 Nov 2025</span>
@@ -2782,7 +2859,7 @@
           </div>
         </article>
         <article class="card">
-          <img src="src/images/general/eventonutricao.jpg" alt="Nutrição + Treino BeWater">
+          <img src="src/images/general/images-optimized/eventonutricao_optimized.jpg" alt="Nutrição + Treino BeWater">
           <div class="card-body">
             <div class="meta">
               <span class="date">Sáb, 4 Out 2025</span>
@@ -3383,7 +3460,7 @@
           <div class="footer__logo">
             <a href="index.html">
               <div class="logo-container">
-                <img src="src/images/general/logo3.png" alt="BE WATER Logo" class="footer__logo-img">
+                <img src="src/images/general/images-optimized/logo3_optimized.png" alt="BE WATER Logo" class="footer__logo-img">
               </div>
             </a>
           </div>
