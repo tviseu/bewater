@@ -76,3 +76,55 @@ input[type="checkbox"] {
 	color: #000000;
 	font-family: 'Work Sans', sans-serif;
 }
+
+/* =========================================
+   AJUSTES MOBILE REGYFIT
+   Reduz tamanhos mantendo o estilo Brutal
+   ========================================= */
+@media (max-width: 768px) {
+    
+    /* Inputs e Selects mais compactos */
+    input, select {
+        height: 42px;           /* Força uma altura fixa menor */
+        padding: 5px;           /* Menos enchimento interno */
+        font-size: 13px;        /* Fonte ligeiramente menor */
+        border-width: 3px;      /* Borda ligeiramente mais fina (era 4px) */
+        width: 100%;            /* Garante que não estoura a largura */
+        box-sizing: border-box;
+    }
+
+    /* Checkbox muito menor (30px é demasiado grande para mobile) */
+    input[type="checkbox"] {
+        width: 22px;
+        height: 22px;
+        margin-top: 5px;
+        border-width: 3px;
+        /* Removemos altura fixa do seletor anterior se houver conflito */
+        flex-shrink: 0; 
+    }
+
+    /* Botão mais acessível e menos intrusivo */
+    .botao {
+        height: 50px;           /* Reduz de 60px/74px para 50px */
+        font-size: 14px;        /* Texto menor */
+        line-height: 1.2;       /* Melhor espaçamento vertical */
+        padding: 0 10px;
+        width: 100%;            /* Em mobile, botões full-width costumam funcionar melhor */
+    }
+
+    /* Ícones e Labels */
+    .icons {
+        padding: 6px;           /* Reduz padding do container de ícones */
+        font-size: 14px;
+    }
+    
+    .titulos {
+        font-size: 11px;
+        margin-bottom: 2px;
+    }
+    
+    /* Ajuste para o calendário do input date */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        width: 20px;            /* Ícone de calendário menor */
+    }
+}
