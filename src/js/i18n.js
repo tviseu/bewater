@@ -478,6 +478,12 @@ const translations = {
       'modal.membership.step3': 'Clica no valor "total a pagar"',
       'modal.membership.step4': 'Escolhe a forma de pagamento preferida',
       
+      // Price Breakdown Labels
+      'modal.price.membership': 'MENSALIDADE',
+      'modal.price.membership_note': 'Na 1ª pagas só os dias que restam do mês!',
+      'modal.price.insurance': 'SEGURO',
+      'modal.price.annual': 'Anual',
+      
       // Privacy Policy Modal
       'modal.privacy.title': 'POLÍTICA DE PRIVACIDADE',
       'modal.privacy.info.title': 'INFORMAÇÃO EMPRESARIAL',
@@ -1071,6 +1077,12 @@ const translations = {
       'modal.membership.step2': 'Fill in your personal details',
       'modal.membership.step3': 'Click on the "total to pay" amount',
       'modal.membership.step4': 'Choose your preferred payment method',
+      
+      // Price Breakdown Labels
+      'modal.price.membership': 'MEMBERSHIP',
+      'modal.price.membership_note': 'On the 1st payment you only pay for the remaining days of the month!',
+      'modal.price.insurance': 'INSURANCE',
+      'modal.price.annual': 'Annual',
       
       // Privacy Policy Modal
       'modal.privacy.title': 'PRIVACY POLICY',
