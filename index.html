@@ -1361,6 +1361,7 @@
         <div class="price-card price-card--dropin">
           <div class="price-card__header">
             <h3 class="price-card__title">DROP-IN</h3>
+            <p class="price-card__subtitle" data-i18n="pricing.dropin.subtitle">Sem Compromisso</p>
           </div>
           <div class="price-card__features">
             <ul>
@@ -1379,6 +1380,7 @@
         <div class="price-card price-card--pack5">
           <div class="price-card__header">
             <h3 class="price-card__title" data-i18n="pricing.pack5.title">PACK 5</h3>
+            <p class="price-card__subtitle" data-i18n="pricing.pack5.subtitle">Ao Teu Ritmo</p>
           </div>
           <div class="price-card__features">
             <ul>
@@ -1396,6 +1398,7 @@
         <div class="price-card price-card--pack10">
           <div class="price-card__header">
             <h3 class="price-card__title" data-i18n="pricing.pack10.title">PACK 10</h3>
+            <p class="price-card__subtitle" data-i18n="pricing.pack10.subtitle">Máxima Flexibilidade</p>
           </div>
           <div class="price-card__features">
             <ul>
@@ -1408,6 +1411,36 @@
             <button type="button" class="btn" data-modal="pack10" data-i18n="pricing.pack10.cta">COMPRAR PACK</button>
           </div>
         </div>
+
+        <!-- Personal Training Card -->
+        <div class="price-card price-card--pt">
+          <div class="price-card__header">
+            <h3 class="price-card__title" data-i18n="pricing.pt.title">PERSONAL TRAINER</h3>
+            <p class="price-card__subtitle" data-i18n="pricing.pt.subtitle">Foco Total em Ti</p>
+          </div>
+          <div class="price-card__features">
+            <ul>
+              <li data-i18n="pricing.pt.feature1">Acompanhamento 100% personalizado</li>
+              <li data-i18n="pricing.pt.feature2">Avaliação física e plano à medida</li>
+              <li data-i18n="pricing.pt.feature3">Horário flexível combinado com o PT</li>
+              <li data-i18n="pricing.pt.feature4">Acelera os teus resultados</li>
+              <li data-i18n="pricing.pt.feature5">Correção técnica pormenorizada</li>
+            </ul>
+          </div>
+          <div class="price-card__cta">
+            <!-- Link direto para o contacto ou um modal específico -->
+            <button onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})" class="btn" data-i18n="pricing.pt.cta">SABER MAIS</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Promoções Especiais Banner -->
+      <div class="pricing-promos">
+        <h4 data-i18n="promo.banner.title">TENS CONDIÇÕES ESPECIAIS? 🎓 👮</h4>
+        <p data-i18n="promo.banner.text">
+          Temos descontos exclusivos para <strong>Estudantes</strong> e <strong>Forças de Segurança</strong> (PSP, GNR, Bombeiros, Militares).
+        </p>
+        <a href="#contact" class="btn btn--small" data-i18n="promo.banner.cta">FALA CONNOSCO</a>
       </div>
     </div>
   </section>
@@ -3127,19 +3160,6 @@
           </div>
         </div>
         <div class="trainer-card">
-          <div class="trainer-card__image trainer-card__image--morgado"></div>
-          <div class="trainer-card__content">
-            <h3 class="trainer-card__name" data-i18n="trainers.morgado.name">LUÍS MORGADO</h3>
-            <p class="trainer-card__specialty" data-i18n="trainers.morgado.specialty">Professor de Surf & CrossFit</p>
-            <p class="trainer-card__bio" data-i18n="trainers.morgado.bio">Professor de surf e especialista em CrossFit e treino funcional. Combina a filosofia aquática com movimentos funcionais para um treino completo e desafiante.</p>
-            <div class="trainer-card__certs">
-              <span data-i18n="trainers.morgado.cert1">Professor de Surf</span>
-              <span data-i18n="trainers.morgado.cert2">CrossFit Level 2</span>
-              <span data-i18n="trainers.morgado.cert3">Treino Funcional</span>
-            </div>
-          </div>
-        </div>
-        <div class="trainer-card">
           <div class="trainer-card__image trainer-card__image--lourenco"></div>
           <div class="trainer-card__content">
             <h3 class="trainer-card__name" data-i18n="trainers.lourenco.name">LOURENÇO SANTOS</h3>
@@ -3179,15 +3199,15 @@
           </div>
         </div>
         <div class="trainer-card">
-          <div class="trainer-card__image trainer-card__image--carlos"></div>
+          <div class="trainer-card__image trainer-card__image--armenio"></div>
           <div class="trainer-card__content">
-            <h3 class="trainer-card__name" data-i18n="trainers.carlos.name">CARLOS FERNANDES</h3>
-            <p class="trainer-card__specialty" data-i18n="trainers.carlos.specialty">Treinador de Boxe & Fundador Spartacus CF</p>
-            <p class="trainer-card__bio" data-i18n="trainers.carlos.bio">Treinador de boxe certificado pelo IPDJ com mais de nove anos de experiência. Conta com 200 combates como treinador e é fundador da equipa Spartacus CF Boxing.</p>
+            <h3 class="trainer-card__name" data-i18n="trainers.armenio.name">ARMÉNIO REIS</h3>
+            <p class="trainer-card__specialty" data-i18n="trainers.armenio.specialty">Treinador</p>
+            <p class="trainer-card__bio" data-i18n="trainers.armenio.bio">Bio brevemente disponível.</p>
             <div class="trainer-card__certs">
-              <span data-i18n="trainers.carlos.cert1">Curso Treinador Boxe IPDJ</span>
-              <span data-i18n="trainers.carlos.cert2">Fundador Spartacus CF Boxing</span>
-              <span data-i18n="trainers.carlos.cert3">200 Combates como Treinador</span>
+              <span data-i18n="trainers.armenio.cert1">Treinador Certificado</span>
+              <span data-i18n="trainers.armenio.cert2">...</span>
+              <span data-i18n="trainers.armenio.cert3">...</span>
             </div>
           </div>
         </div>
@@ -3390,6 +3410,28 @@
         <div class="section-line"></div>
       </div>
       <div class="contact__content">
+        <div class="contact__form-container">
+          <form class="contact__form" action="https://submit-form.com/M4cJ3RVo6" method="POST" novalidate>
+            <div class="form-group">
+              <label for="name" data-i18n="contact.form.name">NOME</label>
+              <input type="text" id="name" name="name" autocomplete="name" required>
+            </div>
+            <div class="form-group">
+              <label for="email" data-i18n="contact.form.email">EMAIL</label>
+              <input type="email" id="email" name="email" autocomplete="email" required>
+            </div>
+            <div class="form-group">
+              <label for="phone" data-i18n="contact.form.phone">TELEMÓVEL</label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel">
+            </div>
+            <div class="form-group">
+              <label for="message" data-i18n="contact.form.message">MENSAGEM</label>
+              <textarea id="message" name="message" rows="5" autocomplete="off" required></textarea>
+            </div>
+            <!-- Formspark configuration handled in JS -->
+            <button type="submit" class="btn btn--full" data-i18n="contact.form.submit">ENVIAR MENSAGEM</button>
+          </form>
+        </div>
         <div class="contact__info">
           <div class="contact__address">
             <h3 data-i18n="contact.address.title">ONDE ESTAMOS</h3>
@@ -3420,28 +3462,6 @@
               <a href="https://facebook.com/asdicasdosalgueiro" target="_blank" class="contact__social-icon">FB</a>
             </div>
           </div>
-        </div>
-        <div class="contact__form-container">
-          <form class="contact__form" action="https://submit-form.com/M4cJ3RVo6" method="POST" novalidate>
-            <div class="form-group">
-              <label for="name" data-i18n="contact.form.name">NOME</label>
-              <input type="text" id="name" name="name" autocomplete="name" required>
-            </div>
-            <div class="form-group">
-              <label for="email" data-i18n="contact.form.email">EMAIL</label>
-              <input type="email" id="email" name="email" autocomplete="email" required>
-            </div>
-            <div class="form-group">
-              <label for="phone" data-i18n="contact.form.phone">TELEMÓVEL</label>
-              <input type="tel" id="phone" name="phone" autocomplete="tel">
-            </div>
-            <div class="form-group">
-              <label for="message" data-i18n="contact.form.message">MENSAGEM</label>
-              <textarea id="message" name="message" rows="5" autocomplete="off" required></textarea>
-            </div>
-            <!-- Formspark configuration handled in JS -->
-            <button type="submit" class="btn btn--full" data-i18n="contact.form.submit">ENVIAR MENSAGEM</button>
-          </form>
         </div>
       </div>
       <div class="contact__map">

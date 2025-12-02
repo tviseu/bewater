@@ -118,6 +118,7 @@ const translations = {
       
       // Drop-in pricing
       'pricing.dropin.period': '/aula',
+      'pricing.dropin.subtitle': 'Sem Compromisso',
       'pricing.dropin.feature1': 'Aula avulsa única',
       'pricing.dropin.feature2': 'Compra apenas 1 aula sem compromisso',
       'pricing.dropin.feature3': 'Acesso a todas as modalidades e open gym',
@@ -126,6 +127,7 @@ const translations = {
 
       // Pack 10 pricing
       'pricing.pack10.title': 'PACK 10',
+      'pricing.pack10.subtitle': 'Máxima Flexibilidade',
       'pricing.pack10.period': '/pack',
       'pricing.pack10.feature1': 'Pack de 10 aulas',
       'pricing.pack10.feature2': 'Sem mensalidade',
@@ -134,11 +136,27 @@ const translations = {
 
       // Pack 5 pricing
       'pricing.pack5.title': 'PACK 5',
+      'pricing.pack5.subtitle': 'Ao Teu Ritmo',
       'pricing.pack5.period': '/pack',
       'pricing.pack5.feature1': 'Pack de 5 aulas',
       'pricing.pack5.feature2': 'Sem mensalidade',
       'pricing.pack5.feature3': 'Acesso a todas as modalidades e open gym',
       'pricing.pack5.cta': 'COMPRAR PACK',
+
+      // Personal Trainer
+      'pricing.pt.title': 'PERSONAL TRAINER',
+      'pricing.pt.subtitle': 'Foco Total em Ti',
+      'pricing.pt.feature1': 'Acompanhamento 100% personalizado',
+      'pricing.pt.feature2': 'Avaliação física e plano à medida',
+      'pricing.pt.feature3': 'Horário flexível combinado com o PT',
+      'pricing.pt.feature4': 'Acelera os teus resultados',
+      'pricing.pt.feature5': 'Correção técnica pormenorizada',
+      'pricing.pt.cta': 'SABER MAIS',
+
+      // Promo Banner
+      'promo.banner.title': 'TENS CONDIÇÕES ESPECIAIS? 🎓 👮',
+      'promo.banner.text': 'Temos descontos exclusivos para <strong>Estudantes</strong> e <strong>Forças de Segurança</strong> (PSP, GNR, Bombeiros, Militares).',
+      'promo.banner.cta': 'FALA CONNOSCO',
       
       // Events Section
       'events.title': 'EVENTOS',
@@ -350,18 +368,15 @@ const translations = {
       'trainers.joaquim.name': 'JOAQUIM COELHO',
       'trainers.joaquim.specialty': 'Fisioterapeuta & S&C',
       'trainers.joaquim.bio': 'Fisioterapeuta com experiência no desporto de alto rendimento, especializado em reabilitação, prevenção de lesões e performance física. Trabalha com atletas na melhoria das qualidades físicas e redução do risco de lesão.',
-      'trainers.morgado.name': 'LUÍS MORGADO',
-      'trainers.morgado.specialty': 'Professor de Surf & CrossFit',
-      'trainers.morgado.bio': 'Professor de surf e especialista em CrossFit e treino funcional. Combina a filosofia aquática com movimentos funcionais para um treino completo e desafiante.',
       'trainers.lourenco.name': 'LOURENÇO SANTOS',
       'trainers.lourenco.specialty': 'Personal Trainer & Coach de Corrida',
       'trainers.lourenco.bio': 'Licenciado em Educação Física e Desporto e mestrando em Exercício e Saúde na Faculdade de Motricidade Humana. Ex-atleta de karaté e atletismo, foi também treinador de vela. Com dez anos de treino de ginásio, dedica-se à fisiologia do exercício clínico e ao aperfeiçoamento da corrida.',
       'trainers.alexandre.name': 'ALEXANDRE IZIDRO',
       'trainers.alexandre.specialty': 'Mestre de Jiu-Jitsu',
       'trainers.alexandre.bio': 'Faixa-preta 6.º grau e mestre da Icon Jiu-Jitsu Lisboa com mais de 25 anos de experiência. Ex-lutador profissional, foi 3.º no Campeonato do Mundo e campeão Cage Warriors. Especialista em defesa pessoal e performance marcial.',
-      'trainers.carlos.name': 'CARLOS FERNANDES',
-      'trainers.carlos.specialty': 'Treinador de Boxe & Fundador Spartacus CF',
-      'trainers.carlos.bio': 'Treinador de boxe certificado pelo IPDJ com mais de nove anos de experiência. Conta com 200 combates como treinador e é fundador da equipa Spartacus CF Boxing.',
+      'trainers.armenio.name': 'ARMÉNIO REIS',
+      'trainers.armenio.specialty': 'Técnico de Exercício Físico & Boxer',
+      'trainers.armenio.bio': 'Boxer de Lisboa e Técnico de Exercício Físico certificado. Membro da Seleção Nacional de Portugal com um palmarés estelar: 6x Campeão Nacional e 2x Campeão Amador WBC. Apaixonado pela disciplina, treino de força e por inspirar a comunidade através do boxe e fitness.',
       'trainers.diogo.name': 'DIOGO CALADO',
       'trainers.diogo.specialty': 'Treinador de Muay Thai',
       'trainers.diogo.bio': 'Lutador profissional e um dos nomes mais respeitados do Muay Thai português. Campeão mundial e europeu em várias organizações, traz para o Be Water a experiência de quem já competiu entre os melhores do mundo. Nas suas aulas, combina técnica, intensidade e foco mental — ensinando os princípios do Muay Thai com a mesma paixão com que sempre subiu ao ringue.',
@@ -385,18 +400,15 @@ const translations = {
       'trainers.joaquim.cert1': 'Fisioterapia Desportiva',
       'trainers.joaquim.cert2': 'S&C',
       'trainers.joaquim.cert3': 'Reabilitação Funcional',
-      'trainers.morgado.cert1': 'Professor de Surf',
-      'trainers.morgado.cert2': 'CrossFit Level 2',
-      'trainers.morgado.cert3': 'Treino Funcional',
       'trainers.lourenco.cert1': 'Personal Training',
       'trainers.lourenco.cert2': 'Coach de Corrida',
       'trainers.lourenco.cert3': 'Fisiologia do Exercício',
       'trainers.alexandre.cert1': 'Faixa-preta 6.º grau',
       'trainers.alexandre.cert2': 'Ex-lutador profissional',
       'trainers.alexandre.cert3': 'Campeão Cage Warriors',
-      'trainers.carlos.cert1': 'Curso Treinador Boxe IPDJ',
-      'trainers.carlos.cert2': 'Fundador Spartacus CF Boxing',
-      'trainers.carlos.cert3': '200 Combates como Treinador',
+      'trainers.armenio.cert1': 'Técnico de Exercício Físico',
+      'trainers.armenio.cert2': 'Seleção Nacional Portugal',
+      'trainers.armenio.cert3': '6x Campeão Nacional & 2x WBC',
       
       // Contact Section
       'contact.title': 'CONTACTO',
@@ -718,6 +730,7 @@ const translations = {
       
       // Drop-in pricing
       'pricing.dropin.period': '/class',
+      'pricing.dropin.subtitle': 'No Commitment',
       'pricing.dropin.feature1': 'Single drop-in class',
       'pricing.dropin.feature2': 'Buy just 1 class without commitment',
       'pricing.dropin.feature3': 'Access to all modalities and open gym',
@@ -726,6 +739,7 @@ const translations = {
 
       // Pack 10 pricing
       'pricing.pack10.title': 'PACK 10',
+      'pricing.pack10.subtitle': 'Maximum Flexibility',
       'pricing.pack10.period': '/pack',
       'pricing.pack10.feature1': '10-class pack',
       'pricing.pack10.feature2': 'No monthly fee',
@@ -734,11 +748,27 @@ const translations = {
 
       // Pack 5 pricing
       'pricing.pack5.title': 'PACK 5',
+      'pricing.pack5.subtitle': 'At Your Pace',
       'pricing.pack5.period': '/pack',
       'pricing.pack5.feature1': '5-class pack',
       'pricing.pack5.feature2': 'No monthly fee',
       'pricing.pack5.feature3': 'Access to all modalities and open gym',
       'pricing.pack5.cta': 'BUY PACK',
+
+      // Personal Trainer
+      'pricing.pt.title': 'PERSONAL TRAINER',
+      'pricing.pt.subtitle': 'Total Focus on You',
+      'pricing.pt.feature1': '100% personalized monitoring',
+      'pricing.pt.feature2': 'Physical assessment and tailored plan',
+      'pricing.pt.feature3': 'Flexible schedule combined with PT',
+      'pricing.pt.feature4': 'Accelerate your results',
+      'pricing.pt.feature5': 'Detailed technical correction',
+      'pricing.pt.cta': 'LEARN MORE',
+
+      // Promo Banner
+      'promo.banner.title': 'SPECIAL CONDITIONS? 🎓 👮',
+      'promo.banner.text': 'We have exclusive discounts for <strong>Students</strong> and <strong>Security Forces</strong> (Police, Military, Firefighters).',
+      'promo.banner.cta': 'TALK TO US',
       
       // Events Section
       'events.title': 'EVENTS',
@@ -950,18 +980,15 @@ const translations = {
       'trainers.joaquim.name': 'JOAQUIM COELHO',
       'trainers.joaquim.specialty': 'Physiotherapist & S&C',
       'trainers.joaquim.bio': 'Physiotherapist with experience in high-performance sports, specialized in rehabilitation, injury prevention and physical performance. Works with athletes to improve physical qualities and reduce injury risk.',
-      'trainers.morgado.name': 'LUÍS MORGADO',
-      'trainers.morgado.specialty': 'Surf Instructor & CrossFit',
-      'trainers.morgado.bio': 'Surf instructor and specialist in CrossFit and functional training. Combines aquatic philosophy with functional movements for a complete and challenging workout.',
       'trainers.lourenco.name': 'LOURENÇO SANTOS',
       'trainers.lourenco.specialty': 'Personal Trainer & Running Coach',
       'trainers.lourenco.bio': 'Degree in Physical Education and Sports and Master\'s student in Exercise and Health at the Faculty of Human Kinetics. Former karate and athletics athlete, was also a sailing coach. With ten years of gym training, he dedicates himself to clinical exercise physiology and running improvement.',
       'trainers.alexandre.name': 'ALEXANDRE IZIDRO',
       'trainers.alexandre.specialty': 'Jiu-Jitsu Master',
       'trainers.alexandre.bio': '6th degree black belt and master at Icon Jiu-Jitsu Lisboa with over 25 years of experience. Former professional fighter, was 3rd at the World Championship and Cage Warriors champion. Specialist in personal defense and martial performance.',
-      'trainers.carlos.name': 'CARLOS FERNANDES',
-      'trainers.carlos.specialty': 'Boxing Trainer & Spartacus CF Founder',
-      'trainers.carlos.bio': 'Boxing trainer certified by IPDJ with over nine years of experience. Has 200 fights as a trainer and is founder of the Spartacus CF Boxing team.',
+      'trainers.armenio.name': 'ARMÉNIO REIS',
+      'trainers.armenio.specialty': 'Physical Exercise Technician & Boxer',
+      'trainers.armenio.bio': 'Portuguese boxer from Lisbon and certified Técnico de Exercício Físico. Member of the Portugal National Team with a stellar record: 6x National Champion and 2x WBC Amateur Champion. Passionate about discipline, strength training, and inspiring the community through boxing and fitness.',
       'trainers.diogo.name': 'DIOGO CALADO',
       'trainers.diogo.specialty': 'Muay Thai Coach',
       'trainers.diogo.bio': 'Professional fighter and one of the most respected names in Portuguese Muay Thai. World and European champion across multiple organizations, he brings to Be Water the experience of someone who has competed among the best in the world. In his classes, he combines technique, intensity and mental focus — teaching the principles of Muay Thai with the same passion he always brought to the ring.',
@@ -985,18 +1012,15 @@ const translations = {
       'trainers.joaquim.cert1': 'Sports Physiotherapy',
       'trainers.joaquim.cert2': 'S&C',
       'trainers.joaquim.cert3': 'Functional Rehabilitation',
-      'trainers.morgado.cert1': 'Surf Instructor',
-      'trainers.morgado.cert2': 'CrossFit Level 2',
-      'trainers.morgado.cert3': 'Functional Training',
       'trainers.lourenco.cert1': 'Personal Training',
       'trainers.lourenco.cert2': 'Running Coach',
       'trainers.lourenco.cert3': 'Exercise Physiology',
       'trainers.alexandre.cert1': '6th Degree Black Belt',
       'trainers.alexandre.cert2': 'Former Professional Fighter',
       'trainers.alexandre.cert3': 'Cage Warriors Champion',
-      'trainers.carlos.cert1': 'Boxing Trainer Course IPDJ',
-      'trainers.carlos.cert2': 'Spartacus CF Boxing Founder',
-      'trainers.carlos.cert3': '200 Fights as Trainer',
+      'trainers.armenio.cert1': 'Physical Exercise Technician',
+      'trainers.armenio.cert2': 'Portugal National Team',
+      'trainers.armenio.cert3': '6x National Champion & 2x WBC',
       
       // Contact Section
       'contact.title': 'CONTACT',

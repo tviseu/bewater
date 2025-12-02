@@ -41,7 +41,7 @@ const CONFIG = {
     WEBP_QUALITY: 80,
     
     // Extensões suportadas
-    SUPPORTED_EXTENSIONS: ['.jpg', '.jpeg', '.png', '.webp'],
+    SUPPORTED_EXTENSIONS: ['.jpg', '.jpeg', '.png', '.webp', '.tif', '.tiff'],
     
     // Criar backup das imagens originais
     CREATE_BACKUP: true,
@@ -119,6 +119,16 @@ async function optimizeImage(inputPath, outputPath, options = {}) {
                         quality: CONFIG.WEBP_QUALITY 
                     });
                     break;
+                case '.tif':
+                case '.tiff':
+                     // Convert TIF to JPEG if not forcing WebP, or keep pipeline as is if sharp handles it
+                     // Typically for web we want jpg or webp. If target is same extension (tif), it's bad for web.
+                     // But the caller logic usually handles extension changes.
+                     if (outputExt === '.tif' || outputExt === '.tiff') {
+                         // Force conversion to jpeg if target is still tif (shouldn't happen with FORCE_WEBP)
+                         pipeline = pipeline.jpeg({ quality: CONFIG.JPEG_QUALITY });
+                     }
+                     break;
             }
         }
 

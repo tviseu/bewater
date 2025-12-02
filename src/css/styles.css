@@ -911,10 +911,6 @@ section {
   background-image: url('../images/coaches/coaches-optimized/CARD jorge segurado_thumb.webp');
 }
 
-.trainer-card__image--morgado {
-  background-image: url('../images/coaches/coaches-optimized/CARD luís morgado_thumb.webp');
-}
-
 .trainer-card__image--joaquim {
   background-image: url('../images/coaches/coaches-optimized/CARD joaquim coelho_thumb.webp');
 }
@@ -939,8 +935,8 @@ section {
   background-image: url('../images/coaches/coaches-optimized/CARD diogo calado_thumb.webp');
 }
 
-.trainer-card__image--carlos {
-  background-image: url('../images/coaches/coaches-optimized/CARD carlos fernandes_thumb.webp');
+.trainer-card__image--armenio {
+  background-image: url('../images/coaches/coaches-optimized/CARD ARMÉNIO REIS_thumb.webp');
 }
 
 .trainer-card__content {
@@ -1047,14 +1043,15 @@ section {
   gap: var(--spacing-md);
 }
 
-/* Center the 4th card (drop-in) when there are 4 cards total */
+/* Center the last card (PT) when it's the 7th card in a 3-column grid */
 @media (min-width: 1200px) {
   .pricing__grid {
     grid-template-columns: repeat(3, 1fr);
     justify-items: center;
   }
   
-  .pricing__grid > .price-card:nth-child(4):nth-last-child(1) {
+  /* This targets the last card (PT) to be centered in the grid */
+  .pricing__grid > .price-card:last-child {
     grid-column: 2 / 3;
     margin-top: var(--spacing-sm);
   }
@@ -1105,7 +1102,7 @@ section {
     grid-template-columns: repeat(3, 1fr);
   }
   
-  .pricing__grid > .price-card:nth-child(4):nth-last-child(1) {
+  .pricing__grid > .price-card:last-child {
     grid-column: 2 / 3;
     margin-top: var(--spacing-sm);
   }
@@ -1166,6 +1163,42 @@ section {
   background-color: #0088CC;
   color: #FFFFFF;
   border-bottom: var(--border-thick);
+}
+
+.price-card--pt .price-card__header {
+  background-color: #FF5722;
+  color: #FFFFFF;
+  border-bottom: var(--border-thick);
+}
+
+.price-card--pt .btn {
+  background-color: #FF5722;
+  border-color: #FF5722;
+  color: white;
+}
+
+.price-card--pt .btn:hover {
+  background-color: #E64A19;
+  border-color: #E64A19;
+}
+
+.pricing-promos {
+  text-align: center;
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background: #f4f4f4;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.pricing-promos h4 {
+  margin-bottom: 0.5rem;
+  font-weight: 800;
+}
+
+.pricing-promos p {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
 }
 
 .price-card__header {
@@ -1577,12 +1610,13 @@ section {
   .contact__info {
     grid-template-columns: 1fr;
     gap: var(--spacing-md);
-    order: 1;
+    order: 2;
   }
   
   .contact__form-container {
-    order: 2;
-    margin-top: var(--spacing-md);
+    order: 1;
+    margin-top: 0;
+    margin-bottom: var(--spacing-md);
   }
   
   .contact__info h3 {
