@@ -4512,6 +4512,21 @@ button.btn:active {
   max-width: 1200px;
   width: 98%;
   max-height: 95vh;
+  overflow-x: hidden; /* Prevent horizontal scroll on container */
+}
+
+/* Fix horizontal scroll in coupon savings banner */
+.coupon-savings-banner {
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  overflow: visible; /* Allow content to show */
+}
+
+.coupon-savings-banner__note {
+  white-space: normal; /* Allow text to wrap */
+  word-wrap: break-word; /* Break long words if needed */
+  max-width: 100%;
 }
 
 /* Coupon modals - compact when showing form only */
@@ -4522,14 +4537,94 @@ button.btn:active {
   width: 90%;
 }
 
+/* Coupon modals - larger when showing success info */
+#modal-elite-coupon .modal-container:has(.coupon-success-info[style*="display: block"]),
+#modal-rise-coupon .modal-container:has(.coupon-success-info[style*="display: block"]),
+#modal-starter-coupon .modal-container:has(.coupon-success-info[style*="display: block"]) {
+  max-width: 850px;
+  width: 95%;
+}
+
+/* Coupon modals need tighter spacing */
+#modal-elite-coupon .modal-content,
+#modal-rise-coupon .modal-content,
+#modal-starter-coupon .modal-content {
+  padding: 0.5rem;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* Success info container - ensure proper spacing and no overflow */
+.coupon-success-info {
+  padding: 1rem;
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow-x: hidden;
+  word-wrap: break-word;
+}
+
+/* Reduce font sizes in savings banner to fit better */
+.coupon-savings-banner {
+  padding: 1.5rem;
+  margin: 0 0 1.5rem 0;
+}
+
+.coupon-savings-banner__main {
+  font-size: 1.6rem;
+}
+
+.coupon-savings-banner__main strong {
+  font-size: 2rem;
+}
+
+.coupon-savings-banner__price-row {
+  font-size: 1rem;
+  padding: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.coupon-savings-banner__label {
+  min-width: 100px;
+  font-size: 1rem;
+}
+
+.coupon-savings-banner__old-price {
+  font-size: 1.1rem;
+}
+
+.coupon-savings-banner__new-price,
+.coupon-savings-banner__free {
+  font-size: 1.4rem;
+  padding: 0.3rem 0.8rem;
+}
+
+.coupon-savings-banner__note {
+  font-size: 0.85rem;
+  padding: 0.5rem;
+  line-height: 1.3;
+}
+
+.coupon-pre-form__how-it-works li {
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
 /* Responsividade dinâmica dos iframes */
+.modal-regy-container {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 .modal-regy-container iframe {
   width: 100%;
   min-height: 0; /* Start from 0 to prevent white space */
   height: auto;
   border: none;
   display: block;
-  overflow: auto;
+  overflow-x: hidden;
 }
 
 /* Adaptação automática baseada no viewport - ONLY for visible iframes */
@@ -4634,6 +4729,17 @@ button.btn:active {
   min-height: 0;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* Success info container - ensure proper spacing and no overflow */
+.coupon-success-info {
+  padding: 1rem;
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow-x: hidden;
+  word-wrap: break-word;
 }
 
 .modal-plan-summary {
@@ -8293,15 +8399,50 @@ html, body {
   50% { transform: rotate(-1deg) scale(1.02); }
 }
 
-/* Savings Banner Styles */
+/* Reduce font sizes in savings banner to fit better */
 .coupon-savings-banner {
-  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-  border: 5px solid var(--color-black);
-  padding: 2rem;
-  margin: 0 0 2rem 0;
-  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.4);
-  position: relative;
-  overflow: hidden;
+  padding: 1.5rem;
+  margin: 0 0 1.5rem 0;
+}
+
+.coupon-savings-banner__main {
+  font-size: 1.6rem;
+}
+
+.coupon-savings-banner__main strong {
+  font-size: 2rem;
+}
+
+.coupon-savings-banner__price-row {
+  font-size: 1rem;
+  padding: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.coupon-savings-banner__label {
+  min-width: 100px;
+  font-size: 1rem;
+}
+
+.coupon-savings-banner__old-price {
+  font-size: 1.1rem;
+}
+
+.coupon-savings-banner__new-price,
+.coupon-savings-banner__free {
+  font-size: 1.4rem;
+  padding: 0.3rem 0.8rem;
+}
+
+.coupon-savings-banner__note {
+  font-size: 0.85rem;
+  padding: 0.5rem;
+  line-height: 1.3;
+}
+
+.coupon-pre-form__how-it-works li {
+  font-size: 0.85rem;
+  line-height: 1.5;
 }
 
 .coupon-savings-banner::before {

@@ -211,11 +211,15 @@ async function validateCoupon(code) {
     
     // Determinar se é especial baseado no discount_type (não mais array hardcoded)
     // BRUCELEE (100% desconto + sem taxa) também é considerado especial
+    // TAXAFREE (Oferta seguro anual) também é considerado especial
+    // PODCAST (Oferta seguro anual) também é considerado especial
     const isSpecial = (couponData.discount_type && 
                       (couponData.discount_type === 'permanent_amount' || 
                        couponData.discount_type === 'permanent_monthly')) ||
                       (couponData.discount_value === 100.00 && couponData.waive_registration_fee) ||
-                      normalizedCode === 'brucelee';
+                      normalizedCode === 'brucelee' ||
+                      normalizedCode === 'taxafree' ||
+                      normalizedCode === 'podcast';
     
     if (isSpecial) {
       console.log('🌟 Cupão ESPECIAL detectado - vai usar Regyfit específico e mostrar banner');
@@ -228,7 +232,8 @@ async function validateCoupon(code) {
       isSpecial: isSpecial,
       message: message,
       discountType: couponData.discount_type || 'percentage_next',
-      discountValue: couponData.discount_value || 50.00,
+      // Fix: allow 0 as a valid discount value (don't default to 50 if it's 0)
+      discountValue: (couponData.discount_value !== null && couponData.discount_value !== undefined) ? couponData.discount_value : 50.00,
       waiveRegistrationFee: couponData.waive_registration_fee || false,
       descriptionPt: couponData.description_pt,
       descriptionEn: couponData.description_en,
@@ -561,7 +566,6 @@ async function showRegyStep(modalId, forceNormal = false) {
     iframeToShow.style.width = '100%';
     iframeToShow.style.height = 'auto';
     iframeToShow.style.setProperty('min-height', '800px', 'important');
-    iframeToShow.style.border = '5px solid blue'; // DEBUG
     iframeToShow.style.padding = '0';
     iframeToShow.style.margin = '0';
     
@@ -596,10 +600,9 @@ async function showRegyStep(modalId, forceNormal = false) {
   }
   if (regyContainer) {
     regyContainer.style.display = 'block';
-    regyContainer.style.border = '3px solid red'; // DEBUG
     regyContainer.style.padding = '0';
     regyContainer.style.margin = '0';
-    console.log('  🔍 DEBUG: regyContainer shown with red border');
+    console.log('  🔍 DEBUG: regyContainer shown');
     console.log('  🔍 DEBUG: regyContainer computed height:', window.getComputedStyle(regyContainer).height);
     console.log('  🔍 DEBUG: regyContainer computed padding:', window.getComputedStyle(regyContainer).padding);
     console.log('  🔍 DEBUG: regyContainer computed margin:', window.getComputedStyle(regyContainer).margin);
