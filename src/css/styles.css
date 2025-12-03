@@ -4533,27 +4533,36 @@ button.btn:active {
 #modal-elite-coupon .modal-container,
 #modal-rise-coupon .modal-container,
 #modal-starter-coupon .modal-container {
-  max-width: 600px;
-  width: 90%;
-}
-
-/* Coupon modals - larger when showing success info */
-#modal-elite-coupon .modal-container:has(.coupon-success-info[style*="display: block"]),
-#modal-rise-coupon .modal-container:has(.coupon-success-info[style*="display: block"]),
-#modal-starter-coupon .modal-container:has(.coupon-success-info[style*="display: block"]) {
-  max-width: 850px;
+  max-width: 500px;
   width: 95%;
 }
 
-/* Coupon modals need tighter spacing */
+/* Coupon modals - medium when showing success info */
+#modal-elite-coupon .modal-container:has(.coupon-success-info[style*="display: block"]),
+#modal-rise-coupon .modal-container:has(.coupon-success-info[style*="display: block"]),
+#modal-starter-coupon .modal-container:has(.coupon-success-info[style*="display: block"]) {
+  max-width: 900px;
+  width: 95%;
+}
+
+/* Coupon modals - large when showing Regyfit */
+#modal-elite-coupon .modal-container:has(.modal-regy-container[style*="display: block"]),
+#modal-rise-coupon .modal-container:has(.modal-regy-container[style*="display: block"]),
+#modal-starter-coupon .modal-container:has(.modal-regy-container[style*="display: block"]) {
+  max-width: 1200px;
+  width: 98%;
+}
+
+/* Coupon modals need proper spacing */
 #modal-elite-coupon .modal-content,
 #modal-rise-coupon .modal-content,
 #modal-starter-coupon .modal-content {
-  padding: 0.5rem;
+  padding: 2rem 2rem 1rem 2rem; /* Reduced bottom padding */
   min-height: 0;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
+  align-items: center; /* Center content horizontally */
+  overflow-x: visible;
   box-sizing: border-box;
 }
 
@@ -4561,15 +4570,18 @@ button.btn:active {
 .coupon-success-info {
   padding: 1rem;
   box-sizing: border-box;
+  width: 100%; /* Force full width */
   max-width: 100%;
   overflow-x: hidden;
   word-wrap: break-word;
+  margin: 0 auto; /* Center horizontally */
 }
 
 /* Reduce font sizes in savings banner to fit better */
 .coupon-savings-banner {
   padding: 1.5rem;
   margin: 0 0 1.5rem 0;
+  /* max-width: 100%; from fix */
 }
 
 .coupon-savings-banner__main {
@@ -8331,7 +8343,8 @@ html, body {
   background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
   border: 5px solid var(--color-black);
   padding: 1.5rem;
-  margin-bottom: 0;
+  margin-bottom: 10px; /* Add margin to prevent shadow clipping */
+  margin-right: 10px; /* Add right margin for shadow */
   box-shadow: 8px 8px 0 var(--color-black);
   position: relative;
   overflow: hidden;

@@ -435,6 +435,14 @@ function showCouponStep(modalId) {
   clearCouponSession();
   console.log('🧹 Sessão limpa ao abrir formulário de cupão');
 
+  // Reset modal container width to default (compact)
+  const modalContainer = modal.querySelector('.modal-container');
+  if (modalContainer) {
+    modalContainer.style.maxWidth = '';
+    modalContainer.style.width = '';
+    console.log('  📏 Reset modal width to default');
+  }
+
   const couponForm = modal.querySelector('.coupon-pre-form');
   const regyContainer = modal.querySelector('.modal-regy-container');
   const instructions = modal.querySelector('.modal-purchase-instructions');
@@ -565,7 +573,7 @@ async function showRegyStep(modalId, forceNormal = false) {
     iframeToShow.style.setProperty('visibility', 'visible', 'important');
     iframeToShow.style.width = '100%';
     iframeToShow.style.height = 'auto';
-    iframeToShow.style.setProperty('min-height', '800px', 'important');
+    iframeToShow.style.setProperty('min-height', '100px', 'important');
     iframeToShow.style.padding = '0';
     iframeToShow.style.margin = '0';
     
