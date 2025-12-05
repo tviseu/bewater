@@ -218,12 +218,34 @@ exports.handler = async (event, context) => {
     try {
       console.log('🗑️ Requisição para limpar pagamentos pendentes recebida');
       
+      // Extrair mês e ano dos query parameters (se existirem)
+      const { month, year } = event.queryStringParameters || {};
+      const hasDateFilter = month && year;
+      
+      if (hasDateFilter) {
+          console.log(`📅 Filtro de data detetado: Mês ${month}, Ano ${year}`);
+      } else {
+          console.log('📅 Sem filtro de data - limpando TODOS os pendentes');
+      }
+
       if (supabase) {
         // Primeiro, contar quantos pendentes existem
-        const { data: countData, error: countError } = await supabase
+        let countQuery = supabase
           .from('payments')
           .select('id', { count: 'exact', head: false })
           .eq('status', 'pending');
+          
+        // Aplicar filtro de data se fornecido
+        if (hasDateFilter) {
+            const startOfMonth = new Date(Date.UTC(year, month - 1, 1));
+            const startOfNextMonth = new Date(Date.UTC(year, month, 1));
+            
+            countQuery = countQuery
+                .gte('timestamp', startOfMonth.toISOString())
+                .lt('timestamp', startOfNextMonth.toISOString());
+        }
+        
+        const { data: countData, error: countError } = await countQuery;
         
         if (countError) {
           console.error('❌ Erro ao contar pendentes:', countError);
@@ -245,12 +267,22 @@ exports.handler = async (event, context) => {
           };
         }
         
-        // Apagar todos os pagamentos pendentes
-        const { data: deleteData, error: deleteError } = await supabase
+        // Apagar pagamentos pendentes (com filtro se aplicável)
+        let deleteQuery = supabase
           .from('payments')
           .delete()
-          .eq('status', 'pending')
-          .select();
+          .eq('status', 'pending');
+          
+        if (hasDateFilter) {
+            const startOfMonth = new Date(Date.UTC(year, month - 1, 1));
+            const startOfNextMonth = new Date(Date.UTC(year, month, 1));
+            
+            deleteQuery = deleteQuery
+                .gte('timestamp', startOfMonth.toISOString())
+                .lt('timestamp', startOfNextMonth.toISOString());
+        }
+
+        const { data: deleteData, error: deleteError } = await deleteQuery.select();
         
         if (deleteError) {
           console.error('❌ Erro ao apagar pendentes:', deleteError);

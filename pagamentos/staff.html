@@ -866,27 +866,39 @@
 
         // Limpar todos os pagamentos pendentes
         async function clearAllPendingPayments() {
-            // Contar quantos pendentes existem
-            const pendingCount = payments.filter(p => p.status === 'pending').length;
+            // 🆕 FILTRAR por mês selecionado
+            const paymentsInMonth = filterPaymentsByMonth(payments);
+            
+            // Contar quantos pendentes existem no mês selecionado
+            const pendingPaymentsInMonth = paymentsInMonth.filter(p => p.status === 'pending');
+            const pendingCount = pendingPaymentsInMonth.length;
             
             if (pendingCount === 0) {
-                alert('✅ Não existem pagamentos pendentes para limpar!');
+                alert('✅ Não existem pagamentos pendentes para limpar neste mês!');
                 return;
             }
+            
+            // Obter nome do mês para mensagem
+            const monthNames = [
+                'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+                'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+            ];
+            const monthName = `${monthNames[currentFilterMonth.getMonth()]} ${currentFilterMonth.getFullYear()}`;
             
             // Mensagem de confirmação detalhada
             const confirmMessage = `⚠️ ATENÇÃO - OPERAÇÃO IRREVERSÍVEL ⚠️
 
-Esta ação vai APAGAR PERMANENTEMENTE ${pendingCount} pagamento(s) pendente(s) da base de dados.
+Esta ação vai APAGAR PERMANENTEMENTE ${pendingCount} pagamento(s) pendente(s) de ${monthName.toUpperCase()}.
 
 🗑️ O que será apagado:
-• Todos os pagamentos com status "pending"
+• Todos os pagamentos com status "pending" DESTE MÊS
 • Dados do cliente associados
 • Referências MBWay não confirmadas
 • Produtos aguardando confirmação
 
 ✅ O que NÃO será afetado:
 • Pagamentos confirmados
+• Pagamentos pendentes de OUTROS MESES
 • Faturas já emitidas
 • Histórico de vendas
 
@@ -902,7 +914,7 @@ Tem a certeza que deseja continuar?`;
             }
             
             // Segunda confirmação para segurança extra
-            const doubleConfirm = confirm(`🔒 CONFIRMAÇÃO FINAL\n\nVai apagar ${pendingCount} pagamento(s) pendente(s).\n\nTem MESMO a certeza?`);
+            const doubleConfirm = confirm(`🔒 CONFIRMAÇÃO FINAL\n\nVai apagar ${pendingCount} pagamento(s) pendente(s) de ${monthName}.\n\nTem MESMO a certeza?`);
             
             if (!doubleConfirm) {
                 console.log('❌ Limpeza de pendentes cancelada na 2ª confirmação');
@@ -912,8 +924,15 @@ Tem a certeza que deseja continuar?`;
             try {
                 console.log('🗑️ Iniciando limpeza de pagamentos pendentes...');
                 
+                // Construir URL com query params
+                const month = currentFilterMonth.getMonth() + 1; // 1-12
+                const year = currentFilterMonth.getFullYear();
+                const url = `/.netlify/functions/payment-webhook/clear-pending?month=${month}&year=${year}`;
+                
+                console.log(`🔗 Calling URL: ${url}`);
+                
                 // Fazer requisição DELETE para o webhook endpoint
-                const response = await fetch('/.netlify/functions/payment-webhook/clear-pending', {
+                const response = await fetch(url, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json'
