@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BE WATER | Golden Ticket de Natal</title>
+    <meta name="description" content="O presente de Natal definitivo. 3 Aulas. 1 Experiência Exclusiva. Acesso total ao Be Water Lisboa.">
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../src/images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../src/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../src/images/favicon/favicon-16x16.png">
+    <link rel="manifest" href="../src/images/favicon/site.webmanifest">
+    <link rel="shortcut icon" href="../src/images/favicon/favicon.ico">
+
+    <!-- Main Site CSS -->
+    <link rel="stylesheet" href="../src/css/styles.css">
+
+    <!-- Google Fonts: Work Sans & Space Mono (Official Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (Prototyping) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#000000',     // Official Black
+                            gold: '#FFD700',      // Official Accent
+                            white: '#FFFFFF',
+                            gray: '#666666',
+                            darkGray: '#222222',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Space Mono"', 'monospace'], // Body font
+                        display: ['"Work Sans"', 'sans-serif'], // Heading font
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shake': 'shake 3s ease-in-out infinite',
+                        'blink': 'blink 1.5s step-end infinite',
+                        'blink-delayed': 'blink 1.5s step-end infinite 0.75s',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        shake: {
+                            '0%, 100%': { transform: 'rotate(12deg)' },
+                            '50%': { transform: 'rotate(16deg)' },
+                        },
+                        blink: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0.3' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Override Tailwind base to match site identity */
+        body {
+            font-family: 'Space Mono', monospace;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+        
+        /* Brutalist Borders */
+        .brutal-border {
+            border: 4px solid #000;
+            box-shadow: 8px 8px 0 #000;
+        }
+        .brutal-btn:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 12px 12px 0 #000;
+        }
+        .brutal-btn:active {
+            transform: translate(0, 0);
+            box-shadow: 4px 4px 0 #000;
+        }
+    </style>
+</head>
+<body class="bg-brand-black text-gray-300 antialiased selection:bg-brand-gold selection:text-black overflow-x-hidden">
+
+    <!-- 1. Header / Nav -->
+    <nav class="absolute top-0 left-0 w-full p-6 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo Placeholder -->
+            <div class="text-white font-display font-black text-3xl tracking-tighter border-l-8 border-brand-gold pl-4 uppercase">
+                Be Water
+            </div>
+            
+            <!-- Brutalist Christmas Tree (Top Right Corner) -->
+            <div class="absolute top-8 right-4 md:top-24 md:right-24 transform origin-top-right z-50 animate-shake">
+                <svg viewBox="0 -20 100 160" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-[120px] h-[160px] md:w-[150px] md:h-[200px]">
+                    <!-- Geometric Tree Segments -->
+                    <path d="M50 10 L20 50 L80 50 Z" fill="#FFD700" stroke="white" stroke-width="3" />
+                    <path d="M50 35 L10 90 L90 90 Z" fill="transparent" stroke="#FFD700" stroke-width="3" />
+                    <path d="M50 65 L0 130 L100 130 Z" fill="white" stroke="#FFD700" stroke-width="3" />
+                    
+                    <!-- Brutalist Star (Floating Above Tree) -->
+                    <path d="M50 -10 L53 -1 L62 -1 L55 5 L57 14 L50 9 L43 14 L45 5 L38 -1 L47 -1 Z" fill="#FFD700" stroke="white" stroke-width="1" class="animate-blink" />
+                    
+                    <!-- Decoration - Barbell Plates (Blinking Lights) -->
+                    <circle cx="20" cy="130" r="6" fill="#FF0000" stroke="black" stroke-width="2" class="animate-blink" />
+                    <circle cx="80" cy="130" r="6" fill="#00FF00" stroke="black" stroke-width="2" class="animate-blink-delayed" />
+                    <circle cx="50" cy="90" r="6" fill="#0000FF" stroke="white" stroke-width="2" class="animate-blink" />
+                    
+                    <!-- More Balls (Reduced in Top Triangle) -->
+                    <circle cx="40" cy="40" r="5" fill="#FF00FF" stroke="black" stroke-width="2" class="animate-blink-delayed" />
+                    <circle cx="60" cy="40" r="5" fill="#00FFFF" stroke="black" stroke-width="2" class="animate-blink" />
+                </svg>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-0">
+        <!-- Background Image & Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://placehold.co/1920x1080/000/333?text=Gym+Dark+Industrial" 
+                 alt="Ambiente industrial do ginásio com pesos e luzes dramáticas" 
+                 class="w-full h-full object-cover opacity-30 grayscale contrast-125">
+            <div class="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 container mx-auto px-4 flex flex-col items-center text-center space-y-8">
+            
+            <!-- Floating Golden Ticket -->
+            <div class="animate-float mb-8 relative">
+                <!-- Glow Effect -->
+                <div class="absolute inset-0 bg-brand-gold blur-3xl opacity-20 rounded-full"></div>
+                
+                <div class="relative transform rotate-[-5deg] hover:rotate-0 transition duration-500">
+                    <img src="../src/images/general/images-optimized/VERSO_optimized.webp" 
+                         alt="Golden Ticket Be Water - Bilhete Dourado Físico" 
+                         class="relative w-80 md:w-[550px] shadow-2xl drop-shadow-[0_20px_50px_rgba(255,215,0,0.15)]"
+                         onerror="this.src='https://placehold.co/600x300/FFD700/000?text=GOLDEN+TICKET';">
+                </div>
+            </div>
+
+            <!-- Headlines -->
+            <div class="max-w-4xl mx-auto space-y-6">
+                <h1 class="font-display text-6xl md:text-8xl lg:text-9xl font-black text-white uppercase leading-[0.85] tracking-tighter">
+                    O Presente <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-gold to-yellow-400 stroke-text">Definitivo</span>
+                </h1>
+                
+                <p class="font-sans text-lg md:text-xl text-gray-400 max-w-xl mx-auto leading-relaxed">
+                    <span class="text-brand-gold font-bold">/// 3 AULAS. 1 EXPERIÊNCIA.</span><br>
+                    Acesso total ao Be Water Lisboa. Sem compromissos. Apenas treino puro.
+                </p>
+            </div>
+
+            <!-- CTA -->
+            <div class="pt-8 pb-12">
+                <a href="#checkout" class="inline-block group">
+                    <button class="bg-brand-gold text-black font-display font-black text-2xl md:text-3xl py-6 px-10 md:px-16 uppercase tracking-tight border-4 border-white hover:border-brand-gold transition-all duration-300 transform group-hover:-translate-y-2 shadow-[8px_8px_0px_rgba(255,255,255,0.2)] group-hover:shadow-[12px_12px_0px_rgba(255,215,0,1)]">
+                        Garantir Ticket • 30€
+                    </button>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Value Proposition (Brutalist Grid) -->
+    <section class="py-24 bg-white text-black relative z-20">
+        <div class="container mx-auto px-4">
+            
+            <div class="text-center mb-20">
+                <h2 class="font-display text-4xl md:text-6xl font-black uppercase mb-4 leading-none">
+                    Esquece as meias. <br>
+                    <span class="text-stroke-black text-transparent bg-clip-text bg-gradient-to-b from-brand-black to-gray-800" style="-webkit-text-stroke: 2px black; color: transparent;">Oferece Superação.</span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                <!-- Feature 1 -->
+                <div class="bg-white border-4 border-black p-8 shadow-[8px_8px_0px_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_#000] transition-all duration-200">
+                    <div class="text-6xl mb-6">🎫</div>
+                    <h3 class="font-display text-2xl font-black mb-4 uppercase">Edição Física Limitada</h3>
+                    <p class="font-sans text-gray-700 leading-relaxed">Um objeto de design premium, impresso com acabamentos de luxo. Não é um PDF. É algo real para pôr no sapatinho.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-brand-gold border-4 border-black p-8 shadow-[8px_8px_0px_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_#000] transition-all duration-200">
+                    <div class="text-6xl mb-6">🏋️‍♂️</div>
+                    <h3 class="font-display text-2xl font-black mb-4 uppercase">Acesso Premium Total</h3>
+                    <p class="font-sans text-black font-bold leading-relaxed">3 aulas de alta intensidade. Hyrox, CrossFit, Strength. Acesso total às nossas instalações de topo.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-white border-4 border-black p-8 shadow-[8px_8px_0px_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_#000] transition-all duration-200">
+                    <div class="text-6xl mb-6">🚀</div>
+                    <h3 class="font-display text-2xl font-black mb-4 uppercase">Kickstart 2024</h3>
+                    <p class="font-sans text-gray-700 leading-relaxed">A motivação que faltava. Começa o ano novo com disciplina de ferro e numa comunidade que te puxa para cima.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 4. Secção Parceria SALGUEIRO -->
+    <section class="py-24 bg-black relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-neutral-900/30 skew-x-12 transform origin-top"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            
+            <div class="max-w-6xl mx-auto bg-neutral-900 border-4 border-brand-gold p-1">
+                <div class="flex flex-col md:flex-row bg-black">
+                    
+                    <!-- Imagem Salgueiro -->
+                    <div class="w-full md:w-1/2 relative min-h-[400px]">
+                        <img src="../src/images/general/images-optimized/salgueiro_optimized.png" 
+                             alt="Salgueiro no Ginásio Be Water" 
+                             class="absolute inset-0 w-full h-full object-cover filter grayscale contrast-125 mix-blend-luminosity"
+                             onerror="this.src='https://placehold.co/600x600/222/555?text=FOTO+SALGUEIRO'">
+                        <!-- Overlay Gradient -->
+                        <div class="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent md:bg-gradient-to-t"></div>
+                        
+                        <div class="absolute bottom-6 left-6">
+                            <span class="bg-brand-gold text-black font-bold px-3 py-1 text-sm uppercase tracking-wider">Parceiro Oficial</span>
+                        </div>
+                    </div>
+
+                    <!-- Conteúdo -->
+                    <div class="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center text-left">
+                        
+                        <h2 class="font-display text-4xl md:text-5xl font-black text-white mb-4 uppercase leading-none italic">
+                            Bónus Exclusivo <span class="text-brand-gold">Salgueiro</span>
+                        </h2>
+                        <p class="font-sans text-gray-400 mb-10 text-lg">
+                            Ao comprares o Golden Ticket via Salgueiro, desbloqueias vantagens exclusivas na nossa nutrição parceira.
+                        </p>
+
+                        <!-- Caixa PROZIS -->
+                        <div class="bg-neutral-900 p-8 border-2 border-dashed border-gray-700 relative">
+                            <div class="absolute -top-3 -left-3 bg-black border border-gray-700 px-2 py-1 text-xs font-mono text-gray-400">PROMO CODE</div>
+                            
+                            <div class="flex items-center justify-between mb-6">
+                                <span class="font-display font-black text-white text-2xl tracking-widest">PROZIS</span>
+                                <span class="font-mono text-xs text-brand-gold border border-brand-gold px-2 rounded-full">10% OFF</span>
+                            </div>
+                            
+                            <div class="flex gap-4">
+                                <div class="flex-1 bg-black border border-gray-700 p-4 flex items-center justify-center">
+                                    <code class="font-mono text-2xl text-white font-bold tracking-widest">PROZIS.COM/5XD</code>
+                                </div>
+                                <a href="https://prozis.com/5XD" target="_blank" class="bg-white text-black font-bold uppercase px-6 py-4 hover:bg-brand-gold transition-colors flex items-center">
+                                    GO ->
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 5. Footer -->
+    <footer class="bg-brand-black border-t border-gray-800 pt-16 pb-8">
+        <div class="container mx-auto px-4 text-center">
+            
+            <div class="font-display font-black text-4xl text-white mb-8 tracking-tighter uppercase">Be Water</div>
+            
+            <div class="flex justify-center gap-8 mb-12 font-mono text-sm">
+                <a href="#" class="text-gray-500 hover:text-white uppercase">Instagram</a>
+                <a href="#" class="text-gray-500 hover:text-white uppercase">Facebook</a>
+                <a href="#" class="text-gray-500 hover:text-white uppercase">Whatsapp</a>
+            </div>
+
+            <div class="border-t border-gray-900 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 font-mono uppercase">
+                <p>📍 Marvila, Lisboa</p>
+                <p>© 2023 Be Water Gym. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
