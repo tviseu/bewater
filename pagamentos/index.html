@@ -1231,6 +1231,177 @@
                 font-size: 1.3rem;
             }
         }
+        /* MENU DE NAVEGAÇÃO - ESTILO NEOBRUTALISTA */
+        .category-nav-container {
+            position: sticky;
+            top: 10px; /* Pequena margem do topo */
+            z-index: 900;
+            margin-bottom: 40px;
+            pointer-events: none; /* Permite clicar através da área vazia */
+        }
+
+        .category-nav {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto; /* Permite scroll horizontal */
+            padding: 10px 5px;
+            pointer-events: auto; /* Reativa cliques nos botões */
+            
+            /* Esconder scrollbar mas manter funcionalidade */
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+            scroll-behavior: smooth;
+        }
+        
+        /* Esconder scrollbar Chrome/Safari/Opera */
+        .category-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-link {
+            background: var(--color-background);
+            color: var(--color-primary);
+            border: var(--border-thick);
+            padding: 12px 20px;
+            font-family: var(--font-heading);
+            font-weight: 800;
+            text-decoration: none;
+            text-transform: uppercase;
+            white-space: nowrap; /* Impede que o texto quebre linha */
+            box-shadow: 4px 4px 0 var(--color-primary);
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0; /* Impede que os botões encolham no mobile */
+        }
+
+        .category-link:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--color-primary);
+            background: #f0f0f0;
+        }
+
+        .category-link:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 var(--color-primary);
+        }
+        
+        .category-link.active {
+            background: var(--color-accent); /* Yellow Background */
+            color: var(--color-primary); /* Black Text */
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--color-primary);
+        }
+
+        /* Scroll Arrow Indicator */
+        .nav-scroll-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--color-accent);
+            border: 2px solid var(--color-primary);
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-family: var(--font-heading);
+            cursor: pointer;
+            z-index: 910;
+            box-shadow: 3px 3px 0 var(--color-primary);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.2s ease;
+        }
+
+        .nav-scroll-arrow--right {
+            right: 10px;
+            animation: arrowBounceRight 1.5s infinite;
+        }
+
+        .nav-scroll-arrow--left {
+            left: 10px;
+            animation: arrowBounceLeft 1.5s infinite;
+        }
+
+        @keyframes arrowBounceRight {
+            0%, 100% { transform: translateY(-50%) translateX(0); }
+            50% { transform: translateY(-50%) translateX(3px); }
+        }
+
+        @keyframes arrowBounceLeft {
+            0%, 100% { transform: translateY(-50%) translateX(0); }
+            50% { transform: translateY(-50%) translateX(-3px); }
+        }
+
+        .nav-scroll-arrow.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .nav-scroll-arrow:active {
+            transform: translateY(-50%) translate(1px, 1px);
+            box-shadow: 1px 1px 0 var(--color-primary);
+            animation: none;
+        }
+
+        /* Ajuste para o scroll não tapar o título da secção */
+        html {
+            /* Removido scroll-behavior: smooth daqui para evitar conflitos com JS e stuttering */
+            scroll-padding-top: 100px; /* Espaço para o menu sticky */
+            overscroll-behavior-y: none; /* Impede bounce/refresh indesejado que causa saltos no final */
+        }
+
+        /* MOBILE TWEAKS */
+        @media (max-width: 768px) {
+            body {
+                /* Espaço extra no fundo para o widget do carrinho fixo não tapar o conteúdo */
+                padding-bottom: 100px; 
+            }
+
+            .category-nav-container {
+                top: 0;
+                background: rgba(255,255,255,0.95); /* Mais opacidade para leitura */
+                backdrop-filter: blur(8px);
+                /* Corrigir margens para alinhar com o padding do body (15px) */
+                margin: -15px -15px 30px -15px;
+                padding: 15px 15px;
+                border-bottom: var(--border-thick);
+                width: calc(100% + 30px); /* Forçar largura total */
+            }
+
+            .category-nav {
+                padding: 5px 0; /* Remover padding lateral interno para aproveitar espaço */
+            }
+
+            .category-link {
+                padding: 10px 16px;
+                font-size: 0.85rem;
+                box-shadow: 3px 3px 0 var(--color-primary);
+            }
+            
+            html {
+                scroll-padding-top: 140px; /* Mais espaço no mobile devido ao header fixo */
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Ajuste fino para mobile pequeno onde padding do body é 10px */
+            .category-nav-container {
+                margin: -10px -10px 30px -10px;
+                padding: 12px 10px;
+                width: calc(100% + 20px);
+            }
+            
+            html {
+                scroll-padding-top: 130px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1240,8 +1411,21 @@
             <p data-payment-i18n="header.subtitle">Pagamentos MBWay - Selecione o produto desejado</p>
         </div>
 
+        <!-- NOVO MENU DE NAVEGAÇÃO -->
+        <nav class="category-nav-container">
+            <button class="nav-scroll-arrow nav-scroll-arrow--left" id="navScrollArrowLeft" aria-label="Ver categorias anteriores">←</button>
+            <div class="category-nav" id="categoryNav">
+                <a href="#secao-cafe" class="category-link">☕ Café</a>
+                <a href="#secao-frias" class="category-link">🧊 Bebidas</a>
+                <a href="#secao-snacks" class="category-link">🍫 Snacks</a>
+                <a href="#secao-utilitarios" class="category-link">🧰 Gear</a>
+                <a href="#secao-donativo" class="category-link">❤️ Tribo</a>
+            </div>
+            <button class="nav-scroll-arrow nav-scroll-arrow--right" id="navScrollArrowRight" aria-label="Ver mais categorias">→</button>
+        </nav>
+
         <!-- SEÇÃO: CAFÉ & BEBIDAS QUENTES -->
-        <div class="produtos-secao">
+        <div class="produtos-secao" id="secao-cafe">
             <h2 class="secao-titulo comidas-bebidas" data-payment-i18n="section.cafe-hot">☕ Café & Bebidas Quentes</h2>
             <div class="produtos-grid">
                 <div class="produto-card" data-id="CAFE_001" data-nome="Café" data-preco="0.85">
@@ -1260,7 +1444,7 @@
         </div>
 
         <!-- SEÇÃO: FRIGORÍFICO & BEBIDAS FRIAS -->
-        <div class="produtos-secao">
+        <div class="produtos-secao" id="secao-frias">
             <h2 class="secao-titulo comidas-bebidas" data-payment-i18n="section.fridge-cold">🧊 Frigorífico & Bebidas Frias</h2>
             <div class="produtos-grid">
                 <div class="produto-card" data-id="AGUA_PEQUENA_001" data-nome="Água Pequena" data-preco="1.00">
@@ -1409,7 +1593,7 @@
         </div>
 
         <!-- SEÇÃO: SNACKS PRÉ/PÓS-TREINO -->
-        <div class="produtos-secao">
+        <div class="produtos-secao" id="secao-snacks">
             <h2 class="secao-titulo acessorios-misc" data-payment-i18n="section.snacks-prepost">💪 Snacks Pré/Pós-Treino</h2>
             <div class="produtos-grid">
                 <div class="produto-card" data-id="BATIDO_PROTEINA_001" data-nome="Batido Proteína" data-preco="2.50">
@@ -1495,7 +1679,7 @@
         </div>
 
         <!-- SEÇÃO: UTILITÁRIOS -->
-        <div class="produtos-secao">
+        <div class="produtos-secao" id="secao-utilitarios">
             <h2 class="secao-titulo acessorios-misc" data-payment-i18n="section.utilities">🧰 Utilitários</h2>
             <div class="produtos-grid">
                 <div class="produto-card" data-id="DROP_IN_001" data-nome="Drop In (Aula avulso)" data-preco="15.00">
@@ -1591,7 +1775,7 @@
         </div>
 
         <!-- SEÇÃO: APOIO À TRIBO -->
-        <div class="produtos-secao">
+        <div class="produtos-secao" id="secao-donativo">
             <h2 class="secao-titulo comidas-bebidas" data-payment-i18n="section.tribe-support">❤️ Apoio à Tribo</h2>
             <div class="produtos-grid">
                 <!-- DONATIVO ENGRAÇADO -->
@@ -2417,6 +2601,167 @@
         }
     </script>
     <script>
+        // Scroll Active State & Sticky Menu Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.produtos-secao');
+            const navLinks = document.querySelectorAll('.category-link');
+            const navContainer = document.getElementById('categoryNav');
+            const scrollArrowLeft = document.getElementById('navScrollArrowLeft');
+            const scrollArrowRight = document.getElementById('navScrollArrowRight');
+            let isManualScroll = false;
+            let manualScrollTimer = null;
+
+            // Scroll Arrow Logic
+            function checkScrollArrow() {
+                if (!navContainer) return;
+                
+                const maxScrollLeft = navContainer.scrollWidth - navContainer.clientWidth - 5; // Tolerância
+                const currentScroll = navContainer.scrollLeft;
+                
+                // Seta Esquerda
+                if (scrollArrowLeft) {
+                    if (currentScroll > 5) { // Tolerância para mostrar
+                        scrollArrowLeft.classList.add('visible');
+                    } else {
+                        scrollArrowLeft.classList.remove('visible');
+                    }
+                }
+
+                // Seta Direita
+                if (scrollArrowRight) {
+                    if (maxScrollLeft > 0 && currentScroll < maxScrollLeft) {
+                        scrollArrowRight.classList.add('visible');
+                    } else {
+                        scrollArrowRight.classList.remove('visible');
+                    }
+                }
+            }
+
+            // Inicializar e ouvir eventos para as setas
+            if (navContainer) {
+                checkScrollArrow();
+                navContainer.addEventListener('scroll', checkScrollArrow);
+                window.addEventListener('resize', checkScrollArrow);
+                
+                // Clique na seta esquerda
+                if (scrollArrowLeft) {
+                    scrollArrowLeft.addEventListener('click', () => {
+                        navContainer.scrollBy({
+                            left: -150,
+                            behavior: 'smooth'
+                        });
+                    });
+                }
+
+                // Clique na seta direita
+                if (scrollArrowRight) {
+                    scrollArrowRight.addEventListener('click', () => {
+                        navContainer.scrollBy({
+                            left: 150,
+                            behavior: 'smooth'
+                        });
+                    });
+                }
+            }
+
+            // Configuração do Observer para scroll
+            // rootMargin: negativo no topo para compensar o header fixo + menu
+            // Isso cria uma "linha de detecção" a cerca de 30-40% da tela
+            const observerOptions = {
+                root: null,
+                rootMargin: '-120px 0px -60% 0px', 
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                if (isManualScroll) return; // Ignorar durante clique
+
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        updateActiveState(entry.target.getAttribute('id'));
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => observer.observe(section));
+
+            // Função para atualizar estado visual
+            let currentActiveId = null; // Cache para evitar updates desnecessários
+
+            function updateActiveState(sectionId) {
+                if (currentActiveId === sectionId) return; // Evitar thrashing se já estiver ativo
+                
+                currentActiveId = sectionId; // Atualizar cache
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${sectionId}`) {
+                        link.classList.add('active');
+                        // Scroll horizontal do menu (apenas mobile)
+                        centerActiveLink(link);
+                    }
+                });
+            }
+
+            // Centralizar botão ativo no menu horizontal sem afetar o scroll da página
+            function centerActiveLink(activeLink) {
+                const nav = document.getElementById('categoryNav');
+                if (!nav || !activeLink) return;
+
+                const navRect = nav.getBoundingClientRect();
+                const linkRect = activeLink.getBoundingClientRect();
+                
+                // Calcular a posição central
+                const scrollLeft = nav.scrollLeft + (linkRect.left - navRect.left) - (navRect.width / 2) + (linkRect.width / 2);
+                
+                nav.scrollTo({
+                    left: scrollLeft,
+                    behavior: 'smooth'
+                });
+            }
+
+            // Click Handler para feedback imediato
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault(); // Prevenir comportamento padrão para controle total
+                    
+                    const targetId = link.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        // 1. Ativar flag manual
+                        isManualScroll = true;
+                        clearTimeout(manualScrollTimer);
+                        
+                        // 2. Atualizar visual imediatamente
+                        updateActiveState(targetId);
+                        
+                        // 3. Scroll suave para a secção
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+
+                        // 4. Desativar flag após tempo do scroll
+                        manualScrollTimer = setTimeout(() => {
+                            isManualScroll = false;
+                        }, 1000); // 1s deve ser suficiente para o scroll terminar
+                    }
+                });
+            });
+
+            // Edge case: Fim da página (ativar última secção se scroll total)
+            window.addEventListener('scroll', () => {
+                if (isManualScroll) return;
+                
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+                    const lastSection = sections[sections.length - 1];
+                    if (lastSection) {
+                        updateActiveState(lastSection.getAttribute('id'));
+                    }
+                }
+            });
+        });
+
         // Toggle de fatura: mostrar/esconder campos
         document.addEventListener('DOMContentLoaded', function () {
             const precisaFaturaChk = document.getElementById('precisa-fatura');
