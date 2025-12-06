@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt-PT" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -130,10 +130,10 @@
     <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 md:pt-0">
         <!-- Background Image & Overlay -->
         <div class="absolute inset-0 z-0">
-            <img src="https://placehold.co/1920x1080/000/333?text=Gym+Dark+Industrial" 
-                 alt="Ambiente industrial do ginásio com pesos e luzes dramáticas" 
-                 class="w-full h-full object-cover opacity-30 grayscale contrast-125">
-            <div class="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black"></div>
+            <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-50 grayscale contrast-125">
+                <source src="../src/images/general/hero2.m4v" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-black"></div>
         </div>
 
         <!-- Content -->
@@ -192,20 +192,21 @@
                 <div class="bg-white border-4 border-black p-8 shadow-[8px_8px_0px_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_#000] transition-all duration-200">
                     <div class="text-6xl mb-6">🎫</div>
                     <h3 class="font-display text-2xl font-black mb-4 uppercase">Edição Física Limitada</h3>
-                    <p class="font-sans text-gray-700 leading-relaxed">Um objeto de design premium, impresso com acabamentos de luxo. Não é um PDF. É algo real para pôr no sapatinho.</p>
+                    <p class="font-sans text-gray-700 leading-relaxed mb-4">Bilhete físico real. Levanta o teu exemplar na nossa receção no Campo Grande (Av. do Brasil 7) para ofereceres no Natal.</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Av.+do+Brasil+7,+Lisboa" target="_blank" class="text-black font-bold underline hover:text-brand-gold">📍 Ver Localização</a>
                 </div>
 
                 <!-- Feature 2 -->
                 <div class="bg-brand-gold border-4 border-black p-8 shadow-[8px_8px_0px_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_#000] transition-all duration-200">
                     <div class="text-6xl mb-6">🏋️‍♂️</div>
                     <h3 class="font-display text-2xl font-black mb-4 uppercase">Acesso Premium Total</h3>
-                    <p class="font-sans text-black font-bold leading-relaxed">3 aulas de alta intensidade. Hyrox, CrossFit, Strength. Acesso total às nossas instalações de topo.</p>
+                    <p class="font-sans text-black font-bold leading-relaxed">3 aulas em qualquer modalidade: Be Water, Boxe, Muay Thai, Jiu-Jitsu ou Open Gym.</p>
                 </div>
 
                 <!-- Feature 3 -->
                 <div class="bg-white border-4 border-black p-8 shadow-[8px_8px_0px_#000] hover:translate-x-1 hover:translate-y-1 hover:shadow-[4px_4px_0px_#000] transition-all duration-200">
                     <div class="text-6xl mb-6">🚀</div>
-                    <h3 class="font-display text-2xl font-black mb-4 uppercase">Kickstart 2024</h3>
+                    <h3 class="font-display text-2xl font-black mb-4 uppercase">Kickstart 2025</h3>
                     <p class="font-sans text-gray-700 leading-relaxed">A motivação que faltava. Começa o ano novo com disciplina de ferro e numa comunidade que te puxa para cima.</p>
                 </div>
             </div>
@@ -241,10 +242,10 @@
                     <div class="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center text-left">
                         
                         <h2 class="font-display text-4xl md:text-5xl font-black text-white mb-4 uppercase leading-none italic">
-                            Bónus Exclusivo <span class="text-brand-gold">Salgueiro</span>
+                            Vantagem Parceiro <span class="text-brand-gold">Salgueiro</span>
                         </h2>
                         <p class="font-sans text-gray-400 mb-10 text-lg">
-                            Ao comprares o Golden Ticket via Salgueiro, desbloqueias vantagens exclusivas na nossa nutrição parceira.
+                            Aproveita o código do Salgueiro para teres descontos imediatos no parceiro <img src="https://www.prozis.com/favicon.ico" alt="Prozis" class="inline-block h-5 w-5 mb-1 mx-1 align-middle filter grayscale hover:grayscale-0 transition-all"> <strong>PROZIS</strong>. Aberto a todos.
                         </p>
 
                         <!-- Caixa PROZIS -->
@@ -253,14 +254,13 @@
                             
                             <div class="flex items-center justify-between mb-6">
                                 <span class="font-display font-black text-white text-2xl tracking-widest">PROZIS</span>
-                                <span class="font-mono text-xs text-brand-gold border border-brand-gold px-2 rounded-full">10% OFF</span>
                             </div>
                             
                             <div class="flex gap-4">
-                                <div class="flex-1 bg-black border border-gray-700 p-4 flex items-center justify-center">
-                                    <code class="font-mono text-2xl text-white font-bold tracking-widest">PROZIS.COM/5XD</code>
-                                </div>
-                                <a href="https://prozis.com/5XD" target="_blank" class="bg-white text-black font-bold uppercase px-6 py-4 hover:bg-brand-gold transition-colors flex items-center">
+                                <a href="http://prozis.com/5xD" target="_blank" class="flex-1 bg-black border border-gray-700 p-4 flex items-center justify-center hover:border-brand-gold transition-colors cursor-pointer group">
+                                    <code class="font-mono text-2xl text-white font-bold tracking-widest group-hover:text-brand-gold">PROZIS.COM/5XD</code>
+                                </a>
+                                <a href="http://prozis.com/5xD" target="_blank" class="bg-white text-black font-bold uppercase px-6 py-4 hover:bg-brand-gold transition-colors flex items-center">
                                     GO ->
                                 </a>
                             </div>
@@ -272,16 +272,143 @@
         </div>
     </section>
 
+    <!-- 5. Checkout Section -->
+    <section id="checkout" class="py-24 bg-brand-gold text-black border-t-4 border-black relative z-30">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto bg-white border-4 border-black p-8 md:p-12 shadow-[16px_16px_0px_#000]">
+                
+                <div class="text-center mb-12">
+                    <h2 class="font-display text-4xl md:text-5xl font-black uppercase mb-4">Checkout</h2>
+                    <p class="font-sans text-lg font-bold">Preenche os dados para receberes o pagamento MB WAY no teu telemóvel.</p>
+                </div>
+
+                <form id="paymentForm" class="space-y-6">
+                    <input type="hidden" name="amount" value="30.00">
+                    <input type="hidden" name="produto_id" value="GOLDEN_TICKET_2024">
+
+                    <!-- Nome -->
+                    <div>
+                        <label class="block font-display font-black uppercase text-xl mb-2">Nome Completo *</label>
+                        <input type="text" name="nome" required 
+                               class="w-full bg-gray-100 border-4 border-black p-4 font-mono text-lg focus:outline-none focus:bg-white focus:shadow-[4px_4px_0px_#000] transition-all"
+                               placeholder="O teu nome de guerreiro">
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label class="block font-display font-black uppercase text-xl mb-2">Email *</label>
+                        <input type="email" name="email" required 
+                               class="w-full bg-gray-100 border-4 border-black p-4 font-mono text-lg focus:outline-none focus:bg-white focus:shadow-[4px_4px_0px_#000] transition-all"
+                               placeholder="para_receberes_o_ticket@email.com">
+                    </div>
+
+                    <!-- Telemóvel -->
+                    <div>
+                        <label class="block font-display font-black uppercase text-xl mb-2">Telemóvel (MB WAY) *</label>
+                        <input type="tel" name="phone" required pattern="[9][0-9]{8}"
+                               class="w-full bg-gray-100 border-4 border-black p-4 font-mono text-lg focus:outline-none focus:bg-white focus:shadow-[4px_4px_0px_#000] transition-all"
+                               placeholder="912345678">
+                        <p class="text-sm font-mono mt-2 text-gray-600">* Número associado ao MB WAY</p>
+                    </div>
+
+                    <!-- NIF -->
+                    <div>
+                        <label class="block font-display font-black uppercase text-xl mb-2">NIF (Opcional)</label>
+                        <input type="text" name="nif" pattern="[0-9]{9}"
+                               class="w-full bg-gray-100 border-4 border-black p-4 font-mono text-lg focus:outline-none focus:bg-white focus:shadow-[4px_4px_0px_#000] transition-all"
+                               placeholder="Para fatura com contribuinte">
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="pt-4">
+                        <button type="submit" id="submitBtn" class="w-full bg-black text-white font-display font-black text-2xl py-6 uppercase border-4 border-transparent hover:bg-brand-gold hover:text-black hover:border-black transition-all shadow-[8px_8px_0px_#666] hover:shadow-[8px_8px_0px_#000] relative overflow-hidden group">
+                            <span class="relative z-10">Pagar 30€ • MB WAY</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Status Message -->
+                    <div id="statusMessage" class="hidden p-6 border-4 border-black text-center font-bold mt-6"></div>
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('paymentForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submitBtn');
+            const statusDiv = document.getElementById('statusMessage');
+            const originalText = btn.innerHTML;
+            
+            // Loading state
+            btn.disabled = true;
+            btn.innerHTML = '<span class="relative z-10">A PROCESSAR...</span>';
+            statusDiv.classList.add('hidden');
+            statusDiv.className = 'hidden p-6 border-4 border-black text-center font-bold mt-6'; // Reset classes
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                // Use absolute URL for production reliability or relative if on same domain
+                // Using relative path to netlify function
+                const response = await fetch('/.netlify/functions/mbway-payment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                statusDiv.classList.remove('hidden');
+                
+                if (result.success) {
+                    statusDiv.classList.add('bg-green-100');
+                    statusDiv.innerHTML = `
+                        <div class="text-2xl mb-2">✅ PEDIDO ENVIADO!</div>
+                        <p class="mb-4">Verifica o teu telemóvel (${data.phone}) e confirma o pagamento na app MB WAY.</p>
+                        <p class="text-sm text-gray-600">Assim que pagares, podes levantar o teu Golden Ticket na receção.</p>
+                    `;
+                    this.reset();
+                } else {
+                    throw new Error(result.message || 'Erro ao processar pagamento');
+                }
+
+            } catch (error) {
+                console.error('Erro:', error);
+                statusDiv.classList.add('bg-red-100');
+                statusDiv.innerHTML = `
+                    <div class="text-xl mb-2">❌ OOPS!</div>
+                    <p>${error.message}</p>
+                    <p class="text-sm mt-2">Tenta novamente ou contacta-nos.</p>
+                `;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        });
+    </script>
+
     <!-- 5. Footer -->
     <footer class="bg-brand-black border-t border-gray-800 pt-16 pb-8">
         <div class="container mx-auto px-4 text-center">
             
             <div class="font-display font-black text-4xl text-white mb-8 tracking-tighter uppercase">Be Water</div>
             
-            <div class="flex justify-center gap-8 mb-12 font-mono text-sm">
-                <a href="#" class="text-gray-500 hover:text-white uppercase">Instagram</a>
-                <a href="#" class="text-gray-500 hover:text-white uppercase">Facebook</a>
-                <a href="#" class="text-gray-500 hover:text-white uppercase">Whatsapp</a>
+            <div class="flex justify-center gap-8 mb-8 font-mono text-sm">
+                <a href="https://www.instagram.com/bewaterlisboa" target="_blank" class="text-gray-500 hover:text-white uppercase transition-colors">Instagram</a>
+                <a href="https://facebook.com/asdicasdosalgueiro" target="_blank" class="text-gray-500 hover:text-white uppercase transition-colors">Facebook</a>
+                <a href="https://wa.me/351933869791" target="_blank" class="text-gray-500 hover:text-white uppercase transition-colors">Whatsapp</a>
+            </div>
+
+            <div class="mb-12">
+                <a href="../index.html" class="inline-block border-b-2 border-brand-gold pb-1 text-white font-bold hover:text-brand-gold transition-colors uppercase tracking-widest text-sm">
+                    ← Voltar ao Site Principal
+                </a>
             </div>
 
             <div class="border-t border-gray-900 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 font-mono uppercase">
