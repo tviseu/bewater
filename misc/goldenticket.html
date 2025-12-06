@@ -385,20 +385,29 @@
                 if (result.success) {
                     statusDiv.classList.add('bg-green-100');
                     statusDiv.innerHTML = `
-                        <div class="text-2xl mb-4">✅ PEDIDO ENVIADO!</div>
+                        <div class="text-4xl mb-6 animate-bounce">📱</div>
+                        <div class="text-3xl font-black mb-6 text-green-800 uppercase tracking-tighter">Pedido Enviado!</div>
                         
-                        <div class="text-left space-y-3 font-mono text-sm md:text-base">
-                            <p class="font-bold bg-yellow-100 p-2">1. Verifica o teu telemóvel (${data.phone}) e confirma o pagamento na app MB WAY.</p>
+                        <div class="text-left space-y-6 font-mono text-base md:text-lg">
                             
-                            <p>2. Assim que confirmares, a equipa BE WATER irá validar o pagamento (pode não ser imediato).</p>
-                            
-                            <p>3. Após validação manual, receberás por email a tua cópia virtual do Golden Ticket.</p>
-                            
-                            <p class="text-gray-600 pt-2 border-t border-gray-300">
-                                💡 Se preferires a <strong>versão física</strong> (o cartão dourado), envia-nos mensagem ou passa na receção para levantar o teu exemplar.
-                            </p>
+                            <!-- PASSO 1: DESTAQUE MÁXIMO -->
+                            <div class="bg-white border-4 border-black p-6 shadow-[8px_8px_0px_rgba(0,0,0,0.2)] transform rotate-[-1deg]">
+                                <p class="font-bold text-xl mb-2">⚡ AÇÃO NECESSÁRIA AGORA:</p>
+                                <p class="leading-tight">Abre a app MB WAY e confirma o pagamento de 30€.</p>
+                            </div>
+
+                            <!-- Outros passos -->
+                            <div class="opacity-75 space-y-4 pl-2">
+                                <p>⏳ <strong>A seguir:</strong> A equipa valida o pagamento (pode demorar um pouco).</p>
+                                <p>📧 <strong>Recebes:</strong> O Golden Ticket virtual no teu email.</p>
+                                <p>🎁 <strong>Físico:</strong> Podes levantar o cartão dourado na receção.</p>
+                            </div>
                         </div>
                     `;
+                    
+                    // Scroll suave até à mensagem
+                    statusDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
                     this.reset();
                 } else {
                     throw new Error(result.message || 'Erro ao processar pagamento');
