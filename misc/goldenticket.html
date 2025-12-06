@@ -352,6 +352,22 @@
             const data = Object.fromEntries(formData.entries());
 
             try {
+                // 1. Disparar notificação para Formspark (Staff)
+                // Não esperamos pela resposta para não bloquear o UX, mas garantimos o envio
+                fetch('https://submit-form.com/v7DDgdLmZ', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        _subject: 'NOVO PEDIDO GOLDEN TICKET',
+                        ...data,
+                        timestamp: new Date().toISOString()
+                    })
+                }).catch(err => console.error('Erro Formspark:', err));
+
+                // 2. Processar Pagamento MB WAY
                 // Use absolute URL for production reliability or relative if on same domain
                 // Using relative path to netlify function
                 const response = await fetch('/.netlify/functions/mbway-payment', {
@@ -369,9 +385,19 @@
                 if (result.success) {
                     statusDiv.classList.add('bg-green-100');
                     statusDiv.innerHTML = `
-                        <div class="text-2xl mb-2">✅ PEDIDO ENVIADO!</div>
-                        <p class="mb-4">Verifica o teu telemóvel (${data.phone}) e confirma o pagamento na app MB WAY.</p>
-                        <p class="text-sm text-gray-600">Assim que pagares, podes levantar o teu Golden Ticket na receção.</p>
+                        <div class="text-2xl mb-4">✅ PEDIDO ENVIADO!</div>
+                        
+                        <div class="text-left space-y-3 font-mono text-sm md:text-base">
+                            <p class="font-bold bg-yellow-100 p-2">1. Verifica o teu telemóvel (${data.phone}) e confirma o pagamento na app MB WAY.</p>
+                            
+                            <p>2. Assim que confirmares, a equipa BE WATER irá validar o pagamento (pode não ser imediato).</p>
+                            
+                            <p>3. Após validação manual, receberás por email a tua cópia virtual do Golden Ticket.</p>
+                            
+                            <p class="text-gray-600 pt-2 border-t border-gray-300">
+                                💡 Se preferires a <strong>versão física</strong> (o cartão dourado), envia-nos mensagem ou passa na receção para levantar o teu exemplar.
+                            </p>
+                        </div>
                     `;
                     this.reset();
                 } else {
@@ -403,12 +429,7 @@
                 <a href="https://www.instagram.com/bewaterlisboa" target="_blank" class="text-gray-500 hover:text-white uppercase transition-colors">Instagram</a>
                 <a href="https://facebook.com/asdicasdosalgueiro" target="_blank" class="text-gray-500 hover:text-white uppercase transition-colors">Facebook</a>
                 <a href="https://wa.me/351933869791" target="_blank" class="text-gray-500 hover:text-white uppercase transition-colors">Whatsapp</a>
-            </div>
-
-            <div class="mb-12">
-                <a href="../index.html" class="inline-block border-b-2 border-brand-gold pb-1 text-white font-bold hover:text-brand-gold transition-colors uppercase tracking-widest text-sm">
-                    ← Voltar ao Site Principal
-                </a>
+                <a href="../index.html" class="text-gray-500 hover:text-white uppercase transition-colors">Site Oficial</a>
             </div>
 
             <div class="border-t border-gray-900 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 font-mono uppercase">

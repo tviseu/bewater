@@ -608,6 +608,10 @@ exports.handler = async (event, context) => {
       console.log('ℹ️ Pagamento iniciado - fatura será emitida pelo staff após confirmação');
       dadosResposta.instructions = 'Após confirmar o pagamento no telemóvel, apresente o comprovativo ao funcionário BE WATER para receber o produto e fatura.';
 
+      if (produtos.some(p => p.produto_id === 'GOLDEN_TICKET_2024')) {
+        dadosResposta.instructions = 'Após confirmar o pagamento na App MB WAY, a equipa BE WATER validará o pagamento. Receberás por email a cópia virtual do ticket. Se preferires, fala connosco para levantares a versão física no ginásio.';
+      }
+
       return {
         statusCode: 200,
         headers,
