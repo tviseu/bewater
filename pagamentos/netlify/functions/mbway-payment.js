@@ -369,6 +369,8 @@ exports.handler = async (event, context) => {
     
     // Verificar se algum produto é evento (para validação especial)
     const hasEvento = produtos.some(p => p.produto_id.includes('EVENTO'));
+    // Verificar se algum produto é Golden Ticket (NIF opcional, não exige fatura completa)
+    const hasGoldenTicket = produtos.some(p => p.produto_id === 'GOLDEN_TICKET_2024');
     
     // Email sempre validado se fornecido
     if (input.email && input.email.trim()) {
@@ -394,8 +396,8 @@ exports.handler = async (event, context) => {
       }
     }
     
-    // Para produtos do bar (não eventos), validação de fatura completa
-    if (!hasEvento) {
+    // Para produtos do bar (não eventos, não Golden Ticket), validação de fatura completa
+    if (!hasEvento && !hasGoldenTicket) {
       const temEmail = input.email && input.email.trim();
       const temNome = input.nome && input.nome.trim();
       const temNif = input.nif && input.nif.trim();
@@ -416,6 +418,15 @@ exports.handler = async (event, context) => {
           throw new Error('Para emitir fatura, NIF é obrigatório e deve ter 9 dígitos');
         }
       }
+    }
+    
+    // Para Golden Ticket: Se forneceu NIF, valida; se não forneceu, não exige (NIF opcional)
+    if (hasGoldenTicket && input.nif && input.nif.trim()) {
+      const nifLimpo = input.nif.replace(/\D/g, '');
+      if (!/^\d{9}$/.test(nifLimpo)) {
+        throw new Error('NIF deve ter 9 dígitos');
+      }
+      nif = nifLimpo;
     }
 
     // Criar identifier com dados para correlação (encodifica nome, email, NIF)
