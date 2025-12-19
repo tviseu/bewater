@@ -164,6 +164,176 @@
             background: #FFE55C; /* Amarelo ligeiramente mais claro no hover */
         }
 
+        /* PROMOÇÃO DE NATAL - Estilos */
+        .promocao-natal {
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .promocao-natal__banner {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #DC143C 0%, #228B22 100%);
+            border: var(--border-thick);
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--color-primary);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promocao-natal__banner::before {
+            content: '❄️';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .promocao-natal__banner::after {
+            content: '❄️';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: float 3s ease-in-out infinite 1.5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .promocao-natal__titulo {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #FFFFFF;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .promocao-natal__subtitulo {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .promocao-natal__grid {
+            display: flex;
+            justify-content: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .produto-card--natal {
+            background: linear-gradient(135deg, #FFF5F5 0%, #F0FFF0 100%);
+            border: 4px solid #DC143C;
+            position: relative;
+            box-shadow: 12px 12px 0 rgba(220, 20, 60, 0.3);
+            animation: christmasPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes christmasPulse {
+            0%, 100% { 
+                box-shadow: 12px 12px 0 rgba(220, 20, 60, 0.3);
+                border-color: #DC143C;
+            }
+            50% { 
+                box-shadow: 12px 12px 0 rgba(34, 139, 34, 0.3);
+                border-color: #228B22;
+            }
+        }
+
+        .produto-card--natal:hover {
+            transform: translate(-6px, -6px) scale(1.02);
+            box-shadow: 16px 16px 0 rgba(220, 20, 60, 0.4);
+            border-color: #228B22;
+        }
+
+        .produto-card__badge-natal {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: linear-gradient(135deg, #DC143C 0%, #228B22 100%);
+            color: #FFFFFF;
+            padding: 8px 16px;
+            border: 3px solid #000000;
+            font-family: var(--font-heading);
+            font-weight: 900;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+            z-index: 10;
+            transform: rotate(5deg);
+            animation: badgeWiggle 2s ease-in-out infinite;
+        }
+
+        @keyframes badgeWiggle {
+            0%, 100% { transform: rotate(5deg); }
+            50% { transform: rotate(-5deg); }
+        }
+
+        .produto-card--natal .produto-icon {
+            font-size: 5rem;
+            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .produto-card--natal .produto-nome {
+            color: #DC143C;
+            font-size: 1.6rem;
+        }
+
+        .produto-card--natal .produto-preco {
+            color: #228B22;
+            font-size: 2.8rem;
+        }
+
+        .produto-card--natal .produto-descricao {
+            color: #333333;
+            font-weight: 600;
+        }
+
+        .produto-card--natal .produto-btn {
+            background: linear-gradient(135deg, #DC143C 0%, #228B22 100%);
+            border-color: #000000;
+            color: #FFFFFF;
+            font-weight: 900;
+            box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .produto-card--natal .produto-btn:hover {
+            background: linear-gradient(135deg, #228B22 0%, #DC143C 100%);
+            transform: translate(-3px, -3px);
+            box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.4);
+        }
+
+        /* Responsividade para promoção natal */
+        @media (max-width: 768px) {
+            .promocao-natal__titulo {
+                font-size: 1.8rem;
+            }
+
+            .promocao-natal__subtitulo {
+                font-size: 1rem;
+            }
+
+            .promocao-natal__banner {
+                padding: 20px;
+            }
+
+            .produto-card--natal {
+                max-width: 100%;
+            }
+        }
+
         .produto-icon {
             font-size: 4rem;
             margin-bottom: 20px;
@@ -1424,6 +1594,29 @@
             <button class="nav-scroll-arrow nav-scroll-arrow--right" id="navScrollArrowRight" aria-label="Ver mais categorias">→</button>
         </nav>
 
+        <!-- SEÇÃO: PROMOÇÃO DE NATAL -->
+        <div class="produtos-secao promocao-natal" id="secao-natal">
+            <div class="promocao-natal__banner">
+                <h2 class="promocao-natal__titulo" data-payment-i18n="section.christmas-promo">🎄 Promoção de Natal 🎄</h2>
+                <p class="promocao-natal__subtitulo" data-payment-i18n="section.christmas-promo.subtitle">Celebra connosco o Natal!</p>
+            </div>
+            <div class="produtos-grid promocao-natal__grid">
+                <div class="produto-card produto-card--natal" data-id="CERVEJA_MINI_001" data-nome="Cerveja Mini" data-preco="1.20">
+                    <div class="produto-card__badge-natal">🎄 NATAL</div>
+                    <div class="produto-icon">🍺</div>
+                    <div class="produto-nome" data-payment-i18n="product.cerveja-mini">Cerveja Mini</div>
+                    <div class="produto-preco">€1.20</div>
+                    <div class="produto-descricao" data-payment-i18n="product.cerveja-mini.desc.natal">Celebração pós-treino - Evento de Natal!</div>
+                    <div class="produto-quantity-stepper">
+                        <button class="qty-btn qty-minus" data-action="minus">−</button>
+                        <span class="qty-display">1</span>
+                        <button class="qty-btn qty-plus" data-action="plus">+</button>
+                    </div>
+                    <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
+                </div>
+            </div>
+        </div>
+
         <!-- SEÇÃO: CAFÉ & BEBIDAS QUENTES -->
         <div class="produtos-secao" id="secao-cafe">
             <h2 class="secao-titulo comidas-bebidas" data-payment-i18n="section.cafe-hot">☕ Café & Bebidas Quentes</h2>
@@ -1564,10 +1757,10 @@
                     <button class="produto-btn add-to-cart-btn" data-payment-i18n="product.add-to-cart">🛒 Adicionar ao Carrinho</button>
                 </div>
 
-                <div class="produto-card" data-id="CERVEJA_MINI_001" data-nome="Cerveja Mini" data-preco="2.00">
+                <div class="produto-card" data-id="CERVEJA_MINI_001" data-nome="Cerveja Mini" data-preco="1.20">
                     <div class="produto-icon">🍺</div>
                     <div class="produto-nome" data-payment-i18n="product.cerveja-mini">Cerveja Mini</div>
-                    <div class="produto-preco">€2.00</div>
+                    <div class="produto-preco">€1.20</div>
                     <div class="produto-descricao" data-payment-i18n="product.cerveja-mini.desc">Celebração pós-treino</div>
                     <div class="produto-quantity-stepper">
                         <button class="qty-btn qty-minus" data-action="minus">−</button>

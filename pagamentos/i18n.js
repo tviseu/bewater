@@ -17,6 +17,8 @@ const paymentTranslations = {
     'section.snacks-prepost': '💪 Snacks Pré/Pós-Treino',
     'section.utilities': '🧰 Utilitários',
     'section.tribe-support': '❤️ Apoio à Tribo',
+    'section.christmas-promo': '🎄 Promoção de Natal 🎄',
+    'section.christmas-promo.subtitle': 'Celebra connosco o Natal!',
     
     // Produtos
     'product.cafe': 'Café',
@@ -60,6 +62,7 @@ const paymentTranslations = {
     'product.drop-in.desc': 'Treina connosco sem compromisso',
     'product.cerveja-mini': 'Cerveja Mini',
     'product.cerveja-mini.desc': 'Celebração pós-treino',
+    'product.cerveja-mini.desc.natal': 'Celebração pós-treino - Evento de Natal!',
     'product.agua-gas': 'Água com Gás',
     'product.agua-gas.desc': 'Hidratação com estilo',
     'product.coca-cola-zero': 'Coca Cola Zero',
@@ -144,6 +147,8 @@ const paymentTranslations = {
     'section.snacks-prepost': '💪 Pre/Post-Workout Snacks',
     'section.utilities': '🧰 Utilities',
     'section.tribe-support': '❤️ Tribe Support',
+    'section.christmas-promo': '🎄 Christmas Promotion 🎄',
+    'section.christmas-promo.subtitle': 'Celebrate Christmas with us!',
     
     // Produtos
     'product.cafe': 'Coffee',
@@ -187,6 +192,7 @@ const paymentTranslations = {
     'product.drop-in.desc': 'Train with us, no strings attached',
     'product.cerveja-mini': 'Mini Beer',
     'product.cerveja-mini.desc': 'Post-workout celebration',
+    'product.cerveja-mini.desc.natal': 'Post-workout celebration - Christmas Event!',
     'product.agua-gas': 'Sparkling Water',
     'product.agua-gas.desc': 'Hydration with style',
     'product.coca-cola-zero': 'Coca Cola Zero',
