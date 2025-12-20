@@ -30,6 +30,7 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
     'AMINOX_001': { nome: 'AminoX', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'TOALHA_001': { nome: 'Toalha Treino/Banho', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'CERVEJA_MINI_001': { nome: 'Cerveja Mini', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'SOMMERSBY_001': { nome: 'Sommersby', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'AGUA_GAS_001': { nome: 'Água com Gás', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'RED_BULL_001': { nome: 'Red Bull', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'YOPRO_001': { nome: 'YoPro Iogurte Proteico', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
@@ -399,6 +400,8 @@ exports.handler = async (event, context) => {
       produtoId = 'TOALHA_001';
     } else if (produtoNome.includes('cerveja mini') || produtoNome.includes('cerveja')) {
       produtoId = 'CERVEJA_MINI_001';
+    } else if (produtoNome.includes('sommersby')) {
+      produtoId = 'SOMMERSBY_001';
   } else if (produtoNome.includes('ligaduras')) {
     produtoId = 'LIGADURAS_001';
   } else if (produtoNome.includes('luvas') || produtoNome.includes('boxe')) {
