@@ -234,7 +234,7 @@ exports.handler = async (event, context) => {
       'SABONETE_CARVAO_001': { nome: 'Sabonete Carvão Activado', preco: 2.50 },
       'AMINOX_001': { nome: 'AminoX', preco: 2.50 },
       'TOALHA_001': { nome: 'Toalha Treino/Banho', preco: 15.00 },
-      'CERVEJA_MINI_001': { nome: 'Cerveja Mini', preco: 2.00 },
+      'CERVEJA_MINI_001': { nome: 'Cerveja Mini', preco: 1.20 },
       'SOMMERSBY_001': { nome: 'Sommersby', preco: 1.50 },
       'AGUA_GAS_001': { nome: 'Água com Gás', preco: 1.50 },
       'RED_BULL_001': { nome: 'Red Bull', preco: 2.50 },
@@ -284,8 +284,9 @@ exports.handler = async (event, context) => {
 
         // Validar preço (exceto donativos que têm preço variável)
         if (produtoId !== 'DONATIVO_001') {
-          if (precoUnitario !== produtoConfig.preco) {
-            throw new Error(`Preço inválido para ${item.nome}`);
+          // Usar comparação com tolerância para evitar problemas de precisão de ponto flutuante
+          if (Math.abs(precoUnitario - produtoConfig.preco) > 0.01) {
+            throw new Error(`Preço inválido para ${item.nome}: esperado €${produtoConfig.preco.toFixed(2)}, recebido €${precoUnitario.toFixed(2)}`);
           }
         } else {
           // Validar donativo
