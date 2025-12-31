@@ -632,10 +632,24 @@
         pointer-events: auto; /* Allow scroll/clicks inside */
       }
       
-      /* Ensure iframe is clickable on mobile */
+      /* Ensure iframe is clickable and scrollable on mobile */
       .modal-regy-container iframe {
          pointer-events: auto !important;
-         touch-action: auto !important;
+         touch-action: pan-y !important; /* Allow vertical scroll */
+         overflow-y: auto !important;
+         -webkit-overflow-scrolling: touch !important;
+      }
+      
+      /* Ensure modal container allows scroll */
+      .modal-container:has(.modal-regy-container) {
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+      
+      /* Ensure RegyFit container doesn't block scroll */
+      .modal-regy-container {
+        overflow-y: visible !important;
+        max-height: none !important;
       }
     }
     
@@ -1500,7 +1514,7 @@
         <!-- Regyfit Form Container -->
         <div class="modal-regy-container">
           <input type="hidden" class="class_regy" id="src_regy1" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=1&acs=38e6d410bd1118bc516ba1a7a0b91264&site=s">
-          <iframe name="frame_regy1" id="frame_regy1" width="100%" height="1400px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Elite"></iframe>
+          <iframe name="frame_regy1" id="frame_regy1" width="100%" height="1400px" frameborder="0" scrolling="yes" title="Formulário de inscrição do plano Elite"></iframe>
         </div>
 
         <!-- Sidebar: Trial Class CTA (Desktop Only) -->
@@ -1582,7 +1596,7 @@
         <!-- Regyfit Form Container -->
         <div class="modal-regy-container">
           <input type="hidden" class="class_regy" id="src_regy3" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=3&acs=3ddf69e0b105421fc7423c06a6ffccbd&site=s">
-          <iframe name="frame_regy3" id="frame_regy3" width="100%" height="1400px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Rise"></iframe>
+          <iframe name="frame_regy3" id="frame_regy3" width="100%" height="1400px" frameborder="0" scrolling="yes" title="Formulário de inscrição do plano Rise"></iframe>
         </div>
 
         <!-- Sidebar: Trial Class CTA (Desktop Only) -->
@@ -1664,7 +1678,7 @@
         <!-- Regyfit Form Container -->
         <div class="modal-regy-container">
           <input type="hidden" class="class_regy" id="src_regy2" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_plano.php?id_box=2244&id_int=2&acs=7efff90d4101aed0cec7330e5d7c8b6a&site=s">
-          <iframe name="frame_regy2" id="frame_regy2" width="100%" height="1400px" frameborder="0" scrolling="no" title="Formulário de inscrição do plano Starter"></iframe>
+          <iframe name="frame_regy2" id="frame_regy2" width="100%" height="1400px" frameborder="0" scrolling="yes" title="Formulário de inscrição do plano Starter"></iframe>
         </div>
 
         <!-- Sidebar: Trial Class CTA (Desktop Only) -->
@@ -1811,7 +1825,7 @@
         <div class="modal-regy-container">
           <!-- Regy Integration for PACK 5 -->
           <input type="hidden" class="class_regy" id="src_regy19" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_pack.php?id_box=2244&id_int=19&acs=92c6751aa223d1a34d491341c97d8628&site=s">
-          <iframe name="frame_regy19" id="frame_regy19" width="100%" height="0px" frameborder="0" scrolling="no" title="Formulário de compra Pack 5" style="display: block;"></iframe>
+          <iframe name="frame_regy19" id="frame_regy19" width="100%" height="0px" frameborder="0" scrolling="yes" title="Formulário de compra Pack 5" style="display: block;"></iframe>
         </div>
 
         <!-- Trial CTA Banner for Packs/Drop-ins -->
@@ -1885,7 +1899,7 @@
         <div class="modal-regy-container">
           <!-- Regy Integration for PACK 10 -->
           <input type="hidden" class="class_regy" id="src_regy18" value="https://www.regyfit.com/admin2/modulos/crm/site_integrations/comprar_pack.php?id_box=2244&id_int=18&acs=84ef9a58d4979c4cbe9685754f8bb744&site=s">
-          <iframe name="frame_regy18" id="frame_regy18" width="100%" height="0px" frameborder="0" scrolling="no" title="Formulário de compra Pack 10" style="display: block;"></iframe>
+          <iframe name="frame_regy18" id="frame_regy18" width="100%" height="0px" frameborder="0" scrolling="yes" title="Formulário de compra Pack 10" style="display: block;"></iframe>
         </div>
 
         <!-- Trial CTA Banner for Packs/Drop-ins -->
@@ -2434,7 +2448,10 @@
           iframe.style.display = 'block';
           iframe.style.minHeight = '1300px';
           iframe.style.width = '100%';
-          iframe.setAttribute('scrolling', 'auto');
+          // Garantir scroll ativado (yes é mais compatível que auto)
+          iframe.setAttribute('scrolling', 'yes');
+          iframe.style.overflowY = 'auto';
+          iframe.style.webkitOverflowScrolling = 'touch';
           console.log(`  ✅ Prepared iframe: ${iframeId}`);
         }
       });
@@ -2486,6 +2503,11 @@
                   iframe.style.minHeight = '1300px';
                   console.log(`   ⚠️ Fixed height for ${iframe.id}`);
                 }
+                
+                // Garantir scroll ativado em todos os iframes (especialmente importante em mobile)
+                iframe.setAttribute('scrolling', 'yes');
+                iframe.style.overflowY = 'auto';
+                iframe.style.webkitOverflowScrolling = 'touch';
                 
                 // Ensure default iframes are visible
                 const defaultIframes = ['frame_regy1', 'frame_regy3', 'frame_regy2'];

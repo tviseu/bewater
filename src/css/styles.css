@@ -4938,6 +4938,22 @@ button.btn:active {
   
   .modal-regy-container iframe {
     min-height: 800px !important;
+    /* Garantir scroll dentro do iframe em mobile */
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-y !important;
+  }
+  
+  /* Garantir que o container do modal permite scroll */
+  .modal-container:has(.modal-regy-container) {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  
+  /* Garantir que o container do RegyFit permite scroll */
+  .modal-regy-container {
+    overflow-y: visible !important;
+    max-height: none !important;
   }
 }
 
@@ -4980,6 +4996,22 @@ button.btn:active {
   
   .modal-regy-container iframe {
     min-height: 750px !important;
+    /* Garantir scroll dentro do iframe em mobile */
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-y !important;
+  }
+  
+  /* Garantir que o container do modal permite scroll */
+  .modal-container:has(.modal-regy-container) {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  
+  /* Garantir que o container do RegyFit permite scroll */
+  .modal-regy-container {
+    overflow-y: visible !important;
+    max-height: none !important;
   }
 }
 

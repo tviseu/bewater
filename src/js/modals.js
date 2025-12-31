@@ -175,6 +175,12 @@ document.addEventListener('DOMContentLoaded', function() {
             iframe.style.minHeight = '1400px';
             iframe.style.height = '1400px';
             
+            // Garantir scroll ativado no iframe (especialmente importante em mobile)
+            iframe.setAttribute('scrolling', 'yes');
+            iframe.style.overflowY = 'auto';
+            iframe.style.webkitOverflowScrolling = 'touch';
+            iframe.style.touchAction = 'pan-y';
+            
             // If iframe doesn't have src, load it immediately
             if (!iframe.src || iframe.src === '' || iframe.src === 'about:blank') {
               const inputId = iframe.id.replace('frame_', 'src_');

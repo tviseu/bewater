@@ -673,6 +673,12 @@ async function showRegyStep(modalId, forceNormal = false) {
     iframeToShow.style.padding = '0';
     iframeToShow.style.margin = '0';
     
+    // Garantir scroll ativado no iframe (especialmente importante em mobile)
+    iframeToShow.setAttribute('scrolling', 'yes');
+    iframeToShow.style.overflowY = 'auto';
+    iframeToShow.style.webkitOverflowScrolling = 'touch';
+    iframeToShow.style.touchAction = 'pan-y';
+    
     console.log(`✅ Iframe mostrado: ${iframeId}`);
     console.log('  🔍 DEBUG: Iframe AFTER changes - display:', window.getComputedStyle(iframeToShow).display);
     console.log('  🔍 DEBUG: Iframe AFTER changes - height:', window.getComputedStyle(iframeToShow).height);
