@@ -4666,10 +4666,26 @@ button.btn:active {
   .modal-container:has(.modal-regy-container) {
     max-width: 95%;
     width: 95%;
+    padding: 0.75rem !important; /* Espaço nas laterais */
+  }
+  
+  /* Adicionar espaço nas laterais do container do RegyFit */
+  .modal-regy-container {
+    margin: 0 0.75rem !important;
+    padding: 0.75rem !important;
+    width: calc(100% - 1.5rem) !important;
+    max-width: calc(100% - 1.5rem) !important;
+  }
+  
+  /* Garantir espaço nas laterais do modal-content */
+  .modal-content:has(.modal-regy-container) {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
   }
   
   .modal-regy-container iframe:not([style*="display: none"]) {
     min-height: 1200px;
+    width: 100% !important;
   }
 }
 
@@ -4931,13 +4947,24 @@ button.btn:active {
     font-size: 2.2rem;
   }
   
+  /* Adicionar mais espaço nas laterais do container do RegyFit em mobile */
+  .modal-content {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
   .modal-regy-container {
     border-width: 3px;
     box-shadow: 6px 6px 0 var(--color-primary);
+    margin: 0 0.5rem !important; /* Espaço nas laterais */
+    padding: 0.5rem !important; /* Padding interno para dar mais espaço */
+    width: calc(100% - 1rem) !important; /* Reduzir largura para dar espaço */
+    max-width: calc(100% - 1rem) !important;
   }
   
   .modal-regy-container iframe {
     min-height: 800px !important;
+    width: 100% !important;
     /* Garantir scroll dentro do iframe em mobile */
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
@@ -4948,6 +4975,7 @@ button.btn:active {
   .modal-container:has(.modal-regy-container) {
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
+    padding: 0.5rem !important; /* Mais espaço nas laterais do modal */
   }
   
   /* Garantir que o container do RegyFit permite scroll */
@@ -4983,7 +5011,7 @@ button.btn:active {
   }
   
   .modal-content {
-    padding: var(--spacing-sm);
+    padding: var(--spacing-sm) 0.75rem !important; /* Mais espaço nas laterais */
   }
   
   .plan-price {
@@ -4994,8 +5022,17 @@ button.btn:active {
     font-size: 0.9rem;
   }
   
+  /* Ainda mais espaço nas laterais em ecrãs muito pequenos */
+  .modal-regy-container {
+    margin: 0 0.75rem !important; /* Mais espaço nas laterais */
+    padding: 0.75rem !important;
+    width: calc(100% - 1.5rem) !important;
+    max-width: calc(100% - 1.5rem) !important;
+  }
+  
   .modal-regy-container iframe {
     min-height: 750px !important;
+    width: 100% !important;
     /* Garantir scroll dentro do iframe em mobile */
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
@@ -5006,6 +5043,7 @@ button.btn:active {
   .modal-container:has(.modal-regy-container) {
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
+    padding: 0.75rem !important; /* Mais espaço nas laterais do modal */
   }
   
   /* Garantir que o container do RegyFit permite scroll */

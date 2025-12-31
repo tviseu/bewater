@@ -650,6 +650,21 @@
       .modal-regy-container {
         overflow-y: visible !important;
         max-height: none !important;
+        margin: 0 0.75rem !important; /* Espaço nas laterais */
+        padding: 0.75rem !important; /* Padding interno */
+        width: calc(100% - 1.5rem) !important;
+        max-width: calc(100% - 1.5rem) !important;
+      }
+      
+      /* Garantir espaço nas laterais do modal-content */
+      .modal-content {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+      }
+      
+      /* Garantir espaço nas laterais do modal-container */
+      .modal-container:has(.modal-regy-container) {
+        padding: 0.75rem !important;
       }
     }
     
@@ -924,10 +939,12 @@
       .modal-regy-container {
         position: static !important;
         transform: none !important;
-        margin: 1rem 0 !important;
-        padding: 0 !important;
+        margin: 1rem 0.75rem !important; /* Espaço nas laterais */
+        padding: 0.75rem !important; /* Padding interno para dar mais espaço */
         border: 2px solid #000 !important;
         overflow: visible !important;
+        width: calc(100% - 1.5rem) !important; /* Reduzir largura para dar espaço */
+        max-width: calc(100% - 1.5rem) !important;
       }
       
       .modal-regy-container iframe {
@@ -939,6 +956,17 @@
         border: none !important;
         margin: 0 !important;
         padding: 0 !important;
+      }
+      
+      /* Garantir que o modal-content também tem espaço nas laterais */
+      .modal-content {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+      }
+      
+      /* Garantir que o container do modal tem espaço nas laterais */
+      .modal-container:has(.modal-regy-container) {
+        padding: 0.75rem !important;
       }
     }
 
