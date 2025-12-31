@@ -3565,13 +3565,43 @@
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVlcmplcmxzYmp0YnFkYWlyaWtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI0OTg4MjAsImV4cCI6MjA2ODA3NDgyMH0.WEOX5tQ8SLz3XiBwSUM2wpeZRl_QGsG4Huitfavbo4o';
     
     // Create Supabase client (only if credentials are provided)
-    let supabase;
-    if (SUPABASE_URL !== 'YOUR_SUPABASE_URL_HERE' && SUPABASE_ANON_KEY !== 'YOUR_SUPABASE_ANON_KEY_HERE') {
-      supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-      console.log('✅ Supabase initialized');
-    } else {
-      console.warn('⚠️ Supabase credentials not configured. Please update SUPABASE_URL and SUPABASE_ANON_KEY.');
-    }
+    // NOTA: Quando carregado via CDN, Supabase expõe 'supabase' como variável global
+    // que é o objeto da biblioteca (com createClient). Criamos o cliente e guardamos
+    // na mesma variável global para uso posterior.
+    (function() {
+      if (SUPABASE_URL !== 'YOUR_SUPABASE_URL_HERE' && SUPABASE_ANON_KEY !== 'YOUR_SUPABASE_ANON_KEY_HERE') {
+        try {
+          // Aguardar um pouco para garantir que o script do Supabase foi carregado
+          // Se já estiver carregado, criar cliente imediatamente
+          if (typeof supabase !== 'undefined' && supabase && typeof supabase.createClient === 'function') {
+            // Criar cliente Supabase e guardar na variável global
+            window.supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            // Também guardar na variável global 'supabase' para compatibilidade
+            supabase = window.supabase;
+            console.log('✅ Supabase initialized');
+          } else {
+            // Se ainda não estiver carregado, tentar novamente após um delay
+            setTimeout(function() {
+              if (typeof supabase !== 'undefined' && supabase && typeof supabase.createClient === 'function') {
+                window.supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                supabase = window.supabase;
+                console.log('✅ Supabase initialized (delayed)');
+              } else {
+                console.error('❌ Supabase library not loaded. Verifique se o script foi carregado corretamente.');
+                window.supabase = null;
+              }
+            }, 100);
+          }
+        } catch (err) {
+          console.error('❌ Erro ao inicializar Supabase:', err);
+          console.error('   Erro completo:', err.message, err.stack);
+          window.supabase = null;
+        }
+      } else {
+        console.warn('⚠️ Supabase credentials not configured. Please update SUPABASE_URL and SUPABASE_ANON_KEY.');
+        window.supabase = null;
+      }
+    })();
   </script>
   
   <!-- Coupon System -->

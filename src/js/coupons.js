@@ -23,6 +23,58 @@ const COUPON_CONFIG = {
 };
 
 // ============================================
+// HELPER: Obter cliente Supabase
+// ============================================
+
+/**
+ * Obtém o cliente Supabase de forma segura
+ * @returns {object|null} - Cliente Supabase ou null se não disponível
+ */
+function getSupabaseClient() {
+  // Verificar se já temos um cliente criado (tem método 'from')
+  if (typeof supabase !== 'undefined' && supabase && typeof supabase.from === 'function') {
+    return supabase;
+  }
+  if (typeof window !== 'undefined' && window.supabase && typeof window.supabase.from === 'function') {
+    return window.supabase;
+  }
+  
+  // Se não temos cliente mas temos a biblioteca, tentar criar
+  const SUPABASE_URL = 'https://eerjerlsbjtbqdairikb.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVlcmplcmxzYmp0YnFkYWlyaWtiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI0OTg4MjAsImV4cCI6MjA2ODA3NDgyMH0.WEOX5tQ8SLz3XiBwSUM2wpeZRl_QGsG4Huitfavbo4o';
+  
+  // Verificar se temos a biblioteca Supabase disponível
+  let supabaseLib = null;
+  if (typeof supabase !== 'undefined' && supabase && typeof supabase.createClient === 'function') {
+    supabaseLib = supabase;
+  } else if (typeof window !== 'undefined' && window.supabase && typeof window.supabase.createClient === 'function') {
+    supabaseLib = window.supabase;
+  }
+  
+  // Se temos a biblioteca, criar o cliente
+  if (supabaseLib && SUPABASE_URL && SUPABASE_ANON_KEY) {
+    try {
+      const client = supabaseLib.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      // Guardar globalmente para próximas chamadas
+      if (typeof window !== 'undefined') {
+        window.supabase = client;
+      }
+      // Também guardar na variável global se possível
+      if (typeof supabase !== 'undefined') {
+        supabase = client;
+      }
+      console.log('✅ Supabase client criado dinamicamente');
+      return client;
+    } catch (err) {
+      console.error('❌ Erro ao criar cliente Supabase:', err);
+      return null;
+    }
+  }
+  
+  return null;
+}
+
+// ============================================
 // REGYFIT INTEGRATIONS (Database-driven)
 // ============================================
 
@@ -37,6 +89,12 @@ async function getCouponRegyfit(couponCode, planType, couponType = null) {
   try {
     console.log(`🔍 Buscando Regyfit integration para cupão "${couponCode}" / plano "${planType}" / tipo "${couponType}"`);
     
+    const supabaseClient = getSupabaseClient();
+    if (!supabaseClient) {
+      console.warn('⚠️ Supabase não disponível, usando fallback');
+      return getDefaultRegyfit(planType);
+    }
+    
     // Se for cupão de sócio (member_email), buscar por '_member_email'
     const lookupCode = couponType === 'member_email' ? '_member_email' : couponCode.toLowerCase();
     
@@ -45,7 +103,7 @@ async function getCouponRegyfit(couponCode, planType, couponType = null) {
     }
     
     // Primeiro tentar buscar integração específica do cupão
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
       .from('coupon_regyfit_integrations')
       .select('iframe_id, integration_id')
       .eq('coupon_code', lookupCode)
@@ -77,7 +135,18 @@ async function getDefaultRegyfit(planType) {
   const normalizedPlanType = planType.replace('-coupon', '');
   
   try {
-    const { data, error } = await supabase
+    const supabaseClient = getSupabaseClient();
+    if (!supabaseClient) {
+      console.warn('⚠️ Supabase não disponível, usando fallback hardcoded');
+      const fallback = {
+        elite: { id: 5, int: 1 },
+        rise: { id: 6, int: 3 },
+        starter: { id: 7, int: 2 }
+      };
+      return fallback[normalizedPlanType] || fallback.elite;
+    }
+    
+    const { data, error } = await supabaseClient
       .from('coupon_regyfit_integrations')
       .select('iframe_id, integration_id')
       .eq('coupon_code', '_default')
@@ -135,9 +204,13 @@ async function validateCoupon(code) {
 
     console.log('🔍 Validando cupão:', normalizedCode);
 
-    // Verificar se Supabase está disponível
-    if (typeof supabase === 'undefined') {
+    // Verificar se Supabase está disponível usando função auxiliar
+    const supabaseClient = getSupabaseClient();
+    
+    if (!supabaseClient) {
       console.error('❌ Supabase não está inicializado');
+      console.error('   typeof supabase:', typeof supabase);
+      console.error('   window.supabase:', typeof window !== 'undefined' ? window.supabase : 'window não disponível');
       return {
         valid: false,
         type: null,
@@ -147,8 +220,10 @@ async function validateCoupon(code) {
       };
     }
 
+    console.log('✅ Supabase client disponível, a consultar...');
+
     // Consultar Supabase - usar limit(1) em vez de single() para evitar erro com duplicatas
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
       .from('coupons')
       .select('*')
       .eq('code', normalizedCode)
@@ -243,12 +318,27 @@ async function validateCoupon(code) {
 
   } catch (err) {
     console.error('❌ Erro fatal na validação:', err);
+    console.error('   Erro completo:', JSON.stringify(err, Object.getOwnPropertyNames(err)));
+    console.error('   Stack:', err.stack);
+    console.error('   Message:', err.message);
+    console.error('   Supabase disponível?', typeof supabase !== 'undefined' ? 'Sim' : 'Não');
+    
+    // Retornar mensagem mais específica se possível
+    let errorMessage = 'Erro inesperado. Contacte o staff.';
+    if (err.message) {
+      if (err.message.includes('fetch')) {
+        errorMessage = 'Erro de ligação. Verifique a sua ligação à internet.';
+      } else if (err.message.includes('timeout')) {
+        errorMessage = 'Tempo de espera esgotado. Tente novamente.';
+      }
+    }
+    
     return {
       valid: false,
       type: null,
       code: null,
       isSpecial: false,
-      message: 'Erro inesperado. Contacte o staff.'
+      message: errorMessage
     };
   }
 }
@@ -308,7 +398,13 @@ async function saveCouponUsage(usageData) {
   try {
     console.log('💾 Guardando utilização de cupão:', usageData);
 
-    const { data, error } = await supabase
+    const supabaseClient = getSupabaseClient();
+    if (!supabaseClient) {
+      console.warn('⚠️ Supabase não disponível, não é possível guardar utilização');
+      return { success: false, error: 'Supabase não disponível' };
+    }
+
+    const { data, error } = await supabaseClient
       .from('coupon_usages')
       .insert({
         coupon_code: usageData.couponCode,
