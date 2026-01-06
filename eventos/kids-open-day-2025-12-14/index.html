@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BeWater Kids - Open Day | BE WATER</title>
+  <meta name="description" content="Sábados em Família no BeWater: enquanto tu treinas, eles crescem. Aula experimental gratuita para crianças dos 5 aos 9 anos. Garante já a tua vaga!">
+  <link rel="icon" type="image/x-icon" href="../../src/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="../../src/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
+  <link rel="icon" type="image/png" sizes="32x32" href="../../src/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../src/images/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../src/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../../src/images/favicon/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="../../src/images/favicon/android-chrome-512x512.png">
+  <link rel="manifest" href="../../src/images/favicon/site.webmanifest">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@800;900&display=swap" rel="stylesheet"></noscript>
+  <style>
+    html { scroll-behavior: smooth; }
+    :root {
+      --color-primary: #FFD700;
+      --color-black: #000000;
+      --color-white: #FFFFFF;
+      --color-gray: #666666;
+      --color-gray-light: #f5f5f5;
+      --color-accent: #FFF6BF;
+      --spacing-sm: 0.5rem;
+      --spacing-md: 1rem;
+      --spacing-lg: 1.5rem;
+      --spacing-xl: 2rem;
+      --border-width: 4px;
+      --font-primary: 'Space Mono', system-ui, 'Segoe UI', monospace;
+      --font-heading: 'Work Sans', system-ui, 'Arial Black', sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-primary);
+      background: var(--color-white);
+      color: var(--color-black);
+      line-height: 1.6;
+    }
+
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 var(--spacing-xl); }
+
+    .hero {
+      padding: 3rem 0 3rem 0;
+      border-bottom: 2px solid var(--color-black);
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 255, 255, 1) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero .wrap { position: relative; z-index: 1; text-align: center; }
+
+    .event-date-banner {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      background: var(--color-primary);
+      color: var(--color-black);
+      border: var(--border-width) solid var(--color-black);
+      box-shadow: 8px 8px 0 var(--color-black);
+      padding: 0.5rem 1rem;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      margin-top: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .event-date-banner .date-small,
+    .event-date-banner .date-big {
+      font-family: var(--font-heading);
+      font-size: clamp(1.25rem, 4vw, 2rem);
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .card.card--accent { background: linear-gradient(180deg, rgba(255, 215, 0, 0.18), rgba(255, 215, 0, 0.12)), var(--color-white); box-shadow: 8px 8px 0 var(--color-primary); }
+    .card.card--accent .badge { background: var(--color-primary); }
+
+    .hero__eyebrow {
+      display: inline-block;
+      font-weight: 700;
+      background: var(--color-black);
+      color: var(--color-white);
+      padding: 0.25rem 0.5rem;
+      border: 2px solid var(--color-black);
+      box-shadow: 4px 4px 0 var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .hero__title {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      line-height: 1;
+      margin: 0.75rem 0 1rem 0;
+      text-transform: uppercase;
+    }
+
+    .hero__subtitle { color: var(--color-black); max-width: 720px; margin-left: auto; margin-right: auto; font-weight: 700; }
+    @media (max-width: 480px) {
+      .hero { padding-top: 2rem; }
+    }
+
+    .hero__cta { margin-top: var(--spacing-lg); }
+
+    .btn {
+      display: inline-block;
+      padding: var(--spacing-md) var(--spacing-xl);
+      background: var(--color-primary);
+      color: var(--color-black);
+      text-decoration: none;
+      font-weight: 700;
+      text-transform: uppercase;
+      border: var(--border-width) solid var(--color-black);
+      transition: all 0.2s ease;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: var(--color-black);
+      color: var(--color-primary);
+      transform: translate(-3px, -3px);
+      box-shadow: 6px 6px 0 var(--color-primary);
+    }
+
+    .btn--hero { font-size: 1.1rem; box-shadow: 10px 10px 0 var(--color-black); }
+    .form-surface .btn.btn--hero { background: var(--color-primary); color: var(--color-black); box-shadow: 10px 10px 0 var(--color-black); }
+
+    .section { padding: 3rem 0; }
+    .card { background: var(--color-white); border: var(--border-width) solid var(--color-black); box-shadow: 8px 8px 0 var(--color-black); padding: var(--spacing-xl); }
+    .grid { display: grid; gap: var(--spacing-xl); }
+    @media (min-width: 768px) { 
+      .grid--2 { grid-template-columns: 1fr 1fr; }
+      .grid--3 { grid-template-columns: repeat(3, 1fr); }
+    }
+    .list { margin: 0; padding-left: 1.25rem; }
+    .badge { display: inline-block; border: 2px solid var(--color-black); padding: 0.25rem 0.5rem; background: var(--color-gray-light); font-weight: 700; }
+    .schedule-box { background: var(--color-white); border: var(--border-width) solid var(--color-black); box-shadow: 6px 6px 0 var(--color-black); padding: var(--spacing-lg); }
+    .schedule { list-style: none; margin: 0; padding: 0; }
+    .schedule li { display: flex; gap: 1rem; align-items: center; padding: var(--spacing-md) 0; border-bottom: 1px dashed var(--color-black); }
+    .schedule li:last-child { border-bottom: none; }
+    .schedule time { display: inline-block; min-width: 120px; text-align: center; font-weight: 900; font-family: var(--font-heading); background: var(--color-primary); color: var(--color-black); border: 2px solid var(--color-black); padding: 0.25rem 0.5rem; }
+    .form label { display: block; font-weight: 700; margin: 0.75rem 0 0.25rem 0; text-transform: uppercase; }
+    .form input[type="text"], .form input[type="email"], .form input[type="tel"], .form textarea, .form select { width: 100%; padding: 0.75rem; border: var(--border-width) solid var(--color-black); background: var(--color-white); }
+    .form textarea { min-height: 120px; resize: vertical; }
+    .checks { display: grid; gap: 0.5rem; margin: 0.5rem 0 0 0; }
+    .notice { font-size: 0.95rem; color: var(--color-gray); }
+    .footer-note { padding: 2rem 0; border-top: 2px solid var(--color-black); text-align: center; color: var(--color-gray); }
+
+    /* Benefit Cards */
+    .benefit-card {
+      background: var(--color-white);
+      border: var(--border-width) solid var(--color-black);
+      box-shadow: 8px 8px 0 var(--color-black);
+      padding: var(--spacing-xl);
+      transition: all 0.2s ease;
+    }
+
+    .benefit-card:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 12px 12px 0 var(--color-black);
+    }
+
+    .benefit-card__icon {
+      font-size: 3rem;
+      margin-bottom: var(--spacing-md);
+      display: block;
+    }
+
+    .benefit-card__title {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: var(--spacing-sm);
+      color: var(--color-black);
+    }
+
+    .benefit-card__desc {
+      color: var(--color-gray);
+      line-height: 1.6;
+    }
+
+    /* Final CTA Section */
+    .cta-section {
+      background: var(--color-primary);
+      border: var(--border-width) solid var(--color-black);
+      box-shadow: 8px 8px 0 var(--color-black);
+      padding: var(--spacing-xl);
+      text-align: center;
+    }
+
+    .cta-section__text {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: var(--spacing-lg);
+      color: var(--color-black);
+    }
+
+    /* Inscrição: superfície branca para maior contraste */
+    .form-surface { background: var(--color-white); border: var(--border-width) solid var(--color-black); padding: var(--spacing-lg); box-shadow: 6px 6px 0 var(--color-black); }
+
+    /* Child Entry Styles */
+    .child-entry {
+      background: var(--color-gray-light);
+      border: 3px solid var(--color-black);
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      position: relative;
+    }
+
+    .child-entry:not(:first-child) {
+      padding-top: var(--spacing-lg);
+    }
+
+    .remove-child-btn {
+      position: absolute;
+      top: var(--spacing-md);
+      right: var(--spacing-md);
+      background: #dc3545;
+      color: var(--color-white);
+      border: 2px solid var(--color-black);
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: 900;
+      font-size: 1.2rem;
+      transition: all 0.2s ease;
+    }
+
+    .remove-child-btn:hover {
+      background: var(--color-white);
+      color: #dc3545;
+      transform: scale(1.1);
+    }
+
+    /* Language Switcher */
+    .lang-switcher { position: fixed; top: 20px; right: 20px; z-index: 1000; display: flex; gap: 0.5rem; background: var(--color-white); border: 3px solid var(--color-black); box-shadow: 6px 6px 0 var(--color-black); padding: 0.5rem; }
+    .lang-switcher button { font-family: var(--font-heading); font-weight: 700; font-size: 0.875rem; padding: 0.5rem 0.75rem; border: 2px solid var(--color-black); background: var(--color-white); color: var(--color-black); cursor: pointer; text-transform: uppercase; transition: all 0.2s ease; }
+    .lang-switcher button:hover { background: var(--color-primary); transform: translateY(-2px); }
+    .lang-switcher button.active { background: var(--color-black); color: var(--color-white); }
+    
+    /* Back Button */
+    .back-button { position: fixed; top: 20px; left: 20px; z-index: 1000; }
+    .back-button a { font-family: var(--font-heading); font-weight: 700; font-size: 0.875rem; padding: 0.5rem 1rem; border: 3px solid var(--color-black); background: var(--color-primary); color: var(--color-black); text-decoration: none; display: inline-block; box-shadow: 6px 6px 0 var(--color-black); transition: all 0.2s ease; text-transform: uppercase; }
+    .back-button a:hover { background: var(--color-black); color: var(--color-primary); transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--color-primary); }
+  </style>
+</head>
+<body>
+  <!-- Back Button -->
+  <div class="back-button">
+    <a href="../../index.html#events" data-i18n="evento.back.short">← Voltar</a>
+  </div>
+
+  <!-- Language Switcher -->
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="pt">PT</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <span class="hero__eyebrow" data-i18n="evento.eyebrow">Evento Especial</span>
+      <h1 class="hero__title" data-i18n="evento.title">Sábados em Família no BeWater</h1>
+      <div class="event-date-banner"><span class="date-small" data-i18n="evento.date">ESTE SÁBADO</span></div>
+      <p class="hero__subtitle" data-i18n="evento.subtitle">
+        Enquanto tu treinas, eles crescem. A solução perfeita para as tuas manhãs de sábado.
+      </p>
+      <div class="hero__cta">
+        <a class="btn btn--hero" href="#inscricao" data-i18n="evento.cta">Garantir Vaga Grátis</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Event Details Section -->
+    <section class="section">
+      <div class="wrap grid grid--2">
+        <div class="card card--accent">
+          <h2 style="margin-top:0" data-i18n="evento.plan.title">Detalhes do Evento</h2>
+          <p class="notice" style="margin:0 0 1rem 0">
+            <span data-i18n="evento.plan.dateinfo">Este Sábado</span> · <a style="text-decoration:underline; color:inherit" href="#mapa">BE WATER — Campo Grande (<span data-i18n="evento.plan.maps">ver Google Maps</span>)</a> · <strong data-i18n="evento.plan.free">Gratuito</strong>
+          </p>
+          <div class="schedule-box">
+            <ul class="schedule">
+              <li><time>10:30–11:15</time><span data-i18n="evento.plan.schedule1">Aula BeWater Warriors para crianças (5-12 anos)</span></li>
+              <li><time>10:30–11:30</time><span data-i18n="evento.plan.schedule2">Aula BE WATER para os pais (adultos)</span></li>
+            </ul>
+          </div>
+          <p class="notice" style="margin-top:1rem">
+            <strong data-i18n="evento.plan.target">Crianças dos 5 aos 9 anos</strong>. <span data-i18n="evento.plan.freeevent">Aula experimental 100% gratuita</span>. <span data-i18n="evento.plan.limited">Vagas limitadas a 15 crianças.</span>
+          </p>
+        </div>
+
+        <div id="inscricao" class="card card--accent">
+          <h2 style="margin-top:0" data-i18n="evento.form.title">Inscrição</h2>
+          <div class="form-surface">
+            <form id="inscricao-form" class="form" novalidate>
+              <label for="nome" data-i18n="evento.form.parent-name">Nome do Pai/Mãe</label>
+              <input id="nome" name="nome" type="text" placeholder="O teu nome" autocomplete="name" required>
+
+              <label for="email" data-i18n="evento.form.email">Email</label>
+              <input id="email" name="email" type="email" placeholder="O teu email" autocomplete="email" required>
+
+              <label for="tel" data-i18n="evento.form.phone">Telemóvel</label>
+              <input id="tel" name="telemovel" type="tel" placeholder="Ex.: 912 345 678" autocomplete="tel" inputmode="tel" maxlength="9" required>
+
+              <!-- Age Recommendation Notice -->
+              <div style="background: var(--color-accent); border: 3px solid var(--color-black); padding: var(--spacing-md); margin-bottom: var(--spacing-lg); box-shadow: 4px 4px 0 var(--color-black);">
+                <p style="margin: 0; font-weight: 700; font-size: 0.9rem;" data-i18n="evento.form.age-notice">
+                  <strong>Idades:</strong> Recomendado dos 7 aos 11 anos, mas crianças mais novas (a partir dos 5 anos) são bem-vindas se demonstrarem interesse e capacidade de seguir instruções básicas.
+                </p>
+              </div>
+
+              <!-- Children Container -->
+              <div id="children-container">
+                <!-- First Child -->
+                <div class="child-entry" data-child-index="0">
+                  <div style="display: flex; align-items: center; gap: var(--spacing-md); margin-bottom: var(--spacing-md);">
+                    <h3 style="margin: 0; font-family: var(--font-heading); font-size: 1rem; text-transform: uppercase;" data-i18n="evento.form.child-number">Criança 1</h3>
+                  </div>
+                  <div style="display: grid; gap: var(--spacing-md); margin-bottom: var(--spacing-lg);">
+                    <div>
+                      <label data-i18n="evento.form.child-name">Nome da Criança</label>
+                      <input type="text" class="child-name" placeholder="Nome da criança" required>
+                    </div>
+                    <div>
+                      <label data-i18n="evento.form.child-age">Idade da Criança</label>
+                      <select class="child-age" required>
+                        <option value="">Seleciona a idade</option>
+                        <option value="5">5 anos</option>
+                        <option value="6">6 anos</option>
+                        <option value="7">7 anos</option>
+                        <option value="8">8 anos</option>
+                        <option value="9">9 anos</option>
+                        <option value="10">10 anos</option>
+                        <option value="11">11 anos</option>
+                        <option value="12">12 anos</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Add Another Child Button -->
+              <button type="button" id="add-child-btn" class="btn" style="background: var(--color-white); color: var(--color-black); margin-bottom: var(--spacing-lg); width: 100%;" data-i18n="evento.form.add-child">+ Adicionar Outra Criança</button>
+
+              <label for="observacoes" data-i18n="evento.form.notes">Observações (opcional)</label>
+              <textarea id="observacoes" name="observacoes" placeholder="Informações relevantes sobre a criança"></textarea>
+
+              <div style="margin: 0.75rem 0">
+                <label><input type="checkbox" name="consentimento" required> <span data-i18n="evento.form.consent">Li e aceito o tratamento dos meus dados para efeitos de inscrição e comunicação relacionada com este evento.</span></label>
+              </div>
+
+              <button class="btn btn--hero" type="submit" data-i18n="evento.form.submit">Garantir Vaga Grátis</button>
+              <p class="notice" id="inscricao-error" style="display:none;color:#b00020; margin-top: 1rem;"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Participate Section -->
+    <section class="section">
+      <div class="wrap">
+        <h2 style="text-align: center; margin-bottom: var(--spacing-xl); font-family: var(--font-heading); font-size: 2rem; text-transform: uppercase;" data-i18n="evento.benefits.title">Porquê Participar?</h2>
+        <div class="grid grid--3">
+          <div class="benefit-card">
+            <span class="benefit-card__icon">👨‍👩‍👧‍👦</span>
+            <h3 class="benefit-card__title" data-i18n="evento.benefits.card1.title">Pais Treinam, Filhos Divertem-se</h3>
+            <p class="benefit-card__desc" data-i18n="evento.benefits.card1.desc">Acesso ao ginásio para os pais durante a aula</p>
+          </div>
+          <div class="benefit-card">
+            <span class="benefit-card__icon">💪</span>
+            <h3 class="benefit-card__title" data-i18n="evento.benefits.card2.title">Desenvolvimento Motor</h3>
+            <p class="benefit-card__desc" data-i18n="evento.benefits.card2.desc">Aulas guiadas de 'BeWater Warriors' (Artes Marciais + Funcional)</p>
+          </div>
+          <div class="benefit-card">
+            <span class="benefit-card__icon">🎁</span>
+            <h3 class="benefit-card__title" data-i18n="evento.benefits.card3.title">Oferta de Lançamento</h3>
+            <p class="benefit-card__desc" data-i18n="evento.benefits.card3.desc">Aula experimental 100% gratuita</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="section">
+      <div class="wrap">
+        <div class="cta-section">
+          <p class="cta-section__text" data-i18n="evento.final-cta.text">As vagas são limitadas a 15 crianças.</p>
+          <a class="btn btn--hero" href="#inscricao" data-i18n="evento.final-cta.button">Quero Inscrever o meu Filho</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="mapa" class="section">
+      <div class="wrap card" style="padding:0">
+        <div class="contact__map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.8374567890123!2d-9.1567!3d38.7223!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1934a1c3c1c1c1%3A0x1c1c1c1c1c1c1c1c!2sAv.%20do%20Brasil%207%2C%20Lisboa!5e0!3m2!1spt-PT!2spt!4v1647123456789!5m2!1spt-PT!2spt" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" title="Mapa da localização do BE WATER - Av. do Brasil 7, Lisboa"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap" style="text-align: center;">
+        <a href="../../index.html#events" class="btn btn--hero" style="font-size: 1.25rem; padding: 1.25rem 2.5rem; display: inline-block; text-decoration: none;" data-i18n="evento.back">← Voltar aos Eventos</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Translations for BeWater Kids Open Day Event
+    const translations = {
+      pt: {
+        'evento.eyebrow': 'Evento Especial',
+        'evento.title': 'Sábados em Família no BeWater',
+        'evento.date': 'ESTE SÁBADO',
+        'evento.subtitle': 'Enquanto tu treinas, eles crescem. A solução perfeita para as tuas manhãs de sábado.',
+        'evento.cta': 'Garantir Vaga Grátis',
+        'evento.plan.title': 'Detalhes do Evento',
+        'evento.plan.dateinfo': 'Este Sábado',
+        'evento.plan.maps': 'ver Google Maps',
+        'evento.plan.free': 'Gratuito',
+        'evento.plan.schedule1': 'Aula BeWater Warriors para crianças (5-12 anos)',
+        'evento.plan.schedule2': 'Aula BE WATER para os pais (adultos)',
+        'evento.plan.target': 'Crianças dos 5 aos 12 anos',
+        'evento.form.age-notice': '<strong>Idades:</strong> Recomendado dos 7 aos 11 anos, mas crianças mais novas (a partir dos 5 anos) são bem-vindas se demonstrarem interesse e capacidade de seguir instruções básicas.',
+        'evento.form.child-number': 'Criança',
+        'evento.form.add-child': '+ Adicionar Outra Criança',
+        'evento.form.remove-child': 'Remover',
+        'evento.plan.freeevent': 'Aula experimental 100% gratuita',
+        'evento.plan.limited': 'Vagas limitadas a 15 crianças.',
+        'evento.form.title': 'Inscrição',
+        'evento.form.parent-name': 'Nome do Pai/Mãe',
+        'evento.form.email': 'Email',
+        'evento.form.phone': 'Telemóvel',
+        'evento.form.child-name': 'Nome da Criança',
+        'evento.form.child-age': 'Idade da Criança',
+        'evento.form.notes': 'Observações (opcional)',
+        'evento.form.consent': 'Li e aceito o tratamento dos meus dados para efeitos de inscrição e comunicação relacionada com este evento.',
+        'evento.form.submit': 'Garantir Vaga Grátis',
+        'evento.benefits.title': 'Porquê Participar?',
+        'evento.benefits.card1.title': 'Pais Treinam, Filhos Divertem-se',
+        'evento.benefits.card1.desc': 'Acesso ao ginásio para os pais durante a aula',
+        'evento.benefits.card2.title': 'Desenvolvimento Motor',
+        'evento.benefits.card2.desc': 'Aulas guiadas de \'BeWater Warriors\' (Artes Marciais + Funcional)',
+        'evento.benefits.card3.title': 'Oferta de Lançamento',
+        'evento.benefits.card3.desc': 'Aula experimental 100% gratuita',
+        'evento.final-cta.text': 'As vagas são limitadas a 15 crianças.',
+        'evento.final-cta.button': 'Quero Inscrever os meus Filhos',
+        'evento.back': '← Voltar aos Eventos',
+        'evento.back.short': '← Voltar'
+      },
+      en: {
+        'evento.eyebrow': 'Special Event',
+        'evento.title': 'Family Saturdays at BeWater',
+        'evento.date': 'THIS SATURDAY',
+        'evento.subtitle': 'While you train, they grow. The perfect solution for your Saturday mornings.',
+        'evento.cta': 'Secure Free Spot',
+        'evento.plan.title': 'Event Details',
+        'evento.plan.dateinfo': 'This Saturday',
+        'evento.plan.maps': 'view Google Maps',
+        'evento.plan.free': 'Free',
+        'evento.plan.schedule1': 'BeWater Warriors class for children (ages 5-12)',
+        'evento.plan.schedule2': 'BE WATER class for parents (adults)',
+        'evento.plan.target': 'Children ages 5-12',
+        'evento.form.age-notice': '<strong>Ages:</strong> Recommended for ages 7-11, but younger children (from 5 years old) are welcome if they show interest and ability to follow basic instructions.',
+        'evento.form.child-number': 'Child',
+        'evento.form.add-child': '+ Add Another Child',
+        'evento.form.remove-child': 'Remove',
+        'evento.plan.freeevent': '100% free trial class',
+        'evento.plan.limited': 'Limited to 15 children.',
+        'evento.form.title': 'Registration',
+        'evento.form.parent-name': 'Parent Name',
+        'evento.form.email': 'Email',
+        'evento.form.phone': 'Phone',
+        'evento.form.child-name': 'Child Name',
+        'evento.form.child-age': 'Child Age',
+        'evento.form.notes': 'Notes (optional)',
+        'evento.form.consent': 'I have read and accept the processing of my data for registration and communication related to this event.',
+        'evento.form.submit': 'Secure Free Spot',
+        'evento.benefits.title': 'Why Participate?',
+        'evento.benefits.card1.title': 'Parents Train, Kids Have Fun',
+        'evento.benefits.card1.desc': 'Gym access for parents during the class',
+        'evento.benefits.card2.title': 'Motor Development',
+        'evento.benefits.card2.desc': 'Guided \'BeWater Warriors\' classes (Martial Arts + Functional)',
+        'evento.benefits.card3.title': 'Launch Offer',
+        'evento.benefits.card3.desc': '100% free trial class',
+        'evento.final-cta.text': 'Spots are limited to 15 children.',
+        'evento.final-cta.button': 'I Want to Register My Children',
+        'evento.back': '← Back to Events',
+        'evento.back.short': '← Back'
+      }
+    };
+
+    let currentLang = 'pt';
+    let childIndex = 1;
+
+    // Update child numbers function
+    function updateChildNumbers() {
+      const entries = document.querySelectorAll('.child-entry');
+      entries.forEach((entry, index) => {
+        const h3 = entry.querySelector('h3');
+        const childLabel = currentLang === 'pt' ? `Criança ${index + 1}` : `Child ${index + 1}`;
+        if (h3) h3.textContent = childLabel;
+      });
+    }
+
+    // Make removeChildEntry globally available
+    window.removeChildEntry = function(btn) {
+      const entry = btn.closest('.child-entry');
+      const container = document.getElementById('children-container');
+      const entries = container.querySelectorAll('.child-entry');
+      
+      // Don't allow removing if only one child remains
+      if (entries.length <= 1) {
+        return;
+      }
+      
+      entry.remove();
+      
+      // Update child numbers
+      updateChildNumbers();
+    };
+
+    function switchLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      
+      // Update all elements with data-i18n
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          element.innerHTML = translations[lang][key];
+        }
+      });
+
+      // Update active button
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+
+      // Update child numbers
+      updateChildNumbers();
+
+      // Save preference
+      localStorage.setItem('evento-lang', lang);
+    }
+
+    // Event listeners for language buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        switchLanguage(this.getAttribute('data-lang'));
+      });
+    });
+
+    // Load saved language preference or default to PT
+    const savedLang = localStorage.getItem('evento-lang') || 'pt';
+    if (savedLang !== 'pt') {
+      switchLanguage(savedLang);
+    } else {
+      // Initialize child numbers on page load
+      updateChildNumbers();
+    }
+
+    function addChildEntry() {
+      const container = document.getElementById('children-container');
+      const newEntry = document.createElement('div');
+      newEntry.className = 'child-entry';
+      newEntry.setAttribute('data-child-index', childIndex);
+      
+      const childNumber = childIndex + 1;
+      const childLabel = currentLang === 'pt' ? `Criança ${childNumber}` : `Child ${childNumber}`;
+      
+      newEntry.innerHTML = `
+        <button type="button" class="remove-child-btn" onclick="removeChildEntry(this)" aria-label="${currentLang === 'pt' ? 'Remover criança' : 'Remove child'}">×</button>
+        <div style="display: flex; align-items: center; gap: var(--spacing-md); margin-bottom: var(--spacing-md);">
+          <h3 style="margin: 0; font-family: var(--font-heading); font-size: 1rem; text-transform: uppercase;">${childLabel}</h3>
+        </div>
+        <div style="display: grid; gap: var(--spacing-md); margin-bottom: var(--spacing-lg);">
+          <div>
+            <label data-i18n="evento.form.child-name">Nome da Criança</label>
+            <input type="text" class="child-name" placeholder="Nome da criança" required>
+          </div>
+          <div>
+            <label data-i18n="evento.form.child-age">Idade da Criança</label>
+            <select class="child-age" required>
+              <option value="">Seleciona a idade</option>
+              <option value="5">5 anos</option>
+              <option value="6">6 anos</option>
+              <option value="7">7 anos</option>
+              <option value="8">8 anos</option>
+              <option value="9">9 anos</option>
+              <option value="10">10 anos</option>
+              <option value="11">11 anos</option>
+              <option value="12">12 anos</option>
+            </select>
+          </div>
+        </div>
+      `;
+      
+      container.appendChild(newEntry);
+      childIndex++;
+      
+      // Update child numbers after DOM update
+      setTimeout(() => {
+        updateChildNumbers();
+        
+        // Update translations for new entry
+        if (typeof switchLanguage === 'function') {
+          switchLanguage(currentLang);
+        }
+      }, 0);
+    }
+
+    // Form submission handler for Formspark
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('inscricao-form');
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const errorMsg = document.getElementById('inscricao-error');
+      const addChildBtn = document.getElementById('add-child-btn');
+      
+      // Add child button handler
+      if (addChildBtn) {
+        addChildBtn.addEventListener('click', addChildEntry);
+      }
+      
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Reset error messages
+        errorMsg.style.display = 'none';
+        
+        // Get form data
+        const formData = new FormData(form);
+        const nome = formData.get('nome');
+        const email = formData.get('email');
+        const telemovel = formData.get('telemovel');
+        const observacoes = formData.get('observacoes') || '';
+        const consentimento = formData.get('consentimento');
+        
+        // Collect all children
+        const children = [];
+        const childEntries = document.querySelectorAll('.child-entry');
+        
+        childEntries.forEach((entry, index) => {
+          const nameInput = entry.querySelector('.child-name');
+          const ageSelect = entry.querySelector('.child-age');
+          
+          if (nameInput && ageSelect) {
+            const childName = nameInput.value.trim();
+            const childAge = ageSelect.value;
+            
+            if (childName && childAge) {
+              children.push({
+                nome: childName,
+                idade: childAge
+              });
+            }
+          }
+        });
+        
+        // Validate at least one child
+        if (children.length === 0) {
+          errorMsg.textContent = currentLang === 'pt' ? 'Precisas de adicionar pelo menos uma criança.' : 'You must add at least one child.';
+          errorMsg.style.display = 'block';
+          return;
+        }
+        
+        // Validate consent
+        if (!consentimento) {
+          errorMsg.textContent = currentLang === 'pt' ? 'Precisas de aceitar o tratamento de dados.' : 'You must accept data processing.';
+          errorMsg.style.display = 'block';
+          return;
+        }
+
+        // Validate phone format (Portuguese mobile: 9XXXXXXXX)
+        if (!/^9[1236]\d{7}$/.test(telemovel)) {
+          errorMsg.textContent = currentLang === 'pt' ? 'Número de telemóvel inválido (formato: 9XXXXXXXX)' : 'Invalid phone number (format: 9XXXXXXXX)';
+          errorMsg.style.display = 'block';
+          return;
+        }
+        
+        // Disable submit button
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = currentLang === 'pt' ? 'A enviar...' : 'Sending...';
+        
+        try {
+          // Format children data for Formspark
+          const childrenText = children.map((c, i) => `${i + 1}. ${c.nome} (${c.idade} anos)`).join(' | ');
+          
+          const response = await fetch('https://submit-form.com/VWeqgDqZu', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              event_name: 'BeWater Kids - Open Day',
+              _email: {
+                subject: 'Inscrição BeWater Kids - Open Day - BE WATER'
+              },
+              nome: nome,
+              email: email,
+              telemovel: telemovel,
+              numero_criancas: children.length.toString(),
+              criancas: childrenText,
+              detalhes_criancas: JSON.stringify(children),
+              observacoes: observacoes,
+              data_inscricao: new Date().toLocaleString('pt-PT')
+            })
+          });
+          
+          if (!response.ok) {
+            throw new Error('Erro no envio');
+          }
+          
+          // Success - show message and reset form
+          form.innerHTML = `
+            <div style="text-align: center; padding: 2rem; background: #e8f5e9; border: 4px solid #4caf50; box-shadow: 8px 8px 0 #4caf50;">
+              <h3 style="color: #2e7d32; margin-bottom: 1rem; font-family: var(--font-heading); font-size: 1.5rem; text-transform: uppercase;">✅ ${currentLang === 'pt' ? 'Inscrição Recebida!' : 'Registration Received!'}</h3>
+              <p style="margin-bottom: 1rem; font-weight: 700;">${currentLang === 'pt' ? 'Obrigado pelo interesse. Receberás um email de confirmação em breve.' : 'Thank you for your interest. You will receive a confirmation email shortly.'}</p>
+              <p><strong>BE WATER, MY FRIEND.</strong></p>
+            </div>
+          `;
+          
+        } catch (error) {
+          console.error('Erro ao submeter form:', error);
+          errorMsg.textContent = currentLang === 'pt' ? 'Ocorreu um erro ao enviar. Tenta novamente.' : 'An error occurred. Please try again.';
+          errorMsg.style.display = 'block';
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
+      });
+    });
+
+    // Auto-format phone number
+    document.getElementById('tel').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length > 9) value = value.slice(0, 9);
+      e.target.value = value;
+    });
+  </script>
+</body>
+</html>
+
