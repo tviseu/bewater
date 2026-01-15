@@ -41,6 +41,7 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
     'RED_BULL_001': { nome: 'Red Bull', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'YOPRO_001': { nome: 'YoPro Iogurte Proteico', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'MILBONA_001': { nome: 'Milbona - Iogurte Proteico (35g proteína)', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'MIMOSA_001': { nome: 'Mimosa - Iogurte Proteico', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'DROP_IN_001': { nome: 'Drop In (Aula avulso)', iva: 0, categoria: 'Serviços', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'DONATIVO_001': { nome: 'Donativo BE WATER', iva: 0, categoria: 'Donativos', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'EVENTO_SAOMARTINHO_001': { nome: 'Inscrição Evento São Martinho', iva: 0, categoria: 'Eventos', tax_exempt_reason: 'Artigo 53º do CIVA' },
@@ -240,6 +241,7 @@ exports.handler = async (event, context) => {
       'RED_BULL_001': { nome: 'Red Bull', preco: 2.50 },
       'YOPRO_001': { nome: 'YoPro Iogurte Proteico', preco: 2.60 },
       'MILBONA_001': { nome: 'Milbona - Iogurte Proteico (35g proteína)', preco: 2.20 },
+      'MIMOSA_001': { nome: 'Mimosa - Iogurte Proteico', preco: 2.50 },
       'DROP_IN_001': { nome: 'Drop In (Aula avulso)', preco: 15.00 },
       'DONATIVO_001': { nome: 'Donativo - Salvem os Músculos Abandonados', preco: 5.00 },
       // Novos produtos físicos
