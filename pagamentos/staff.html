@@ -957,6 +957,53 @@ Tem a certeza que deseja continuar?`;
             }
         }
 
+        // Apagar um pagamento pendente individual
+        async function deletePendingPayment(paymentId) {
+            const payment = payments.find(p => p.id === paymentId);
+            if (!payment) {
+                alert('❌ Pagamento não encontrado!');
+                return;
+            }
+
+            if (payment.status !== 'pending') {
+                alert('⚠️ Apenas pagamentos pendentes podem ser apagados individualmente.');
+                return;
+            }
+
+            const confirmMessage = `🗑️ APAGAR PAGAMENTO PENDENTE\n\n` +
+                `Produto: ${payment.produto}\n` +
+                `Valor: €${payment.valor.toFixed(2)}\n` +
+                `Cliente: ${payment.nome || 'N/A'}\n\n` +
+                `Tem a certeza que deseja apagar este pagamento?`;
+
+            if (!confirm(confirmMessage)) return;
+
+            try {
+                console.log(`🗑️ Apagando pagamento pendente: ${paymentId}`);
+                
+                const url = `/.netlify/functions/payment-webhook?id=${paymentId}`;
+                const response = await fetch(url, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    console.log('✅ Pagamento apagado com sucesso');
+                    // Recarregar pagamentos
+                    await loadPayments();
+                } else {
+                    throw new Error(result.message || 'Erro ao apagar pagamento');
+                }
+            } catch (error) {
+                console.error('❌ Erro ao apagar pagamento:', error);
+                alert(`❌ ERRO ao apagar pagamento:\n\n${error.message}`);
+            }
+        }
+
         // Carregar pagamentos
         async function loadPayments() {
             try {
@@ -1170,6 +1217,12 @@ Tem a certeza que deseja continuar?`;
                                 <div class="payment-status pending">
                                     ⏳ PENDENTE
                                 </div>
+                                <button class="action-btn" 
+                                    onclick="deletePendingPayment('${payment.id}')"
+                                    style="background: #dc3545; color: white; border-color: #000;"
+                                    title="Apagar este pagamento">
+                                    🗑️ Apagar
+                                </button>
                             </div>
                         </div>
                     `;

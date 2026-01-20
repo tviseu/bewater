@@ -72,7 +72,7 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
 
   // Payload para Vendus API (estrutura FINAL conforme documentação oficial)
   const faturaPayload = {
-    type: 'FT', // Fatura (códigos aceites: FT, FS, FR, NC, DC, PF, OT, EC, GA, GT, GR, GD, RG)
+    type: 'FR', // Fatura-Recibo (FR) para ficar logo liquidada
     client: {
       name: nomeCliente,
       fiscal_id: dadosCliente.nif || null, // era 'vat' → agora 'fiscal_id'
@@ -85,6 +85,10 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
       qty: 1, // era 'quantity' → agora 'qty'
       tax_exemption: true, // Produto isento de IVA
       tax_exemption_law: 'Artigo 53º do CIVA' // Lei de isenção específica
+    }],
+    payments: [{
+      id: 267103542, // MB WAY (ID verificado no backoffice: 267103542)
+      amount: dadosProduto.preco
     }],
     notes: `Pagamento MBWay - Ref: ${dadosPagamento.reference || dadosPagamento.transactionID}`,
     external_reference: dadosPagamento.reference || dadosPagamento.transactionID,

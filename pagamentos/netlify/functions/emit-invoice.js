@@ -77,8 +77,9 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
   const nomeCliente = dadosCliente.nome || "Consumidor Final";
 
   // Payload para Vendus API (estrutura FINAL conforme documentação oficial)
+  const totalAmount = items.reduce((sum, item) => sum + (item.gross_price * item.qty), 0);
   const faturaPayload = {
-    type: 'FT',
+    type: 'FR',
     client: {
       name: nomeCliente,
       fiscal_id: dadosCliente.nif || null,
@@ -86,6 +87,10 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
       address: "Lisboa"
     },
     items: items,
+    payments: [{
+      id: 267103542, // MB WAY (ID verificado no backoffice: 267103542)
+      amount: totalAmount
+    }],
     notes: `Pagamento MBWay - Ref: ${dadosPagamento.reference || dadosPagamento.transactionID}${isMultiProduct ? ` (${items.length} produtos)` : ''}`,
     external_reference: dadosPagamento.reference || dadosPagamento.transactionID,
     date: new Date().toISOString().split('T')[0]

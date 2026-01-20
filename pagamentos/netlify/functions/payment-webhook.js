@@ -213,121 +213,172 @@ exports.handler = async (event, context) => {
     }
   }
 
-  // DELETE: Limpar todos os pagamentos pendentes (chamado pelo staff.html)
-  if (event.httpMethod === 'DELETE' && event.path.includes('clear-pending')) {
+  // DELETE: Limpar pagamentos (todos os pendentes de um mês OU um específico por ID)
+  if (event.httpMethod === 'DELETE') {
     try {
-      console.log('🗑️ Requisição para limpar pagamentos pendentes recebida');
+      const { month, year, id } = event.queryStringParameters || {};
       
-      // Extrair mês e ano dos query parameters (se existirem)
-      const { month, year } = event.queryStringParameters || {};
-      const hasDateFilter = month && year;
-      
-      if (hasDateFilter) {
-          console.log(`📅 Filtro de data detetado: Mês ${month}, Ano ${year}`);
-      } else {
-          console.log('📅 Sem filtro de data - limpando TODOS os pendentes');
-      }
-
-      if (supabase) {
-        // Primeiro, contar quantos pendentes existem
-        let countQuery = supabase
-          .from('payments')
-          .select('id', { count: 'exact', head: false })
-          .eq('status', 'pending');
-          
-        // Aplicar filtro de data se fornecido
-        if (hasDateFilter) {
-            const startOfMonth = new Date(Date.UTC(year, month - 1, 1));
-            const startOfNextMonth = new Date(Date.UTC(year, month, 1));
+      // CASO 1: Eliminar um pagamento específico por ID
+      if (id) {
+        console.log(`🗑️ Requisição para apagar pagamento específico: ${id}`);
+        
+        if (supabase) {
+          const { data, error } = await supabase
+            .from('payments')
+            .delete()
+            .eq('id', id)
+            .select();
             
-            countQuery = countQuery
-                .gte('timestamp', startOfMonth.toISOString())
-                .lt('timestamp', startOfNextMonth.toISOString());
-        }
-        
-        const { data: countData, error: countError } = await countQuery;
-        
-        if (countError) {
-          console.error('❌ Erro ao contar pendentes:', countError);
-          throw countError;
-        }
-        
-        const pendingCount = countData ? countData.length : 0;
-        console.log(`📊 ${pendingCount} pagamento(s) pendente(s) encontrado(s)`);
-        
-        if (pendingCount === 0) {
+          if (error) {
+            console.error('❌ Erro ao apagar pagamento:', error);
+            throw error;
+          }
+          
+          const deletedCount = data ? data.length : 0;
+          console.log(`✅ ${deletedCount} pagamento(s) apagado(s) com ID: ${id}`);
+          
           return {
             statusCode: 200,
             headers,
             body: JSON.stringify({
               success: true,
-              deleted_count: 0,
-              message: 'Nenhum pagamento pendente para limpar'
+              deleted_count: deletedCount,
+              message: `Pagamento ${id} foi apagado com sucesso`
+            })
+          };
+        } else {
+          const deleted = paymentsDB.delete(id);
+          return {
+            statusCode: 200,
+            headers,
+            body: JSON.stringify({
+              success: true,
+              deleted_count: deleted ? 1 : 0,
+              message: `Pagamento ${id} foi apagado com sucesso (memória)`
             })
           };
         }
+      }
+
+      // CASO 2: Limpar todos os pendentes (com ou sem filtro de data)
+      if (event.path.includes('clear-pending')) {
+        console.log('🗑️ Requisição para limpar pagamentos pendentes recebida');
         
-        // Apagar pagamentos pendentes (com filtro se aplicável)
-        let deleteQuery = supabase
-          .from('payments')
-          .delete()
-          .eq('status', 'pending');
-          
+        const hasDateFilter = month && year;
+        
         if (hasDateFilter) {
-            const startOfMonth = new Date(Date.UTC(year, month - 1, 1));
-            const startOfNextMonth = new Date(Date.UTC(year, month, 1));
-            
-            deleteQuery = deleteQuery
-                .gte('timestamp', startOfMonth.toISOString())
-                .lt('timestamp', startOfNextMonth.toISOString());
+            console.log(`📅 Filtro de data detetado: Mês ${month}, Ano ${year}`);
+        } else {
+            console.log('📅 Sem filtro de data - limpando TODOS os pendentes');
         }
 
-        const { data: deleteData, error: deleteError } = await deleteQuery.select();
-        
-        if (deleteError) {
-          console.error('❌ Erro ao apagar pendentes:', deleteError);
-          throw deleteError;
-        }
-        
-        const deletedCount = deleteData ? deleteData.length : 0;
-        console.log(`✅ ${deletedCount} pagamento(s) pendente(s) apagado(s) com sucesso`);
-        
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify({
-            success: true,
-            deleted_count: deletedCount,
-            message: `${deletedCount} pagamento(s) pendente(s) foram apagados com sucesso`
-          })
-        };
-        
-      } else {
-        // Fallback para Map em memória
-        let deletedCount = 0;
-        const idsToDelete = [];
-        
-        for (const [id, payment] of paymentsDB.entries()) {
-          if (payment.status === 'pending') {
-            idsToDelete.push(id);
-            deletedCount++;
+        if (supabase) {
+          // Primeiro, contar quantos pendentes existem
+          let countQuery = supabase
+            .from('payments')
+            .select('id', { count: 'exact', head: false })
+            .eq('status', 'pending');
+            
+          // Aplicar filtro de data se fornecido
+          if (hasDateFilter) {
+              const startOfMonth = new Date(Date.UTC(year, month - 1, 1));
+              const startOfNextMonth = new Date(Date.UTC(year, month, 1));
+              
+              countQuery = countQuery
+                  .gte('timestamp', startOfMonth.toISOString())
+                  .lt('timestamp', startOfNextMonth.toISOString());
           }
+          
+          const { data: countData, error: countError } = await countQuery;
+          
+          if (countError) {
+            console.error('❌ Erro ao contar pendentes:', countError);
+            throw countError;
+          }
+          
+          const pendingCount = countData ? countData.length : 0;
+          console.log(`📊 ${pendingCount} pagamento(s) pendente(s) encontrado(s)`);
+          
+          if (pendingCount === 0) {
+            return {
+              statusCode: 200,
+              headers,
+              body: JSON.stringify({
+                success: true,
+                deleted_count: 0,
+                message: 'Nenhum pagamento pendente para limpar'
+              })
+            };
+          }
+          
+          // Apagar pagamentos pendentes (com filtro se aplicável)
+          let deleteQuery = supabase
+            .from('payments')
+            .delete()
+            .eq('status', 'pending');
+            
+          if (hasDateFilter) {
+              const startOfMonth = new Date(Date.UTC(year, month - 1, 1));
+              const startOfNextMonth = new Date(Date.UTC(year, month, 1));
+              
+              deleteQuery = deleteQuery
+                  .gte('timestamp', startOfMonth.toISOString())
+                  .lt('timestamp', startOfNextMonth.toISOString());
+          }
+
+          const { data: deleteData, error: deleteError } = await deleteQuery.select();
+          
+          if (deleteError) {
+            console.error('❌ Erro ao apagar pendentes:', deleteError);
+            throw deleteError;
+          }
+          
+          const deletedCount = deleteData ? deleteData.length : 0;
+          console.log(`✅ ${deletedCount} pagamento(s) pendente(s) apagado(s) com sucesso`);
+          
+          return {
+            statusCode: 200,
+            headers,
+            body: JSON.stringify({
+              success: true,
+              deleted_count: deletedCount,
+              message: `${deletedCount} pagamento(s) pendente(s) foram apagados com sucesso`
+            })
+          };
+          
+        } else {
+          // Fallback para Map em memória
+          let deletedCount = 0;
+          const idsToDelete = [];
+          
+          for (const [id, payment] of paymentsDB.entries()) {
+            if (payment.status === 'pending') {
+              idsToDelete.push(id);
+              deletedCount++;
+            }
+          }
+          
+          idsToDelete.forEach(id => paymentsDB.delete(id));
+          
+          console.log(`✅ ${deletedCount} pagamento(s) pendente(s) apagado(s) da memória`);
+          
+          return {
+            statusCode: 200,
+            headers,
+            body: JSON.stringify({
+              success: true,
+              deleted_count: deletedCount,
+              message: `${deletedCount} pagamento(s) pendente(s) foram apagados com sucesso (memória)`
+            })
+          };
         }
-        
-        idsToDelete.forEach(id => paymentsDB.delete(id));
-        
-        console.log(`✅ ${deletedCount} pagamento(s) pendente(s) apagado(s) da memória`);
-        
-        return {
-          statusCode: 200,
-          headers,
-          body: JSON.stringify({
-            success: true,
-            deleted_count: deletedCount,
-            message: `${deletedCount} pagamento(s) pendente(s) foram apagados com sucesso (memória)`
-          })
-        };
       }
+      
+      return {
+        statusCode: 400,
+        headers,
+        body: JSON.stringify({ success: false, message: 'Parâmetros de eliminação inválidos' })
+      };
       
     } catch (error) {
       console.error('❌ Erro no DELETE:', error.message);
@@ -336,7 +387,7 @@ exports.handler = async (event, context) => {
         headers,
         body: JSON.stringify({
           success: false,
-          message: 'Erro ao limpar pagamentos pendentes: ' + error.message
+          message: 'Erro ao apagar pagamentos: ' + error.message
         })
       };
     }
