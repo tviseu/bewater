@@ -1024,7 +1024,7 @@
                 const data = await response.json();
                 
                 if (data.success) {
-                    ptSessions = data.sessions;
+                    ptSessions = data.sessions || [];
                     renderPtSessions();
                     updatePtStats();
                 }
@@ -1210,16 +1210,14 @@
         // --- FIM GESTÃO DE PTs ---
 
         // Função para mudar o mês
-        function changeMonth(delta) {
+        async function changeMonth(delta) {
             currentFilterMonth.setMonth(currentFilterMonth.getMonth() + delta);
             updateMonthDisplay();
-            renderPayments();
-            updateStats();
             
-            // Se a tab de PTs estiver ativa, recarregar sessões
-            if (document.getElementById('ptsTab').classList.contains('active')) {
-                loadPtSessions();
-            }
+            // Carregar dados de forma sequencial para garantir que os totais globais 
+            // no topo são calculados com a informação mais recente de ambos
+            await loadPayments();
+            await loadPtSessions();
         }
 
         // Atualizar display do mês
