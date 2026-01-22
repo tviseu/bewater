@@ -552,6 +552,43 @@
             z-index: 10;
         }
 
+        /* Cores Diferentes para PTs */
+        #ptsTab {
+            background: #f0f7ff;
+            border-color: #000;
+        }
+
+        #ptsTab.active {
+            background: #007bff;
+            color: #ffffff;
+            box-shadow: 0px 4px 0px #000000;
+        }
+
+        #ptsTab:hover:not(.active) {
+            background: #d0e7ff;
+        }
+
+        /* Layout de Abas em Duas Linhas se necessário */
+        .tabs-header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+            border-bottom: 4px solid #000000;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 600px) {
+            .tab-button {
+                flex: none;
+                width: 50%;
+            }
+            #ptsTab {
+                width: 100%;
+                border-top: 4px solid #000;
+                margin-top: -4px;
+            }
+        }
+
         .tab-button .badge {
             display: inline-block;
             margin-left: 8px;
@@ -761,15 +798,17 @@
             <!-- TABS NAVIGATION -->
             <div class="tabs-container">
                 <div class="tabs-header">
-                    <button class="tab-button active" onclick="switchTab('confirmed')" id="confirmedTab">
-                        ✅ Pagamentos Confirmados
-                        <span class="badge" id="confirmedCount">0</span>
-                    </button>
-                    <button class="tab-button" onclick="switchTab('pending')" id="pendingTab">
-                        ⏳ Pagamentos Pendentes
-                        <span class="badge" id="pendingCount">0</span>
-                    </button>
-                    <button class="tab-button" onclick="switchTab('pts')" id="ptsTab">
+                    <div style="display: flex; flex: 2; min-width: 300px;">
+                        <button class="tab-button active" onclick="switchTab('confirmed')" id="confirmedTab" style="border-right: 2px solid #000;">
+                            ✅ Confirmados
+                            <span class="badge" id="confirmedCount">0</span>
+                        </button>
+                        <button class="tab-button" onclick="switchTab('pending')" id="pendingTab">
+                            ⏳ Pendentes
+                            <span class="badge" id="pendingCount">0</span>
+                        </button>
+                    </div>
+                    <button class="tab-button" onclick="switchTab('pts')" id="ptsTab" style="flex: 1; border-left: 4px solid #000;">
                         🏋️ Gestão de PTs
                     </button>
                 </div>
@@ -1044,7 +1083,11 @@
             // Update Coach Summary
             const coachStats = ptSessions.reduce((acc, s) => {
                 const coachName = s.pt_coaches?.name || 'Desconhecido';
-                acc[coachName] = (acc[coachName] || 0) + 1;
+                if (!acc[coachName]) {
+                    acc[coachName] = { count: 0, revenue: 0 };
+                }
+                acc[coachName].count += 1;
+                acc[coachName].revenue += parseFloat(s.gym_fee);
                 return acc;
             }, {});
 
@@ -1054,11 +1097,12 @@
             if (ptSessions.length > 0) {
                 coachSummaryDiv.style.display = 'block';
                 coachStatsList.innerHTML = Object.entries(coachStats)
-                    .sort((a, b) => b[1] - a[1])
-                    .map(([name, count]) => `
-                        <div style="background: #333; padding: 10px; border: 1px solid #FFD700;">
-                            <div style="font-size: 0.8rem; opacity: 0.8;">${name}</div>
-                            <div style="font-weight: 900; font-size: 1.2rem; color: #FFD700;">${count} PTs</div>
+                    .sort((a, b) => b[1].revenue - a[1].revenue)
+                    .map(([name, data]) => `
+                        <div style="background: #333; padding: 10px; border: 1px solid #FFD700; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                            <div style="font-size: 0.85rem; font-weight: bold; color: #fff; margin-bottom: 5px;">${name}</div>
+                            <div style="font-weight: 900; font-size: 1.4rem; color: #FFD700;">€${data.revenue.toFixed(2)}</div>
+                            <div style="font-size: 0.75rem; opacity: 0.8; color: #fff;">${data.count} sessões</div>
                         </div>
                     `).join('');
             } else {
