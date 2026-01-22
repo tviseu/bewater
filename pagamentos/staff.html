@@ -667,6 +667,9 @@
                         ⏳ Pagamentos Pendentes
                         <span class="badge" id="pendingCount">0</span>
                     </button>
+                    <button class="tab-button" onclick="switchTab('pts')" id="ptsTab">
+                        🏋️ Gestão de PTs
+                    </button>
                 </div>
 
                 <!-- TAB CONTENT: CONFIRMADOS -->
@@ -697,6 +700,59 @@
                     </div>
                     <div id="pendingPaymentsList" class="payments-list">
                         <div class="loading">🔄 Carregando pagamentos pendentes...</div>
+                    </div>
+                </div>
+
+                <!-- TAB CONTENT: GESTÃO DE PTs -->
+                <div id="ptsContent" class="tab-content">
+                    <div class="pt-dashboard">
+                        <!-- PT Stats -->
+                        <div class="stats" style="margin-top: 20px;">
+                            <div class="stat-card" style="box-shadow: 8px 8px 0px #28a745;">
+                                <h3>🏋️ Total PTs</h3>
+                                <div class="stat-value" id="ptStatsCount">0</div>
+                            </div>
+                            <div class="stat-card" style="box-shadow: 8px 8px 0px #28a745;">
+                                <h3>💰 Receita Gym</h3>
+                                <div class="stat-value" id="ptStatsTotal">€0</div>
+                            </div>
+                        </div>
+
+                        <!-- Add PT Form -->
+                        <div class="payments-section" style="margin-top: 20px; background: #f8f9fa;">
+                            <h3 class="section-title">Registrar Nova Sessão de PT</h3>
+                            <form id="addPtForm" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; align-items: end;">
+                                <div>
+                                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Treinador</label>
+                                    <select id="ptCoachSelect" required style="width: 100%; padding: 10px; border: 3px solid #000;">
+                                        <option value="">Selecionar...</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Nome do Cliente</label>
+                                    <input type="text" id="ptClientName" required placeholder="Nome do Aluno" style="width: 100%; padding: 10px; border: 3px solid #000;">
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Tipo de PT</label>
+                                    <select id="ptTypeSelect" required style="width: 100%; padding: 10px; border: 3px solid #000;">
+                                        <option value="internal">Interno (15€)</option>
+                                        <option value="external">Externo (10€)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Data e Hora</label>
+                                    <input type="datetime-local" id="ptDate" required style="width: 100%; padding: 10px; border: 3px solid #000;">
+                                </div>
+                                <button type="submit" class="action-btn" style="height: 48px; background: #28a745; color: white;">
+                                    ➕ Adicionar PT
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- PT Sessions List -->
+                        <div id="ptSessionsList" class="payments-list" style="margin-top: 20px;">
+                            <div class="loading">🔄 Carregando sessões de PT...</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -738,8 +794,165 @@
             } else if (tabName === 'pending') {
                 document.getElementById('pendingTab').classList.add('active');
                 document.getElementById('pendingContent').classList.add('active');
+            } else if (tabName === 'pts') {
+                document.getElementById('ptsTab').classList.add('active');
+                document.getElementById('ptsContent').classList.add('active');
+                loadPtInitialData();
+                loadPtSessions();
             }
         }
+
+        // --- GESTÃO DE PTs ---
+        let ptCoaches = [];
+        let ptSettings = {};
+        let ptSessions = [];
+
+        async function loadPtInitialData() {
+            try {
+                const response = await fetch('/.netlify/functions/pt-management?type=initial_data');
+                const data = await response.json();
+                if (data.success) {
+                    ptCoaches = data.coaches;
+                    ptSettings = data.settings.reduce((acc, s) => ({ ...acc, [s.key]: parseFloat(s.value) }), {});
+                    
+                    // Preencher select de coaches
+                    const select = document.getElementById('ptCoachSelect');
+                    const currentValue = select.value;
+                    select.innerHTML = '<option value="">Selecionar...</option>' + 
+                        ptCoaches.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+                    select.value = currentValue;
+                }
+            } catch (error) {
+                console.error('Erro ao carregar dados iniciais de PT:', error);
+            }
+        }
+
+        async function loadPtSessions() {
+            const ptSessionsList = document.getElementById('ptSessionsList');
+            try {
+                const month = currentFilterMonth.getMonth() + 1;
+                const year = currentFilterMonth.getFullYear();
+                const response = await fetch(`/.netlify/functions/pt-management?month=${month}&year=${year}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    ptSessions = data.sessions;
+                    renderPtSessions();
+                    updatePtStats();
+                }
+            } catch (error) {
+                console.error('Erro ao carregar sessões de PT:', error);
+                ptSessionsList.innerHTML = '<div class="loading">❌ Erro ao carregar sessões</div>';
+            }
+        }
+
+        function renderPtSessions() {
+            const ptSessionsList = document.getElementById('ptSessionsList');
+            if (ptSessions.length === 0) {
+                ptSessionsList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🏋️</div>
+                        <div class="empty-state-text">Nenhuma sessão de PT registrada neste mês</div>
+                    </div>
+                `;
+                return;
+            }
+
+            ptSessionsList.innerHTML = ptSessions.map(session => `
+                <div class="payment-card confirmado" style="border-left: 10px solid ${session.type === 'internal' ? '#28a745' : '#007bff'}">
+                    <div class="payment-info">
+                        <div class="payment-produto">
+                            ${session.type === 'internal' ? '🏠 PT Interno' : '🌍 PT Externo'} - ${session.client_name}
+                        </div>
+                        <div class="payment-details">
+                            <div class="detail-line">👤 Coach: <strong>${session.pt_coaches?.name || 'N/A'}</strong></div>
+                            <div class="detail-line">💰 Receita Gym: <strong>€${parseFloat(session.gym_fee).toFixed(2)}</strong></div>
+                            <div class="detail-line">📅 Data: ${formatDateTime(session.timestamp)}</div>
+                        </div>
+                    </div>
+                    <div class="payment-actions">
+                        <button class="action-btn" onclick="deletePtSession('${session.id}')" style="background: #dc3545; color: white;">
+                            🗑️ Apagar
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updatePtStats() {
+            const totalSessions = ptSessions.length;
+            const totalRevenue = ptSessions.reduce((sum, s) => sum + parseFloat(s.gym_fee), 0);
+            
+            document.getElementById('ptStatsCount').textContent = totalSessions;
+            document.getElementById('ptStatsTotal').textContent = `€${totalRevenue.toFixed(2)}`;
+        }
+
+        async function deletePtSession(id) {
+            if (!confirm('Tem a certeza que deseja apagar esta sessão?')) return;
+            
+            try {
+                const response = await fetch(`/.netlify/functions/pt-management?id=${id}`, { method: 'DELETE' });
+                const data = await response.json();
+                if (data.success) {
+                    loadPtSessions();
+                } else {
+                    alert('Erro ao apagar: ' + data.message);
+                }
+            } catch (error) {
+                alert('Erro de conexão ao apagar sessão');
+            }
+        }
+
+        // Event Listener para o formulário
+        document.getElementById('addPtForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerHTML;
+            
+            const formData = {
+                coach_id: document.getElementById('ptCoachSelect').value,
+                client_name: document.getElementById('ptClientName').value,
+                type: document.getElementById('ptTypeSelect').value,
+                timestamp: new Date(document.getElementById('ptDate').value).toISOString()
+            };
+
+            try {
+                btn.disabled = true;
+                btn.innerHTML = '⏳ Gravando...';
+                
+                const response = await fetch('/.netlify/functions/pt-management', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                if (data.success) {
+                    e.target.reset();
+                    setPtDateToNow();
+                    loadPtSessions();
+                } else {
+                    alert('Erro ao gravar: ' + data.message);
+                }
+            } catch (error) {
+                alert('Erro de conexão ao gravar sessão');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        });
+
+        function setPtDateToNow() {
+            const now = new Date();
+            // Ajustar para o fuso horário local para o input datetime-local
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('ptDate').value = now.toISOString().slice(0, 16);
+        }
+
+        // Inicializar data do form para agora
+        setPtDateToNow();
+
+        // --- FIM GESTÃO DE PTs ---
 
         // Função para mudar o mês
         function changeMonth(delta) {
@@ -747,6 +960,11 @@
             updateMonthDisplay();
             renderPayments();
             updateStats();
+            
+            // Se a tab de PTs estiver ativa, recarregar sessões
+            if (document.getElementById('ptsTab').classList.contains('active')) {
+                loadPtSessions();
+            }
         }
 
         // Atualizar display do mês
