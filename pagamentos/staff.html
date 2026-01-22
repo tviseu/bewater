@@ -21,6 +21,73 @@
             box-sizing: border-box;
         }
 
+        /* LOGIN MODAL */
+        #loginOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .login-box {
+            background: #ffffff;
+            padding: 40px;
+            border: 4px solid #000000;
+            box-shadow: 12px 12px 0px #FFD700;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .login-box h2 {
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 900;
+            color: #000;
+            margin-bottom: 20px;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 3px solid #000;
+            font-family: 'Space Mono', monospace;
+            font-size: 1.1rem;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 15px;
+            background: #000;
+            color: #FFD700;
+            border: none;
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 900;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .login-box button:hover {
+            background: #FFD700;
+            color: #000;
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        .login-error {
+            color: #dc3545;
+            margin-bottom: 15px;
+            font-weight: bold;
+            display: none;
+        }
+
         body {
             font-family: 'Space Mono', monospace;
             background: #000000;
@@ -621,6 +688,18 @@
     </style>
 </head>
 <body>
+    <!-- LOGIN OVERLAY -->
+    <div id="loginOverlay" style="display: none;">
+        <div class="login-box">
+            <h2>🔐 Staff Access</h2>
+            <div id="loginError" class="login-error">Password incorreta!</div>
+            <form id="loginForm">
+                <input type="password" id="staffPassword" placeholder="Introduza a password..." required>
+                <button type="submit">ENTRAR</button>
+            </form>
+        </div>
+    </div>
+
     <div class="container">
         <div class="header">
             <h1>💳 BE WATER Staff Dashboard</h1>
@@ -768,6 +847,37 @@
         let currentFilterMonth = new Date(); // Mês atual selecionado
         const today = new Date();
 
+        // --- AUTH HANDLING ---
+        async function checkInitialAuth() {
+            if (!StaffAuth.isAuthenticated()) {
+                document.getElementById('loginOverlay').style.display = 'flex';
+                return false;
+            }
+            return true;
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const pwd = document.getElementById('staffPassword').value;
+            const errorDiv = document.getElementById('loginError');
+            
+            const result = await StaffAuth.login(pwd);
+            if (result.success) {
+                document.getElementById('loginOverlay').style.display = 'none';
+                // Recarregar dados
+                loadPayments();
+                if (document.getElementById('ptsTab').classList.contains('active')) {
+                    loadPtInitialData();
+                    loadPtSessions();
+                }
+            } else {
+                errorDiv.textContent = result.message;
+                errorDiv.style.display = 'block';
+                document.getElementById('staffPassword').value = '';
+            }
+        });
+        // --- END AUTH HANDLING ---
+
         // Elementos DOM
         const paymentsList = document.getElementById('paymentsList');
         const pendingPaymentsList = document.getElementById('pendingPaymentsList');
@@ -808,8 +918,11 @@
         let ptSessions = [];
 
         async function loadPtInitialData() {
+            if (!StaffAuth.isAuthenticated()) return;
             try {
-                const response = await fetch('/.netlify/functions/pt-management?type=initial_data');
+                const response = await fetch('/.netlify/functions/pt-management?type=initial_data', {
+                    headers: StaffAuth.getAuthHeader()
+                });
                 const data = await response.json();
                 if (data.success) {
                     ptCoaches = data.coaches;
@@ -828,11 +941,14 @@
         }
 
         async function loadPtSessions() {
+            if (!StaffAuth.isAuthenticated()) return;
             const ptSessionsList = document.getElementById('ptSessionsList');
             try {
                 const month = currentFilterMonth.getMonth() + 1;
                 const year = currentFilterMonth.getFullYear();
-                const response = await fetch(`/.netlify/functions/pt-management?month=${month}&year=${year}`);
+                const response = await fetch(`/.netlify/functions/pt-management?month=${month}&year=${year}`, {
+                    headers: StaffAuth.getAuthHeader()
+                });
                 const data = await response.json();
                 
                 if (data.success) {
@@ -891,7 +1007,10 @@
             if (!confirm('Tem a certeza que deseja apagar esta sessão?')) return;
             
             try {
-                const response = await fetch(`/.netlify/functions/pt-management?id=${id}`, { method: 'DELETE' });
+                const response = await fetch(`/.netlify/functions/pt-management?id=${id}`, { 
+                    method: 'DELETE',
+                    headers: StaffAuth.getAuthHeader()
+                });
                 const data = await response.json();
                 if (data.success) {
                     loadPtSessions();
@@ -922,7 +1041,10 @@
                 
                 const response = await fetch('/.netlify/functions/pt-management', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        ...StaffAuth.getAuthHeader()
+                    },
                     body: JSON.stringify(formData)
                 });
                 
@@ -1153,7 +1275,8 @@ Tem a certeza que deseja continuar?`;
                 const response = await fetch(url, {
                     method: 'DELETE',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        ...StaffAuth.getAuthHeader()
                     }
                 });
                 
@@ -1203,7 +1326,8 @@ Tem a certeza que deseja continuar?`;
                 const response = await fetch(url, {
                     method: 'DELETE',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        ...StaffAuth.getAuthHeader()
                     }
                 });
 
@@ -1224,11 +1348,14 @@ Tem a certeza que deseja continuar?`;
 
         // Carregar pagamentos
         async function loadPayments() {
+            if (!StaffAuth.isAuthenticated()) return;
             try {
                 console.log('🔄 Iniciando carregamento dos pagamentos...');
                 console.log('🔗 URL:', '/.netlify/functions/payment-webhook');
                 
-                const response = await fetch('/.netlify/functions/payment-webhook');
+                const response = await fetch('/.netlify/functions/payment-webhook', {
+                    headers: StaffAuth.getAuthHeader()
+                });
                 console.log('📡 Response status:', response.status);
                 console.log('📡 Response ok:', response.ok);
                 
@@ -1660,6 +1787,7 @@ Tem a certeza que deseja continuar?`;
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        ...StaffAuth.getAuthHeader()
                     },
                     body: JSON.stringify(faturaData)
                 });
@@ -1765,8 +1893,12 @@ Tem a certeza que deseja continuar?`;
         // Inicializar display do mês
         updateMonthDisplay();
 
-        // Carregar inicial
-        loadPayments();
+        // Carregar inicial se autenticado
+        if (StaffAuth.isAuthenticated()) {
+            loadPayments();
+        } else {
+            document.getElementById('loginOverlay').style.display = 'flex';
+        }
 
         // Notificação de novos pagamentos
         let lastPaymentCount = 0;

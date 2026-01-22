@@ -110,6 +110,30 @@ exports.handler = async (event, context) => {
     return { statusCode: 200, headers, body: '' };
   }
 
+  // Auth check for staff actions (GET, PUT, DELETE)
+  // POST is the webhook from EuPago and has its own signature verification
+  if (['GET', 'PUT', 'DELETE'].includes(event.httpMethod)) {
+    const authHeader = event.headers.authorization || event.headers.Authorization;
+    const STAFF_PASSWORD = process.env.STAFF_PASSWORD;
+
+    if (!STAFF_PASSWORD) {
+      console.error('❌ STAFF_PASSWORD env var not configured');
+      return {
+        statusCode: 500,
+        headers,
+        body: JSON.stringify({ success: false, message: 'Server configuration error' })
+      };
+    }
+
+    if (!authHeader || authHeader !== `Bearer ${STAFF_PASSWORD}`) {
+      return {
+        statusCode: 401,
+        headers,
+        body: JSON.stringify({ success: false, message: 'Unauthorized' })
+      };
+    }
+  }
+
   // PUT: Atualizar dados de fatura (chamado pelo emit-invoice.js)
   if (event.httpMethod === 'PUT') {
     try {
