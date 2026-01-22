@@ -77,6 +77,7 @@ exports.handler = async (event, context) => {
         const { data, error } = await supabase
           .from('pt_sessions')
           .select('*, pt_coaches(name)')
+          .is('deleted_at', null)
           .gte('timestamp', startOfMonth)
           .lt('timestamp', startOfNextMonth)
           .order('timestamp', { ascending: false });
@@ -127,14 +128,14 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // DELETE: Remover sessão
+    // DELETE: Soft delete sessão
     if (event.httpMethod === 'DELETE') {
       const { id } = event.queryStringParameters || {};
       if (!id) throw new Error('ID da sessão obrigatório');
 
       const { error } = await supabase
         .from('pt_sessions')
-        .delete()
+        .update({ deleted_at: new Date().toISOString() })
         .eq('id', id);
 
       if (error) throw error;
@@ -142,7 +143,7 @@ exports.handler = async (event, context) => {
       return {
         statusCode: 200,
         headers,
-        body: JSON.stringify({ success: true, message: 'Sessão removida' })
+        body: JSON.stringify({ success: true, message: 'Sessão movida para a lixeira (Soft Delete)' })
       };
     }
 

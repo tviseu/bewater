@@ -24,6 +24,7 @@ CREATE TABLE pt_sessions (
     type VARCHAR(20) CHECK (type IN ('internal', 'external')),
     gym_fee DECIMAL(10,2) NOT NULL, -- Valor fixo no momento do registo para histórico
     timestamp TIMESTAMPTZ NOT NULL,
+    deleted_at TIMESTAMPTZ DEFAULT NULL, -- Soft delete
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
