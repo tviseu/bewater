@@ -725,15 +725,20 @@
         </div>
 
         <div class="stats">
-            <div class="stat-card">
-                <h3>📦 Items Vendidos</h3>
-                <div class="stat-value" id="statsConfirmados">0</div>
+            <div class="stat-card" style="box-shadow: 8px 8px 0px #28a745;">
+                <h3>💰 Total Bruto (Mês)</h3>
+                <div class="stat-value" id="statsGlobalTotal">€0</div>
             </div>
             <div class="stat-card">
-                <h3>💰 Valor Vendas</h3>
+                <h3>📦 Vendas Balcão</h3>
                 <div class="stat-value" id="statsTotal">€0</div>
+                <div style="font-size: 0.8rem; margin-top: 5px; opacity: 0.7;" id="statsConfirmadosCount">0 items</div>
             </div>
-            
+            <div class="stat-card" style="border-color: #007bff;">
+                <h3>🏋️ Receita PT (Gym)</h3>
+                <div class="stat-value" id="statsPtTotal">€0</div>
+                <div style="font-size: 0.8rem; margin-top: 5px; opacity: 0.7;" id="statsPtCount">0 sessões</div>
+            </div>
         </div>
 
         <!-- FILTRO DE MÊS -->
@@ -803,15 +808,25 @@
                 <!-- TAB CONTENT: GESTÃO DE PTs -->
                 <div id="ptsContent" class="tab-content">
                     <div class="pt-dashboard">
-                        <!-- PT Stats -->
+                        <!-- PT Detailed Stats -->
                         <div class="stats" style="margin-top: 20px;">
                             <div class="stat-card" style="box-shadow: 8px 8px 0px #28a745;">
-                                <h3>🏋️ Total PTs</h3>
-                                <div class="stat-value" id="ptStatsCount">0</div>
+                                <h3>🏠 PTs Internos</h3>
+                                <div class="stat-value" id="ptStatsInternalTotal">€0</div>
+                                <div style="font-size: 0.8rem; margin-top: 5px; opacity: 0.7;" id="ptStatsInternalCount">0 sessões</div>
                             </div>
-                            <div class="stat-card" style="box-shadow: 8px 8px 0px #28a745;">
-                                <h3>💰 Receita Gym</h3>
-                                <div class="stat-value" id="ptStatsTotal">€0</div>
+                            <div class="stat-card" style="box-shadow: 8px 8px 0px #007bff;">
+                                <h3>🌍 PTs Externos</h3>
+                                <div class="stat-value" id="ptStatsExternalTotal">€0</div>
+                                <div style="font-size: 0.8rem; margin-top: 5px; opacity: 0.7;" id="ptStatsExternalCount">0 sessões</div>
+                            </div>
+                        </div>
+
+                        <!-- Coach Summary (New) -->
+                        <div id="ptCoachSummary" style="background: #000; color: #fff; padding: 15px; border: 4px solid #000; margin-bottom: 20px; display: none;">
+                            <h4 style="margin-bottom: 10px; font-family: 'Work Sans', sans-serif;">📊 Sessões por Coach</h4>
+                            <div id="ptCoachStatsList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px;">
+                                <!-- Will be filled by JS -->
                             </div>
                         </div>
 
@@ -1014,11 +1029,67 @@
         }
 
         function updatePtStats() {
-            const totalSessions = ptSessions.length;
-            const totalRevenue = ptSessions.reduce((sum, s) => sum + parseFloat(s.gym_fee), 0);
+            const internalSessions = ptSessions.filter(s => s.type === 'internal');
+            const externalSessions = ptSessions.filter(s => s.type === 'external');
             
-            document.getElementById('ptStatsCount').textContent = totalSessions;
-            document.getElementById('ptStatsTotal').textContent = `€${totalRevenue.toFixed(2)}`;
+            const internalTotal = internalSessions.reduce((sum, s) => sum + parseFloat(s.gym_fee), 0);
+            const externalTotal = externalSessions.reduce((sum, s) => sum + parseFloat(s.gym_fee), 0);
+            
+            // Update PT Tab Cards
+            document.getElementById('ptStatsInternalCount').textContent = `${internalSessions.length} sessões`;
+            document.getElementById('ptStatsInternalTotal').textContent = `€${internalTotal.toFixed(2)}`;
+            document.getElementById('ptStatsExternalCount').textContent = `${externalSessions.length} sessões`;
+            document.getElementById('ptStatsExternalTotal').textContent = `€${externalTotal.toFixed(2)}`;
+
+            // Update Coach Summary
+            const coachStats = ptSessions.reduce((acc, s) => {
+                const coachName = s.pt_coaches?.name || 'Desconhecido';
+                acc[coachName] = (acc[coachName] || 0) + 1;
+                return acc;
+            }, {});
+
+            const coachSummaryDiv = document.getElementById('ptCoachSummary');
+            const coachStatsList = document.getElementById('ptCoachStatsList');
+            
+            if (ptSessions.length > 0) {
+                coachSummaryDiv.style.display = 'block';
+                coachStatsList.innerHTML = Object.entries(coachStats)
+                    .sort((a, b) => b[1] - a[1])
+                    .map(([name, count]) => `
+                        <div style="background: #333; padding: 10px; border: 1px solid #FFD700;">
+                            <div style="font-size: 0.8rem; opacity: 0.8;">${name}</div>
+                            <div style="font-weight: 900; font-size: 1.2rem; color: #FFD700;">${count} PTs</div>
+                        </div>
+                    `).join('');
+            } else {
+                coachSummaryDiv.style.display = 'none';
+            }
+
+            // Always update global stats when PT stats change
+            updateCombinedStats();
+        }
+
+        function updateCombinedStats() {
+            // 1. Calculate Products Stats
+            const paymentsInMonth = filterPaymentsByMonth(payments);
+            const confirmedPayments = paymentsInMonth.filter(p => p.status === 'confirmado' && p.valor && parseFloat(p.valor) > 0);
+            
+            const productItemsCount = confirmedPayments.length;
+            const productTotalValue = confirmedPayments.reduce((sum, p) => sum + parseFloat(p.valor), 0);
+
+            // 2. Calculate PT Stats
+            const ptTotalValue = ptSessions.reduce((sum, s) => sum + parseFloat(s.gym_fee), 0);
+            const ptTotalCount = ptSessions.length;
+
+            // 3. Update Header Cards
+            document.getElementById('statsConfirmadosCount').textContent = `${productItemsCount} items`;
+            document.getElementById('statsTotal').textContent = `€${productTotalValue.toFixed(2)}`;
+            
+            document.getElementById('statsPtCount').textContent = `${ptTotalCount} sessões`;
+            document.getElementById('statsPtTotal').textContent = `€${ptTotalValue.toFixed(2)}`;
+            
+            const globalTotal = productTotalValue + ptTotalValue;
+            document.getElementById('statsGlobalTotal').textContent = `€${globalTotal.toFixed(2)}`;
         }
 
         async function deletePtSession(id) {
@@ -1146,7 +1217,6 @@
         }
 
         // Stats elements
-        const statsConfirmados = document.getElementById('statsConfirmados');
         const statsTotal = document.getElementById('statsTotal');
         
 
@@ -1604,47 +1674,8 @@ Tem a certeza que deseja continuar?`;
 
         // Atualizar estatísticas (apenas confirmados com valor > 0)
         function updateStats() {
-            // 🆕 FILTRAR POR MÊS SELECIONADO
-            const paymentsInMonth = filterPaymentsByMonth(payments);
-            
-            // DEBUG: Mostrar todos os pagamentos recebidos
-            console.log('📊 DEBUG - Todos os pagamentos recebidos:', payments.length);
-            console.log('📊 DEBUG - Pagamentos no mês selecionado:', paymentsInMonth.length);
-            console.log('📊 DEBUG - Primeiros 5 pagamentos:', payments.slice(0, 5).map(p => ({
-                produto: p.produto,
-                valor: p.valor,
-                status: p.status,
-                timestamp: p.timestamp
-            })));
-            
-            // Filtrar apenas pagamentos confirmados (mais permissivo com valores)
-            const confirmadosVendidos = paymentsInMonth.filter(p => {
-                const hasValidStatus = p.status === 'confirmado';
-                const hasValidValue = p.valor && parseFloat(p.valor) > 0;
-                
-                if (hasValidStatus && !hasValidValue) {
-                    console.warn('⚠️ Pagamento confirmado mas sem valor válido:', {
-                        produto: p.produto,
-                        valor: p.valor,
-                        transactionID: p.transactionID
-                    });
-                }
-                
-                return hasValidStatus && hasValidValue;
-            });
-            
-            const totalItems = confirmadosVendidos.length;
-            const totalValue = confirmadosVendidos.reduce((sum, p) => sum + parseFloat(p.valor), 0);
-
-            console.log(`📊 Estatísticas finais: ${totalItems} items vendidos, €${totalValue.toFixed(2)} em vendas`);
-            console.log(`📊 Pagamentos confirmados:`, confirmadosVendidos.map(p => ({
-                produto: p.produto,
-                valor: p.valor,
-                timestamp: p.timestamp
-            })));
-
-            statsConfirmados.textContent = totalItems;
-            statsTotal.textContent = `€${totalValue.toFixed(2)}`;
+            // No dashboard reformulado, updateCombinedStats trata de tudo
+            updateCombinedStats();
         }
 
 
@@ -1914,6 +1945,7 @@ Tem a certeza que deseja continuar?`;
         // Carregar inicial se autenticado
         if (StaffAuth.isAuthenticated()) {
             loadPayments();
+            loadPtSessions(); // Carregar PTs para os totais globais no topo
         } else {
             document.getElementById('loginOverlay').style.display = 'flex';
         }
