@@ -253,6 +253,7 @@ exports.handler = async (event, context) => {
       'MILBONA_001': { nome: 'Milbona - Iogurte Proteico (35g proteína)', preco: 2.20 },
       'MIMOSA_001': { nome: 'Mimosa - Iogurte Proteico', preco: 2.50 },
       'DROP_IN_001': { nome: 'Drop In (Aula avulso)', preco: 15.00 },
+      'PERSONAL_TRAINING_001': { nome: 'Sessão Personal Training', preco: 40.00 },
       'DONATIVO_001': { nome: 'Donativo - Salvem os Músculos Abandonados', preco: 5.00 },
       // Novos produtos físicos
       'LIGADURAS_001': { nome: 'Ligaduras BeWater', preco: 10.00 },
