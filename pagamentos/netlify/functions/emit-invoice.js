@@ -85,7 +85,8 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
       name: nomeCliente,
       fiscal_id: dadosCliente.nif || null,
       email: dadosCliente.email,
-      address: "Lisboa"
+      address: "Lisboa",
+      send_email: 'yes'
     },
     items: items,
     payments: [{
