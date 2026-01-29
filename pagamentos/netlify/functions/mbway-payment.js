@@ -47,6 +47,7 @@ async function emitirFaturaVendus(dadosCliente, dadosProduto, dadosPagamento) {
     'MIMOSA_001': { nome: 'Mimosa - Iogurte Proteico', iva: 0, categoria: 'Consumíveis', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'DROP_IN_001': { nome: 'Drop In (Aula avulso)', iva: 0, categoria: 'Serviços', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'DONATIVO_001': { nome: 'Donativo BE WATER', iva: 0, categoria: 'Donativos', tax_exempt_reason: 'Artigo 53º do CIVA' },
+    'EVENTO_MARIOBOMBA_20260214': { nome: 'Inscrição Workshop Mario Bomba', iva: 0, categoria: 'Eventos', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'EVENTO_SAOMARTINHO_001': { nome: 'Inscrição Evento São Martinho', iva: 0, categoria: 'Eventos', tax_exempt_reason: 'Artigo 53º do CIVA' },
     'GOLDEN_TICKET_2024': { nome: 'Golden Ticket de Natal', iva: 0, categoria: 'Serviços', tax_exempt_reason: 'Artigo 53º do CIVA' }
   };
@@ -261,6 +262,7 @@ exports.handler = async (event, context) => {
       'LUVAS_BOXE_001': { nome: 'Luvas de Boxe BeWater', preco: 59.00 },
       'GARRAFA_HYDRA_001': { nome: 'Garrafa de Água Hydra', preco: 19.00 },
       // Eventos
+      'EVENTO_MARIOBOMBA_20260214': { nome: 'Workshop Mario Bomba - Inscrição Externa', preco: 15.00 },
       'EVENTO_SAOMARTINHO_001': { nome: 'São Martinho no BE WATER - Inscrição Externa', preco: 15.00 },
       'GOLDEN_TICKET_2024': { nome: 'Golden Ticket de Natal', preco: 30.00 }
     };
