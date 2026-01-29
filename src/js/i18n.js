@@ -166,6 +166,7 @@ const translations = {
       'events.badge.open': 'Inscrições Abertas',
       'events.badge.soon': 'Em Breve',
       'events.badge.completed': 'Concluído',
+      'events.badge.upcoming': 'Brevemente',
       'events.stamp.upcoming': 'PRÓXIMAMENTE',
       'events.date.tba': 'A anunciar',
       'events.btn.register': 'Inscrever',
@@ -194,6 +195,8 @@ const translations = {
       'events.nutricao.desc': 'Treino com Bruno Salgueiro e palestra com Dr. Alexandre Azevedo.',
       'events.saomartinho.title': 'São Martinho no BE WATER',
       'events.saomartinho.desc': 'Treino com Bernardo Simões e convívio com castanhas e minis.',
+      'events.mariobomba.title': 'Workshop de Public Speaking',
+      'events.mariobomba.desc': 'Falar em público, foco e comunicação sem medos com o mestre Mario Bomba.',
       
       // Schedule Section
       'schedule.title': 'HORÁRIOS E MODALIDADES',
@@ -778,6 +781,7 @@ const translations = {
       'events.badge.open': 'Open Registration',
       'events.badge.soon': 'Coming Soon',
       'events.badge.completed': 'Completed',
+      'events.badge.upcoming': 'Upcoming',
       'events.stamp.upcoming': 'COMING SOON',
       'events.date.tba': 'To be announced',
       'events.btn.register': 'Register',
@@ -806,6 +810,8 @@ const translations = {
       'events.nutricao.desc': 'Training with Bruno Salgueiro and talk with Dr. Alexandre Azevedo.',
       'events.saomartinho.title': 'São Martinho at BE WATER',
       'events.saomartinho.desc': 'Training with Bernardo Simões and gathering with chestnuts and drinks.',
+      'events.mariobomba.title': 'Public Speaking Workshop',
+      'events.mariobomba.desc': 'Public speaking, focus and communication without fears with master Mario Bomba.',
       
       // Schedule Section
       'schedule.title': 'SCHEDULE & ACTIVITIES',

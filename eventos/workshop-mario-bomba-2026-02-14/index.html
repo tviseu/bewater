@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workshop de Public Speaking | Mario Bomba | BE WATER</title>
+  <meta name="description" content="Workshop exclusivo de Public Speaking com Mario Bomba no BE WATER. Treino opcional às 9h30 e Workshop às 11h. Garante já o teu lugar!">
+  <link rel="icon" type="image/x-icon" href="../../src/images/favicon/favicon.ico">
+  <link rel="stylesheet" href="../../src/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
+  <link rel="icon" type="image/png" sizes="32x32" href="../../src/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../src/images/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../src/images/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../../src/images/favicon/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="../../src/images/favicon/android-chrome-512x512.png">
+  <link rel="manifest" href="../../src/images/favicon/site.webmanifest">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@800;900&display=swap" rel="stylesheet"></noscript>
+  <style>
+    html { scroll-behavior: smooth; }
+    :root {
+      --color-primary: #FFD700;
+      --color-black: #000000;
+      --color-white: #FFFFFF;
+      --color-gray: #666666;
+      --color-gray-light: #f5f5f5;
+      --color-accent: #FFF6BF;
+      --spacing-sm: 0.5rem;
+      --spacing-md: 1rem;
+      --spacing-lg: 1.5rem;
+      --spacing-xl: 2rem;
+      --border-width: 4px;
+      --font-primary: 'Space Mono', system-ui, 'Segoe UI', monospace;
+      --font-heading: 'Work Sans', system-ui, 'Arial Black', sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-primary);
+      background: var(--color-white);
+      color: var(--color-black);
+      line-height: 1.6;
+    }
+
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 var(--spacing-xl); }
+
+    .hero {
+      padding: 3rem 0 3rem 0;
+      border-bottom: 2px solid var(--color-black);
+      background: var(--color-white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url('../../src/images/general/images-optimized/background-evento-mariobomba_optimized.webp');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.5;
+      filter: grayscale(10%);
+      pointer-events: none;
+    }
+
+    .hero .wrap { position: relative; z-index: 1; text-align: center; }
+
+    .event-date-banner {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      background: var(--color-primary);
+      color: var(--color-black);
+      border: var(--border-width) solid var(--color-black);
+      box-shadow: 8px 8px 0 var(--color-black);
+      padding: 0.5rem 1rem;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      margin-top: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .event-date-banner .date-small,
+    .event-date-banner .date-big {
+      font-family: var(--font-heading);
+      font-size: clamp(1.25rem, 4vw, 2rem);
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .card.card--accent { background: linear-gradient(180deg, rgba(255, 215, 0, 0.18), rgba(255, 215, 0, 0.12)), var(--color-white); box-shadow: 8px 8px 0 var(--color-primary); }
+    .card.card--accent .badge { background: var(--color-primary); }
+
+    .hero__eyebrow {
+      display: inline-block;
+      font-weight: 700;
+      background: var(--color-black);
+      color: var(--color-white);
+      padding: 0.25rem 0.5rem;
+      border: 2px solid var(--color-black);
+      box-shadow: 4px 4px 0 var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .hero__title {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      line-height: 1;
+      margin: 0.75rem 0 1rem 0;
+      text-transform: uppercase;
+    }
+
+    .hero__subtitle { color: var(--color-black); max-width: 720px; margin-left: auto; margin-right: auto; font-weight: 700; }
+    @media (max-width: 480px) {
+      .hero { padding-top: 2rem; }
+    }
+
+    .hero__cta { margin-top: var(--spacing-lg); }
+
+    .btn {
+      display: inline-block;
+      padding: var(--spacing-md) var(--spacing-xl);
+      background: var(--color-primary);
+      color: var(--color-black);
+      text-decoration: none;
+      font-weight: 700;
+      text-transform: uppercase;
+      border: var(--border-width) solid var(--color-black);
+      transition: all 0.2s ease;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: var(--color-black);
+      color: var(--color-primary);
+      transform: translate(-3px, -3px);
+      box-shadow: 6px 6px 0 var(--color-primary);
+    }
+
+    .btn--hero { font-size: 1.1rem; box-shadow: 10px 10px 0 var(--color-black); }
+    .form-surface .btn.btn--hero { background: var(--color-primary); color: var(--color-black); box-shadow: 10px 10px 0 var(--color-black); }
+
+    .section { padding: 3rem 0; }
+    .card { background: var(--color-white); border: var(--border-width) solid var(--color-black); box-shadow: 8px 8px 0 var(--color-black); padding: var(--spacing-xl); }
+    .grid { display: grid; gap: var(--spacing-xl); }
+    @media (min-width: 768px) { .grid--2 { grid-template-columns: 1fr 1fr; } }
+    .list { margin: 0; padding-left: 1.25rem; }
+    .badge { display: inline-block; border: 2px solid var(--color-black); padding: 0.25rem 0.5rem; background: var(--color-gray-light); font-weight: 700; }
+    .schedule-box { background: var(--color-white); border: var(--border-width) solid var(--color-black); box-shadow: 6px 6px 0 var(--color-black); padding: var(--spacing-lg); }
+    .schedule { list-style: none; margin: 0; padding: 0; }
+    .schedule li { display: flex; gap: 1rem; align-items: center; padding: var(--spacing-md) 0; border-bottom: 1px dashed var(--color-black); }
+    .schedule li:last-child { border-bottom: none; }
+    .schedule time { display: inline-block; min-width: 120px; text-align: center; font-weight: 900; font-family: var(--font-heading); background: var(--color-primary); color: var(--color-black); border: 2px solid var(--color-black); padding: 0.25rem 0.5rem; }
+    .form label { display: block; font-weight: 700; margin: 0.75rem 0 0.25rem 0; text-transform: uppercase; }
+    .form input[type="text"], .form input[type="email"], .form input[type="tel"], .form textarea, .form select { width: 100%; padding: 0.75rem; border: var(--border-width) solid var(--color-black); background: var(--color-white); }
+    .form textarea { min-height: 120px; resize: vertical; }
+    .checks { display: grid; gap: 0.5rem; margin: 0.5rem 0 0 0; }
+    .notice { font-size: 0.95rem; color: var(--color-gray); }
+    .footer-note { padding: 2rem 0; border-top: 2px solid var(--color-black); text-align: center; color: var(--color-gray); }
+    
+    /* Price highlight */
+    .price-info {
+      background: var(--color-primary);
+      border: 3px solid var(--color-black);
+      padding: 1rem;
+      margin: 1rem 0;
+      box-shadow: 4px 4px 0 var(--color-black);
+    }
+    .price-info strong {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+    }
+
+    /* Language Switcher */
+    .lang-switcher { position: fixed; top: 20px; right: 20px; z-index: 1000; display: flex; gap: 0.5rem; background: var(--color-white); border: 3px solid var(--color-black); box-shadow: 6px 6px 0 var(--color-black); padding: 0.5rem; }
+    .lang-switcher button { font-family: var(--font-heading); font-weight: 700; font-size: 0.875rem; padding: 0.5rem 0.75rem; border: 2px solid var(--color-black); background: var(--color-white); color: var(--color-black); cursor: pointer; text-transform: uppercase; transition: all 0.2s ease; }
+    .lang-switcher button:hover { background: var(--color-primary); transform: translateY(-2px); }
+    .lang-switcher button.active { background: var(--color-black); color: var(--color-white); }
+    
+    /* Back Button */
+    .back-button { position: fixed; top: 20px; left: 20px; z-index: 1000; }
+    .back-button a { font-family: var(--font-heading); font-weight: 700; font-size: 0.875rem; padding: 0.5rem 1rem; border: 3px solid var(--color-black); background: var(--color-primary); color: var(--color-black); text-decoration: none; display: inline-block; box-shadow: 6px 6px 0 var(--color-black); transition: all 0.2s ease; text-transform: uppercase; }
+    .back-button a:hover { background: var(--color-black); color: var(--color-primary); transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--color-primary); }
+    
+    /* Loading spinner animation */
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Success Popup */
+    .success-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    
+    .success-popup.show {
+      display: flex;
+    }
+    
+    .success-popup-content {
+      background: var(--color-white);
+      border: var(--border-width) solid var(--color-black);
+      padding: 40px;
+      max-width: 520px;
+      width: calc(100% - 2rem);
+      text-align: center;
+      box-shadow: 16px 16px 0 var(--color-primary);
+      position: relative;
+      animation: popupSlideIn 0.3s ease-out;
+    }
+    
+    @keyframes popupSlideIn {
+      from {
+        transform: translate(-50px, -50px);
+        opacity: 0;
+      }
+      to {
+        transform: translate(0, 0);
+        opacity: 1;
+      }
+    }
+    
+    .success-popup-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+    
+    .success-popup-title {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--color-black);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+    
+    .success-popup-message {
+      font-size: 1.05rem;
+      color: var(--color-black);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .success-popup-btn {
+      background: var(--color-primary);
+      color: var(--color-black);
+      border: var(--border-width) solid var(--color-black);
+      padding: 15px 30px;
+      font-size: 1rem;
+      font-weight: 900;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 6px 6px 0 var(--color-black);
+    }
+    
+    .success-popup-btn:hover {
+      background: var(--color-black);
+      color: var(--color-primary);
+      transform: translate(-2px, -2px);
+      box-shadow: 8px 8px 0 var(--color-primary);
+    }
+
+    /* Inscrição: superfície branca para maior contraste */
+    .form-surface { background: var(--color-white); border: var(--border-width) solid var(--color-black); padding: var(--spacing-lg); box-shadow: 6px 6px 0 var(--color-black); }
+
+    /* Topics list */
+    .topic-list { list-style: none; padding: 0; margin: 1.5rem 0; }
+    .topic-list li { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 1.25rem; font-weight: 700; font-size: 1.1rem; }
+    .topic-list li i { color: var(--color-black); background: var(--color-primary); padding: 0.4rem; border: 2px solid var(--color-black); border-radius: 4px; font-size: 0.9rem; margin-top: 0.1rem; box-shadow: 2px 2px 0 var(--color-black); }
+
+    /* Cartaz Frame */
+    .cartaz-frame {
+      background: var(--color-white);
+      border: var(--border-width) solid var(--color-black);
+      padding: 1.5rem;
+      box-shadow: 12px 12px 0 var(--color-primary);
+      margin: 1.5rem auto;
+      max-width: 450px;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .cartaz-frame:hover {
+      transform: scale(1.02);
+    }
+    .cartaz-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 2px solid var(--color-black);
+    }
+    .cartaz-frame::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(0,0,0,0.1);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Back Button -->
+  <div class="back-button">
+    <a href="../../index.html#events" data-i18n="evento.back.short">← Voltar</a>
+  </div>
+
+  <!-- Language Switcher -->
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="pt">PT</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+
+  <header class="hero">
+    <div class="wrap">
+      <span class="hero__eyebrow" data-i18n="evento.eyebrow">Evento Especial</span>
+      <h1 class="hero__title" data-i18n="evento.title">Workshop com Mario Bomba</h1>
+      <div class="event-date-banner"><span class="date-small" data-i18n="evento.date">SÁBADO, 14 FEV</span></div>
+      <p class="hero__subtitle" data-i18n="evento.subtitle">
+        Workshop exclusivo com Mario Bomba no BE WATER. Treino opcional às 9h30 seguido de Workshop às 11h.
+      </p>
+      <div class="hero__cta">
+        <a class="btn btn--hero" href="#inscricao" data-i18n="evento.cta">Garantir Vaga</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Cartaz do Evento -->
+    <section class="section">
+      <div class="wrap">
+        <div class="card">
+          <h3 style="margin-top:0; text-align: center; text-transform: uppercase; letter-spacing: 1px;" data-i18n="evento.cartaz.title">Cartaz do Evento</h3>
+          <div class="cartaz-frame" onclick="window.open('../../src/images/general/evento-mariobomba.jpeg', '_blank')">
+            <img src="../../src/images/general/images-optimized/evento-mariobomba_optimized.webp" alt="Cartaz Workshop Mario Bomba">
+          </div>
+          <p style="text-align: center; margin-top: 1rem; font-style: italic; font-size: 0.9rem;" data-i18n="evento.cartaz.subtitle">Clica para ampliar se necessário</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap grid grid--2">
+        <div class="card card--accent">
+          <h2 style="margin-top:0" data-i18n="evento.plan.title">Plano do Evento</h2>
+          <p class="notice" style="margin:0 0 1rem 0">
+            <span data-i18n="evento.plan.dateinfo">14 de fevereiro (sábado)</span> · <a style="text-decoration:underline; color:inherit" href="#mapa">BE WATER — Campo Grande (<span data-i18n="evento.plan.maps">ver Google Maps</span>)</a>
+          </p>
+          
+          <div style="margin-bottom: 1.5rem;">
+            <h3 style="font-size: 1.1rem; text-transform: uppercase; margin-bottom: 0.5rem;" data-i18n="evento.topics.title">Temas do Workshop:</h3>
+            <ul class="topic-list">
+              <li><i class="fas fa-check"></i> <span data-i18n="evento.topics.1">Falar em Público</span></li>
+              <li><i class="fas fa-check"></i> <span data-i18n="evento.topics.2">Foco e Concentração</span></li>
+              <li><i class="fas fa-check"></i> <span data-i18n="evento.topics.3">Comunicar sem entraves ou receios</span></li>
+            </ul>
+          </div>
+
+          <div class="schedule-box">
+            <ul class="schedule">
+              <li><time>09:30–10:30</time><span data-i18n="evento.plan.schedule1">Treino BeWater (opcional)</span></li>
+              <li><time>11:00–13:00</time><span data-i18n="evento.plan.schedule2">Workshop com <strong>Mario Bomba</strong></span></li>
+            </ul>
+          </div>
+          
+          <div class="price-info">
+            <p style="margin: 0;" data-i18n="evento.plan.price"><strong>Preços:</strong> Grátis (sócios) | 15€ (externos)</p>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;" data-i18n="evento.plan.includes">Inclui treino + workshop</p>
+          </div>
+          
+          <p class="notice" style="margin-top:1rem"><span data-i18n="evento.plan.limited">Vagas limitadas. Garante a tua presença!</span></p>
+        </div>
+
+        <div id="inscricao" class="card card--accent">
+          <h2 style="margin-top:0" data-i18n="evento.form.title">Inscrição</h2>
+          <div class="form-surface">
+            <form id="inscricao-form" class="form">
+              <label for="nome"><span data-i18n="evento.form.name">Nome</span></label>
+              <input id="nome" name="nome" type="text" placeholder="O teu nome" autocomplete="name" required>
+
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="O teu email" autocomplete="email" required>
+
+              <label for="tel"><span data-i18n="evento.form.phone">Telemóvel (MBWay)</span></label>
+              <input id="tel" name="telemovel" type="tel" placeholder="Ex.: 912 345 678" autocomplete="tel" inputmode="tel" maxlength="9" required>
+
+              <label for="nif"><span data-i18n="evento.form.nif">NIF - opcional (para fatura)</span></label>
+              <input id="nif" name="nif" type="text" placeholder="XXXXXXXXX (opcional)" maxlength="9">
+
+              <label for="observacoes"><span data-i18n="evento.form.notes">Observações (opcional)</span></label>
+              <textarea id="observacoes" name="observacoes" placeholder="Informação relevante para o evento"></textarea>
+
+              <label><span data-i18n="evento.form.options">Opções de participação:</span></label>
+              <div class="checks" style="margin-bottom: 1rem;">
+                <div style="background: var(--color-gray-light); padding: 0.75rem; border-left: 4px solid var(--color-primary); margin-bottom: 0.75rem;">
+                  <p style="margin: 0; font-weight: 700; font-size: 0.95rem;">
+                    ✅ <span data-i18n="evento.form.option.workshop.included">Workshop Mario Bomba (Incluído)</span>
+                  </p>
+                </div>
+                <label style="text-transform: none; display: flex; align-items: center; gap: 0.5rem; font-weight: 700; cursor: pointer;">
+                  <input type="checkbox" name="participacao_treino" value="treino" checked style="width: auto; height: 20px;"> 
+                  <span data-i18n="evento.form.option.training">Vou também ao Treino (09:30)</span>
+                </label>
+              </div>
+
+              <div class="price-info" style="text-align: center; margin: 1.5rem 0;">
+                <p style="margin: 0; font-size: 1.5rem; font-weight: 900;">
+                  <span data-i18n="evento.form.price">Inscrição: €15.00</span>
+                </p>
+                <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;" data-i18n="evento.form.price-note">
+                  (Sócios inscrevem-se via app do clube)
+                </p>
+              </div>
+
+              <div style="margin: 0.75rem 0">
+                <label><input type="checkbox" name="consentimento" required> <span data-i18n="evento.form.consent">Li e aceito o tratamento dos meus dados para efeitos de inscrição e comunicação relacionada com este evento.</span></label>
+              </div>
+
+              <button class="btn btn--hero" type="submit" id="payBtn" data-i18n="evento.form.submit">
+                💳 Pagar €15.00 com MBWay
+              </button>
+
+              <div id="loading" style="display: none; text-align: center; margin-top: 1.5rem; padding: 1.5rem; border: 4px solid var(--color-black); background: var(--color-white);">
+                <p style="font-weight: 700; font-size: 1.2rem; margin-bottom: 1rem;">⏳ <span data-i18n="evento.form.processing">A processar pagamento...</span></p>
+                <div style="border: 4px solid var(--color-gray); border-radius: 50%; border-top: 4px solid var(--color-black); width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+                <p style="margin-top: 1rem; font-size: 0.95rem;" data-i18n="evento.form.confirm-phone">Confirma o pagamento na app MBWay</p>
+              </div>
+
+              <p class="notice" id="error-msg" style="display:none; color:#b00020; margin-top: 1rem; padding: 1rem; border: 3px solid #b00020; background: #ffebee; font-weight: 700;"></p>
+              <p class="notice" id="success-msg" style="display:none; color:#2e7d32; margin-top: 1rem; padding: 1rem; border: 3px solid #2e7d32; background: #e8f5e9; font-weight: 700;"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="mapa" class="section">
+      <div class="wrap card" style="padding:0">
+        <div class="contact__map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3113.8374567890123!2d-9.1567!3d38.7223!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd1934a1c3c1c1c1%3A0x1c1c1c1c1c1c1c1c!2sAv.%20do%20Brasil%207%2C%20Lisboa!5e0!3m2!1spt-PT!2spt!4v1647123456789!5m2!1spt-PT!2spt" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" title="Mapa da localização do BE WATER - Av. do Brasil 7, Lisboa"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap" style="text-align: center;">
+        <a href="../../index.html#events" class="btn btn--hero" style="font-size: 1.25rem; padding: 1.25rem 2.5rem; display: inline-block; text-decoration: none;" data-i18n="evento.back">← Voltar aos Eventos</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Payment Form Handler
+    document.getElementById('inscricao-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const nome = document.getElementById('nome').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('tel').value.trim();
+      const nif = document.getElementById('nif').value.trim();
+      const observacoes = document.getElementById('observacoes').value.trim();
+      
+      // Get participacao values
+      const querTreino = document.querySelector('input[name="participacao_treino"]').checked;
+      const participacao = `Workshop${querTreino ? ' + Treino' : ''}`;
+
+      // Validations
+      if (!/^9[1236]\d{7}$/.test(phone)) {
+        showError('Número de telemóvel inválido (formato: 9XXXXXXXX)');
+        return;
+      }
+      
+      if (nif && !/^\d{9}$/.test(nif)) {
+        showError('NIF deve ter 9 dígitos');
+        return;
+      }
+      
+      // Show loading
+      showLoading();
+      
+      try {
+        const response = await fetch('https://cool-starship-a7a3e1.netlify.app/.netlify/functions/mbway-payment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            produto_id: 'EVENTO_MARIOBOMBA_20260214',
+            amount: 15.00,
+            phone: phone,
+            email: email,
+            nome: nome,
+            nif: nif || null,
+            observacoes: (participacao ? `[OPÇÕES: ${participacao}] ` : '') + (observacoes || '')
+          })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          // Enviar dados para Formspark (notificação email)
+          try {
+            await fetch('https://submit-form.com/VWeqgDqZu', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify({
+                event_name: 'Workshop Mario Bomba',
+                _email: {
+                  subject: 'Inscrição Workshop Mario Bomba - BE WATER'
+                },
+                nome: nome,
+                email: email,
+                telemovel: phone,
+                participacao: participacao,
+                nif: nif || 'Não fornecido',
+                observacoes: observacoes || 'Nenhuma',
+                valor: '€15.00',
+                data_inscricao: new Date().toLocaleString('pt-PT')
+              })
+            });
+          } catch (formsparkError) {
+            console.log('Erro Formspark (não crítico):', formsparkError);
+          }
+          
+          showSuccess('✅ Pedido de pagamento enviado! Abre a app MBWay no teu telemóvel para confirmar o pagamento de €15.00. Após confirmação, receberás email com os detalhes da inscrição.');
+          // Clear form
+          document.getElementById('inscricao-form').reset();
+        } else {
+          showError(result.message || 'Erro no pagamento. Tenta novamente.');
+        }
+        
+      } catch (error) {
+        console.error('Erro:', error);
+        showError('Erro de conexão. Verifica a tua ligação à internet e tenta novamente.');
+      } finally {
+        hideLoading();
+      }
+    });
+
+    function showLoading() {
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('payBtn').disabled = true;
+      document.getElementById('error-msg').style.display = 'none';
+      document.getElementById('success-msg').style.display = 'none';
+    }
+
+    function hideLoading() {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('payBtn').disabled = false;
+    }
+
+    function showError(message) {
+      const errorDiv = document.getElementById('error-msg');
+      errorDiv.textContent = '❌ ' + message;
+      errorDiv.style.display = 'block';
+      document.getElementById('success-msg').style.display = 'none';
+      // Scroll to error
+      errorDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function showSuccess(message) {
+      // Mostrar popup em vez de mensagem
+      document.getElementById('successPopup').classList.add('show');
+      
+      // Esconder formulário
+      document.getElementById('inscricao-form').style.display = 'none';
+      
+      // Esconder mensagens antigas
+      document.getElementById('error-msg').style.display = 'none';
+      document.getElementById('success-msg').style.display = 'none';
+    }
+
+    function closeSuccessPopup() {
+      document.getElementById('successPopup').classList.remove('show');
+      
+      // Mostrar formulário novamente e resetar
+      const form = document.getElementById('inscricao-form');
+      form.style.display = 'block';
+      form.reset();
+      
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Auto-format phone number
+    document.getElementById('tel').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length > 9) value = value.slice(0, 9);
+      e.target.value = value;
+    });
+
+    // Auto-format NIF
+    document.getElementById('nif').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length > 9) value = value.slice(0, 9);
+      e.target.value = value;
+    });
+  </script>
+
+  <script>
+    // Translations for Mario Bomba Event
+    const translations = {
+      pt: {
+        'evento.eyebrow': 'Evento Especial',
+        'evento.title': 'Workshop de Public Speaking',
+        'evento.date': 'SÁBADO, 14 FEV 2026',
+        'evento.subtitle': 'Workshop exclusivo de Public Speaking com Mario Bomba no BE WATER. Treino opcional às 9h30 seguido de Workshop às 11h.',
+        'evento.cta': 'Garantir Vaga',
+        'evento.plan.title': 'Plano do Evento',
+        'evento.plan.dateinfo': '14 de fevereiro (sábado)',
+        'evento.plan.maps': 'ver Google Maps',
+        'evento.plan.schedule1': 'Treino BeWater (opcional)',
+        'evento.plan.schedule2': 'Workshop com <strong>Mario Bomba</strong>',
+        'evento.plan.price': '<strong>Preços:</strong> Grátis (sócios) | 15€ (externos)',
+        'evento.plan.includes': 'Inclui treino + workshop',
+        'evento.plan.limited': 'Vagas limitadas. Garante a tua presença!',
+        'evento.cartaz.title': 'Cartaz do Evento',
+        'evento.cartaz.subtitle': 'Clica para ampliar se necessário',
+        'evento.topics.title': 'Temas do Workshop:',
+        'evento.topics.1': 'Falar em Público',
+        'evento.topics.2': 'Foco e Concentração',
+        'evento.topics.3': 'Comunicar sem entraves ou receios',
+        'evento.form.title': 'Inscrição',
+        'evento.form.name': 'Nome',
+        'evento.form.phone': 'Telemóvel (MBWay)',
+        'evento.form.nif': 'NIF - opcional (para fatura)',
+        'evento.form.notes': 'Observações (opcional)',
+        'evento.form.options': 'Opções de participação:',
+        'evento.form.option.workshop.included': 'Workshop Mario Bomba (Incluído)',
+        'evento.form.option.training': 'Vou também ao Treino (09:30)',
+        'evento.form.price': 'Inscrição: €15.00',
+        'evento.form.price-note': '(Sócios inscrevem-se via app do clube)',
+        'evento.form.consent': 'Li e aceito o tratamento dos meus dados para efeitos de inscrição e comunicação relacionada com este evento.',
+        'evento.form.submit': '💳 Pagar €15.00 com MBWay',
+        'evento.form.processing': 'A processar pagamento...',
+        'evento.form.confirm-phone': 'Confirma o pagamento na app MBWay',
+        'evento.popup.title': 'Vá ao seu Telemóvel!',
+        'evento.popup.attention': 'ATENÇÃO:',
+        'evento.popup.not-paid': 'O pagamento ainda <strong>NÃO</strong> foi realizado!',
+        'evento.popup.open-app': '📱 <strong>Abra a aplicação MBWay no seu telemóvel AGORA</strong>',
+        'evento.popup.confirm-payment': '💳 <strong>Confirme o pagamento de €15.00</strong>',
+        'evento.popup.only-after': '<em>Só após confirmar no telemóvel é que o pagamento será processado.</em>',
+        'evento.popup.email-confirmation': '📧 <strong>Receberá a confirmação da inscrição por email dentro das próximas 24h.</strong>',
+        'evento.popup.btn': 'Vou Confirmar no Telemóvel',
+        'evento.back': '← Voltar aos Eventos',
+        'evento.back.short': '← Voltar'
+      },
+      en: {
+        'evento.eyebrow': 'Special Event',
+        'evento.title': 'Public Speaking Workshop',
+        'evento.date': 'SATURDAY, FEB 14, 2026',
+        'evento.subtitle': 'Exclusive Public Speaking workshop with Mario Bomba at BE WATER. Optional training at 9:30 AM followed by Workshop at 11:00 AM.',
+        'evento.cta': 'Secure Spot',
+        'evento.plan.title': 'Event Schedule',
+        'evento.plan.dateinfo': 'February 14 (Saturday)',
+        'evento.plan.maps': 'view Google Maps',
+        'evento.plan.schedule1': 'BeWater Training (optional)',
+        'evento.plan.schedule2': 'Workshop with <strong>Mario Bomba</strong>',
+        'evento.plan.price': '<strong>Prices:</strong> Free (members) | 15€ (non-members)',
+        'evento.plan.includes': 'Includes training + workshop',
+        'evento.plan.limited': 'Limited spots. Secure your place!',
+        'evento.cartaz.title': 'Event Poster',
+        'evento.cartaz.subtitle': 'Click to enlarge if needed',
+        'evento.topics.title': 'Workshop Topics:',
+        'evento.topics.1': 'Public Speaking',
+        'evento.topics.2': 'Focus and Concentration',
+        'evento.topics.3': 'Communicate without barriers or fears',
+        'evento.form.title': 'Registration',
+        'evento.form.name': 'Name',
+        'evento.form.phone': 'Phone (MBWay)',
+        'evento.form.nif': 'Tax ID - optional (for invoice)',
+        'evento.form.notes': 'Notes (optional)',
+        'evento.form.options': 'Participation options:',
+        'evento.form.option.workshop.included': 'Mario Bomba Workshop (Included)',
+        'evento.form.option.training': 'I will also attend the Training (09:30 AM)',
+        'evento.form.price': 'Registration: €15.00',
+        'evento.form.price-note': '(Members register via club app)',
+        'evento.form.consent': 'I have read and accept the processing of my data for registration and communication related to this event.',
+        'evento.form.submit': '💳 Pay €15.00 with MBWay',
+        'evento.form.processing': 'Processing payment...',
+        'evento.form.confirm-phone': 'Confirm payment in MBWay app',
+        'evento.popup.title': 'Go to your Phone!',
+        'evento.popup.attention': 'ATTENTION:',
+        'evento.popup.not-paid': 'The payment has <strong>NOT</strong> been completed yet!',
+        'evento.popup.open-app': '📱 <strong>Open the MBWay app on your phone NOW</strong>',
+        'evento.popup.confirm-payment': '💳 <strong>Confirm the payment of €15.00</strong>',
+        'evento.popup.only-after': '<em>Only after confirming on your phone will the payment be processed.</em>',
+        'evento.popup.email-confirmation': '📧 <strong>You will receive registration confirmation by email within the next 24 hours.</strong>',
+        'evento.popup.btn': 'I Will Confirm on My Phone',
+        'evento.back': '← Back to Events',
+        'evento.back.short': '← Back'
+      }
+    };
+
+    let currentLang = 'pt';
+
+    function switchLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      
+      // Update all elements with data-i18n
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          element.innerHTML = translations[lang][key];
+        }
+      });
+
+      // Update active button
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+
+      // Save preference
+      localStorage.setItem('evento-lang', lang);
+    }
+
+    // Event listeners for language buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        switchLanguage(this.getAttribute('data-lang'));
+      });
+    });
+
+    // Event listener para fechar popup ao clicar no fundo
+    document.getElementById('successPopup').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeSuccessPopup();
+      }
+    });
+
+    // Load saved language preference or default to PT
+    const savedLang = localStorage.getItem('evento-lang') || 'pt';
+    if (savedLang !== 'pt') {
+      switchLanguage(savedLang);
+    }
+  </script>
+
+  <!-- Success Popup -->
+  <div class="success-popup" id="successPopup">
+    <div class="success-popup-content">
+      <div class="success-popup-icon">📱</div>
+      <div class="success-popup-title" data-i18n="evento.popup.title">Vá ao seu Telemóvel!</div>
+      <div class="success-popup-message">
+        <span data-i18n="evento.popup.attention">ATENÇÃO:</span> <span data-i18n="evento.popup.not-paid">O pagamento ainda <strong>NÃO</strong> foi realizado!</span><br><br>
+        <span data-i18n="evento.popup.open-app">📱 <strong>Abra a aplicação MBWay no seu telemóvel AGORA</strong></span><br>
+        <span data-i18n="evento.popup.confirm-payment">💳 <strong>Confirme o pagamento de €15.00</strong></span><br><br>
+        <span data-i18n="evento.popup.only-after"><em>Só após confirmar no telemóvel é que o pagamento será processado.</em></span><br><br>
+        <span data-i18n="evento.popup.email-confirmation">📧 <strong>Receberá a confirmação da inscrição por email dentro das próximas 24h.</strong></span>
+      </div>
+      <button class="success-popup-btn" onclick="closeSuccessPopup()" data-i18n="evento.popup.btn">Vou Confirmar no Telemóvel</button>
+    </div>
+  </div>
+
+</body>
+</html>
