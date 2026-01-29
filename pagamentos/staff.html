@@ -937,10 +937,10 @@
             if (result.success) {
                 document.getElementById('loginOverlay').style.display = 'none';
                 // Recarregar dados
-                loadPayments();
+                await loadPayments();
+                await loadPtSessions();
                 if (document.getElementById('ptsTab').classList.contains('active')) {
                     loadPtInitialData();
-                    loadPtSessions();
                 }
             } else {
                 errorDiv.textContent = result.message;
@@ -1986,8 +1986,10 @@ Tem a certeza que deseja continuar?`;
 
         // Carregar inicial se autenticado
         if (StaffAuth.isAuthenticated()) {
-            loadPayments();
-            loadPtSessions(); // Carregar PTs para os totais globais no topo
+            (async () => {
+                await loadPayments();
+                await loadPtSessions(); // Carregar PTs para os totais globais no topo
+            })();
         } else {
             document.getElementById('loginOverlay').style.display = 'flex';
         }
