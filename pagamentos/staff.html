@@ -878,6 +878,10 @@
                                     <select id="ptCoachSelect" required style="width: 100%; padding: 10px; border: 3px solid #000;">
                                         <option value="">Selecionar...</option>
                                     </select>
+                                    <div style="margin-top: 8px; display: flex; gap: 8px; align-items: center;">
+                                        <input type="text" id="newCoachName" placeholder="Nome do novo coach" style="flex: 1; padding: 8px; border: 2px solid #000;">
+                                        <button type="button" id="addCoachBtn" class="action-btn" style="background: #17a2b8; color: white; padding: 8px 12px;">➕ Adicionar coach</button>
+                                    </div>
                                 </div>
                                 <div>
                                     <label style="display: block; margin-bottom: 5px; font-weight: bold;">Nome do Cliente</label>
@@ -1011,6 +1015,38 @@
                 console.error('Erro ao carregar dados iniciais de PT:', error);
             }
         }
+
+        async function addCoach() {
+            const input = document.getElementById('newCoachName');
+            const name = (input?.value || '').trim();
+            if (!name) return;
+            if (!StaffAuth.isAuthenticated()) return;
+            const btn = document.getElementById('addCoachBtn');
+            if (btn) btn.disabled = true;
+            try {
+                const response = await fetch('/.netlify/functions/pt-management', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json', ...StaffAuth.getAuthHeader() },
+                    body: JSON.stringify({ action: 'add_coach', name })
+                });
+                const data = await response.json();
+                if (data.success) {
+                    input.value = '';
+                    await loadPtInitialData();
+                    const select = document.getElementById('ptCoachSelect');
+                    if (data.coach && select) select.value = data.coach.id;
+                } else {
+                    alert(data.message || 'Erro ao adicionar coach');
+                }
+            } catch (error) {
+                console.error('Erro ao adicionar coach:', error);
+                alert('Erro ao adicionar coach');
+            }
+            if (btn) btn.disabled = false;
+        }
+
+        document.getElementById('addCoachBtn')?.addEventListener('click', addCoach);
+        document.getElementById('newCoachName')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); addCoach(); } });
 
         async function loadPtSessions() {
             if (!StaffAuth.isAuthenticated()) return;

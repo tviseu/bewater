@@ -32,7 +32,8 @@ CREATE TABLE pt_sessions (
 INSERT INTO pt_coaches (name) VALUES 
 ('Salgueiro'),
 ('Lourenço'),
-('Inês');
+('Inês'),
+('Arménio');
 
 -- Inserir Configurações Iniciais
 INSERT INTO pt_settings (key, value, description) VALUES 
