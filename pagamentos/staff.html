@@ -673,6 +673,30 @@
             padding: 10px 16px;
             white-space: nowrap;
         }
+        .add-coach-btn:disabled {
+            background: #ccc !important;
+            color: #666 !important;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        .add-coach-confirm {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .add-coach-confirm input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #17a2b8;
+        }
+        .add-coach-confirm label {
+            font-size: 0.9rem;
+            cursor: pointer;
+            user-select: none;
+            color: #333;
+        }
 
         /* FILTRO DE MÊS */
         .month-filter {
@@ -771,6 +795,12 @@
             }
             .add-coach-btn {
                 min-height: 44px;
+            }
+            .add-coach-confirm {
+                flex-wrap: wrap;
+            }
+            .add-coach-confirm label {
+                font-size: 0.85rem;
             }
 
             .tab-button {
@@ -947,7 +977,11 @@
                                     <label class="add-coach-label">Novo coach (adicionar à lista)</label>
                                     <div class="add-coach-controls">
                                         <input type="text" id="newCoachName" class="add-coach-input" placeholder="Nome do novo coach">
-                                        <button type="button" id="addCoachBtn" class="action-btn add-coach-btn">➕ Adicionar coach</button>
+                                        <button type="button" id="addCoachBtn" class="action-btn add-coach-btn" disabled>➕ Adicionar coach</button>
+                                    </div>
+                                    <div class="add-coach-confirm">
+                                        <input type="checkbox" id="confirmAddCoach">
+                                        <label for="confirmAddCoach">Confirmo que quero adicionar este coach</label>
                                     </div>
                                 </div>
                             </form>
@@ -1067,9 +1101,21 @@
 
         async function addCoach() {
             const input = document.getElementById('newCoachName');
+            const confirmCheckbox = document.getElementById('confirmAddCoach');
             const name = (input?.value || '').trim();
-            if (!name) return;
+            
+            if (!name) {
+                alert('Por favor, introduza o nome do coach');
+                return;
+            }
+            
+            if (!confirmCheckbox?.checked) {
+                alert('Por favor, confirme que deseja adicionar este coach marcando a checkbox');
+                return;
+            }
+            
             if (!StaffAuth.isAuthenticated()) return;
+            
             const btn = document.getElementById('addCoachBtn');
             if (btn) btn.disabled = true;
             try {
@@ -1081,6 +1127,7 @@
                 const data = await response.json();
                 if (data.success) {
                     input.value = '';
+                    if (confirmCheckbox) confirmCheckbox.checked = false;
                     await loadPtInitialData();
                     const select = document.getElementById('ptCoachSelect');
                     if (data.coach && select) select.value = data.coach.id;
@@ -1094,8 +1141,28 @@
             if (btn) btn.disabled = false;
         }
 
+        // Ativar/desativar botão baseado no nome e checkbox
+        function updateAddCoachButton() {
+            const input = document.getElementById('newCoachName');
+            const confirmCheckbox = document.getElementById('confirmAddCoach');
+            const btn = document.getElementById('addCoachBtn');
+            const name = (input?.value || '').trim();
+            const confirmed = confirmCheckbox?.checked || false;
+            
+            if (btn) {
+                btn.disabled = !(name && confirmed);
+            }
+        }
+
         document.getElementById('addCoachBtn')?.addEventListener('click', addCoach);
-        document.getElementById('newCoachName')?.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); addCoach(); } });
+        document.getElementById('newCoachName')?.addEventListener('input', updateAddCoachButton);
+        document.getElementById('newCoachName')?.addEventListener('keydown', (e) => { 
+            if (e.key === 'Enter') { 
+                e.preventDefault(); 
+                addCoach(); 
+            } 
+        });
+        document.getElementById('confirmAddCoach')?.addEventListener('change', updateAddCoachButton);
 
         async function loadPtSessions() {
             if (!StaffAuth.isAuthenticated()) return;
