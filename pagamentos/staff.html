@@ -640,6 +640,40 @@
             color: #666;
         }
 
+        /* Adicionar coach — linha própria, não encavalitada */
+        .add-coach-row {
+            grid-column: 1 / -1;
+            margin-top: 8px;
+            padding-top: 16px;
+            border-top: 2px dashed #ccc;
+        }
+        .add-coach-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            color: #555;
+        }
+        .add-coach-controls {
+            display: flex;
+            gap: 10px;
+            align-items: stretch;
+            flex-wrap: wrap;
+        }
+        .add-coach-input {
+            flex: 1;
+            min-width: 140px;
+            padding: 10px 12px;
+            border: 3px solid #000;
+            font-size: 1rem;
+        }
+        .add-coach-btn {
+            background: #17a2b8 !important;
+            color: white !important;
+            padding: 10px 16px;
+            white-space: nowrap;
+        }
+
         /* FILTRO DE MÊS */
         .month-filter {
             background: #ffffff;
@@ -725,6 +759,18 @@
             /* PT Management Form Mobile */
             #addPtForm {
                 grid-template-columns: 1fr !important;
+            }
+
+            .add-coach-controls {
+                flex-direction: column;
+            }
+            .add-coach-input,
+            .add-coach-btn {
+                width: 100%;
+                min-width: 0;
+            }
+            .add-coach-btn {
+                min-height: 44px;
             }
 
             .tab-button {
@@ -878,10 +924,6 @@
                                     <select id="ptCoachSelect" required style="width: 100%; padding: 10px; border: 3px solid #000;">
                                         <option value="">Selecionar...</option>
                                     </select>
-                                    <div style="margin-top: 8px; display: flex; gap: 8px; align-items: center;">
-                                        <input type="text" id="newCoachName" placeholder="Nome do novo coach" style="flex: 1; padding: 8px; border: 2px solid #000;">
-                                        <button type="button" id="addCoachBtn" class="action-btn" style="background: #17a2b8; color: white; padding: 8px 12px;">➕ Adicionar coach</button>
-                                    </div>
                                 </div>
                                 <div>
                                     <label style="display: block; margin-bottom: 5px; font-weight: bold;">Nome do Cliente</label>
@@ -901,6 +943,13 @@
                                 <button type="submit" class="action-btn" style="height: 48px; background: #28a745; color: white;">
                                     ➕ Adicionar PT
                                 </button>
+                                <div class="add-coach-row">
+                                    <label class="add-coach-label">Novo coach (adicionar à lista)</label>
+                                    <div class="add-coach-controls">
+                                        <input type="text" id="newCoachName" class="add-coach-input" placeholder="Nome do novo coach">
+                                        <button type="button" id="addCoachBtn" class="action-btn add-coach-btn">➕ Adicionar coach</button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
 
