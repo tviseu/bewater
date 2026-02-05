@@ -2128,10 +2128,14 @@ Tem a certeza que deseja continuar?`;
             lastUpdateSpan.textContent = new Date().toLocaleTimeString('pt-PT');
         }
 
+        // Função para atualizar todos os dados (pagamentos e PTs)
+        async function refreshAllData() {
+            await loadPayments();
+            await loadPtSessions();
+        }
 
-
-        // Auto-refresh a cada 10 segundos
-        setInterval(loadPayments, 10000);
+        // Auto-refresh a cada 10 segundos (pagamentos e PTs)
+        setInterval(refreshAllData, 10000);
 
         // Inicializar display do mês
         updateMonthDisplay();
