@@ -582,14 +582,27 @@
                 flex: none;
                 width: 50%;
             }
-            #ptsTab {
-                width: 100%;
-                border-top: 4px solid #000;
-                margin-top: -4px;
-            }
         }
 
-        .tab-button .badge {
+        .btn-clear-pending {
+            padding: 12px 24px;
+            background: #dc3545;
+            color: white;
+            border: 4px solid #000000;
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px #000000;
+            transition: all 0.2s ease;
+        }
+        .btn-clear-pending:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+        }
+
+        .tab-button .badge,
+        .pt-subtab-btn .badge {
             display: inline-block;
             margin-left: 8px;
             padding: 2px 8px;
@@ -703,11 +716,13 @@
             margin-top: 10px;
             margin-bottom: 0;
             border-bottom: 3px solid #000;
+            overflow: hidden;
         }
         .pt-subtabs {
             display: flex;
             flex-wrap: nowrap;
             overflow-x: auto;
+            overflow-y: hidden;
             gap: 0;
             -webkit-overflow-scrolling: touch;
         }
@@ -1053,49 +1068,38 @@
             <!-- TABS NAVIGATION -->
             <div class="tabs-container">
                 <div class="tabs-header">
-                    <div style="display: flex; flex: 2; min-width: 300px;">
-                        <button class="tab-button active" onclick="switchTab('confirmed')" id="confirmedTab" style="border-right: 2px solid #000;">
-                            ✅ Confirmados
-                            <span class="badge" id="confirmedCount">0</span>
-                        </button>
-                        <button class="tab-button" onclick="switchTab('pending')" id="pendingTab">
-                            ⏳ Pendentes
-                            <span class="badge" id="pendingCount">0</span>
-                        </button>
-                    </div>
-                    <button class="tab-button" onclick="switchTab('pts')" id="ptsTab" style="flex: 1; border-left: 4px solid #000;">
+                    <button class="tab-button active" onclick="switchTab('products')" id="productsTab" style="border-right: 2px solid #000;">
+                        📦 Produtos
+                    </button>
+                    <button class="tab-button" onclick="switchTab('pts')" id="ptsTab" style="flex: 1; border-left: 2px solid #000;">
                         🏋️ Gestão de PTs
                     </button>
                 </div>
 
-                <!-- TAB CONTENT: CONFIRMADOS -->
-                <div id="confirmedContent" class="tab-content active">
-                    <div id="paymentsList" class="payments-list">
-                        <div class="loading">🔄 Carregando pagamentos confirmados...</div>
-                    </div>
-                </div>
-
-                <!-- TAB CONTENT: PENDENTES -->
-                <div id="pendingContent" class="tab-content">
-                    <div style="margin-bottom: 20px; text-align: center;">
-                        <button onclick="clearAllPendingPayments()" style="
-                            padding: 12px 24px;
-                            background: #dc3545;
-                            color: white;
-                            border: 4px solid #000000;
-                            font-family: 'Work Sans', sans-serif;
-                            font-weight: 600;
-                            font-size: 1rem;
-                            cursor: pointer;
-                            box-shadow: 4px 4px 0px #000000;
-                            transition: all 0.2s ease;
-                        " onmouseover="this.style.background='#c82333'; this.style.transform='translateY(-2px)'" 
-                           onmouseout="this.style.background='#dc3545'; this.style.transform='translateY(0)'">
-                            🗑️ Limpar Todos os Pagamentos Pendentes
-                        </button>
-                    </div>
-                    <div id="pendingPaymentsList" class="payments-list">
-                        <div class="loading">🔄 Carregando pagamentos pendentes...</div>
+                <!-- TAB CONTENT: PRODUTOS (com sub-tabs Confirmados | Pendentes) -->
+                <div id="productsContent" class="tab-content active">
+                    <div class="products-dashboard">
+                        <div class="pt-subtabs-wrap">
+                            <div class="pt-subtabs" role="tablist">
+                                <button type="button" class="pt-subtab-btn active" data-product-subtab="confirmed" role="tab">✅ Confirmados <span class="badge" id="confirmedCount">0</span></button>
+                                <button type="button" class="pt-subtab-btn" data-product-subtab="pending" role="tab">⏳ Pendentes <span class="badge" id="pendingCount">0</span></button>
+                            </div>
+                        </div>
+                        <div id="productSubtabConfirmed" class="pt-subtab-content active">
+                            <div id="paymentsList" class="payments-list">
+                                <div class="loading">🔄 Carregando pagamentos confirmados...</div>
+                            </div>
+                        </div>
+                        <div id="productSubtabPending" class="pt-subtab-content">
+                            <div style="margin-bottom: 20px; text-align: center;">
+                                <button onclick="clearAllPendingPayments()" class="btn-clear-pending">
+                                    🗑️ Limpar Todos os Pagamentos Pendentes
+                                </button>
+                            </div>
+                            <div id="pendingPaymentsList" class="payments-list">
+                                <div class="loading">🔄 Carregando pagamentos pendentes...</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -1263,24 +1267,19 @@
         const prevMonthBtn = document.getElementById('prevMonthBtn');
         const nextMonthBtn = document.getElementById('nextMonthBtn');
 
-        // Tab switching function
+        // Tab switching function (main tabs: products | pts)
         function switchTab(tabName) {
-            // Update tab buttons
             document.querySelectorAll('.tab-button').forEach(btn => {
                 btn.classList.remove('active');
             });
-            
-            // Update tab contents
             document.querySelectorAll('.tab-content').forEach(content => {
                 content.classList.remove('active');
             });
             
-            if (tabName === 'confirmed') {
-                document.getElementById('confirmedTab').classList.add('active');
-                document.getElementById('confirmedContent').classList.add('active');
-            } else if (tabName === 'pending') {
-                document.getElementById('pendingTab').classList.add('active');
-                document.getElementById('pendingContent').classList.add('active');
+            if (tabName === 'products') {
+                document.getElementById('productsTab').classList.add('active');
+                document.getElementById('productsContent').classList.add('active');
+                switchProductSubtab(currentProductSubtab);
             } else if (tabName === 'pts') {
                 document.getElementById('ptsTab').classList.add('active');
                 document.getElementById('ptsContent').classList.add('active');
@@ -1289,6 +1288,21 @@
                 switchPtSubtab('resumo');
             }
         }
+
+        let currentProductSubtab = 'confirmed';
+
+        function switchProductSubtab(subtabName) {
+            currentProductSubtab = subtabName;
+            document.querySelectorAll('[data-product-subtab]').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-product-subtab') === subtabName);
+            });
+            document.getElementById('productSubtabConfirmed').classList.toggle('active', subtabName === 'confirmed');
+            document.getElementById('productSubtabPending').classList.toggle('active', subtabName === 'pending');
+        }
+
+        document.querySelectorAll('[data-product-subtab]').forEach(btn => {
+            btn.addEventListener('click', () => switchProductSubtab(btn.getAttribute('data-product-subtab')));
+        });
 
         // --- GESTÃO DE PTs ---
         const PT_COACH_PALETTE = ['#28a745', '#007bff', '#fd7e14', '#6f42c1', '#20c997', '#e83e8c'];
@@ -1451,14 +1465,16 @@
                 return;
             }
             containerEl.innerHTML = sessions.map(session => {
-                const borderColor = session.type === 'internal' ? '#28a745' : '#007bff';
+                const isInternal = session.type === 'internal';
+                const borderColor = isInternal ? '#28a745' : '#007bff';
+                const bgColor = isInternal ? 'rgba(40, 167, 69, 0.12)' : 'rgba(0, 123, 255, 0.12)';
                 const coachName = session.pt_coaches?.name || 'N/A';
                 const coachIdx = getCoachIndex(session.coach_id || session.pt_coaches?.id);
                 const badgeClass = showCoachBadge ? 'pt-session-badge pt-coach-' + coachIdx : '';
                 const badgeStyle = showCoachBadge ? 'background:' + PT_COACH_PALETTE[coachIdx] + ';color:#fff;' : '';
                 const badgeHtml = showCoachBadge ? `<span class="${badgeClass}" style="${badgeStyle}">${coachName}</span>` : '';
                 return `
-                <div class="payment-card confirmado" style="border-left: 10px solid ${borderColor}">
+                <div class="payment-card confirmado" style="border-left: 10px solid ${borderColor}; background: ${bgColor};">
                     <div class="payment-info">
                         <div class="payment-produto">
                             ${session.type === 'internal' ? '🏠 PT Interno' : '🌍 PT Externo'} - ${session.client_name}${badgeHtml}
