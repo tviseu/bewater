@@ -461,7 +461,7 @@ exports.handler = async (event, context) => {
     let dadosCliente = {
       nome: input.nome || null,
       nif: input.nif || null,
-      email: input.email || 'bewaterlisboa@gmail.com'
+      email: input.email || 'noreply@bewaterlisboa.pt'
     };
 
     // Se buscou da BD, usar os dados do primeiro pagamento
@@ -478,7 +478,7 @@ exports.handler = async (event, context) => {
           dadosCliente = {
             nome: firstPayment.nome || null,
             nif: firstPayment.nif || null,
-            email: firstPayment.email || 'bewaterlisboa@gmail.com'
+            email: firstPayment.email || 'noreply@bewaterlisboa.pt'
           };
         }
       } catch (clientError) {
