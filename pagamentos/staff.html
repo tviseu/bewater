@@ -698,6 +698,161 @@
             color: #333;
         }
 
+        /* PT Sub-tabs */
+        .pt-subtabs-wrap {
+            margin-top: 10px;
+            margin-bottom: 0;
+            border-bottom: 3px solid #000;
+        }
+        .pt-subtabs {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            gap: 0;
+            -webkit-overflow-scrolling: touch;
+        }
+        .pt-subtab-btn {
+            flex: 0 0 auto;
+            min-height: 44px;
+            min-width: 80px;
+            padding: 10px 14px;
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            background: #f0f7ff;
+            border: 2px solid #000;
+            border-bottom: none;
+            cursor: pointer;
+            margin-bottom: -3px;
+            transition: background 0.2s;
+        }
+        .pt-subtab-btn:hover {
+            background: #d0e7ff;
+        }
+        .pt-subtab-btn.active {
+            background: #007bff;
+            color: #fff;
+        }
+        .pt-subtab-content {
+            display: none;
+            padding-top: 20px;
+            animation: fadeIn 0.25s ease;
+        }
+        .pt-subtab-content.active {
+            display: block;
+        }
+        .stat-meta {
+            font-size: 0.8rem;
+            margin-top: 5px;
+            opacity: 0.7;
+        }
+        .pt-internal-card {
+            box-shadow: 8px 8px 0px #28a745;
+        }
+        .pt-external-card {
+            box-shadow: 8px 8px 0px #007bff;
+        }
+        .pt-coach-summary {
+            background: #000;
+            color: #fff;
+            padding: 15px;
+            border: 4px solid #000;
+            margin-top: 20px;
+        }
+        .pt-coach-summary-title {
+            margin-bottom: 10px;
+            font-family: 'Work Sans', sans-serif;
+        }
+        .pt-coach-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        .pt-coach-card {
+            padding: 10px;
+            border: 2px solid rgba(255,255,255,0.3);
+            text-align: center;
+        }
+        .pt-coach-0 { border-color: #28a745; background: rgba(40,167,69,0.2); }
+        .pt-coach-1 { border-color: #007bff; background: rgba(0,123,255,0.2); }
+        .pt-coach-2 { border-color: #fd7e14; background: rgba(253,126,20,0.2); }
+        .pt-coach-3 { border-color: #6f42c1; background: rgba(111,66,193,0.2); }
+        .pt-coach-4 { border-color: #20c997; background: rgba(32,201,151,0.2); }
+        .pt-coach-5 { border-color: #e83e8c; background: rgba(232,62,140,0.2); }
+        .pt-filter-block {
+            margin-bottom: 15px;
+        }
+        .pt-filter-label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+        .pt-filter-select {
+            width: 100%;
+            max-width: 280px;
+            padding: 10px 12px;
+            border: 3px solid #000;
+            font-size: 1rem;
+        }
+        .pt-type-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .pt-type-btn {
+            padding: 10px 16px;
+            min-height: 44px;
+            font-weight: 600;
+            background: #f0f0f0;
+            border: 2px solid #000;
+            cursor: pointer;
+        }
+        .pt-type-btn:hover {
+            background: #e0e0e0;
+        }
+        .pt-type-btn.active {
+            background: #000;
+            color: #FFD700;
+        }
+        .pt-list-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-end;
+            margin-bottom: 15px;
+        }
+        .pt-empty-hint {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            font-size: 1rem;
+        }
+        .pt-sessions-list {
+            margin-top: 10px;
+        }
+        .pt-registar-section {
+            background: #f8f9fa;
+        }
+        .pt-add-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            align-items: end;
+        }
+        .pt-submit-btn {
+            height: 48px;
+            background: #28a745;
+            color: white;
+        }
+        .pt-session-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-left: 6px;
+        }
+
         /* FILTRO DE MÊS */
         .month-filter {
             background: #ffffff;
@@ -801,6 +956,30 @@
             }
             .add-coach-confirm label {
                 font-size: 0.85rem;
+            }
+
+            .pt-subtab-btn {
+                min-width: 70px;
+                padding: 10px 10px;
+                font-size: 0.85rem;
+            }
+            .pt-coach-stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            }
+            .pt-list-filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .pt-filter-select {
+                max-width: none;
+                font-size: 16px;
+            }
+            .pt-type-btns {
+                width: 100%;
+            }
+            .pt-type-btn {
+                flex: 1;
+                min-width: 0;
             }
 
             .tab-button {
@@ -923,73 +1102,112 @@
                 <!-- TAB CONTENT: GESTÃO DE PTs -->
                 <div id="ptsContent" class="tab-content">
                     <div class="pt-dashboard">
-                        <!-- PT Detailed Stats -->
-                        <div class="stats" style="margin-top: 20px;">
-                            <div class="stat-card" style="box-shadow: 8px 8px 0px #28a745;">
-                                <h3>🏠 PTs Internos</h3>
-                                <div class="stat-value" id="ptStatsInternalTotal">€0</div>
-                                <div style="font-size: 0.8rem; margin-top: 5px; opacity: 0.7;" id="ptStatsInternalCount">0 sessões</div>
-                            </div>
-                            <div class="stat-card" style="box-shadow: 8px 8px 0px #007bff;">
-                                <h3>🌍 PTs Externos</h3>
-                                <div class="stat-value" id="ptStatsExternalTotal">€0</div>
-                                <div style="font-size: 0.8rem; margin-top: 5px; opacity: 0.7;" id="ptStatsExternalCount">0 sessões</div>
+                        <!-- PT Sub-tabs -->
+                        <div class="pt-subtabs-wrap">
+                            <div class="pt-subtabs" role="tablist">
+                                <button type="button" class="pt-subtab-btn active" data-pt-subtab="resumo" role="tab">Resumo</button>
+                                <button type="button" class="pt-subtab-btn" data-pt-subtab="treinador" role="tab">Treinador</button>
+                                <button type="button" class="pt-subtab-btn" data-pt-subtab="lista" role="tab">Lista</button>
+                                <button type="button" class="pt-subtab-btn" data-pt-subtab="registar" role="tab">Registar</button>
                             </div>
                         </div>
 
-                        <!-- Coach Summary (New) -->
-                        <div id="ptCoachSummary" style="background: #000; color: #fff; padding: 15px; border: 4px solid #000; margin-bottom: 20px; display: none;">
-                            <h4 style="margin-bottom: 10px; font-family: 'Work Sans', sans-serif;">📊 Sessões por Coach</h4>
-                            <div id="ptCoachStatsList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px;">
-                                <!-- Will be filled by JS -->
+                        <!-- SUB-TAB: Resumo -->
+                        <div id="ptSubtabResumo" class="pt-subtab-content active">
+                            <div class="stats" style="margin-top: 20px;">
+                                <div class="stat-card pt-internal-card">
+                                    <h3>🏠 PTs Internos</h3>
+                                    <div class="stat-value" id="ptStatsInternalTotal">€0</div>
+                                    <div class="stat-meta" id="ptStatsInternalCount">0 sessões</div>
+                                </div>
+                                <div class="stat-card pt-external-card">
+                                    <h3>🌍 PTs Externos</h3>
+                                    <div class="stat-value" id="ptStatsExternalTotal">€0</div>
+                                    <div class="stat-meta" id="ptStatsExternalCount">0 sessões</div>
+                                </div>
+                            </div>
+                            <div id="ptCoachSummary" class="pt-coach-summary" style="display: none;">
+                                <h4 class="pt-coach-summary-title">📊 Sessões por Coach</h4>
+                                <div id="ptCoachStatsList" class="pt-coach-stats-grid"></div>
                             </div>
                         </div>
 
-                        <!-- Add PT Form -->
-                        <div class="payments-section" style="margin-top: 20px; background: #f8f9fa;">
-                            <h3 class="section-title">Registrar Nova Sessão de PT</h3>
-                            <form id="addPtForm" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; align-items: end;">
-                                <div>
-                                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Treinador</label>
-                                    <select id="ptCoachSelect" required style="width: 100%; padding: 10px; border: 3px solid #000;">
-                                        <option value="">Selecionar...</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Nome do Cliente</label>
-                                    <input type="text" id="ptClientName" required placeholder="Nome do Aluno" style="width: 100%; padding: 10px; border: 3px solid #000;">
-                                </div>
-                                <div>
-                                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Tipo de PT</label>
-                                    <select id="ptTypeSelect" required style="width: 100%; padding: 10px; border: 3px solid #000;">
-                                        <option value="internal">Interno (15€)</option>
-                                        <option value="external">Externo (10€)</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label style="display: block; margin-bottom: 5px; font-weight: bold;">Data e Hora</label>
-                                    <input type="datetime-local" id="ptDate" required style="width: 100%; padding: 10px; border: 3px solid #000;">
-                                </div>
-                                <button type="submit" class="action-btn" style="height: 48px; background: #28a745; color: white;">
-                                    ➕ Adicionar PT
-                                </button>
-                                <div class="add-coach-row">
-                                    <label class="add-coach-label">Novo coach (adicionar à lista)</label>
-                                    <div class="add-coach-controls">
-                                        <input type="text" id="newCoachName" class="add-coach-input" placeholder="Nome do novo coach">
-                                        <button type="button" id="addCoachBtn" class="action-btn add-coach-btn" disabled>➕ Adicionar coach</button>
-                                    </div>
-                                    <div class="add-coach-confirm">
-                                        <input type="checkbox" id="confirmAddCoach">
-                                        <label for="confirmAddCoach">Confirmo que quero adicionar este coach</label>
+                        <!-- SUB-TAB: Por treinador -->
+                        <div id="ptSubtabTreinador" class="pt-subtab-content">
+                            <div class="pt-filter-block">
+                                <label class="pt-filter-label" for="ptCoachFilterSelect">Treinador</label>
+                                <select id="ptCoachFilterSelect" class="pt-filter-select">
+                                    <option value="">Selecionar treinador...</option>
+                                </select>
+                            </div>
+                            <div id="ptSessionsByCoach" class="payments-list pt-sessions-list">
+                                <div class="pt-empty-hint">Selecione um treinador para ver as sessões.</div>
+                            </div>
+                        </div>
+
+                        <!-- SUB-TAB: Lista -->
+                        <div id="ptSubtabLista" class="pt-subtab-content">
+                            <div class="pt-list-filters">
+                                <div class="pt-filter-block">
+                                    <label class="pt-filter-label">Tipo</label>
+                                    <div class="pt-type-btns">
+                                        <button type="button" class="pt-type-btn active" data-pt-type="all">Todos</button>
+                                        <button type="button" class="pt-type-btn" data-pt-type="internal">Internos</button>
+                                        <button type="button" class="pt-type-btn" data-pt-type="external">Externos</button>
                                     </div>
                                 </div>
-                            </form>
+                                <div class="pt-filter-block">
+                                    <label class="pt-filter-label" for="ptListCoachFilter">Treinador</label>
+                                    <select id="ptListCoachFilter" class="pt-filter-select">
+                                        <option value="all">Todos</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="ptSessionsList" class="payments-list pt-sessions-list">
+                                <div class="loading">🔄 Carregando sessões de PT...</div>
+                            </div>
                         </div>
 
-                        <!-- PT Sessions List -->
-                        <div id="ptSessionsList" class="payments-list" style="margin-top: 20px;">
-                            <div class="loading">🔄 Carregando sessões de PT...</div>
+                        <!-- SUB-TAB: Registar -->
+                        <div id="ptSubtabRegistar" class="pt-subtab-content">
+                            <div class="payments-section pt-registar-section">
+                                <h3 class="section-title">Registrar Nova Sessão de PT</h3>
+                                <form id="addPtForm" class="pt-add-form">
+                                    <div>
+                                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Treinador</label>
+                                        <select id="ptCoachSelect" required style="width: 100%; padding: 10px; border: 3px solid #000;">
+                                            <option value="">Selecionar...</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Nome do Cliente</label>
+                                        <input type="text" id="ptClientName" required placeholder="Nome do Aluno" style="width: 100%; padding: 10px; border: 3px solid #000;">
+                                    </div>
+                                    <div>
+                                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Tipo de PT</label>
+                                        <select id="ptTypeSelect" required style="width: 100%; padding: 10px; border: 3px solid #000;">
+                                            <option value="internal">Interno (15€)</option>
+                                            <option value="external">Externo (10€)</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Data e Hora</label>
+                                        <input type="datetime-local" id="ptDate" required style="width: 100%; padding: 10px; border: 3px solid #000;">
+                                    </div>
+                                    <button type="submit" class="action-btn pt-submit-btn">➕ Adicionar PT</button>
+                                    <div class="add-coach-row">
+                                        <label class="add-coach-label">Novo coach (adicionar à lista)</label>
+                                        <div class="add-coach-controls">
+                                            <input type="text" id="newCoachName" class="add-coach-input" placeholder="Nome do novo coach">
+                                            <button type="button" id="addCoachBtn" class="action-btn add-coach-btn" disabled>➕ Adicionar coach</button>
+                                        </div>
+                                        <div class="add-coach-confirm">
+                                            <input type="checkbox" id="confirmAddCoach">
+                                            <label for="confirmAddCoach">Confirmo que quero adicionar este coach</label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1068,13 +1286,38 @@
                 document.getElementById('ptsContent').classList.add('active');
                 loadPtInitialData();
                 loadPtSessions();
+                switchPtSubtab('resumo');
             }
         }
 
         // --- GESTÃO DE PTs ---
+        const PT_COACH_PALETTE = ['#28a745', '#007bff', '#fd7e14', '#6f42c1', '#20c997', '#e83e8c'];
         let ptCoaches = [];
         let ptSettings = {};
         let ptSessions = [];
+        let currentPtSubtab = 'resumo';
+        let ptFilterType = 'all';
+        let ptFilterCoachId = 'all';
+
+        function getCoachIndex(coachId) {
+            if (!coachId) return 0;
+            const idx = ptCoaches.findIndex(c => c.id === coachId);
+            return idx >= 0 ? idx % PT_COACH_PALETTE.length : 0;
+        }
+
+        function switchPtSubtab(subtabName) {
+            currentPtSubtab = subtabName;
+            document.querySelectorAll('.pt-subtab-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-pt-subtab') === subtabName);
+            });
+            document.querySelectorAll('.pt-subtab-content').forEach(panel => {
+                const id = panel.id;
+                const expected = 'ptSubtab' + subtabName.charAt(0).toUpperCase() + subtabName.slice(1);
+                panel.classList.toggle('active', panel.id === expected);
+            });
+            if (subtabName === 'treinador') updatePtByCoachView();
+            if (subtabName === 'lista') renderPtSessionsListFiltered();
+        }
 
         async function loadPtInitialData() {
             if (!StaffAuth.isAuthenticated()) return;
@@ -1087,17 +1330,26 @@
                     ptCoaches = data.coaches;
                     ptSettings = data.settings.reduce((acc, s) => ({ ...acc, [s.key]: parseFloat(s.value) }), {});
                     
-                    // Preencher select de coaches
+                    const coachOptions = ptCoaches.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
                     const select = document.getElementById('ptCoachSelect');
                     const currentValue = select.value;
-                    select.innerHTML = '<option value="">Selecionar...</option>' + 
-                        ptCoaches.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+                    select.innerHTML = '<option value="">Selecionar...</option>' + coachOptions;
                     select.value = currentValue;
+
+                    const filterSelect = document.getElementById('ptCoachFilterSelect');
+                    if (filterSelect) filterSelect.innerHTML = '<option value="">Selecionar treinador...</option>' + coachOptions;
+
+                    const listFilter = document.getElementById('ptListCoachFilter');
+                    if (listFilter) listFilter.innerHTML = '<option value="all">Todos</option>' + coachOptions;
                 }
             } catch (error) {
                 console.error('Erro ao carregar dados iniciais de PT:', error);
             }
         }
+
+        document.querySelectorAll('.pt-subtab-btn').forEach(btn => {
+            btn.addEventListener('click', () => switchPtSubtab(btn.getAttribute('data-pt-subtab')));
+        });
 
         async function addCoach() {
             const input = document.getElementById('newCoachName');
@@ -1177,19 +1429,20 @@
                 
                 if (data.success) {
                     ptSessions = data.sessions || [];
-                    renderPtSessions();
                     updatePtStats();
+                    renderPtSessionsListFiltered();
+                    updatePtByCoachView();
                 }
             } catch (error) {
                 console.error('Erro ao carregar sessões de PT:', error);
-                ptSessionsList.innerHTML = '<div class="loading">❌ Erro ao carregar sessões</div>';
+                if (ptSessionsList) ptSessionsList.innerHTML = '<div class="loading">❌ Erro ao carregar sessões</div>';
             }
         }
 
-        function renderPtSessions() {
-            const ptSessionsList = document.getElementById('ptSessionsList');
-            if (ptSessions.length === 0) {
-                ptSessionsList.innerHTML = `
+        function renderPtSessionsTo(containerEl, sessions, showCoachBadge) {
+            if (!containerEl) return;
+            if (!sessions || sessions.length === 0) {
+                containerEl.innerHTML = `
                     <div class="empty-state">
                         <div class="empty-state-icon">🏋️</div>
                         <div class="empty-state-text">Nenhuma sessão de PT registrada neste mês</div>
@@ -1197,27 +1450,76 @@
                 `;
                 return;
             }
-
-            ptSessionsList.innerHTML = ptSessions.map(session => `
-                <div class="payment-card confirmado" style="border-left: 10px solid ${session.type === 'internal' ? '#28a745' : '#007bff'}">
+            containerEl.innerHTML = sessions.map(session => {
+                const borderColor = session.type === 'internal' ? '#28a745' : '#007bff';
+                const coachName = session.pt_coaches?.name || 'N/A';
+                const coachIdx = getCoachIndex(session.coach_id || session.pt_coaches?.id);
+                const badgeClass = showCoachBadge ? 'pt-session-badge pt-coach-' + coachIdx : '';
+                const badgeStyle = showCoachBadge ? 'background:' + PT_COACH_PALETTE[coachIdx] + ';color:#fff;' : '';
+                const badgeHtml = showCoachBadge ? `<span class="${badgeClass}" style="${badgeStyle}">${coachName}</span>` : '';
+                return `
+                <div class="payment-card confirmado" style="border-left: 10px solid ${borderColor}">
                     <div class="payment-info">
                         <div class="payment-produto">
-                            ${session.type === 'internal' ? '🏠 PT Interno' : '🌍 PT Externo'} - ${session.client_name}
+                            ${session.type === 'internal' ? '🏠 PT Interno' : '🌍 PT Externo'} - ${session.client_name}${badgeHtml}
                         </div>
                         <div class="payment-details">
-                            <div class="detail-line">👤 Coach: <strong>${session.pt_coaches?.name || 'N/A'}</strong></div>
+                            <div class="detail-line">👤 Coach: <strong>${coachName}</strong></div>
                             <div class="detail-line">💰 Receita Gym: <strong>€${parseFloat(session.gym_fee).toFixed(2)}</strong></div>
                             <div class="detail-line">📅 Data: ${formatDateTime(session.timestamp)}</div>
                         </div>
                     </div>
                     <div class="payment-actions">
-                        <button class="action-btn" onclick="deletePtSession('${session.id}')" style="background: #dc3545; color: white;">
+                        <button class="action-btn" onclick="deletePtSession('${session.id}')" style="background: #dc3545; color: white; min-height: 44px;">
                             🗑️ Apagar
                         </button>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
         }
+
+        function renderPtSessionsListFiltered() {
+            const container = document.getElementById('ptSessionsList');
+            if (!container) return;
+            let filtered = ptSessions.slice();
+            if (ptFilterType === 'internal') filtered = filtered.filter(s => s.type === 'internal');
+            else if (ptFilterType === 'external') filtered = filtered.filter(s => s.type === 'external');
+            if (ptFilterCoachId !== 'all') filtered = filtered.filter(s => (s.coach_id || s.pt_coaches?.id) === ptFilterCoachId);
+            filtered.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            renderPtSessionsTo(container, filtered, true);
+        }
+
+        function updatePtByCoachView() {
+            const select = document.getElementById('ptCoachFilterSelect');
+            const container = document.getElementById('ptSessionsByCoach');
+            if (!select || !container) return;
+            const coachId = select.value;
+            if (!coachId) {
+                container.innerHTML = '<div class="pt-empty-hint">Selecione um treinador para ver as sessões.</div>';
+                return;
+            }
+            const filtered = ptSessions.filter(s => (s.coach_id || s.pt_coaches?.id) === coachId);
+            filtered.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="pt-empty-hint">Nenhuma sessão deste treinador neste mês.</div>';
+                return;
+            }
+            renderPtSessionsTo(container, filtered, true);
+        }
+
+        document.getElementById('ptCoachFilterSelect')?.addEventListener('change', updatePtByCoachView);
+        document.querySelectorAll('.pt-type-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.pt-type-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                ptFilterType = btn.getAttribute('data-pt-type');
+                renderPtSessionsListFiltered();
+            });
+        });
+        document.getElementById('ptListCoachFilter')?.addEventListener('change', (e) => {
+            ptFilterCoachId = e.target.value;
+            renderPtSessionsListFiltered();
+        });
 
         function updatePtStats() {
             const internalSessions = ptSessions.filter(s => s.type === 'internal');
@@ -1246,18 +1548,20 @@
             const coachSummaryDiv = document.getElementById('ptCoachSummary');
             const coachStatsList = document.getElementById('ptCoachStatsList');
             
-            if (ptSessions.length > 0) {
+            if (ptSessions.length > 0 && coachSummaryDiv && coachStatsList) {
                 coachSummaryDiv.style.display = 'block';
                 coachStatsList.innerHTML = Object.entries(coachStats)
                     .sort((a, b) => b[1].revenue - a[1].revenue)
-                    .map(([name, data]) => `
-                        <div style="background: #333; padding: 10px; border: 1px solid #FFD700; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
-                            <div style="font-size: 0.85rem; font-weight: bold; color: #fff; margin-bottom: 5px;">${name}</div>
-                            <div style="font-weight: 900; font-size: 1.4rem; color: #FFD700;">€${data.revenue.toFixed(2)}</div>
-                            <div style="font-size: 0.75rem; opacity: 0.8; color: #fff;">${data.count} sessões</div>
-                        </div>
-                    `).join('');
-            } else {
+                    .map(([name, data]) => {
+                        const idx = Math.max(0, ptCoaches.findIndex(c => c.name === name)) % PT_COACH_PALETTE.length;
+                        const color = PT_COACH_PALETTE[idx];
+                        return `<div class="pt-coach-card pt-coach-${idx}" style="color: #fff;">
+                            <div style="font-size: 0.85rem; font-weight: bold; margin-bottom: 5px;">${name}</div>
+                            <div style="font-weight: 900; font-size: 1.4rem; color: ${color}">€${data.revenue.toFixed(2)}</div>
+                            <div style="font-size: 0.75rem; opacity: 0.9;">${data.count} sessões</div>
+                        </div>`;
+                    }).join('');
+            } else if (coachSummaryDiv) {
                 coachSummaryDiv.style.display = 'none';
             }
 
